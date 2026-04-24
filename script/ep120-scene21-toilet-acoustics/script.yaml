@@ -1,0 +1,180 @@
+meta:
+  id: ep120-scene21-toilet-acoustics
+  title: トイレで歌がうまく聞こえるのはなぜ？
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 一般層・流し見OK
+  tone: テンポよく・軽め・ちょっと驚き多め
+  bgm_mood: 明るい・軽快
+  voice_engine: voicevox
+  target_duration_sec: 24
+  image_style: フラット・白背景・青緑基調・テキスト非表示
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 語尾に〜のだ。疑問役でテンポよく。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 語尾に〜のよ、〜ですわ。整理役で短く話す。
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.08
+  fade_in_sec: 0.6
+  fade_out_sec: 1
+scenes:
+  - id: s01
+    scene_template: Scene21
+    role: intro
+    title_text: トイレで歌がうまく聞こえるのはなぜ？
+    main:
+      kind: text
+      text: 反射が多くて声が厚くなる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: トイレで歌うまなのだ？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.376
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: right
+        text: 反射で厚く聞こえるのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.248
+        start_sec: 1.9
+        end_sec: 3.1
+      - id: l03
+        speaker: left
+        text: 急に歌手気分なのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.301333
+        start_sec: 3.4
+        end_sec: 4.7
+      - id: l04
+        speaker: right
+        text: 部屋が盛ってくれるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 0.96
+        start_sec: 4.9
+        end_sec: 5.9
+    tail_pad_sec: 1.5
+    duration_sec: 7.7
+  - id: s02
+    scene_template: Scene21
+    role: body
+    title_text: 仕組み
+    main:
+      kind: bullets
+      items:
+        - 硬い壁が音を返しやすい
+        - 短い残響で整って聞こえる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 壁が硬いのだ？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.12
+        start_sec: 0.2
+        end_sec: 1.3
+      - id: l02
+        speaker: right
+        text: 音を返しやすいからですわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.365333
+        start_sec: 1.6
+        end_sec: 3
+      - id: l03
+        speaker: left
+        text: 残響が味方なのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.290667
+        start_sec: 3.2
+        end_sec: 4.5
+      - id: l04
+        speaker: right
+        text: 短くきれいに重なるのよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.333333
+        start_sec: 4.8
+        end_sec: 6.1
+    tail_pad_sec: 1.5
+    duration_sec: 8
+  - id: s03
+    scene_template: Scene21
+    role: outro
+    title_text: 覚え方
+    main:
+      kind: text
+      text: 上手くなったより響きが良い
+    sub:
+      kind: bullets
+      items:
+        - 1本1テンプレート動画
+        - "template: Scene21"
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 実力が倍ではないのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.472
+        start_sec: 0.2
+        end_sec: 1.7
+      - id: l02
+        speaker: right
+        text: 環境補正が強いだけね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.397333
+        start_sec: 2
+        end_sec: 3.3
+      - id: l03
+        speaker: left
+        text: でも気持ちは上がるのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.344
+        start_sec: 3.6
+        end_sec: 5
+      - id: l04
+        speaker: right
+        text: それはそれで大事ですわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.162667
+        start_sec: 5.2
+        end_sec: 6.4
+    tail_pad_sec: 1.5
+    duration_sec: 8.2
+total_duration_sec: 23.9

@@ -1,0 +1,32 @@
+{
+  "episode_id": "ep402-rm-yawn-contagious",
+  "generated_at": "2026-04-24T00:00:00.000Z",
+  "generator": "Codex ad-hoc two-video batch",
+  "pair": "RM",
+  "voices": [
+    {
+      "visual_character": "霊夢",
+      "engine": "AquesTalkPlayer",
+      "preset": "れいむ",
+      "credit": "AquesTalkPlayer preset: れいむ"
+    },
+    {
+      "visual_character": "魔理沙",
+      "engine": "AquesTalkPlayer",
+      "preset": "まりさ",
+      "credit": "AquesTalkPlayer preset: まりさ"
+    }
+  ],
+  "assets": [
+    {
+      "file": "bgm/track.mp3",
+      "source_site": "dova-syndrome",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "credit_required": false
+    }
+  ],
+  "template": "Scene08",
+  "theme": "あくびはなぜ伝染る？"
+}

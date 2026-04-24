@@ -1,0 +1,36 @@
+{
+  "episode_id": "ep212-scene12-cola-bubbles-rm",
+  "generated_at": "2026-04-24T09:15:20.464Z",
+  "generator": "Codex single-template batch generator",
+  "pair": "RM",
+  "voices": [
+    {
+      "visual_character": "霊夢",
+      "engine": "VOICEVOX",
+      "proxy_speaker": "四国めたん",
+      "speaker_id": 2,
+      "credit": "VOICEVOX:四国めたん",
+      "note": "霊夢パートの代替音声"
+    },
+    {
+      "visual_character": "魔理沙",
+      "engine": "VOICEVOX",
+      "proxy_speaker": "ずんだもん",
+      "speaker_id": 3,
+      "credit": "VOICEVOX:ずんだもん",
+      "note": "魔理沙パートの代替音声"
+    }
+  ],
+  "assets": [
+    {
+      "file": "bgm/track.mp3",
+      "source_site": "dova-syndrome",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "credit_required": false
+    }
+  ],
+  "template": "Scene12",
+  "theme": "コーラはなぜ泡立つ？"
+}

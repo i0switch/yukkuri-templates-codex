@@ -1,0 +1,180 @@
+meta:
+  id: ep201-scene01-betsubara-rm
+  title: 甘いものは別腹？
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 一般層・流し見OK
+  tone: テンポよく・軽め・ちょっと驚き多め
+  bgm_mood: 明るい・軽快
+  voice_engine: voicevox
+  target_duration_sec: 24
+  image_style: フラット・白背景・青緑基調・テキスト非表示
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: reimu
+    voicevox_speaker_id: 2
+    speaking_style: 短め。疑問役で素直にツッコむ。
+  right:
+    character: marisa
+    voicevox_speaker_id: 3
+    speaking_style: 結論先出し。語尾は〜だぜ、〜なんだ。
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.08
+  fade_in_sec: 0.6
+  fade_out_sec: 1
+scenes:
+  - id: s01
+    scene_template: Scene01
+    role: intro
+    title_text: 甘いものは別腹？
+    main:
+      kind: text
+      text: 食欲は脳でも切り替わる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 甘いものは別腹なの？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.269333
+        start_sec: 0.2
+        end_sec: 1.5
+      - id: l02
+        speaker: right
+        text: 脳が報酬を優先するんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.856
+        start_sec: 1.7
+        end_sec: 3.6
+      - id: l03
+        speaker: left
+        text: 胃の空きではないのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 0.949333
+        start_sec: 3.9
+        end_sec: 4.8
+      - id: l04
+        speaker: right
+        text: 気分で食欲が動くんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.621333
+        start_sec: 5.1
+        end_sec: 6.7
+    tail_pad_sec: 0.4
+    duration_sec: 7.5
+  - id: s02
+    scene_template: Scene01
+    role: body
+    title_text: 仕組み
+    main:
+      kind: bullets
+      items:
+        - 甘味は報酬になりやすい
+        - 満腹でも欲が動く
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 糖と香りが強いの？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.184
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: right
+        text: 満腹でも欲しくなりやすいんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.984
+        start_sec: 1.7
+        end_sec: 3.6
+      - id: l03
+        speaker: left
+        text: 食後デザート現象なのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.397333
+        start_sec: 3.9
+        end_sec: 5.3
+      - id: l04
+        speaker: right
+        text: 体より脳の判断が大きいんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 2.026667
+        start_sec: 5.6
+        end_sec: 7.6
+    tail_pad_sec: 0.4
+    duration_sec: 8.4
+  - id: s03
+    scene_template: Scene01
+    role: outro
+    title_text: 覚え方
+    main:
+      kind: text
+      text: 別腹は脳の後押し
+    sub:
+      kind: bullets
+      items:
+        - 1本1テンプレート動画
+        - "template: Scene01"
+    dialogue:
+      - id: l01
+        speaker: left
+        text: つまり錯覚寄りなのね
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.152
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: right
+        text: でも食べすぎ免罪符ではないぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.845333
+        start_sec: 1.6
+        end_sec: 3.5
+      - id: l03
+        speaker: left
+        text: 別腹は便利な言葉なのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.450667
+        start_sec: 3.7
+        end_sec: 5.2
+      - id: l04
+        speaker: right
+        text: 便利でも本腹は減ってないんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 2.016
+        start_sec: 5.4
+        end_sec: 7.5
+    tail_pad_sec: 0.4
+    duration_sec: 8.2
+total_duration_sec: 24.1

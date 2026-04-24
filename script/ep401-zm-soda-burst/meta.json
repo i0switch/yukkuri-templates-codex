@@ -1,0 +1,33 @@
+{
+  "episode_id": "ep401-zm-soda-burst",
+  "generated_at": "2026-04-24T00:00:00.000Z",
+  "generator": "Codex ad-hoc two-video batch",
+  "pair": "ZM",
+  "voices": [
+    {
+      "engine": "VOICEVOX",
+      "speaker": "ずんだもん",
+      "speaker_id": 3,
+      "credit": "VOICEVOX:ずんだもん"
+    },
+    {
+      "engine": "VOICEVOX",
+      "speaker": "四国めたん",
+      "speaker_id": 2,
+      "credit": "VOICEVOX:四国めたん"
+    }
+  ],
+  "assets": [
+    {
+      "file": "bgm/track.mp3",
+      "source_site": "dova-syndrome",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "credit_required": false
+    }
+  ],
+  "template": "Scene12",
+  "theme": "炭酸を振ると噴くのはなぜ？"
+}
+

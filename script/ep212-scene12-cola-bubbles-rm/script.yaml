@@ -1,0 +1,180 @@
+meta:
+  id: ep212-scene12-cola-bubbles-rm
+  title: コーラはなぜ泡立つ？
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 一般層・流し見OK
+  tone: テンポよく・軽め・ちょっと驚き多め
+  bgm_mood: 明るい・軽快
+  voice_engine: voicevox
+  target_duration_sec: 24
+  image_style: フラット・白背景・青緑基調・テキスト非表示
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: reimu
+    voicevox_speaker_id: 2
+    speaking_style: 短め。疑問役で素直にツッコむ。
+  right:
+    character: marisa
+    voicevox_speaker_id: 3
+    speaking_style: 結論先出し。語尾は〜だぜ、〜なんだ。
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.08
+  fade_in_sec: 0.6
+  fade_out_sec: 1
+scenes:
+  - id: s01
+    scene_template: Scene12
+    role: intro
+    title_text: コーラはなぜ泡立つ？
+    main:
+      kind: text
+      text: 溶けた気体が逃げたがる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: コーラはなぜ泡だらけなの？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.365333
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: right
+        text: 炭酸が逃げたがるんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.536
+        start_sec: 1.8
+        end_sec: 3.4
+      - id: l03
+        speaker: left
+        text: 開けた瞬間くるのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.098667
+        start_sec: 3.6
+        end_sec: 4.7
+      - id: l04
+        speaker: right
+        text: 圧が下がるからってわけだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.44
+        start_sec: 5
+        end_sec: 6.4
+    tail_pad_sec: 1.2
+    duration_sec: 8
+  - id: s02
+    scene_template: Scene12
+    role: body
+    title_text: 仕組み
+    main:
+      kind: bullets
+      items:
+        - 開けると圧が下がる
+        - 気泡の足場があると増えやすい
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 振るともっと危険なのね
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.141333
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: right
+        text: 気泡の種が増えるんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.504
+        start_sec: 1.6
+        end_sec: 3.1
+      - id: l03
+        speaker: left
+        text: 足場が大事なのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.024
+        start_sec: 3.4
+        end_sec: 4.4
+      - id: l04
+        speaker: right
+        text: 傷や泡で一気に育つんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.653333
+        start_sec: 4.7
+        end_sec: 6.3
+    tail_pad_sec: 1.2
+    duration_sec: 7.9
+  - id: s03
+    scene_template: Scene12
+    role: outro
+    title_text: 覚え方
+    main:
+      kind: text
+      text: 泡は逃げる炭酸
+    sub:
+      kind: bullets
+      items:
+        - 1本1テンプレート動画
+        - "template: Scene12"
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 泡は元気な炭酸なのね
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.418667
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: right
+        text: 外へ出る途中の姿よ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.514667
+        start_sec: 1.9
+        end_sec: 3.4
+      - id: l03
+        speaker: left
+        text: 静かに開けるべきなのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.194667
+        start_sec: 3.7
+        end_sec: 4.9
+      - id: l04
+        speaker: right
+        text: それだけで被害は減るんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.461333
+        start_sec: 5.1
+        end_sec: 6.6
+    tail_pad_sec: 1.2
+    duration_sec: 8.1
+total_duration_sec: 24

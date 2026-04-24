@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "id": "ep119-scene20-sky-blue",
+    "title": "空はなぜ青い？",
+    "pair": "ZM",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "audience": "一般層・流し見OK",
+    "tone": "テンポよく・軽め・ちょっと驚き多め",
+    "bgm_mood": "明るい・軽快",
+    "voice_engine": "voicevox",
+    "target_duration_sec": 24,
+    "image_style": "フラット・白背景・青緑基調・テキスト非表示",
+    "allow_duplicate_templates": true
+  },
+  "characters": {
+    "left": {
+      "character": "zundamon",
+      "voicevox_speaker_id": 3,
+      "speaking_style": "語尾に〜のだ。疑問役でテンポよく。"
+    },
+    "right": {
+      "character": "metan",
+      "voicevox_speaker_id": 2,
+      "speaking_style": "語尾に〜のよ、〜ですわ。整理役で短く話す。"
+    }
+  },
+  "bgm": {
+    "title": "upbeat step",
+    "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+    "file": "bgm/track.mp3",
+    "license": "DOVA-SYNDROME 標準利用規約",
+    "volume": 0.08,
+    "fade_in_sec": 0.6,
+    "fade_out_sec": 1
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "scene_template": "Scene20",
+      "role": "intro",
+      "title_text": "空はなぜ青い？",
+      "main": {
+        "kind": "text",
+        "text": "青い光ほど空気で散りやすい"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "空はなぜ青いのだ？",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.290667,
+          "start_sec": 0.2,
+          "end_sec": 1.5
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "青い光ほど散るのよ",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.152,
+          "start_sec": 1.8,
+          "end_sec": 2.9
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "赤じゃだめなのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 0.992,
+          "start_sec": 3.2,
+          "end_sec": 4.2
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "赤は遠くまで残りやすいわ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.461333,
+          "start_sec": 4.4,
+          "end_sec": 5.9
+        }
+      ],
+      "tail_pad_sec": 1.2,
+      "duration_sec": 7.5
+    },
+    {
+      "id": "s02",
+      "scene_template": "Scene20",
+      "role": "body",
+      "title_text": "仕組み",
+      "main": {
+        "kind": "bullets",
+        "items": [
+          "短い光は散乱しやすい",
+          "赤い光は残りやすい"
+        ]
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "空気が光をばらすのだ？",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.610667,
+          "start_sec": 0.2,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "短い波長ほど散りやすいの",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.472,
+          "start_sec": 2.1,
+          "end_sec": 3.6
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "昼は青が目立つのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.333333,
+          "start_sec": 3.8,
+          "end_sec": 5.2
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "だから空全体が青く見えるわ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.610667,
+          "start_sec": 5.4,
+          "end_sec": 7
+        }
+      ],
+      "tail_pad_sec": 1.2,
+      "duration_sec": 8.6
+    },
+    {
+      "id": "s03",
+      "scene_template": "Scene20",
+      "role": "outro",
+      "title_text": "覚え方",
+      "main": {
+        "kind": "text",
+        "text": "空の青は散りやすさ"
+      },
+      "sub": {
+        "kind": "bullets",
+        "items": [
+          "1本1テンプレート動画",
+          "template: Scene20"
+        ]
+      },
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "夕方は赤が残るのだ",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.504,
+          "start_sec": 0.2,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "通り道が長くなるからよ",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.365333,
+          "start_sec": 2,
+          "end_sec": 3.3
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "空って物理なのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.162667,
+          "start_sec": 3.6,
+          "end_sec": 4.8
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "見慣れてても中身は理科ですわ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.44,
+          "start_sec": 5,
+          "end_sec": 6.5
+        }
+      ],
+      "tail_pad_sec": 1.2,
+      "duration_sec": 8
+    }
+  ],
+  "total_duration_sec": 24.1,
+  "public_dir": "episodes/ep119-scene20-sky-blue",
+  "base_layout_width": 1920,
+  "base_layout_height": 1080
+}

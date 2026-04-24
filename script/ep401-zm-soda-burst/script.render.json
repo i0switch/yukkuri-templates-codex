@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "id": "ep401-zm-soda-burst",
+    "title": "炭酸を振ると噴くのはなぜ？",
+    "pair": "ZM",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "audience": "一般層・流し見OK",
+    "tone": "テンポよく・軽め・ちょっと驚き多め",
+    "bgm_mood": "明るい・軽快",
+    "voice_engine": "voicevox",
+    "target_duration_sec": 24,
+    "image_style": "フラット・白背景・青緑基調・テキスト非表示",
+    "allow_duplicate_templates": true
+  },
+  "characters": {
+    "left": {
+      "character": "zundamon",
+      "voicevox_speaker_id": 3,
+      "speaking_style": "語尾に〜のだ。疑問役でテンポよく。"
+    },
+    "right": {
+      "character": "metan",
+      "voicevox_speaker_id": 2,
+      "speaking_style": "語尾に〜のよ、〜ですわ。整理役で短く話す。"
+    }
+  },
+  "bgm": {
+    "title": "upbeat step",
+    "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+    "file": "bgm/track.mp3",
+    "license": "DOVA-SYNDROME 標準利用規約",
+    "volume": 0.08,
+    "fade_in_sec": 0.6,
+    "fade_out_sec": 1
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "scene_template": "Scene12",
+      "role": "intro",
+      "title_text": "炭酸を振ると噴くのはなぜ？",
+      "main": {
+        "kind": "text",
+        "text": "泡の種が一気に増える"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "炭酸ってなぜ噴くのだ？",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.482667,
+          "start_sec": 0.2,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "中の気体が急に逃げるのよ",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.461333,
+          "start_sec": 2,
+          "end_sec": 3.4
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "振ると危険度アップなのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.461333,
+          "start_sec": 3.7,
+          "end_sec": 5.1
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "泡の種が増えるからですわ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.365333,
+          "start_sec": 5.4,
+          "end_sec": 6.8
+        }
+      ],
+      "tail_pad_sec": 0.7,
+      "duration_sec": 7.8
+    },
+    {
+      "id": "s02",
+      "scene_template": "Scene12",
+      "role": "body",
+      "title_text": "仕組み",
+      "main": {
+        "kind": "bullets",
+        "items": [
+          "揺れで小さい泡が増える",
+          "栓を開けると一気に膨らむ"
+        ]
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "開ける前は静かそうなのだ",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.610667,
+          "start_sec": 0.2,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "中では小さい泡が育つのよ",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.621333,
+          "start_sec": 2.1,
+          "end_sec": 3.7
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "傷や揺れが足場なのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.429333,
+          "start_sec": 4,
+          "end_sec": 5.4
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "一気に膨らんで押し出すわ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.354667,
+          "start_sec": 5.7,
+          "end_sec": 7
+        }
+      ],
+      "tail_pad_sec": 0.7,
+      "duration_sec": 8.1
+    },
+    {
+      "id": "s03",
+      "scene_template": "Scene12",
+      "role": "outro",
+      "title_text": "覚え方",
+      "main": {
+        "kind": "text",
+        "text": "振った炭酸は少し待つ"
+      },
+      "sub": {
+        "kind": "bullets",
+        "items": [
+          "すぐ開けない",
+          "静かに置いてから開ける"
+        ]
+      },
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "先に置くのが大事なのだ",
+          "expression": "happy",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.525333,
+          "start_sec": 0.2,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "泡が落ち着く時間が要るわ",
+          "expression": "calm",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.365333,
+          "start_sec": 2,
+          "end_sec": 3.4
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "つまり中身は怒ってないのだ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.696,
+          "start_sec": 3.6,
+          "end_sec": 5.3
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "炭酸が出口へ急ぐだけよ",
+          "expression": "smile",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.18,
+          "wav_sec": 1.493333,
+          "start_sec": 5.6,
+          "end_sec": 7.1
+        }
+      ],
+      "tail_pad_sec": 0.7,
+      "duration_sec": 8.1
+    }
+  ],
+  "total_duration_sec": 24,
+  "public_dir": "episodes/ep401-zm-soda-burst",
+  "base_layout_width": 1920,
+  "base_layout_height": 1080
+}
