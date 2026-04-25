@@ -1,6 +1,6 @@
 # 動画化パイプライン仕様書
 
-静止画44枚の基盤から**動画**を生成するための全体仕様。Claude Code / Codex 両方の
+静止画42枚の基盤から**動画**を生成するための全体仕様。Claude Code / Codex 両方の
 プロンプト（`20_prompt_claude-code.md`・`21_prompt_codex.md`）はこの仕様書に従う。
 
 ---
@@ -68,7 +68,7 @@ yukkuri-templates/
 │
 ├── src/
 │   ├── compositions/
-│   │   ├── Scene01.tsx ... Scene22.tsx   既存（動画対応に改修）
+│   │   ├── Scene01.tsx ... Scene21.tsx   既存（動画対応に改修）
 │   │   └── VideoMain.tsx              ← 新規（script.yaml 駆動）
 │   ├── components/
 │   │   ├── CharacterFace.tsx          既存
@@ -144,7 +144,7 @@ bgm:
 scenes:
   # シーンの順序＝動画の再生順
   - id: "s01"
-    scene_template: "Scene20"        # どの背景テンプレを使うか（01〜22）
+    scene_template: "Scene19"        # どの背景テンプレを使うか（01〜21）
     role: "intro"                    # "intro" | "body" | "outro" | "cta"
     title_text: "合成生物学ってなに？"      # titleSlot に入るテキスト（ある場合）
     main:
@@ -230,7 +230,7 @@ duration_sec = sum(pre_pause + wav_sec + post_pause for each line)
 | intro（タイトル表示） | 08, 15, 20 | タイトルエリアがある |
 | intro（シンプル） | 01, 04 | 見出しと話者だけで十分 |
 | body（図解多め） | 02, 03, 10, 13 | main+sub の2枠で箇条書き補足 |
-| body（メイン1枚） | 05, 06, 07, 09, 18, 21, 22 | 図解/写真を大きく出したい |
+| body（メイン1枚） | 05, 06, 07, 09, 18, 21 | 図解/写真を大きく出したい |
 | body（UI見せ） | 11, 14, 17 | ガラスUI/SFパネル系 |
 | outro（まとめ） | 04, 20 | タイトル＋まとめ板 |
 | cta（登録誘導） | 01, 04 | シンプル構図が映える |

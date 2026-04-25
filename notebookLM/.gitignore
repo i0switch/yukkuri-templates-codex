@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+uv.lock
+.notebooklm-mcp-cli/
+workspace/projects/*/downloads/
+workspace/projects/*/tmp/
+workspace/projects/*/yukkuri/materials/generated/
+workspace/projects/*/zundamon/materials/generated/
+workspace/projects/*/yukkuri/final/
+workspace/projects/*/zundamon/final/

@@ -1,0 +1,18 @@
+slug: sample-project
+title: サンプル案件
+theme: ここにテーマ
+audience: 初心者
+duration_minutes: 5
+formats:
+  - yukkuri
+  - zundamon_metan
+must_cover:
+  - 基本概念
+  - よくある誤解
+  - 実践的なポイント
+avoid:
+  - 不必要に煽る表現
+  - 断定しすぎる表現
+reference_urls: []
+notes: >
+  まずはわかりやすさ優先。Sceneごとに必要素材の方向性もメモする。

@@ -5,16 +5,17 @@ import type {SceneLayout, SceneProps} from '../types';
 const LAYOUT: SceneLayout = {
   bgSrc: '/backgrounds/bg-21.jpeg',
   theme: 'dark',
-  main: {x: 287, y: 42, w: 1347, h: 784},
+  subtitleSafePadding: {left: 160, right: 136, top: 12, bottom: 12},
+  main: {x: 79, y: 66, w: 1760, h: 774},
   subtitle: {
     kind: 'overlay',
-    x: 349,
-    y: 871,
-    w: 1230,
-    h: 175,
+    x: 379,
+    y: 859,
+    w: 1163,
+    h: 182,
   },
-  leftChar: {x: 178, y: 949, scale: 0.64, expression: 'smile'},
-  rightChar: {x: 1759, y: 946, scale: 0.64, expression: 'smile'},
+  leftChar: {x: 230, y: 958, scale: 0.62, expression: 'smile'},
+  rightChar: {x: 1696, y: 960, scale: 0.62, expression: 'smile'},
 };
 
 export const Scene21: React.FC<SceneProps> = (props) => <SceneFrame layout={LAYOUT} {...props} />;

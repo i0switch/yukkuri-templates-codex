@@ -18,11 +18,14 @@ import {Scene15} from '../compositions/Scene15';
 import {Scene16} from '../compositions/Scene16';
 import {Scene17} from '../compositions/Scene17';
 import {Scene18} from '../compositions/Scene18';
+import {Scene19} from '../compositions/Scene19';
 import {Scene20} from '../compositions/Scene20';
 import {Scene21} from '../compositions/Scene21';
-import {Scene22} from '../compositions/Scene22';
 import {findActiveLine, pickLipsyncExpression, type TimedDialogueLine} from './Lipsync';
 import type {EpisodeRenderData, EpisodeScene, SceneContent} from '../lib/load-script';
+import {AutoFitText} from './AutoFitText';
+import {FONTS} from '../design-tokens';
+import type {Rect, SlotRenderer} from '../types';
 
 const SCENE_COMPONENTS = {
   Scene01,
@@ -43,12 +46,12 @@ const SCENE_COMPONENTS = {
   Scene16,
   Scene17,
   Scene18,
+  Scene19,
   Scene20,
   Scene21,
-  Scene22,
 } as const;
 
-const BAR_TEMPLATES = new Set(['Scene01', 'Scene03', 'Scene04', 'Scene08', 'Scene09', 'Scene11', 'Scene18', 'Scene20']);
+const BAR_TEMPLATES = new Set(['Scene01', 'Scene03', 'Scene04', 'Scene08', 'Scene09', 'Scene11', 'Scene18', 'Scene19']);
 const LIGHT_TITLE_TEMPLATES = new Set(['Scene15', 'Scene16', 'Scene17']);
 const DARK_OVERLAY_SUBTITLE_TEMPLATES = new Set(['Scene12']);
 
@@ -67,54 +70,41 @@ const cardStyle: React.CSSProperties = {
   boxShadow: '0 20px 48px rgba(8,58,78,0.12)',
 };
 
-const renderText = (text: string) => (
-  <div
-    style={{
-      ...cardStyle,
-      fontFamily: '"Noto Sans JP", sans-serif',
-      fontSize: 54,
-      lineHeight: 1.32,
-      fontWeight: 800,
-      textAlign: 'center',
-      color: '#123646',
-      letterSpacing: '0.02em',
-    }}
-  >
-    {text}
+const renderText = (text: string): SlotRenderer => (rect: Rect) => (
+  <div style={cardStyle}>
+    <AutoFitText
+      text={text}
+      width={Math.max(1, rect.w - 68)}
+      height={Math.max(1, rect.h - 56)}
+      minFontSize={24}
+      maxFontSize={54}
+      lineHeight={1.32}
+      fontFamily={FONTS.subtitle}
+      fontWeight={800}
+      color="#123646"
+      textAlign="center"
+    />
   </div>
 );
 
-const renderBullets = (items: string[]) => (
-  <div
-    style={{
-      ...cardStyle,
-      alignItems: 'flex-start',
-      gap: 18,
-      justifyContent: 'center',
-      fontFamily: '"Noto Sans JP", sans-serif',
-      color: '#123646',
-    }}
-  >
-    {items.map((item) => (
-      <div
-        key={item}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          fontSize: 42,
-          fontWeight: 700,
-          lineHeight: 1.3,
-        }}
-      >
-        <span style={{color: '#1aa0b8', fontSize: 48}}>•</span>
-        <span>{item}</span>
-      </div>
-    ))}
+const renderBullets = (items: string[]): SlotRenderer => (rect: Rect) => (
+  <div style={cardStyle}>
+    <AutoFitText
+      text={items.map((item) => `• ${item}`).join('\n')}
+      width={Math.max(1, rect.w - 68)}
+      height={Math.max(1, rect.h - 56)}
+      minFontSize={20}
+      maxFontSize={42}
+      lineHeight={1.3}
+      fontFamily={FONTS.subtitle}
+      fontWeight={700}
+      color="#123646"
+      textAlign="left"
+    />
   </div>
 );
 
-const renderImage = (assetPath: string, publicDir: string, caption?: string) => (
+const renderImage = (assetPath: string, publicDir: string, caption?: string): SlotRenderer => (rect: Rect) => (
   <div
     style={{
       ...cardStyle,
@@ -134,17 +124,18 @@ const renderImage = (assetPath: string, publicDir: string, caption?: string) => 
       }}
     />
     {caption ? (
-      <div
-        style={{
-          fontFamily: '"Noto Sans JP", sans-serif',
-          fontSize: 24,
-          fontWeight: 700,
-          color: '#0f3d4b',
-          textAlign: 'center',
-        }}
-      >
-        {caption}
-      </div>
+      <AutoFitText
+        text={caption}
+        width={Math.max(1, rect.w - 36)}
+        height={32}
+        minFontSize={16}
+        maxFontSize={24}
+        lineHeight={1.1}
+        fontFamily={FONTS.subtitle}
+        fontWeight={700}
+        color="#0f3d4b"
+        textAlign="center"
+      />
     ) : null}
   </div>
 );
@@ -166,68 +157,61 @@ const renderContent = (content: SceneContent | null | undefined, publicDir: stri
   }
 };
 
-const renderTitle = (scene: EpisodeScene) => {
+const renderTitle = (scene: EpisodeScene): SlotRenderer | null => {
   if (!scene.title_text) {
     return null;
   }
 
+  const titleText = scene.title_text;
   const textColor = LIGHT_TITLE_TEMPLATES.has(scene.scene_template) ? '#ffffff' : '#153947';
   const shadow = LIGHT_TITLE_TEMPLATES.has(scene.scene_template)
     ? '0 2px 10px rgba(0,0,0,0.45)'
     : '0 2px 8px rgba(255,255,255,0.55)';
 
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '4px 28px',
-        boxSizing: 'border-box',
-        fontFamily: '"M PLUS Rounded 1c", sans-serif',
-        fontSize: 38,
-        fontWeight: 800,
-        color: textColor,
-        textAlign: 'center',
-        letterSpacing: '0.04em',
-        textShadow: shadow,
-      }}
-    >
-      {scene.title_text}
-    </div>
+  return (rect: Rect) => (
+    <AutoFitText
+      text={titleText}
+      width={Math.max(1, rect.w - 24)}
+      height={Math.max(1, rect.h - 8)}
+      minFontSize={20}
+      maxFontSize={38}
+      lineHeight={1.1}
+      fontFamily={FONTS.ui}
+      fontWeight={800}
+      color={textColor}
+      textAlign="center"
+      textShadow={shadow}
+      style={{padding: '4px 12px', boxSizing: 'border-box'}}
+    />
   );
 };
 
-const renderOverlaySubtitle = (template: string, text: string) => {
+const renderOverlaySubtitle = (template: string, text: string): SlotRenderer => {
   const darkText = DARK_OVERLAY_SUBTITLE_TEMPLATES.has(template);
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '16px 36px',
-        boxSizing: 'border-box',
-        fontFamily: '"Noto Sans JP", sans-serif',
-        fontSize: darkText ? 34 : 40,
-        fontWeight: 700,
-        lineHeight: 1.35,
-        textAlign: 'center',
-        color: darkText ? '#1A1A1A' : '#FFFFFF',
-        textShadow: darkText ? 'none' : '0 2px 10px rgba(0,0,0,0.6)',
-      }}
-    >
-      {text}
-    </div>
+  return (rect: Rect) => (
+    <AutoFitText
+      text={text}
+      width={Math.max(1, rect.w - 72)}
+      height={Math.max(1, rect.h - 32)}
+      minFontSize={18}
+      maxFontSize={darkText ? 34 : 40}
+      lineHeight={1.35}
+      fontFamily={FONTS.subtitle}
+      fontWeight={700}
+      color={darkText ? '#1A1A1A' : '#FFFFFF'}
+      textAlign="center"
+      textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
+      style={{padding: '16px 36px', boxSizing: 'border-box'}}
+    />
   );
 };
 
 export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRenderData}> = ({scene, script}) => {
   const SceneComponent = SCENE_COMPONENTS[scene.scene_template as keyof typeof SCENE_COMPONENTS];
+  if (!SceneComponent) {
+    throw new Error(`Unknown scene_template "${scene.scene_template}". Use Scene01-Scene21.`);
+  }
+
   const frame = useCurrentFrame();
   const fps = script.meta.fps;
   const baseWidth = script.base_layout_width;

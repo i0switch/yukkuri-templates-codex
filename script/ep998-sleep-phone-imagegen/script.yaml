@@ -1,0 +1,739 @@
+meta:
+  id: ep998-sleep-phone-imagegen
+  title: 寝る前スマホはなぜ眠りを壊すのか
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 初心者向け
+  tone: 少し怖いが実用的
+  bgm_mood: 静かで知的
+  voice_engine: voicevox
+  target_duration_sec: 180
+  image_style: フラット図解、文字なし
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 疑問役。語尾はのだ。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。語尾はのよ。
+scenes:
+  - id: s01
+    scene_template: Scene02
+    role: intro
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 寝る前スマホの罠
+    sub:
+      kind: bullets
+      items:
+        - 光だけではない
+        - 通知が脳を起こす
+        - 習慣が眠気を消す
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 寝る前スマホは危険なのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.632
+        start_sec: 0.2
+        end_sec: 1.9
+      - id: l02
+        speaker: right
+        text: 本当に怖いのは光だけじゃないのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.888
+        start_sec: 2.2
+        end_sec: 4
+      - id: l03
+        speaker: left
+        text: え、ブルーライトの話じゃないのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 2.517333
+        start_sec: 4.3
+        end_sec: 6.9
+      - id: l04
+        speaker: right
+        text: むしろ習慣の罠が大きいの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.514667
+        start_sec: 7.2
+        end_sec: 8.7
+      - id: l05
+        speaker: left
+        text: それ聞くの怖いのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.194667
+        start_sec: 9
+        end_sec: 10.2
+      - id: l06
+        speaker: right
+        text: 今日から直せる話にするわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.450667
+        start_sec: 10.5
+        end_sec: 11.9
+    tail_pad_sec: 6.8
+    duration_sec: 19.1
+  - id: s02
+    scene_template: Scene10
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 眠気は静かな流れ
+        - 刺激で簡単に途切れる
+        - 画面は刺激が多い
+    sub:
+      kind: bullets
+      items:
+        - 光
+        - 情報
+        - 感情
+    dialogue:
+      - id: l01
+        speaker: right
+        text: まず眠気は勝手に来ないのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.472
+        start_sec: 0.2
+        end_sec: 1.7
+      - id: l02
+        speaker: left
+        text: 待てば眠くなるのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.184
+        start_sec: 2
+        end_sec: 3.2
+      - id: l03
+        speaker: right
+        text: その流れを守る必要があるの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.589333
+        start_sec: 3.5
+        end_sec: 5.1
+      - id: l04
+        speaker: left
+        text: 流れを壊すのがスマホなのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.728
+        start_sec: 5.4
+        end_sec: 7.1
+      - id: l05
+        speaker: right
+        text: 画面は刺激の詰め合わせなのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.610667
+        start_sec: 7.4
+        end_sec: 9
+      - id: l06
+        speaker: left
+        text: お菓子の詰め合わせみたいなのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.674667
+        start_sec: 9.3
+        end_sec: 11
+    tail_pad_sec: 6.8
+    duration_sec: 18.2
+  - id: s03
+    scene_template: Scene13
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 1通知
+        - 1確認
+        - もう少しだけ
+    sub:
+      kind: bullets
+      items:
+        - 注意が戻る
+        - 判断が増える
+        - 時間が伸びる
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 一番の敵は通知なのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.397333
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: left
+        text: ピコンって鳴るだけなのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.333333
+        start_sec: 1.9
+        end_sec: 3.3
+      - id: l03
+        speaker: right
+        text: その一回で脳が仕事に戻るの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.6
+        start_sec: 3.6
+        end_sec: 5.2
+      - id: l04
+        speaker: left
+        text: 寝る前に仕事させてたのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.578667
+        start_sec: 5.5
+        end_sec: 7
+      - id: l05
+        speaker: right
+        text: さらに次の投稿を探し始めるわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.834667
+        start_sec: 7.3
+        end_sec: 9.2
+      - id: l06
+        speaker: left
+        text: もう少しだけの沼なのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.461333
+        start_sec: 9.5
+        end_sec: 10.9
+    tail_pad_sec: 6.8
+    duration_sec: 18.1
+  - id: s04
+    scene_template: Scene14
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 時間の感覚が薄れる
+        - 気分が少し動く
+        - 眠気の波を逃す
+    sub:
+      kind: bullets
+      items:
+        - 笑う
+        - 焦る
+        - 比べる
+    dialogue:
+      - id: l01
+        speaker: right
+        text: スクロールは終わりが見えないの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.408
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: left
+        text: 確かに次が出てくるのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.482667
+        start_sec: 1.9
+        end_sec: 3.4
+      - id: l03
+        speaker: right
+        text: 脳は区切りを失いやすいわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.429333
+        start_sec: 3.7
+        end_sec: 5.1
+      - id: l04
+        speaker: left
+        text: だから時間が溶けるのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.397333
+        start_sec: 5.4
+        end_sec: 6.8
+      - id: l05
+        speaker: right
+        text: しかも感情も動くのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.290667
+        start_sec: 7.1
+        end_sec: 8.4
+      - id: l06
+        speaker: left
+        text: 寝る前に心が忙しいのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.834667
+        start_sec: 8.7
+        end_sec: 10.6
+    tail_pad_sec: 6.8
+    duration_sec: 17.8
+  - id: s05
+    scene_template: Scene02
+    role: body
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 光より大きい習慣ループ
+    sub:
+      kind: bullets
+      items:
+        - 光
+        - 通知
+        - スクロール
+    dialogue:
+      - id: l01
+        speaker: left
+        text: ブルーライトは無罪なのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.429333
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: right
+        text: 無罪ではないけど主犯ではないわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.568
+        start_sec: 1.9
+        end_sec: 3.5
+      - id: l03
+        speaker: left
+        text: 主犯は習慣ループなのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.568
+        start_sec: 3.8
+        end_sec: 5.4
+      - id: l04
+        speaker: right
+        text: 見る、反応する、また見るの流れね
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 2.24
+        start_sec: 5.7
+        end_sec: 7.9
+      - id: l05
+        speaker: left
+        text: ボク毎晩それなのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.248
+        start_sec: 8.2
+        end_sec: 9.5
+      - id: l06
+        speaker: right
+        text: 気づけたなら半分勝ちよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.290667
+        start_sec: 9.8
+        end_sec: 11.1
+    tail_pad_sec: 6.8
+    duration_sec: 18.3
+  - id: s06
+    scene_template: Scene10
+    role: body
+    main:
+      kind: bullets
+      items:
+        - ベッドで開く
+        - 時間を見る
+        - つい別アプリへ
+    sub:
+      kind: bullets
+      items:
+        - 場所
+        - 合図
+        - 報酬
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 習慣は場所で起動するのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.504
+        start_sec: 0.2
+        end_sec: 1.7
+      - id: l02
+        speaker: left
+        text: ベッドが合図になるのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.344
+        start_sec: 2
+        end_sec: 3.4
+      - id: l03
+        speaker: right
+        text: 枕元スマホはかなり強い合図ね
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.824
+        start_sec: 3.7
+        end_sec: 5.5
+      - id: l04
+        speaker: left
+        text: 置いてるだけで負けなのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.333333
+        start_sec: 5.8
+        end_sec: 7.1
+      - id: l05
+        speaker: right
+        text: だから意思だけでは弱いの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.258667
+        start_sec: 7.4
+        end_sec: 8.7
+      - id: l06
+        speaker: left
+        text: 根性で勝てない相手なのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.6
+        start_sec: 9
+        end_sec: 10.6
+    tail_pad_sec: 6.8
+    duration_sec: 17.8
+  - id: s07
+    scene_template: Scene13
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 朝が重い
+        - 集中が落ちる
+        - また夜ふかし
+    sub:
+      kind: bullets
+      items:
+        - 睡眠不足
+        - 判断低下
+        - 自己嫌悪
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 少し寝不足なだけなのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.461333
+        start_sec: 0.2
+        end_sec: 1.7
+      - id: l02
+        speaker: right
+        text: その少しが翌日を削るのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.610667
+        start_sec: 2
+        end_sec: 3.6
+      - id: l03
+        speaker: left
+        text: 朝から頭が重いのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.429333
+        start_sec: 3.9
+        end_sec: 5.3
+      - id: l04
+        speaker: right
+        text: 判断が鈍ると夜も崩れやすいわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.770667
+        start_sec: 5.6
+        end_sec: 7.4
+      - id: l05
+        speaker: left
+        text: 悪いループなのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.024
+        start_sec: 7.7
+        end_sec: 8.7
+      - id: l06
+        speaker: right
+        text: だから入口を変えるの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.162667
+        start_sec: 9
+        end_sec: 10.2
+    tail_pad_sec: 6.8
+    duration_sec: 17.4
+  - id: s08
+    scene_template: Scene14
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 寝る90分前
+        - 通知オフ
+        - 充電場所を移す
+    sub:
+      kind: bullets
+      items:
+        - 見ない仕組み
+        - 遠くに置く
+        - 朝に確認
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 対策はスマホを責めないことよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.568
+        start_sec: 0.2
+        end_sec: 1.8
+      - id: l02
+        speaker: left
+        text: スマホは悪者じゃないのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.546667
+        start_sec: 2.1
+        end_sec: 3.6
+      - id: l03
+        speaker: right
+        text: 近すぎる置き方が問題なの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.482667
+        start_sec: 3.9
+        end_sec: 5.4
+      - id: l04
+        speaker: left
+        text: 枕元から追放なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.610667
+        start_sec: 5.7
+        end_sec: 7.3
+      - id: l05
+        speaker: right
+        text: 通知も夜だけ切ると楽よ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.333333
+        start_sec: 7.6
+        end_sec: 9
+      - id: l06
+        speaker: left
+        text: 戦うより設計なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.504
+        start_sec: 9.3
+        end_sec: 10.8
+    tail_pad_sec: 6.8
+    duration_sec: 18
+  - id: s09
+    scene_template: Scene02
+    role: body
+    main:
+      kind: image
+      asset: assets/s09_main.png
+      caption: 今日からできる3つ
+    sub:
+      kind: bullets
+      items:
+        - 遠くで充電
+        - 通知を切る
+        - 朝に見る
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 今日やるなら三つでいいわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.216
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: left
+        text: 三つならできそうなのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.365333
+        start_sec: 1.7
+        end_sec: 3.1
+      - id: l03
+        speaker: right
+        text: 充電場所をベッドから離す
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.397333
+        start_sec: 3.4
+        end_sec: 4.8
+      - id: l04
+        speaker: right
+        text: 夜の通知をまとめて切る
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.205333
+        start_sec: 5.1
+        end_sec: 6.3
+      - id: l05
+        speaker: left
+        text: あと朝に見るのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.088
+        start_sec: 6.6
+        end_sec: 7.7
+      - id: l06
+        speaker: right
+        text: 完璧より続く形が大事よ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.664
+        start_sec: 8
+        end_sec: 9.7
+    tail_pad_sec: 6.8
+    duration_sec: 16.9
+  - id: s10
+    scene_template: Scene10
+    role: outro
+    main:
+      kind: bullets
+      items:
+        - 光より習慣
+        - 意思より設計
+        - 枕元から離す
+    sub:
+      kind: bullets
+      items:
+        - 今夜試す
+        - 朝に比べる
+        - 続ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: つまり光だけ見てもダメなのだ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.813333
+        start_sec: 0.2
+        end_sec: 2
+      - id: l02
+        speaker: right
+        text: 眠りは環境で守るものなのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.653333
+        start_sec: 2.3
+        end_sec: 4
+      - id: l03
+        speaker: left
+        text: ボクは充電場所を変えるのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.717333
+        start_sec: 4.3
+        end_sec: 6
+      - id: l04
+        speaker: right
+        text: それが一番効きやすいわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.312
+        start_sec: 6.3
+        end_sec: 7.6
+      - id: l05
+        speaker: left
+        text: 今夜から試してほしいのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.6
+        start_sec: 7.9
+        end_sec: 9.5
+      - id: l06
+        speaker: right
+        text: 眠れる夜を取り戻しましょう
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.418667
+        start_sec: 9.8
+        end_sec: 11.2
+    tail_pad_sec: 6.8
+    duration_sec: 18.4
+total_duration_sec: 180

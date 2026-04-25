@@ -4,7 +4,7 @@ import {stringify} from 'yaml';
 
 const rootDir = process.cwd();
 const scriptDir = path.join(rootDir, 'script');
-const sourceBgmPath = path.join(rootDir, 'script', 'ep000-test-all-22-scenes', 'bgm', 'track.mp3');
+const sourceBgmPath = path.join(rootDir, 'script', 'ep000-test-all-21-scenes', 'bgm', 'track.mp3');
 const pairArgIndex = process.argv.findIndex((value) => value === '--pair');
 const pairId = (pairArgIndex >= 0 ? process.argv[pairArgIndex + 1] : 'ZM')?.toUpperCase() ?? 'ZM';
 
@@ -349,8 +349,8 @@ const topics = [
     scene3: ['半円は切り取りなのだ', '空の都合ではないのよ', '全部見たいのだ', '飛行機だと丸く見えることもあるわ'],
   },
   {
-    template: 'Scene20',
-    episodeId: 'ep119-scene20-sky-blue',
+    template: 'Scene19',
+    episodeId: 'ep119-scene19-sky-blue',
     slug: 'sky-blue',
     title: '空はなぜ青い？',
     hookMain: '青い光ほど空気で散りやすい',
@@ -361,8 +361,8 @@ const topics = [
     scene3: ['夕方は赤が残るのだ', '通り道が長くなるからよ', '空って物理なのだ', '見慣れてても中身は理科ですわ'],
   },
   {
-    template: 'Scene21',
-    episodeId: 'ep120-scene21-toilet-acoustics',
+    template: 'Scene20',
+    episodeId: 'ep120-scene20-toilet-acoustics',
     slug: 'toilet-acoustics',
     title: 'トイレで歌がうまく聞こえるのはなぜ？',
     hookMain: '反射が多くて声が厚くなる',
@@ -373,8 +373,8 @@ const topics = [
     scene3: ['実力が倍ではないのだ', '環境補正が強いだけね', 'でも気持ちは上がるのだ', 'それはそれで大事ですわ'],
   },
   {
-    template: 'Scene22',
-    episodeId: 'ep121-scene22-static-winter',
+    template: 'Scene21',
+    episodeId: 'ep121-scene21-static-winter',
     slug: 'static-winter',
     title: '静電気はなぜ冬に痛い？',
     hookMain: '乾燥で電気が逃げにくい',

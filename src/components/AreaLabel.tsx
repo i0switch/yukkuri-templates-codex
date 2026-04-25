@@ -1,6 +1,7 @@
 import React from 'react';
 import {COLORS, FONTS, FS} from '../design-tokens';
 import type {LabelTheme} from '../types';
+import {AutoFitText} from './AutoFitText';
 
 type Kind = 'main' | 'sub' | 'title' | 'subtitle';
 
@@ -8,6 +9,8 @@ type Props = {
   kind: Kind;
   theme?: LabelTheme;
   label?: string;
+  width?: number;
+  height?: number;
 };
 
 const DEFAULT_LABELS: Record<Kind, string> = {
@@ -17,7 +20,7 @@ const DEFAULT_LABELS: Record<Kind, string> = {
   subtitle: 'ここは字幕エリア',
 };
 
-export const AreaLabel: React.FC<Props> = ({kind, theme = 'dark', label}) => {
+export const AreaLabel: React.FC<Props> = ({kind, theme = 'dark', label, width = 400, height = 120}) => {
   const textColor = theme === 'dark' ? COLORS.areaLabelTextDark : COLORS.areaLabelTextLight;
   const bg = theme === 'dark' ? COLORS.areaLabelBgDark : COLORS.areaLabelBgLight;
   const fontSize = kind === 'title' || kind === 'subtitle' ? FS.areaLabelSmall : FS.areaLabel;
@@ -31,18 +34,24 @@ export const AreaLabel: React.FC<Props> = ({kind, theme = 'dark', label}) => {
         alignItems: 'center',
         justifyContent: 'center',
         background: bg,
-        color: textColor,
-        fontFamily: FONTS.ui,
-        fontSize,
-        fontWeight: 700,
-        letterSpacing: '0.06em',
         boxSizing: 'border-box',
         pointerEvents: 'none',
-        textAlign: 'center',
         padding: 16,
       }}
     >
-      {label ?? DEFAULT_LABELS[kind]}
+      <AutoFitText
+        text={label ?? DEFAULT_LABELS[kind]}
+        width={Math.max(1, width - 32)}
+        height={Math.max(1, height - 32)}
+        minFontSize={18}
+        maxFontSize={fontSize}
+        lineHeight={1.15}
+        fontFamily={FONTS.ui}
+        fontWeight={700}
+        color={textColor}
+        textAlign="center"
+        letterSpacing={0.8}
+      />
     </div>
   );
 };

@@ -5,12 +5,32 @@ import type {CharacterName, Expression} from '../design-tokens';
 
 type Props = {
   character: CharacterName;
-  expression?: Expression;
+  expression?: Expression | string;
   x: number;
   y: number;
   scale?: number;
   flip?: boolean;
   fullBody?: boolean;
+};
+
+const EXPRESSION_ALIASES: Record<string, Expression> = {
+  surprised: 'happy',
+  shocked: 'laugh',
+  puzzled: 'smirk',
+  worried: 'calm',
+  serious: 'smirk',
+};
+
+const normalizeExpression = (expression: Expression | string | undefined): Expression => {
+  if (expression && expression in EXPRESSION_FILE) {
+    return expression as Expression;
+  }
+
+  if (expression && expression in EXPRESSION_ALIASES) {
+    return EXPRESSION_ALIASES[expression];
+  }
+
+  return 'neutral';
 };
 
 export const CharacterFace: React.FC<Props> = ({
@@ -23,8 +43,10 @@ export const CharacterFace: React.FC<Props> = ({
   fullBody = false,
 }) => {
   const metrics = CHARACTER_METRICS[character];
-  const renderMetrics = fullBody && 'fullBody' in metrics && metrics.fullBody ? metrics.fullBody : metrics;
-  const file = fullBody && 'file' in renderMetrics ? renderMetrics.file : EXPRESSION_FILE[expression];
+  const normalizedExpression = normalizeExpression(expression);
+  const expressionFile = EXPRESSION_FILE[normalizedExpression];
+  const renderMetrics = metrics;
+  const file = expressionFile;
   const src = staticFile(`${metrics.composeDir}/${file}`);
 
   const faceHeight = metrics.imgH * metrics.faceHeightRatio;

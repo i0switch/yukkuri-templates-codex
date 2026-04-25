@@ -1,0 +1,153 @@
+meta:
+  id: ep999-workflow-smarthphone-test
+  title: 寝る前スマホの罠
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 初心者向け
+  tone: 短く分かりやすい
+  bgm_mood: なし
+  voice_engine: voicevox
+  target_duration_sec: 36
+  image_style: フラットな図解風
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 疑問役。語尾はのだ。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。語尾はのよ。
+scenes:
+  - id: s01
+    scene_template: Scene02
+    role: intro
+    main:
+      kind: text
+      text: 寝る前スマホの罠
+    sub:
+      kind: bullets
+      items:
+        - 光
+        - 通知
+        - 習慣
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 寝る前スマホは危険なのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.632
+        start_sec: 0.2
+        end_sec: 1.9
+      - id: l02
+        speaker: right
+        text: 光より習慣が問題なのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.610667
+        start_sec: 2.2
+        end_sec: 3.8
+      - id: l03
+        speaker: left
+        text: え、光だけじゃないのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.866667
+        start_sec: 4.1
+        end_sec: 5.9
+    tail_pad_sec: 6.5
+    duration_sec: 12.8
+  - id: s02
+    scene_template: Scene10
+    role: body
+    main:
+      kind: bullets
+      items:
+        - 画面を見る
+        - 通知を確認
+        - 眠気が逃げる
+    sub:
+      kind: bullets
+      items:
+        - 脳が起きる
+        - 判断が増える
+        - 時間が伸びる
+    dialogue:
+      - id: l01
+        speaker: right
+        text: まず画面が気になるのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.205333
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: left
+        text: 通知も罠なのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.130667
+        start_sec: 1.7
+        end_sec: 2.9
+      - id: l03
+        speaker: right
+        text: 見る理由が増えるからね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.141333
+        start_sec: 3.2
+        end_sec: 4.3
+    tail_pad_sec: 6.5
+    duration_sec: 11.2
+  - id: s03
+    scene_template: Scene13
+    role: outro
+    main:
+      kind: text
+      text: 置く場所を変える
+    sub:
+      kind: bullets
+      items:
+        - 充電は遠く
+        - 通知は切る
+        - 朝に見る
+    dialogue:
+      - id: l01
+        speaker: left
+        text: じゃあ何をすればいいのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.344
+        start_sec: 0.2
+        end_sec: 1.6
+      - id: l02
+        speaker: right
+        text: まず枕元から離すのよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.386667
+        start_sec: 1.9
+        end_sec: 3.3
+      - id: l03
+        speaker: left
+        text: 今日から遠くに置くのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+        wav_sec: 1.376
+        start_sec: 3.6
+        end_sec: 4.9
+    tail_pad_sec: 6.5
+    duration_sec: 11.8
+total_duration_sec: 35.8

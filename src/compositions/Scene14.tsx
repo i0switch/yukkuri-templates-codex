@@ -1,10 +1,12 @@
 import React from 'react';
 import {SceneFrame} from '../components/SceneFrame';
+import {FONTS} from '../design-tokens';
 import type {SceneLayout, SceneProps} from '../types';
 
 const LAYOUT: SceneLayout = {
   bgSrc: '/backgrounds/bg-14.jpeg',
   theme: 'dark',
+  subtitleSafePadding: {left: 152, right: 128, top: 12, bottom: 12},
   main: {x: 136, y: 123, w: 1260, h: 702},
   sub: {x: 1484, y: 120, w: 338, h: 720},
   subtitle: {
@@ -27,7 +29,7 @@ const subContentSlot = (
       alignItems: 'center',
       justifyContent: 'center',
       color: 'rgba(0,0,0,0.68)',
-      fontFamily: '"M PLUS Rounded 1c", sans-serif',
+      fontFamily: FONTS.ui,
       fontSize: 24,
       fontWeight: 800,
       letterSpacing: '0.04em',

@@ -5,7 +5,7 @@ import {CharacterFace} from './CharacterFace';
 import {SubtitleBar} from './SubtitleBar';
 import {AreaLabel} from './AreaLabel';
 import {CHARACTER_METRICS, FONTS, FS, VIDEO} from '../design-tokens';
-import type {SceneLayout, SceneProps} from '../types';
+import type {Rect, SceneLayout, SceneProps, SlotRenderer} from '../types';
 
 type Props = SceneProps & {
   layout: SceneLayout;
@@ -91,6 +91,14 @@ const renderAuditLabel = (label: string, fontSize: number) => (
   </>
 );
 
+const renderSlot = (slot: SlotRenderer | undefined, rect: Rect) => {
+  if (typeof slot === 'function') {
+    return slot(rect);
+  }
+
+  return slot ?? null;
+};
+
 export const SceneFrame: React.FC<Props> = ({
   layout,
   leftCharacter = {character: 'reimu'},
@@ -106,21 +114,31 @@ export const SceneFrame: React.FC<Props> = ({
   const rightCharacterName = rightCharacter.character;
   const leftIsFullBody = leftCharacterName === 'zundamon' || leftCharacterName === 'metan';
   const rightIsFullBody = rightCharacterName === 'zundamon' || rightCharacterName === 'metan';
+  const useLayoutCharacterPlacement = layout.characterPlacement === 'layout';
   const unifiedScale = UNIFIED_CHARACTER_BASE_SCALE * CHARACTER_SCALE_MULTIPLIER;
-  const leftCharacterSize = getCharacterPlacementMetrics(leftCharacterName, unifiedScale, leftIsFullBody);
-  const rightCharacterSize = getCharacterPlacementMetrics(rightCharacterName, unifiedScale, rightIsFullBody);
+  const leftScale = useLayoutCharacterPlacement
+    ? layout.leftChar.scale * CHARACTER_SCALE_MULTIPLIER
+    : unifiedScale;
+  const rightScale = useLayoutCharacterPlacement
+    ? layout.rightChar.scale * CHARACTER_SCALE_MULTIPLIER
+    : unifiedScale;
+  const leftCharacterSize = getCharacterPlacementMetrics(leftCharacterName, leftScale, leftIsFullBody);
+  const rightCharacterSize = getCharacterPlacementMetrics(rightCharacterName, rightScale, rightIsFullBody);
   const leftCharacterPosition = {
-    x: leftCharacterSize.displayImageWidth / 2 + CHARACTER_EDGE_MARGIN - leftCharacterSize.visibleLeft,
+    x: useLayoutCharacterPlacement
+      ? layout.leftChar.x
+      : leftCharacterSize.displayImageWidth / 2 + CHARACTER_EDGE_MARGIN - leftCharacterSize.visibleLeft,
     y:
       getSafeFaceY(layout.leftChar.y, leftCharacterSize.displayFaceHeight) -
       (leftIsFullBody ? FULL_BODY_Y_LIFT : 0),
   };
   const rightCharacterPosition = {
-    x:
-      VIDEO.width -
-      rightCharacterSize.displayImageWidth / 2 -
-      CHARACTER_EDGE_MARGIN +
-      rightCharacterSize.visibleRight,
+    x: useLayoutCharacterPlacement
+      ? layout.rightChar.x
+      : VIDEO.width -
+        rightCharacterSize.displayImageWidth / 2 -
+        CHARACTER_EDGE_MARGIN +
+        rightCharacterSize.visibleRight,
     y:
       getSafeFaceY(layout.rightChar.y, rightCharacterSize.displayFaceHeight) -
       (rightIsFullBody ? FULL_BODY_Y_LIFT : 0),
@@ -134,7 +152,7 @@ export const SceneFrame: React.FC<Props> = ({
         }}
       >
         {subtitleSlot ? (
-          subtitleSlot
+          renderSlot(subtitleSlot, layout.subtitle)
         ) : showAreaLabels ? (
           renderAuditLabel(subtitleText, layout.subtitle.fontSize ?? FS.areaLabelSmall)
         ) : (
@@ -162,7 +180,7 @@ export const SceneFrame: React.FC<Props> = ({
         }}
       >
         {subtitleSlot
-          ? subtitleSlot
+          ? renderSlot(subtitleSlot, layout.subtitle)
           : showAreaLabels
             ? renderAuditLabel(subtitleText, layout.subtitle.fontSize ?? FS.areaLabelSmall)
             : null}
@@ -179,20 +197,20 @@ export const SceneFrame: React.FC<Props> = ({
       />
 
       <div style={boxStyle(layout.main.x, layout.main.y, layout.main.w, layout.main.h)}>
-        {mainContentSlot ??
+        {renderSlot(mainContentSlot, layout.main) ??
           (showAreaLabels ? renderAuditLabel('ここはメインコンテンツエリア', FS.areaLabel) : null)}
       </div>
 
       {layout.sub ? (
         <div style={boxStyle(layout.sub.x, layout.sub.y, layout.sub.w, layout.sub.h)}>
-          {subContentSlot ??
+          {renderSlot(subContentSlot, layout.sub) ??
             (showAreaLabels ? renderAuditLabel('ここはサブコンテンツエリア', FS.areaLabel) : null)}
         </div>
       ) : null}
 
       {layout.title ? (
         <div style={boxStyle(layout.title.x, layout.title.y, layout.title.w, layout.title.h)}>
-          {titleSlot ?? (showAreaLabels ? <AreaLabel kind="title" theme={titleTheme} /> : null)}
+          {renderSlot(titleSlot, layout.title) ?? (showAreaLabels ? <AreaLabel kind="title" theme={titleTheme} /> : null)}
         </div>
       ) : null}
 
@@ -203,7 +221,7 @@ export const SceneFrame: React.FC<Props> = ({
         expression={leftCharacter.expression ?? layout.leftChar.expression}
         x={leftCharacterPosition.x}
         y={leftCharacterPosition.y}
-        scale={unifiedScale}
+        scale={leftScale}
         flip={leftCharacter.flip}
         fullBody={leftIsFullBody}
       />
@@ -212,7 +230,7 @@ export const SceneFrame: React.FC<Props> = ({
         expression={rightCharacter.expression ?? layout.rightChar.expression}
         x={rightCharacterPosition.x}
         y={rightCharacterPosition.y}
-        scale={unifiedScale}
+        scale={rightScale}
         flip={rightCharacter.flip}
         fullBody={rightIsFullBody}
       />

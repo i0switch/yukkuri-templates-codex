@@ -1,5 +1,6 @@
 import React from 'react';
 import {FONTS, FS} from '../design-tokens';
+import {AutoFitText} from './AutoFitText';
 
 type Props = {
   text: string;
@@ -41,6 +42,9 @@ export const SpeechBubble: React.FC<Props> = ({
       : `${width},${bubbleTailY} ${width - tailSize},${bubbleTailY - tailSize / 2} ${width - tailSize},${bubbleTailY + tailSize / 2}`;
   const bodyLeft = tailSide === 'left' ? tailSize - 2 : 0;
   const bodyWidth = width - tailSize + 2;
+  const contentLeft = tailSide === 'left' ? tailSize + 20 : 20;
+  const contentRight = tailSide === 'right' ? tailSize + 20 : 20;
+  const contentWidth = Math.max(1, width - contentLeft - contentRight);
 
   return (
     <div style={{position: 'absolute', left: x, top: y, width, height}}>
@@ -69,20 +73,23 @@ export const SpeechBubble: React.FC<Props> = ({
       <div
         style={{
           position: 'absolute',
-          left: tailSide === 'left' ? tailSize + 20 : 20,
-          right: tailSide === 'right' ? tailSize + 20 : 20,
+          left: contentLeft,
+          right: contentRight,
           top: 0,
           bottom: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: FONTS.subtitle,
-          fontSize,
-          color: textColor,
-          textAlign: 'center',
         }}
       >
-        {text}
+        <AutoFitText
+          text={text}
+          width={contentWidth}
+          height={height}
+          minFontSize={18}
+          maxFontSize={fontSize}
+          lineHeight={1.2}
+          fontFamily={FONTS.subtitle}
+          color={textColor}
+          textAlign="center"
+        />
       </div>
     </div>
   );

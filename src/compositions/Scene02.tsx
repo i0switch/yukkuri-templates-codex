@@ -5,6 +5,7 @@ import type {SceneLayout, SceneProps} from '../types';
 const LAYOUT: SceneLayout = {
   bgSrc: '/backgrounds/bg-02.jpeg',
   theme: 'dark',
+  subtitleSafePadding: {left: 180, right: 160, top: 12, bottom: 12},
   main: {x: 44, y: 42, w: 1290, h: 746},
   sub: {x: 1402, y: 44, w: 468, h: 736},
   subtitle: {

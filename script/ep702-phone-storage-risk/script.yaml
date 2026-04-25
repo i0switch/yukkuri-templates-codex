@@ -1,0 +1,816 @@
+meta:
+  id: ep702-phone-storage-risk
+  title: スマホ容量を放置すると損する理由
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 副業や生活改善に興味がある一般層
+  tone: 短く刺す・危機感あり・でも対処まで出す
+  bgm_mood: 軽快だが少し緊張感
+  voice_engine: voicevox
+  target_duration_sec: 300
+  image_style: フラット図解・テキストなし・動画挿入用
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 疑問役。語尾は〜のだ。短く反応する。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 整理役。落ち着いて損失回避を示す。
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.08
+  fade_in_sec: 0.8
+  fade_out_sec: 1.5
+scenes:
+  - id: s01
+    scene_template: Scene20
+    role: intro
+    title_text: 導入
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 容量不足は放置リスク
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 容量不足を放置してないのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: それ地味に損が大きいわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 写真が多いだけなのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 実はリスクが重なるのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s02
+    scene_template: Scene20
+    role: body
+    title_text: 結論
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 何が一番怖いのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 撮りたい時に撮れないことよ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: それはかなり困るのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 大事な瞬間ほど起きるわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s03
+    scene_template: Scene20
+    role: body
+    title_text: 症状
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 最近スマホが重いのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 空き容量が少ないかもね
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: アプリも遅いのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 更新失敗も増えやすいわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s04
+    scene_template: Scene20
+    role: body
+    title_text: 損失1
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 写真が保存できないのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: イベント中に起きると痛いわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: あとで消せばいいのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: そのあとが来ないのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s05
+    scene_template: Scene20
+    role: body
+    title_text: 損失2
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: バックアップも危ないのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 容量不足で止まることがあるわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 守れてないのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 保存済みのつもりが危険ね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s06
+    scene_template: Scene20
+    role: body
+    title_text: 損失3
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 通知も増えてうるさいのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 警告が日常になるのよ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 慣れると無視なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 本当に危険な通知も埋もれるわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s07
+    scene_template: Scene20
+    role: body
+    title_text: 原因
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 犯人は写真なのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 動画が一番重いことが多いわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 短い動画も危険なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 積もると一気に効くのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s08
+    scene_template: Scene20
+    role: body
+    title_text: 見落とし
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 整理は三分類で進める
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 同じ写真が多いのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 連写とスクショが残りがちね
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 消すのが面倒なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: だから仕組みにするのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s09
+    scene_template: Scene20
+    role: body
+    title_text: 基準
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 何から消すのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: まずスクショから見るの
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 思い出じゃないのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 期限切れ情報が多いわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s10
+    scene_template: Scene20
+    role: body
+    title_text: 次
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 動画はどうするのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 長いものから移すのよ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 消すより先に避難なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 不安を減らす順番ね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s11
+    scene_template: Scene20
+    role: body
+    title_text: 分類
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 分類が苦手なのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 三つだけでいいわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 残す消す移すなのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 迷ったら移すにするのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s12
+    scene_template: Scene20
+    role: body
+    title_text: 頻度
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 毎日やるのは無理なのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 週一で十分ですわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 五分でもいいのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 固定日を決めるのが強いわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s13
+    scene_template: Scene20
+    role: body
+    title_text: クラウド
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: クラウドに入れたら安心なのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 同期済み確認が必要よ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 入れたつもりは危険なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 端末外で見えるか確認ね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s14
+    scene_template: Scene20
+    role: body
+    title_text: 注意
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部消すのは怖いのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: だから二段階で進めるの
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 先にコピーなのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 確認してから削除ですわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s15
+    scene_template: Scene20
+    role: body
+    title_text: 実践1
+    main:
+      kind: image
+      asset: assets/s15_main.png
+      caption: 整理は三分類で進める
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: まず空き容量を見るのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 設定画面で確認するわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 数字で見るのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 感覚だと後回しになるの
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s16
+    scene_template: Scene20
+    role: body
+    title_text: 実践2
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 次に大きい順なのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 重いアプリも確認ね
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 使わないゲームなのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 残す理由がなければ整理よ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s17
+    scene_template: Scene20
+    role: body
+    title_text: 実践3
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 写真は月別がいいのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 古い月から見ると楽よ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 思い出に浸るのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 時間制限をつけてね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s18
+    scene_template: Scene20
+    role: body
+    title_text: 予防
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 増やさない工夫はあるのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: スクショ後にすぐ消すの
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 一番簡単なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 放置前に止めるのが勝ちよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s19
+    scene_template: Scene20
+    role: body
+    title_text: 自動化
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 自動削除は便利なのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 設定は確認して使うのよ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 勝手に消えるの怖いのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 大事な物は別保存ね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s20
+    scene_template: Scene20
+    role: outro
+    title_text: 効果
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 整理すると何が変わるのだ？
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 撮影と更新が安定するわ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 気分も軽いのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 探す時間も減るのよ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s21
+    scene_template: Scene20
+    role: outro
+    title_text: まとめ
+    main:
+      kind: bullets
+      items:
+        - 残す
+        - 消す
+        - 移す
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 容量不足はただの通知じゃないのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 機会損失の入口なのよ
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 写真を失う前なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 先に逃がすのが正解ね
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+  - id: s22
+    scene_template: Scene20
+    role: cta
+    title_text: CTA
+    main:
+      kind: image
+      asset: assets/s22_main.png
+      caption: 整理は三分類で進める
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今日やることは一つなのだ
+        expression: happy
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l02
+        speaker: right
+        text: 空き容量を確認してね
+        expression: calm
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l03
+        speaker: left
+        text: 不足なら動画から移すのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28
+      - id: l04
+        speaker: right
+        text: 五分だけで未来が軽いわ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.28

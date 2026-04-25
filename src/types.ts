@@ -1,5 +1,5 @@
 import type React from 'react';
-import type {CharacterName, Expression} from './design-tokens';
+import type {CharacterName, Expression, PairId} from './design-tokens';
 
 export type LabelTheme = 'light' | 'dark';
 
@@ -14,6 +14,13 @@ export interface Rect {
   y: number;
   w: number;
   h: number;
+}
+
+export interface Insets {
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
 }
 
 export interface SubtitleLayout extends Rect {
@@ -38,31 +45,49 @@ export interface CharacterLayout {
   expression: Expression;
 }
 
+export interface SceneLayoutOverride {
+  characterPlacement?: 'edge' | 'layout';
+  leftChar?: Partial<CharacterLayout>;
+  rightChar?: Partial<CharacterLayout>;
+  titleSafePadding?: Insets;
+  mainSafePadding?: Insets;
+  subSafePadding?: Insets;
+  subtitleSafePadding?: Insets;
+}
+
 export interface SceneLayout {
   bgSrc: string;
   bgScale?: number;
   bgTranslateX?: number;
   bgTranslateY?: number;
+  characterPlacement?: 'edge' | 'layout';
   theme: LabelTheme;
   title?: Rect;
   titleTheme?: LabelTheme;
+  titleSafePadding?: Insets;
   main: Rect;
   mainTheme?: LabelTheme;
+  mainSafePadding?: Insets;
   sub?: Rect;
   subTheme?: LabelTheme;
+  subSafePadding?: Insets;
   subtitle: SubtitleLayout;
   subtitleTheme?: LabelTheme;
+  subtitleSafePadding?: Insets;
   leftChar: CharacterLayout;
   rightChar: CharacterLayout;
+  pairOverrides?: Partial<Record<PairId, SceneLayoutOverride>>;
 }
+
+export type SlotRenderer = React.ReactNode | ((rect: Rect) => React.ReactNode);
 
 export interface SceneProps {
   leftCharacter?: CharacterSpec;
   rightCharacter?: CharacterSpec;
   subtitleText?: string;
-  subtitleSlot?: React.ReactNode;
-  mainContentSlot?: React.ReactNode;
-  subContentSlot?: React.ReactNode;
-  titleSlot?: React.ReactNode;
+  subtitleSlot?: SlotRenderer;
+  mainContentSlot?: SlotRenderer;
+  subContentSlot?: SlotRenderer;
+  titleSlot?: SlotRenderer;
   showAreaLabels?: boolean;
 }

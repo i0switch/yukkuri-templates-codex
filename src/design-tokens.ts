@@ -1,11 +1,5 @@
-import {loadFont as loadMPlusRounded} from '@remotion/google-fonts/MPLUSRounded1c';
-import {loadFont as loadNotoSans} from '@remotion/google-fonts/NotoSansJP';
-
-const noto = loadNotoSans('normal', {weights: ['400', '500', '700', '900']});
-const mplus = loadMPlusRounded('normal', {weights: ['400', '500', '700', '800']});
-
-export const NOTO_SANS_JP = noto.fontFamily;
-export const M_PLUS = mplus.fontFamily;
+export const NOTO_SANS_JP = '"Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif';
+export const M_PLUS = '"M PLUS Rounded 1c", "Yu Gothic", "Meiryo", sans-serif';
 
 export const FONTS = {
   subtitle: NOTO_SANS_JP,

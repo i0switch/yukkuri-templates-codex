@@ -1,0 +1,74 @@
+{
+  "$schema": "./asset-types.schema.json",
+  "types": {
+    "FIG": {
+      "description": "タイトルカード・全体像用の横長インフォグラフィック",
+      "studio_type": "infographic",
+      "default_options": {
+        "orientation": "landscape",
+        "style": "professional"
+      },
+      "extension": "png",
+      "expected_size_range_kb": [300, 3000],
+      "placement_rule": "intro_mandatory"
+    },
+    "INFO": {
+      "description": "セクション内の詳細情報グラフィック",
+      "studio_type": "infographic",
+      "default_options": {
+        "orientation": "portrait",
+        "style": "professional"
+      },
+      "extension": "png",
+      "expected_size_range_kb": [300, 3000],
+      "placement_rule": "per_section"
+    },
+    "MAP": {
+      "description": "概念の関係性・分類図",
+      "studio_type": "mind_map",
+      "default_options": {},
+      "extension": "png",
+      "expected_size_range_kb": [200, 2000],
+      "placement_rule": "per_section"
+    },
+    "SLIDE": {
+      "description": "まとめ・比較表・ポイント列挙",
+      "studio_type": "slides",
+      "default_options": {},
+      "extension": "pdf",
+      "expected_size_range_kb": [500, 10000],
+      "placement_rule": "summary_mandatory"
+    },
+    "VIDEO": {
+      "description": "補足映像（30秒程度）",
+      "studio_type": "video",
+      "default_options": {
+        "style": "classic"
+      },
+      "extension": "mp4",
+      "expected_size_range_kb": [5000, 50000],
+      "placement_rule": "optional"
+    }
+  },
+  "placement_rules": {
+    "intro_mandatory": {
+      "description": "導入部に必須配置",
+      "min_count": 1,
+      "location": "intro"
+    },
+    "per_section": {
+      "description": "各本編セクションに配置可能",
+      "min_count_per_section": 0,
+      "location": "body"
+    },
+    "summary_mandatory": {
+      "description": "まとめ部に必須配置",
+      "min_count": 1,
+      "location": "summary"
+    },
+    "optional": {
+      "description": "任意配置、監査では必須判定しない",
+      "min_count": 0
+    }
+  }
+}

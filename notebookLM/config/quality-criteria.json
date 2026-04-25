@@ -1,0 +1,48 @@
+{
+  "$schema": "./quality-criteria.schema.json",
+  "script_quality": {
+    "min_chars": 2000,
+    "max_chars": 5000,
+    "min_sections": 3,
+    "max_sections": 6,
+    "min_markers": 4,
+    "min_markers_per_minute": 0.8,
+    "long_form_threshold_min": 10,
+    "long_form_min_markers_per_content_section": 2,
+    "max_consecutive_lines_per_character": 3,
+    "mandatory_markers": ["FIG:1", "SLIDE:1"]
+  },
+  "character_consistency": {
+    "yukkuri": {
+      "reimu_ending_min_count": 5,
+      "marisa_ending_min_count": 5,
+      "banned_speakers": ["ずんだもん", "めたん"]
+    },
+    "zundamon": {
+      "zundamon_ending_min_count": 8,
+      "metan_ending_min_count": 5,
+      "zundamon_first_person_required": "ボク",
+      "metan_first_person_required": "わたくし",
+      "banned_speakers": ["霊夢", "魔理沙"]
+    }
+  },
+  "asset_quality": {
+    "min_file_size_kb": 10,
+    "failed_marker_max_ratio": 0.3,
+    "mime_type_check": true
+  },
+  "retry_limits": {
+    "script_generation_max": 3,
+    "asset_generation_max": 2,
+    "audit_auto_fix_max": 2
+  },
+  "timeouts": {
+    "notebooklm_job_max_minutes": 20,
+    "polling_interval_seconds": 30,
+    "rate_limit_wait_seconds": 60
+  },
+  "budget": {
+    "notebooklm_free_tier_queries_per_day": 50,
+    "warn_threshold": 30
+  }
+}

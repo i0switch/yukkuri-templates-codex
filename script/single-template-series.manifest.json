@@ -111,22 +111,22 @@
       "output": "out/videos/ep118-scene18-rainbow-half.mp4"
     },
     {
-      "episode_id": "ep119-scene20-sky-blue",
-      "template": "Scene20",
+      "episode_id": "ep119-scene19-sky-blue",
+      "template": "Scene19",
       "title": "空はなぜ青い？",
-      "output": "out/videos/ep119-scene20-sky-blue.mp4"
+      "output": "out/videos/ep119-scene19-sky-blue.mp4"
     },
     {
-      "episode_id": "ep120-scene21-toilet-acoustics",
-      "template": "Scene21",
+      "episode_id": "ep120-scene20-toilet-acoustics",
+      "template": "Scene20",
       "title": "トイレで歌がうまく聞こえるのはなぜ？",
-      "output": "out/videos/ep120-scene21-toilet-acoustics.mp4"
+      "output": "out/videos/ep120-scene20-toilet-acoustics.mp4"
     },
     {
-      "episode_id": "ep121-scene22-static-winter",
-      "template": "Scene22",
+      "episode_id": "ep121-scene21-static-winter",
+      "template": "Scene21",
       "title": "静電気はなぜ冬に痛い？",
-      "output": "out/videos/ep121-scene22-static-winter.mp4"
+      "output": "out/videos/ep121-scene21-static-winter.mp4"
     }
   ]
 }

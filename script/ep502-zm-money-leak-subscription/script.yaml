@@ -1,0 +1,766 @@
+meta:
+  id: ep502-zm-money-leak-subscription
+  title: サブスク貧乏を止める3つの見直し方
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 初心者向け
+  tone: 少し危機感あり、実用重視
+  bgm_mood: 軽い解説用ループ
+  voice_engine: voicevox
+  target_duration_sec: 300
+  image_style: ローカル生成のフラット図解カード
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 疑問役。語尾はのだ。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。語尾はわ、のよ、ね。
+bgm:
+  file: bgm/track.mp3
+  license: 既存ローカルBGM。プロジェクト内素材として流用
+  volume: 0.08
+  fade_in_sec: 1
+  fade_out_sec: 2
+scenes:
+  - id: s01
+    scene_template: Scene17
+    role: intro
+    title_text: サブスク貧乏の入口
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 小さな月額が年間で大きくなる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 小さい月額ほど危ないのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 数百円なら平気なのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 年間にすると顔が変わるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 急に怖くなったのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 今日は漏れを止める話よ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 財布を救いたいのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s02
+    scene_template: Scene17
+    role: body
+    title_text: 月額表示の罠
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 月額表示の心理トリック
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 月額表示は痛みが小さく見えるの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 確かに安く見えるのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: でも支払いは毎月続くわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 終わりがないのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: だから年額に直すのが第一歩よ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 現実を見るのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s03
+    scene_template: Scene17
+    role: body
+    title_text: 未使用の固定費
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 使ってないのに払う状態
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 一番多いのは使ってない課金ね
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 登録した記憶だけあるのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 人は解約作業を先延ばしするわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 面倒が勝つのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: その面倒代を毎月払ってるの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 言い方が刺さるのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s04
+    scene_template: Scene17
+    role: body
+    title_text: 無料体験の出口
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 無料体験の終わりを忘れる
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 無料体験は出口を決めて使うの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 入口しか見てなかったのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 登録日に解約日を予定に入れるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 未来の自分を守るのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 使うなら継続判断をするだけよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 放置をなくすのだ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s05
+    scene_template: Scene17
+    role: body
+    title_text: 重複サブスク
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 似たサービスが重複する
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 似たサービスの重複も多いわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 動画サービスが増えがちなのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 同じ役割なら一つに絞るのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 使い分けてる気がするのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 実績で見ると答えが出るわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 気分じゃなく履歴なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s06
+    scene_template: Scene17
+    role: body
+    title_text: 年額割引の注意
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 年額割引にも注意
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 年額割引も常に得とは限らないわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 安いなら得じゃないのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 一年使う前提なら得なのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 飽きたら損なのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 迷うなら月額で様子を見るの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 安さに飛びつかないのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s07
+    scene_template: Scene17
+    role: body
+    title_text: 解約導線を見る
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 解約しづらさを見抜く
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 契約前に解約方法を見るのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: そこから見るのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 出口が遠いサービスは注意ね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 迷路みたいなやつなのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: スクショを残すのもありよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 証拠を持つのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s08
+    scene_template: Scene17
+    role: body
+    title_text: 共有で減らす
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 家族共有と個人契約を整理
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 家族共有で減らせるものもあるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 同じものを別々に払うのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 規約の範囲で整理するのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: ルール違反はダメなのだ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 正しくまとめるだけで軽くなるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 固定費ダイエットなのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s09
+    scene_template: Scene17
+    role: body
+    title_text: 月一棚卸し
+    main:
+      kind: image
+      asset: assets/s09_main.png
+      caption: 月一のサブスク棚卸し
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 月一回だけ棚卸し日を作るの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 毎日見るのは無理なのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: カード明細を一画面で見るわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 現実チェックの日なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 残す理由が言えない物は候補よ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 理由がない課金は危険なのだ
+        expression: shocked
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s10
+    scene_template: Scene17
+    role: body
+    title_text: 残す基準
+    main:
+      kind: image
+      asset: assets/s10_main.png
+      caption: 残す基準を3つにする
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 残す基準は三つでいいわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 簡単なのが助かるのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 週一で使う、代替不可、元が取れる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: かなりはっきりするのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 曖昧なら一度止めるのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 止めて困るか試すのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s11
+    scene_template: Scene17
+    role: body
+    title_text: 一度止める
+    main:
+      kind: image
+      asset: assets/s11_main.png
+      caption: 解約しても戻れる安心
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 解約は永遠の別れじゃないわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: また入ってもいいのだ
+        expression: surprised
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 必要なら戻せばいいだけよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: それなら止めやすいのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 怖いのは放置し続けることね
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 静かな出血なのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s12
+    scene_template: Scene17
+    role: body
+    title_text: 見える化
+    main:
+      kind: image
+      asset: assets/s12_main.png
+      caption: 支払い方法を分ける
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 支払い方法を分けるのも有効よ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: サブスク専用カードなのだ
+        expression: puzzled
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 一覧で見えると判断しやすいわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 散らばると見逃すのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 管理は気合より設計なのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: ここでも仕組みなのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s13
+    scene_template: Scene17
+    role: body
+    title_text: 浮いたお金
+    main:
+      kind: image
+      asset: assets/s13_main.png
+      caption: 浮いたお金の行き先を決める
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 減らしたお金の行き先も決めるの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 浮いたら使っちゃうのだ
+        expression: worried
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 貯金や投資に自動で逃がすわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 守った分を残すのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 削減は残って初めて勝ちよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 勝ちを確定するのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s14
+    scene_template: Scene17
+    role: body
+    title_text: 反論チェック
+    main:
+      kind: image
+      asset: assets/s14_main.png
+      caption: よくある反論を整理
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 便利だから全部悪ではないわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 必要なものもあるのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 問題は使ってない支払いよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 価値ある課金は残すのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 我慢大会にしないのがコツね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 生活を軽くするのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s15
+    scene_template: Scene17
+    role: body
+    title_text: あなたの基準
+    main:
+      kind: image
+      asset: assets/s15_main.png
+      caption: コメント誘導：残すなら何？
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: みんなが残す一つは何かしら
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: コメントで見たいのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 必要な課金は人で違うわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 基準を聞くと学べるのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 他人の見直し方も参考になるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 財布会議なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+  - id: s16
+    scene_template: Scene17
+    role: outro
+    title_text: 今日のまとめ
+    main:
+      kind: image
+      asset: assets/s16_main.png
+      caption: まとめ：年額化して棚卸し
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: まとめると年額で見ることよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: left
+        text: 月額の小ささに騙されないのだ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: right
+        text: 使ってない物は一度止めるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: left
+        text: 困ったら戻ればいいのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: right
+        text: 放置こそ一番高いのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: left
+        text: 今日一つ解約確認なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22

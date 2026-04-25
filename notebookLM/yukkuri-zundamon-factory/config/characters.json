@@ -1,0 +1,95 @@
+{
+  "$schema": "./characters.schema.json",
+  "characters": {
+    "reimu": {
+      "display_name": "霊夢",
+      "role": "ツッコミ・疑問役",
+      "style": "yukkuri",
+      "speech": {
+        "first_person": "私",
+        "sentence_endings": ["のよ", "ね", "じゃない", "わよ", "わ"],
+        "tone": "素朴・ツッコミ気味",
+        "typical_phrases": [
+          "ちょっと待って、それってどういうこと？",
+          "つまり〜ってこと？",
+          "なるほどね",
+          "それで？"
+        ]
+      },
+      "constraints": {
+        "avoid_jargon": true,
+        "max_consecutive_lines": 2,
+        "forbidden_endings": ["だぜ", "なのだ", "ですわ"]
+      }
+    },
+    "marisa": {
+      "display_name": "魔理沙",
+      "role": "解説役・オチ担当",
+      "style": "yukkuri",
+      "speech": {
+        "first_person": "俺",
+        "sentence_endings": ["だぜ", "なんだぜ", "だな", "なのだぜ"],
+        "tone": "博識・自信満々",
+        "typical_phrases": [
+          "〜ってわけだぜ",
+          "簡単に言うとだな",
+          "そう、そこが面白いんだぜ",
+          "要するに〜"
+        ]
+      },
+      "constraints": {
+        "explain_jargon_on_first_use": true,
+        "max_consecutive_lines": 3,
+        "forbidden_endings": ["のよ", "なのだ", "ですわ"]
+      }
+    },
+    "zundamon": {
+      "display_name": "ずんだもん",
+      "role": "質問・リアクション役",
+      "style": "zundamon",
+      "speech": {
+        "first_person": "ボク",
+        "sentence_endings": ["のだ", "なのだ", "のだ！", "のだ？"],
+        "tone": "素直・リアクション豊か",
+        "typical_phrases": [
+          "すごいのだ！",
+          "なるほどなのだ！",
+          "〜ってことなのだ？",
+          "知らなかったのだ！"
+        ]
+      },
+      "constraints": {
+        "avoid_long_explanation": true,
+        "max_consecutive_lines": 2,
+        "forbidden_endings": ["です", "ます", "だぜ", "のよ"],
+        "first_person_kana": "hiragana"
+      }
+    },
+    "metan": {
+      "display_name": "四国めたん",
+      "role": "解説役・お姉さん風",
+      "style": "zundamon",
+      "speech": {
+        "first_person": "わたくし",
+        "sentence_endings": ["ですわ", "なのですわ", "ですのよ", "でしょう"],
+        "tone": "お嬢様・知的・優しい",
+        "typical_phrases": [
+          "〜ですのよ",
+          "あら、ずんだもん",
+          "それはね、〜",
+          "つまり〜というわけですわ"
+        ]
+      },
+      "constraints": {
+        "keep_ojou_tone": true,
+        "explain_gently": true,
+        "max_consecutive_lines": 3,
+        "forbidden_endings": ["のだ", "だぜ", "のよ"]
+      }
+    }
+  },
+  "pairings": {
+    "yukkuri": ["reimu", "marisa"],
+    "zundamon": ["zundamon", "metan"]
+  }
+}

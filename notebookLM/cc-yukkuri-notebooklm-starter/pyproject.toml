@@ -1,0 +1,9 @@
+[project]
+name = "cc-yukkuri-notebooklm-starter"
+version = "0.1.0"
+description = "Claude Code starter for Yukkuri / Zundamon-Metan scripts and NotebookLM asset workflows"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false

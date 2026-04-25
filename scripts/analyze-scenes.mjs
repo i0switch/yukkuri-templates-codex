@@ -4,7 +4,7 @@ import path from 'path';
 const COMPOSITIONS_DIR = path.join(process.cwd(), 'src/compositions');
 
 const scenes = [];
-for (let i = 1; i <= 22; i++) {
+for (let i = 1; i <= 21; i++) {
   const num = i.toString().padStart(2, '0');
   const file = path.join(COMPOSITIONS_DIR, `Scene${num}.tsx`);
   if (!fs.existsSync(file)) continue;

@@ -1,0 +1,24 @@
+project:
+  slug: sample-project
+  title: サンプル案件
+
+assets:
+  - scene_id: "01"
+    scene_title: "導入"
+    insert_timing: "00:00-00:20"
+    intent: "このシーンで視聴者に理解させたいこと"
+    narration_summary: "シーンの要約"
+    asset_type:
+      - infographic
+      - slide_deck
+    notebooklm_candidate:
+      primary: infographic
+      secondary: slide_deck
+    must_include:
+      - "必須キーワード"
+    avoid:
+      - "避けたい誤解"
+    audit_points:
+      - "主張がズレていないか"
+      - "一目でわかるか"
+    retry_prompt_seed: "このシーン用の再生成指示の種"

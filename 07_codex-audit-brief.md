@@ -1,25 +1,25 @@
 # Codex 監査依頼書
 
-Claude Code が 44 枚を生成した後、この文書をそのまま Codex に渡す。
+Claude Code が 42 枚を生成した後、この文書をそのまま Codex に渡す。
 
 ---
 
 ## 依頼内容
 
-以下のプロジェクトで生成された静止画 44 枚（22 シーン × RM/ZM 両ペア）を監査してください。
+以下のプロジェクトで生成された静止画 42 枚（21 シーン × RM/ZM 両ペア）を監査してください。
 
 ### プロジェクト概要
 - ツール: Remotion（React ベースの動画生成フレームワーク）
 - 目的: ゆっくり解説動画の**静止画テンプレート**。将来的に動画化される前提
-- 背景: 22 種類の画像（`public/backgrounds/bg-01.jpeg` ... `bg-22.jpeg`）をそのまま使用
+- 背景: 21 種類の画像（`public/backgrounds/bg-01.jpeg` ... `bg-21.jpeg`）をそのまま使用
 - キャラ: 4 種（reimu/marisa/zundamon/metan）の顔アイコン
 - ペア: RM = 霊夢＋魔理沙、ZM = ずんだもん＋めたん
 - 各シーンに 4 種類のエリア（メイン/サブ/タイトル/字幕）があり、それぞれに
   プレースホルダラベル（「ここはメインコンテンツエリア」等）が表示される
 
 ### 監査対象ファイル
-- `out/scene-01-rm.png` ... `out/scene-22-rm.png` （22 枚）
-- `out/scene-01-zm.png` ... `out/scene-22-zm.png` （22 枚）
+- `out/scene-01-rm.png` ... `out/scene-21-rm.png` （21 枚）
+- `out/scene-01-zm.png` ... `out/scene-21-zm.png` （21 枚）
 - `docs/all-scenes-rm-grid.png`（RM 版一覧）
 - `docs/all-scenes-zm-grid.png`（ZM 版一覧）
 

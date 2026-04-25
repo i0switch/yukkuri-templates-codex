@@ -1,0 +1,38 @@
+# 生成物
+output/scripts/*
+output/assets/*
+output/final/*
+!output/scripts/.gitkeep
+!output/assets/.gitkeep
+!output/final/.gitkeep
+
+# ログ・キャッシュ
+*.log
+.cache/
+.tmp/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node（使う場合）
+node_modules/
+npm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/settings.json
+.idea/
+*.swp
+
+# NotebookLM 認証
+.notebooklm-mcp-cli/
+
+# 環境変数
+.env
+.env.local

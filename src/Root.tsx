@@ -23,9 +23,10 @@ import {Scene15} from './compositions/Scene15';
 import {Scene16} from './compositions/Scene16';
 import {Scene17} from './compositions/Scene17';
 import {Scene18} from './compositions/Scene18';
+import {Scene19} from './compositions/Scene19';
 import {Scene20} from './compositions/Scene20';
 import {Scene21} from './compositions/Scene21';
-import {Scene22} from './compositions/Scene22';
+import {TemplateTestStill, TEST_STILL_SCENE_IDS, type TestStillSceneId} from './compositions/TemplateTestStill';
 
 const common = {
   durationInFrames: VIDEO.durationInFrames,
@@ -53,9 +54,9 @@ const sceneEntries = [
   {id: '16', component: Scene16},
   {id: '17', component: Scene17},
   {id: '18', component: Scene18},
+  {id: '19', component: Scene19},
   {id: '20', component: Scene20},
   {id: '21', component: Scene21},
-  {id: '22', component: Scene22},
 ] as const;
 
 export const Root: React.FC = () => {
@@ -74,6 +75,22 @@ export const Root: React.FC = () => {
           defaultProps={{script: loadEpisodeRenderData(episodeRenderData)}}
         />
       ))}
+      {TEST_STILL_SCENE_IDS.flatMap((id) => [
+        <Composition
+          key={`TemplateTest-${id}-RM`}
+          id={`TemplateTest-${id}-RM`}
+          component={TemplateTestStill}
+          {...common}
+          defaultProps={{sceneId: id as TestStillSceneId, pairId: 'RM'}}
+        />,
+        <Composition
+          key={`TemplateTest-${id}-ZM`}
+          id={`TemplateTest-${id}-ZM`}
+          component={TemplateTestStill}
+          {...common}
+          defaultProps={{sceneId: id as TestStillSceneId, pairId: 'ZM'}}
+        />,
+      ])}
       {sceneEntries.map(({id, component: SceneComponent}) => {
         return (
           <React.Fragment key={id}>

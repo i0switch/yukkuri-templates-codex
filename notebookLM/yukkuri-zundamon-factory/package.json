@@ -1,0 +1,29 @@
+{
+  "name": "yukkuri-zundamon-factory",
+  "version": "0.1.0",
+  "description": "Claude Code + NotebookLM MCP で、ゆっくり解説／ずんだもん&めたん解説の台本と素材を自動生成するプロジェクト土台",
+  "private": true,
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "check": "bash scripts/check-deps.sh"
+  },
+  "keywords": [
+    "claude-code",
+    "notebooklm",
+    "yukkuri",
+    "zundamon",
+    "metan",
+    "mcp",
+    "video-script",
+    "automation"
+  ],
+  "license": "MIT",
+  "meta": {
+    "author": "Ryudou",
+    "requires": {
+      "python": ">=3.10",
+      "notebooklm-mcp-cli": ">=0.2.0",
+      "claude-code": "latest"
+    }
+  }
+}

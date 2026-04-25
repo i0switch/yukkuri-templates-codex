@@ -1,0 +1,319 @@
+# スマホ容量を放置すると損する理由 画像ポイント付き台本
+
+- episode_id: ep702-phone-storage-risk
+- template: Scene20
+
+- main_content: 中央ガラス枠に図解や要点カードを大きく表示
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- character_layout: 下部左右端。中央字幕枠を避ける
+- avoid_area: 中央ガラス枠外と虹色光線の端を覆いすぎない
+
+## s01 導入
+- scene_template: Scene20
+- main_content: 容量不足は放置リスク / assets/s01_main.png
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: s01 の冒頭 l01 の直前から表示
+- asset_path: script/ep702-phone-storage-risk/assets/s01_main.png
+
+- ずんだもん: 容量不足を放置してないのだ？
+- めたん: それ地味に損が大きいわ
+- ずんだもん: 写真が多いだけなのだ
+- めたん: 実はリスクが重なるのよ
+
+## s02 結論
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 何が一番怖いのだ？
+- めたん: 撮りたい時に撮れないことよ
+- ずんだもん: それはかなり困るのだ
+- めたん: 大事な瞬間ほど起きるわ
+
+## s03 症状
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 最近スマホが重いのだ
+- めたん: 空き容量が少ないかもね
+- ずんだもん: アプリも遅いのだ
+- めたん: 更新失敗も増えやすいわ
+
+## s04 損失1
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 写真が保存できないのだ
+- めたん: イベント中に起きると痛いわ
+- ずんだもん: あとで消せばいいのだ
+- めたん: そのあとが来ないのよ
+
+## s05 損失2
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: バックアップも危ないのだ？
+- めたん: 容量不足で止まることがあるわ
+- ずんだもん: 守れてないのだ
+- めたん: 保存済みのつもりが危険ね
+
+## s06 損失3
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 通知も増えてうるさいのだ
+- めたん: 警告が日常になるのよ
+- ずんだもん: 慣れると無視なのだ
+- めたん: 本当に危険な通知も埋もれるわ
+
+## s07 原因
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 犯人は写真なのだ？
+- めたん: 動画が一番重いことが多いわ
+- ずんだもん: 短い動画も危険なのだ
+- めたん: 積もると一気に効くのよ
+
+## s08 見落とし
+- scene_template: Scene20
+- main_content: 整理は三分類で進める / assets/s08_main.png
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: s08 の冒頭 l01 の直前から表示
+- asset_path: script/ep702-phone-storage-risk/assets/s08_main.png
+
+- ずんだもん: 同じ写真が多いのだ
+- めたん: 連写とスクショが残りがちね
+- ずんだもん: 消すのが面倒なのだ
+- めたん: だから仕組みにするのよ
+
+## s09 基準
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 何から消すのだ？
+- めたん: まずスクショから見るの
+- ずんだもん: 思い出じゃないのだ
+- めたん: 期限切れ情報が多いわ
+
+## s10 次
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 動画はどうするのだ？
+- めたん: 長いものから移すのよ
+- ずんだもん: 消すより先に避難なのだ
+- めたん: 不安を減らす順番ね
+
+## s11 分類
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 分類が苦手なのだ
+- めたん: 三つだけでいいわ
+- ずんだもん: 残す消す移すなのだ
+- めたん: 迷ったら移すにするのよ
+
+## s12 頻度
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 毎日やるのは無理なのだ
+- めたん: 週一で十分ですわ
+- ずんだもん: 五分でもいいのだ
+- めたん: 固定日を決めるのが強いわ
+
+## s13 クラウド
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: クラウドに入れたら安心なのだ？
+- めたん: 同期済み確認が必要よ
+- ずんだもん: 入れたつもりは危険なのだ
+- めたん: 端末外で見えるか確認ね
+
+## s14 注意
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 全部消すのは怖いのだ
+- めたん: だから二段階で進めるの
+- ずんだもん: 先にコピーなのだ
+- めたん: 確認してから削除ですわ
+
+## s15 実践1
+- scene_template: Scene20
+- main_content: 整理は三分類で進める / assets/s15_main.png
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: s15 の冒頭 l01 の直前から表示
+- asset_path: script/ep702-phone-storage-risk/assets/s15_main.png
+
+- ずんだもん: まず空き容量を見るのだ
+- めたん: 設定画面で確認するわ
+- ずんだもん: 数字で見るのだ
+- めたん: 感覚だと後回しになるの
+
+## s16 実践2
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 次に大きい順なのだ
+- めたん: 重いアプリも確認ね
+- ずんだもん: 使わないゲームなのだ
+- めたん: 残す理由がなければ整理よ
+
+## s17 実践3
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 写真は月別がいいのだ？
+- めたん: 古い月から見ると楽よ
+- ずんだもん: 思い出に浸るのだ
+- めたん: 時間制限をつけてね
+
+## s18 予防
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 増やさない工夫はあるのだ？
+- めたん: スクショ後にすぐ消すの
+- ずんだもん: 一番簡単なのだ
+- めたん: 放置前に止めるのが勝ちよ
+
+## s19 自動化
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 自動削除は便利なのだ？
+- めたん: 設定は確認して使うのよ
+- ずんだもん: 勝手に消えるの怖いのだ
+- めたん: 大事な物は別保存ね
+
+## s20 効果
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 整理すると何が変わるのだ？
+- めたん: 撮影と更新が安定するわ
+- ずんだもん: 気分も軽いのだ
+- めたん: 探す時間も減るのよ
+
+## s21 まとめ
+- scene_template: Scene20
+- main_content: 残す / 消す / 移す
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: 画像なし。箇条書きカード表示
+- asset_path: asset_pathなし
+
+- ずんだもん: 容量不足はただの通知じゃないのだ
+- めたん: 機会損失の入口なのよ
+- ずんだもん: 写真を失う前なのだ
+- めたん: 先に逃がすのが正解ね
+
+## s22 CTA
+- scene_template: Scene20
+- main_content: 整理は三分類で進める / assets/s22_main.png
+- sub_content: sub_contentなし
+- subtitle_area: 下部字幕枠。25文字以内で短く切る
+- title_area: 独立タイトル枠なし。main内とtitle_textで補助
+- image_insert_point: s22 の冒頭 l01 の直前から表示
+- asset_path: script/ep702-phone-storage-risk/assets/s22_main.png
+
+- ずんだもん: 今日やることは一つなのだ
+- めたん: 空き容量を確認してね
+- ずんだもん: 不足なら動画から移すのだ
+- めたん: 五分だけで未来が軽いわ

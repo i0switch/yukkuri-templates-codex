@@ -1,0 +1,11 @@
+[project]
+name = "yukkuri-notebooklm-unified"
+version = "0.1.0"
+description = "Unified Claude Code and NotebookLM factory for Yukkuri and Zundamon/Metan scripts"
+requires-python = ">=3.11"
+dependencies = [
+    "pypdfium2>=5.0.0",
+]
+
+[tool.uv]
+package = false

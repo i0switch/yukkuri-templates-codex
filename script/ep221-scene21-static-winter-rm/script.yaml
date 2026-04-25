@@ -1,0 +1,180 @@
+meta:
+  id: ep221-scene21-static-winter-rm
+  title: 静電気はなぜ冬に痛い？
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 一般層・流し見OK
+  tone: テンポよく・軽め・ちょっと驚き多め
+  bgm_mood: 明るい・軽快
+  voice_engine: voicevox
+  target_duration_sec: 24
+  image_style: フラット・白背景・青緑基調・テキスト非表示
+  allow_duplicate_templates: true
+characters:
+  left:
+    character: reimu
+    voicevox_speaker_id: 2
+    speaking_style: 短め。疑問役で素直にツッコむ。
+  right:
+    character: marisa
+    voicevox_speaker_id: 3
+    speaking_style: 結論先出し。語尾は〜だぜ、〜なんだ。
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.08
+  fade_in_sec: 0.6
+  fade_out_sec: 1
+scenes:
+  - id: s01
+    scene_template: Scene21
+    role: intro
+    title_text: 静電気はなぜ冬に痛い？
+    main:
+      kind: text
+      text: 乾燥で電気が逃げにくい
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 静電気はなぜ冬に痛いの？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.621333
+        start_sec: 0.2
+        end_sec: 1.8
+      - id: l02
+        speaker: right
+        text: 乾燥で逃げにくいんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.514667
+        start_sec: 2.1
+        end_sec: 3.6
+      - id: l03
+        speaker: left
+        text: ドアノブが悪いのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.013333
+        start_sec: 3.9
+        end_sec: 4.9
+      - id: l04
+        speaker: right
+        text: 本丸は空気の乾きってわけだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.856
+        start_sec: 5.1
+        end_sec: 7
+    tail_pad_sec: 0.8
+    duration_sec: 8.2
+  - id: s02
+    scene_template: Scene21
+    role: body
+    title_text: 仕組み
+    main:
+      kind: bullets
+      items:
+        - 服の摩擦で電気がたまる
+        - 一気に流れると痛い
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 服のこすれでたまるの？
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.141333
+        start_sec: 0.2
+        end_sec: 1.4
+      - id: l02
+        speaker: right
+        text: 少しずつ電気が増えるんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.738667
+        start_sec: 1.6
+        end_sec: 3.4
+      - id: l03
+        speaker: left
+        text: 最後に一気になのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.088
+        start_sec: 3.6
+        end_sec: 4.7
+      - id: l04
+        speaker: right
+        text: だから痛みが強く感じるんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.76
+        start_sec: 5
+        end_sec: 6.7
+    tail_pad_sec: 0.8
+    duration_sec: 7.9
+  - id: s03
+    scene_template: Scene21
+    role: outro
+    title_text: 覚え方
+    main:
+      kind: text
+      text: 冬の痛みは乾燥のせい
+    sub:
+      kind: bullets
+      items:
+        - 1本1テンプレート動画
+        - "template: Scene21"
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 保湿も意味あるのね
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.034667
+        start_sec: 0.2
+        end_sec: 1.3
+      - id: l02
+        speaker: right
+        text: 逃げ道を作る助けになるんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.792
+        start_sec: 1.5
+        end_sec: 3.3
+      - id: l03
+        speaker: left
+        text: 冬の地味な敵なのね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.088
+        start_sec: 3.6
+        end_sec: 4.7
+      - id: l04
+        speaker: right
+        text: でも原因はかなり素直なんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.18
+        wav_sec: 1.909333
+        start_sec: 4.9
+        end_sec: 6.8
+    tail_pad_sec: 0.8
+    duration_sec: 8
+total_duration_sec: 24.1

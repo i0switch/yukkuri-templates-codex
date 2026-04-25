@@ -10,6 +10,7 @@ meta:
   bgm_mood: "知的で落ち着くが、少し緊張感もある"
   voice_engine: "voicevox"
   target_duration_sec: 210
+  allow_duplicate_templates: true
 
 characters:
   left:
@@ -31,7 +32,7 @@ bgm:
 
 scenes:
   - id: "s01"
-    scene_template: "Scene20"
+    scene_template: "Scene19"
     role: "intro"
     title_text: "CRISPR-Cas9 を15分で理解する"
     main:
@@ -64,7 +65,7 @@ scenes:
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "見出しは大きいけれど、中身はもっと地道ですわ"
+        text: "中身はもっと地道ですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.4
@@ -96,7 +97,7 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "流れは三段階ですわ。狙って、切って、細胞に直させる"
+        text: "流れは三段階ですわ"
         expression: "calm"
         pre_pause_sec: 0.15
         post_pause_sec: 0.25
@@ -108,13 +109,13 @@ scenes:
         post_pause_sec: 0.25
       - id: "l03"
         speaker: "right"
-        text: "そうですわ。魔法より、かなり作業工程寄りですの"
+        text: "魔法より作業工程ですの"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.3
       - id: "l04"
         speaker: "left"
-        text: "そこを押さえると話が急に整理できるのだ"
+        text: "そこを押さえると整理できるのだ"
         expression: "happy"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -146,25 +147,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "そもそも誰が作った仕組みなのだ？"
+        text: "誰が作った仕組みなのだ？"
         expression: "halfOpen"
         pre_pause_sec: 0.15
         post_pause_sec: 0.25
       - id: "l02"
         speaker: "right"
-        text: "自然ですわ。細菌がウイルス対策で持っていた仕組みですの"
+        text: "細菌の防御の仕組みですわ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l03"
         speaker: "left"
-        text: "人類の発明というより、転用なのだ"
+        text: "発明というより転用なのだ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l04"
         speaker: "right"
-        text: "ええ。自然の道具箱から借りてきた感じですわ"
+        text: "自然の道具を借りた感じですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -195,25 +196,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "Cas9単体では動きませんわ。ガイドRNAが住所を教えますの"
+        text: "ガイドRNAが住所を教えますの"
         expression: "calm"
         pre_pause_sec: 0.15
         post_pause_sec: 0.25
       - id: "l02"
         speaker: "left"
-        text: "住所ラベル付きの分子ハサミなのだ"
+        text: "住所つき分子ハサミなのだ"
         expression: "happy"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l03"
         speaker: "right"
-        text: "その比喩はだいたい合っていますわ"
+        text: "その比喩は近いですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "だから狙った配列だけを攻めやすいのだ"
+        text: "狙った配列を攻めやすいのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -244,31 +245,31 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "切っただけで編集完了じゃないのだ？"
+        text: "切っただけで完了なのだ？"
         expression: "halfOpen"
         pre_pause_sec: 0.15
         post_pause_sec: 0.25
       - id: "l02"
         speaker: "right"
-        text: "本番はむしろその後ですわ。細胞の修復が結果を決めますの"
+        text: "細胞の修復が結果を決めますの"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l03"
         speaker: "left"
-        text: "細胞側の都合にも左右されるのだ"
+        text: "細胞側にも左右されるのだ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "ええ。だから設計図どおりに毎回いくわけではないですわ"
+        text: "毎回設計どおりとは限りませんわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
 
   - id: "s06"
-    scene_template: "Scene21"
+    scene_template: "Scene20"
     role: "body"
     title_text: "なぜ大騒ぎされたのか"
     main:
@@ -294,25 +295,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "CRISPR以前にも編集法はありましたわ"
+        text: "以前にも編集法はありましたわ"
         expression: "calm"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "left"
-        text: "でも急にCRISPRだけ有名になったのだ"
+        text: "でも急に有名になったのだ"
         expression: "halfOpen"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "right"
-        text: "設計がしやすく、試すコストも下がったからですわ"
+        text: "設計しやすく安いからですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "科学は急に進んだというより、扱いやすくなったのだ"
+        text: "扱いやすくなったのが大きいのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -344,25 +345,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "いちばん期待されるのは医療なのだ？"
+        text: "期待されるのは医療なのだ？"
         expression: "smile"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "right"
-        text: "目立つのはそこですわ。原因変異が明確な病気と相性がいいですの"
+        text: "原因が明確な病気と相性がいいですの"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "left"
-        text: "でも全部の病気が一発解決ではないのだ"
+        text: "全部が一発解決ではないのだ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "ええ。原因が複雑な病気ほど、話はそんなに甘くないですわ"
+        text: "原因が複雑だと甘くないですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -394,25 +395,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "医療以外では、作物改良や発酵でも使われますわ"
+        text: "作物改良や発酵でも使いますわ"
         expression: "calm"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "left"
-        text: "研究室だけの道具じゃないのだ"
+        text: "研究室だけじゃないのだ"
         expression: "happy"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "right"
-        text: "ええ。食品や素材の生産にも地味に効いてきますの"
+        text: "食品や素材にも効いてきますの"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "派手なニュースより、日常の裏側で働くのだ"
+        text: "日常の裏側で働くのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -443,31 +444,31 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "狙った場所以外も切ることがあるのだ？"
+        text: "狙い外も切ることがあるのだ？"
         expression: "halfOpen"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "right"
-        text: "ありますわ。似た配列を誤って触るのがオフターゲットですの"
+        text: "似た配列を誤って触るのですわ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "left"
-        text: "ハサミが優秀でも、地図が曖昧だと危ないのだ"
+        text: "地図が曖昧だと危ないのだ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "その通りですわ。だから検証工程がやたら重いのですの"
+        text: "だから検証工程が重いのですの"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
 
   - id: "s10"
-    scene_template: "Scene22"
+    scene_template: "Scene21"
     role: "body"
     title_text: "限界その2 体に届けにくい"
     main:
@@ -493,25 +494,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "もう一つの壁は、必要な細胞まで運ぶことですわ"
+        text: "もう一つの壁は運ぶことですわ"
         expression: "calm"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "left"
-        text: "道具があっても、配送がむずかしいのだ"
+        text: "道具があっても配送が難しいのだ"
         expression: "halfOpen"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "right"
-        text: "ええ。分子生物学は、ときどき物流の顔を見せますわ"
+        text: "分子生物学は物流も大事ですわ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "派手な技術ほど、地味な障害に足を取られるのだ"
+        text: "派手な技術ほど足元が大事なのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -544,25 +545,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "実験は、切って終わりじゃないのだ"
+        text: "実験は切って終わりじゃないのだ"
         expression: "halfOpen"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "right"
-        text: "むしろ確認のほうが長いですわ。何が起きたか測る必要がありますの"
+        text: "確認のほうが長いですわ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "left"
-        text: "研究者の仕事、だいぶ検品っぽいのだ"
+        text: "研究者の仕事は検品っぽいのだ"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "ええ。再現性を取るには、その地味さが欠かせませんわ"
+        text: "再現性には地味さが必要ですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -594,25 +595,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "特に重いのが、生殖細胞や胚への介入ですわ"
+        text: "特に重いのが胚への介入ですわ"
         expression: "calm"
         pre_pause_sec: 0.2
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "left"
-        text: "本人だけの問題で済まないのだ"
+        text: "本人だけでは済まないのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "right"
-        text: "ええ。次の世代に影響が残りうるので、医療技術だけでは決められませんわ"
+        text: "次世代に影響が残りうるのですわ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "できる、だけで進めると社会のほうが追いつかないのだ"
+        text: "できるだけでは進められないのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.4
@@ -633,25 +634,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "left"
-        text: "デザイナーベビー量産、みたいな話も聞くのだ"
+        text: "怖い未来の話も聞くのだ"
         expression: "halfOpen"
         pre_pause_sec: 0.15
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "right"
-        text: "話が先走りすぎですわ。技術の制約も制度の壁も大きいですの"
+        text: "技術も制度も壁が大きいですの"
         expression: "smirk"
         pre_pause_sec: 0.1
         post_pause_sec: 0.2
       - id: "l03"
         speaker: "left"
-        text: "未来予想図だけで理解した気になるのは危険なのだ"
+        text: "未来予想だけで見るのは危険なのだ"
         expression: "calm"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "right"
-        text: "まずは、今できることと難しいことを分けて見るのが大事ですわ"
+        text: "できることを分けて見るのが大事ですわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.35
@@ -675,25 +676,25 @@ scenes:
     dialogue:
       - id: "l01"
         speaker: "right"
-        text: "まとめると、CRISPRは強力ですが、雑に万能視してはいけませんわ"
+        text: "雑に万能視してはいけませんわ"
         expression: "calm"
         pre_pause_sec: 0.2
         post_pause_sec: 0.2
       - id: "l02"
         speaker: "left"
-        text: "切る仕組み、修復の癖、倫理。この三つで見るのだ"
+        text: "切る、修復、倫理で見るのだ"
         expression: "happy"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l03"
         speaker: "right"
-        text: "ここまで押さえれば、ニュースの見え方も変わりますわ"
+        text: "ニュースの見え方も変わりますわ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.25
       - id: "l04"
         speaker: "left"
-        text: "続きが気になったら、次はベースエディティングも見るのだ"
+        text: "次は別の編集技術も見るのだ"
         expression: "smile"
         pre_pause_sec: 0.1
         post_pause_sec: 0.45

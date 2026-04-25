@@ -1,10 +1,13 @@
 import React from 'react';
 import {SceneFrame} from '../components/SceneFrame';
+import {FONTS} from '../design-tokens';
 import type {SceneLayout, SceneProps} from '../types';
 
 const LAYOUT: SceneLayout = {
   bgSrc: '/backgrounds/bg-12.jpeg',
+  characterPlacement: 'layout',
   theme: 'dark',
+  subtitleSafePadding: {left: 0, right: 0, top: 16, bottom: 16},
   title: {x: 20, y: 20, w: 928, h: 90},
   main: {x: 130, y: 140, w: 1660, h: 600},
   subtitle: {
@@ -33,7 +36,7 @@ const titleSlot = (
       alignItems: 'center',
       justifyContent: 'center',
       color: '#2B2B2B',
-      fontFamily: '"M PLUS Rounded 1c", sans-serif',
+      fontFamily: FONTS.ui,
       fontSize: 30,
       fontWeight: 800,
       letterSpacing: '0.04em',

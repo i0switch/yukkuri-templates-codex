@@ -1,0 +1,53 @@
+{
+  "$schema": "./asset-types.schema.json",
+  "types": {
+    "FIG": {
+      "description": "タイトルカード・全体像用の横長インフォグラフィック",
+      "studio_type": "infographic",
+      "default_options": {
+        "orientation": "landscape",
+        "style": "professional"
+      },
+      "extension": "png",
+      "expected_size_range_kb": [300, 3000],
+      "placement_rule": "intro_mandatory"
+    },
+    "INFO": {
+      "description": "セクション内の詳細情報グラフィック",
+      "studio_type": "infographic",
+      "default_options": {
+        "orientation": "portrait",
+        "style": "professional"
+      },
+      "extension": "png",
+      "expected_size_range_kb": [300, 3000],
+      "placement_rule": "per_section"
+    },
+    "MAP": {
+      "description": "概念の関係性・分類図",
+      "studio_type": "mind_map",
+      "default_options": {},
+      "extension": "json",
+      "expected_size_range_kb": [20, 1000],
+      "placement_rule": "per_section"
+    },
+    "SLIDE": {
+      "description": "まとめ・比較表・ポイント列挙",
+      "studio_type": "slide_deck",
+      "default_options": {},
+      "extension": "pdf",
+      "expected_size_range_kb": [500, 10000],
+      "placement_rule": "summary_mandatory"
+    },
+    "VIDEO": {
+      "description": "補足映像（30秒程度）",
+      "studio_type": "video",
+      "default_options": {
+        "style": "classic"
+      },
+      "extension": "mp4",
+      "expected_size_range_kb": [5000, 50000],
+      "placement_rule": "optional"
+    }
+  }
+}

@@ -3,6 +3,7 @@ import path from 'node:path';
 import {parseDocument} from 'yaml';
 import {buildAudioForEpisode} from './voicevox.mjs';
 import {buildAudioForEpisodeAquesTalk} from './aquestalk.mjs';
+import {formatEpisodeValidationResult, validateEpisodeScript} from './lib/episode-validator.mjs';
 
 const rootDir = process.cwd();
 const episodeId = process.argv[2];
@@ -19,8 +20,6 @@ const publicEpisodeDir = path.join(rootDir, 'public', 'episodes', episodeId);
 const readYamlDocument = async () => parseDocument(await fs.readFile(scriptPath, 'utf8'));
 
 const round1 = (value) => Math.round(value * 10) / 10;
-
-const countChars = (value) => Array.from(value).length;
 
 const ensureDir = async (dirPath) => {
   await fs.mkdir(dirPath, {recursive: true});
@@ -47,20 +46,14 @@ const copyDirectoryContents = async (fromDir, toDir) => {
   }
 };
 
-const validateScript = (script) => {
-  const templates = script.scenes.map((scene) => scene.scene_template);
-  const duplicates = templates.filter((template, index) => templates.indexOf(template) !== index);
-  const allowDuplicateTemplates = script.meta?.allow_duplicate_templates === true;
-  if (!allowDuplicateTemplates && duplicates.length > 0) {
-    throw new Error(`Duplicate scene_template detected: ${duplicates.join(', ')}`);
+const assertValidScript = async (script, stage) => {
+  const result = await validateEpisodeScript(script, {episodeDir});
+  const details = formatEpisodeValidationResult(result);
+  if (details) {
+    console.warn(details);
   }
-
-  for (const scene of script.scenes) {
-    for (const line of scene.dialogue) {
-      if (countChars(line.text) > 25) {
-        throw new Error(`Line exceeds 25 chars: ${scene.id}/${line.id} "${line.text}"`);
-      }
-    }
+  if (!result.ok) {
+    throw new Error(`${stage} validation failed`);
   }
 };
 
@@ -73,6 +66,9 @@ const buildTimings = (script, durations) => {
       const prePause = line.pre_pause_sec ?? 0.08;
       const postPause = line.post_pause_sec ?? 0.22;
       const wavSec = durations[`${scene.id}_${line.id}`];
+      if (typeof wavSec !== 'number' || !Number.isFinite(wavSec) || wavSec <= 0) {
+        throw new Error(`Missing or invalid audio duration: ${scene.id}/${line.id}`);
+      }
       const startSec = cursor + prePause;
       const endSec = startSec + wavSec;
       dialogue.push({
@@ -116,11 +112,6 @@ const buildTimings = (script, durations) => {
   return script;
 };
 
-const writeYamlDocument = async (document, nextScript) => {
-  document.contents = document.createNode(nextScript);
-  await fs.writeFile(scriptPath, String(document), 'utf8');
-};
-
 const buildRenderJson = async (script) => {
   await ensureDir(publicEpisodeDir);
   await copyDirectoryContents(path.join(episodeDir, 'audio'), path.join(publicEpisodeDir, 'audio'));
@@ -139,12 +130,12 @@ const buildRenderJson = async (script) => {
 
 const document = await readYamlDocument();
 const script = document.toJS();
-validateScript(script);
+await assertValidScript(script, 'Pre-build');
 const durations =
   script.meta.voice_engine === 'aquestalk'
     ? await buildAudioForEpisodeAquesTalk(episodeDir, script)
     : await buildAudioForEpisode(episodeDir, script);
 const updatedScript = buildTimings(script, durations);
-await writeYamlDocument(document, updatedScript);
+await assertValidScript(updatedScript, 'Post-build');
 await buildRenderJson(updatedScript);
 console.log(JSON.stringify({episodeId, total_duration_sec: updatedScript.total_duration_sec}, null, 2));

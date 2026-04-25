@@ -1,5 +1,5 @@
 import {loadEpisodeRenderData} from '../lib/load-script';
-import ep000TestAll22Scenes from '../../script/ep000-test-all-22-scenes/script.render.json';
+import ep000TestAll21Scenes from '../../script/ep000-test-all-21-scenes/script.render.json';
 import ep101Scene01Betsubara from '../../script/ep101-scene01-betsubara/script.render.json';
 import ep102Scene02Popcorn from '../../script/ep102-scene02-popcorn/script.render.json';
 import ep103Scene03SneezeRepeat from '../../script/ep103-scene03-sneeze-repeat/script.render.json';
@@ -18,9 +18,9 @@ import ep115Scene15RainSmell from '../../script/ep115-scene15-rain-smell/script.
 import ep116Scene16ColdRunnyNose from '../../script/ep116-scene16-cold-runny-nose/script.render.json';
 import ep117Scene17MoonFollows from '../../script/ep117-scene17-moon-follows/script.render.json';
 import ep118Scene18RainbowHalf from '../../script/ep118-scene18-rainbow-half/script.render.json';
-import ep119Scene20SkyBlue from '../../script/ep119-scene20-sky-blue/script.render.json';
-import ep120Scene21ToiletAcoustics from '../../script/ep120-scene21-toilet-acoustics/script.render.json';
-import ep121Scene22StaticWinter from '../../script/ep121-scene22-static-winter/script.render.json';
+import ep119Scene19SkyBlue from '../../script/ep119-scene19-sky-blue/script.render.json';
+import ep120Scene20ToiletAcoustics from '../../script/ep120-scene20-toilet-acoustics/script.render.json';
+import ep121Scene21StaticWinter from '../../script/ep121-scene21-static-winter/script.render.json';
 import ep201Scene01BetsubaraRm from '../../script/ep201-scene01-betsubara-rm/script.render.json';
 import ep202Scene02PopcornRm from '../../script/ep202-scene02-popcorn-rm/script.render.json';
 import ep203Scene03SneezeRepeatRm from '../../script/ep203-scene03-sneeze-repeat-rm/script.render.json';
@@ -39,14 +39,20 @@ import ep215Scene15RainSmellRm from '../../script/ep215-scene15-rain-smell-rm/sc
 import ep216Scene16ColdRunnyNoseRm from '../../script/ep216-scene16-cold-runny-nose-rm/script.render.json';
 import ep217Scene17MoonFollowsRm from '../../script/ep217-scene17-moon-follows-rm/script.render.json';
 import ep218Scene18RainbowHalfRm from '../../script/ep218-scene18-rainbow-half-rm/script.render.json';
-import ep219Scene20SkyBlueRm from '../../script/ep219-scene20-sky-blue-rm/script.render.json';
-import ep220Scene21ToiletAcousticsRm from '../../script/ep220-scene21-toilet-acoustics-rm/script.render.json';
-import ep221Scene22StaticWinterRm from '../../script/ep221-scene22-static-winter-rm/script.render.json';
+import ep219Scene19SkyBlueRm from '../../script/ep219-scene19-sky-blue-rm/script.render.json';
+import ep220Scene20ToiletAcousticsRm from '../../script/ep220-scene20-toilet-acoustics-rm/script.render.json';
+import ep221Scene21StaticWinterRm from '../../script/ep221-scene21-static-winter-rm/script.render.json';
 import ep401ZmSodaBurst from '../../script/ep401-zm-soda-burst/script.render.json';
 import ep402RmYawnContagious from '../../script/ep402-rm-yawn-contagious/script.render.json';
+import ep501ZmAiHabitAutomation from '../../script/ep501-zm-ai-habit-automation/script.render.json';
+import ep502ZmMoneyLeakSubscription from '../../script/ep502-zm-money-leak-subscription/script.render.json';
+import ep900QualitySample from '../../script/ep900-quality-sample/script.render.json';
+import ep997SleepPhoneNotebooklm from '../../script/ep997-sleep-phone-notebooklm/script.render.json';
+import ep998SleepPhoneImagegen from '../../script/ep998-sleep-phone-imagegen/script.render.json';
+import ep999WorkflowSmarthphoneTest from '../../script/ep999-workflow-smarthphone-test/script.render.json';
 
 export const episodeCompositions = [
-  loadEpisodeRenderData(ep000TestAll22Scenes),
+  loadEpisodeRenderData(ep000TestAll21Scenes),
   loadEpisodeRenderData(ep101Scene01Betsubara),
   loadEpisodeRenderData(ep102Scene02Popcorn),
   loadEpisodeRenderData(ep103Scene03SneezeRepeat),
@@ -65,9 +71,9 @@ export const episodeCompositions = [
   loadEpisodeRenderData(ep116Scene16ColdRunnyNose),
   loadEpisodeRenderData(ep117Scene17MoonFollows),
   loadEpisodeRenderData(ep118Scene18RainbowHalf),
-  loadEpisodeRenderData(ep119Scene20SkyBlue),
-  loadEpisodeRenderData(ep120Scene21ToiletAcoustics),
-  loadEpisodeRenderData(ep121Scene22StaticWinter),
+  loadEpisodeRenderData(ep119Scene19SkyBlue),
+  loadEpisodeRenderData(ep120Scene20ToiletAcoustics),
+  loadEpisodeRenderData(ep121Scene21StaticWinter),
   loadEpisodeRenderData(ep201Scene01BetsubaraRm),
   loadEpisodeRenderData(ep202Scene02PopcornRm),
   loadEpisodeRenderData(ep203Scene03SneezeRepeatRm),
@@ -86,9 +92,15 @@ export const episodeCompositions = [
   loadEpisodeRenderData(ep216Scene16ColdRunnyNoseRm),
   loadEpisodeRenderData(ep217Scene17MoonFollowsRm),
   loadEpisodeRenderData(ep218Scene18RainbowHalfRm),
-  loadEpisodeRenderData(ep219Scene20SkyBlueRm),
-  loadEpisodeRenderData(ep220Scene21ToiletAcousticsRm),
-  loadEpisodeRenderData(ep221Scene22StaticWinterRm),
+  loadEpisodeRenderData(ep219Scene19SkyBlueRm),
+  loadEpisodeRenderData(ep220Scene20ToiletAcousticsRm),
+  loadEpisodeRenderData(ep221Scene21StaticWinterRm),
   loadEpisodeRenderData(ep401ZmSodaBurst),
   loadEpisodeRenderData(ep402RmYawnContagious),
+  loadEpisodeRenderData(ep501ZmAiHabitAutomation),
+  loadEpisodeRenderData(ep502ZmMoneyLeakSubscription),
+  loadEpisodeRenderData(ep900QualitySample),
+  loadEpisodeRenderData(ep997SleepPhoneNotebooklm),
+  loadEpisodeRenderData(ep998SleepPhoneImagegen),
+  loadEpisodeRenderData(ep999WorkflowSmarthphoneTest),
 ];

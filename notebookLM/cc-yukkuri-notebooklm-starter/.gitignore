@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+uv.lock
+workspace/projects/*/downloads/
+workspace/projects/*/materials/generated/
+workspace/projects/*/materials/raw/
+workspace/projects/*/tmp/

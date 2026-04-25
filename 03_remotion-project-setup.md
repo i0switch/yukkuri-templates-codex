@@ -19,7 +19,7 @@ project-root/
 ├── public/
 │   ├── characters/          (配置済み：reimu/marisa/zundamon/metan)
 │   └── backgrounds/
-│       ├── bg-01.jpeg ... bg-22.jpeg
+│       ├── bg-01.jpeg ... bg-21.jpeg
 ├── src/
 │   ├── index.ts
 │   ├── Root.tsx
@@ -32,7 +32,7 @@ project-root/
 │   │   ├── SpeechBubble.tsx
 │   │   └── AreaLabel.tsx
 │   └── compositions/
-│       ├── Scene01.tsx ... Scene22.tsx
+│       ├── Scene01.tsx ... Scene21.tsx
 │       └── _DebugChars.tsx
 ├── out/
 ├── docs/
@@ -103,7 +103,6 @@ import { Scene18 } from './compositions/Scene18';
 import { Scene19 } from './compositions/Scene19';
 import { Scene20 } from './compositions/Scene20';
 import { Scene21 } from './compositions/Scene21';
-import { Scene22 } from './compositions/Scene22';
 import { DebugChars } from './compositions/_DebugChars';
 
 const common = {
@@ -116,7 +115,7 @@ const common = {
 const SCENE_COMPONENTS = [
   Scene01, Scene02, Scene03, Scene04, Scene05, Scene06, Scene07, Scene08,
   Scene09, Scene10, Scene11, Scene12, Scene13, Scene14, Scene15, Scene16,
-  Scene17, Scene18, Scene19, Scene20, Scene21, Scene22,
+  Scene17, Scene18, Scene19, Scene20, Scene21,
 ];
 
 export const Root: React.FC = () => (
@@ -201,10 +200,8 @@ export const Root: React.FC = () => (
     "render:20-zm": "remotion render Scene20_ZM out/scene-20-zm.png --frame=0",
     "render:21-rm": "remotion render Scene21_RM out/scene-21-rm.png --frame=0",
     "render:21-zm": "remotion render Scene21_ZM out/scene-21-zm.png --frame=0",
-    "render:22-rm": "remotion render Scene22_RM out/scene-22-rm.png --frame=0",
-    "render:22-zm": "remotion render Scene22_ZM out/scene-22-zm.png --frame=0",
-    "render:rm":  "for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22; do npm run render:${i}-rm || exit 1; done",
-    "render:zm":  "for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22; do npm run render:${i}-zm || exit 1; done",
+    "render:rm":  "for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21; do npm run render:${i}-rm || exit 1; done",
+    "render:zm":  "for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21; do npm run render:${i}-zm || exit 1; done",
     "render:all": "npm run render:rm && npm run render:zm"
   }
 }
