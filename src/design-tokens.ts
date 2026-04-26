@@ -33,6 +33,21 @@ export const COLORS = {
   areaLabelBgLight: 'rgba(0,0,0,0.24)',
 } as const;
 
+export const TEXT_STROKE = {
+  subtitle: {
+    color: COLORS.black,
+    width: 6,
+  },
+  title: {
+    color: 'rgba(0,0,0,0.70)',
+    width: 2,
+  },
+  content: {
+    color: 'rgba(0,0,0,0.45)',
+    width: 1,
+  },
+} as const;
+
 export const FS = {
   xs: 20,
   sm: 28,

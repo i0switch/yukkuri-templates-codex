@@ -1,5 +1,5 @@
 import React from 'react';
-import {FONTS, FS} from '../design-tokens';
+import {FONTS, FS, TEXT_STROKE} from '../design-tokens';
 
 type Props = {
   text: string;
@@ -16,6 +16,8 @@ type Props = {
   fontSize?: number;
   fontWeight?: number | string;
   fontFamily?: string;
+  textStrokeColor?: string;
+  textStrokeWidth?: number;
 };
 
 export const SubtitleBar: React.FC<Props> = ({
@@ -33,7 +35,32 @@ export const SubtitleBar: React.FC<Props> = ({
   fontSize = FS.subtitle,
   fontWeight = 500,
   fontFamily = FONTS.subtitle,
+  textStrokeColor = TEXT_STROKE.subtitle.color,
+  textStrokeWidth = TEXT_STROKE.subtitle.width,
 }) => {
+  const strokeWidth = Math.max(0, textStrokeWidth);
+  const strokeShadow =
+    textStrokeColor && strokeWidth > 0
+      ? [
+          `${strokeWidth}px 0 0 ${textStrokeColor}`,
+          `-${strokeWidth}px 0 0 ${textStrokeColor}`,
+          `0 ${strokeWidth}px 0 ${textStrokeColor}`,
+          `0 -${strokeWidth}px 0 ${textStrokeColor}`,
+          `${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
+          `-${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
+          `${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
+          `-${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
+        ].join(', ')
+      : undefined;
+  const strokeStyle: React.CSSProperties =
+    textStrokeColor && strokeWidth > 0
+      ? {
+          WebkitTextStroke: `${strokeWidth}px ${textStrokeColor}`,
+          paintOrder: 'stroke fill',
+          textShadow: strokeShadow,
+        }
+      : {};
+
   return (
     <div
       style={{
@@ -55,6 +82,7 @@ export const SubtitleBar: React.FC<Props> = ({
         color: textColor,
         boxSizing: 'border-box',
         textAlign,
+        ...strokeStyle,
       }}
     >
       {text}

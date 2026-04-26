@@ -1,4 +1,4 @@
-﻿meta:
+meta:
   id: ep002-zm-sleep-quality-ng
   title: 夜更かし民の睡眠の質を爆下げするNG行動
   layout_template: Scene15
@@ -11,7 +11,8 @@
   bgm_mood: 夜寄りの落ち着いたアンビエント
   voice_engine: voicevox
   target_duration_sec: 180
-  image_style: night-themed flat illustrations, deep blue palette, soft glow, generous whitespace
+  image_style: night-themed flat illustrations, deep blue palette, soft glow,
+    generous whitespace
 characters:
   left:
     character: zundamon
@@ -35,8 +36,9 @@ scenes:
     mini_punchline: 量より質、夜の行動で深さが変わる
     visual_role: mainは「8時間寝ても疲れた人」のシルエットで損失感を出す
     main:
-      kind: text
-      text: 量より質／NG行動が深さを削る
+      kind: image
+      asset: assets/s01_main.png
+      caption: 8時間寝ても疲れ取れない理由
     sub: null
     visual_asset_plan:
       - slot: main
@@ -52,6 +54,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は数字「8h」など3文字以内。
           【絵柄】夜寄りフラット図解、太線、ソフトグロー、影は薄く。
           【禁止】実在ブランド、ロゴ、人物写真、既存キャラ、英語UI、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 1枚1メッセージ
           - Scene15のmain（中央夜空）に収まる
@@ -130,8 +134,9 @@ scenes:
     mini_punchline: 興奮の自覚なく睡眠時間が削れる
     visual_role: mainは「スマホで脳が興奮している」を比喩図で示す
     main:
-      kind: text
-      text: ブルーライトより脳の興奮が問題
+      kind: image
+      asset: assets/s02_main.png
+      caption: 寝る前スマホはOKじゃない
     sub: null
     visual_asset_plan:
       - slot: main
@@ -147,6 +152,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字なし。
           【絵柄】夜寄りフラット、太線、グローは控えめ。
           【禁止】実在アプリUI、ブランドロゴ、人物写真、既存キャラ、英語UI、細かい文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - スマホ→脳の刺激ラインが直感的
           - main枠内に収まる
@@ -225,8 +232,9 @@ scenes:
     mini_punchline: 寝るふり状態になっている
     visual_role: mainは「寝つき速いが浅い眠り」を波形で示す
     main:
-      kind: text
-      text: 寝酒は寝つき◯／深睡眠✕
+      kind: image
+      asset: assets/s03_main.png
+      caption: 寝酒で深い眠りが消える
     sub: null
     visual_asset_plan:
       - slot: main
@@ -242,6 +250,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字「通常」「寝酒」のみ4文字以内。
           【絵柄】夜寄りフラット、太線、グリッドは薄く。
           【禁止】実在ブランド、ロゴ、写真、英語UI、医療表記の数値乱用。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 上下波形の差が瞬間で読める
           - 字幕金枠とタイトル金枠を侵食しない
@@ -320,8 +330,9 @@ scenes:
     mini_punchline: 直前熱湯派は損している
     visual_role: mainは「入浴後の体温降下」を時間軸で示す折れ線
     main:
-      kind: text
-      text: 寝る90分前／38度15分／体温が下がる時に深く眠る
+      kind: image
+      asset: assets/s04_main.png
+      caption: 風呂は寝る90分前
     sub: null
     visual_asset_plan:
       - slot: main
@@ -337,6 +348,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字「90分」など6文字以内。
           【絵柄】夜寄りフラット、太線、影は薄く。
           【禁止】医療装い数値乱用、ロゴ、人物写真、英語UI、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 体温曲線とベスト位置が瞬間で読める
           - 「90分」が小さくても読める
@@ -415,8 +428,9 @@ scenes:
     mini_punchline: ここまでがNG行動の正体
     visual_role: mainは「寝だめで体内時計が後ろにズレる」を時計図で示す
     main:
-      kind: text
-      text: 寝だめ＝体内時計を後ろへずらす行為
+      kind: image
+      asset: assets/s05_main.png
+      caption: 休日寝だめは詰み
     sub: null
     visual_asset_plan:
       - slot: main
@@ -432,6 +446,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字「平日」「休日」のみ。
           【絵柄】夜寄りフラット、太線、影は薄く。
           【禁止】実在時計ブランド、ロゴ、人物写真、英語UI、密な数値。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 2つの時計のズレが瞬間で読める
           - main枠内に収まる
@@ -498,6 +514,104 @@ scenes:
         pre_pause_sec: 0.06
         post_pause_sec: 0.30
   - id: s06
+    role: body
+    title_text: 夕方カフェインは詰み
+    scene_goal: 夕方以降のカフェインは寝つきを遅らせると訂正する
+    scene_format: 失敗エピソード型
+    viewer_question: 夕方のコーヒーは睡眠に影響するのか
+    viewer_misunderstanding: 冷めれば効かない、と思い込んでいる
+    boke_or_reaction: ずんだもんが「17時余裕」と油断
+    reaction_level: L3
+    number_or_example: 半減期5時間、寝つきが30分遅れる目安
+    mini_punchline: 安全圏は14時前まで
+    visual_role: mainは「夕方のカフェインが夜の寝つきを遅らせる」時計風図解
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 夕方カフェインは詰み
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 夕方のカフェインが夜の寝つきまで残る仕組みを時計図で伝える
+        insert_timing: シーン冒頭
+        asset_path: assets/s06_main.png
+        imagegen_prompt: |-
+          【用途】s06 main枠。夕方のカフェインが夜の寝つきを遅らせる現象を視覚化する。
+          【主題】コーヒーカップから時計の針が伸び、5時間以上後の夜時刻に届く図。下に小さなベッドアイコンと×。
+          【構図】中央にコーヒーカップ、右へ時計針が弧を描く、右端に夜時刻のラベル。下部字幕帯と左右キャラ位置は余白。
+          【テンプレート枠】Scene15 main枠（中央夜空エリア）。左上タイトル金枠と下字幕金枠を覆わない。
+          【色】夜空の濃紺背景、カップ=淡い水色、針=ソフトホワイト、警告=控えめなオレンジ。
+          【情報量】1枚1メッセージ。画像内文字は「14時」など4文字以内。
+          【絵柄】夜寄りフラット図解、太線、ソフトグロー、影は薄く。
+          【禁止】実在ブランド、ロゴ、人物写真、既存キャラ、英語UI、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
+        audit_points:
+          - カフェインが夜まで届く流れが直感的
+          - main枠内に収まる
+          - 字幕金枠とタイトル金枠を侵食しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 17時のコーヒー余裕なのだ
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: その1杯が今夜効くわ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: えっ！？もう冷めてるじゃん
+        expression: halfOpen
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 半減期は5時間以上ね
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 5時間…22時に効いてるじゃん
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 寝つきが30分遅れる目安よ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: それじゃ眠気の死神なのだ
+        expression: halfOpen
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 例え強いけど近いわ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 14時以降カフェインアウト
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 安全圏は14時前まで
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.3
+  - id: s07
     role: outro
     title_text: 今夜やる3つだけ
     scene_goal: 風呂・スマホ・朝光浴の3行動に整理する
@@ -510,17 +624,15 @@ scenes:
     mini_punchline: 3つで夜更かし民の質が変わる
     visual_role: mainは「90分前風呂・別室スマホ・朝日浴」のチェックリスト
     main:
-      kind: bullets
-      items:
-        - 寝る90分前に風呂
-        - スマホは別室に置く
-        - 起きたら朝日を浴びる
+      kind: image
+      asset: assets/s07_main.png
+      caption: 今夜やる3つだけ
     sub: null
     visual_asset_plan:
       - slot: main
         purpose: 今夜やる3アクションをチェックリスト風に並べて記憶させる
         insert_timing: シーン冒頭
-        asset_path: assets/s06_main.png
+        asset_path: assets/s07_main.png
         imagegen_prompt: |-
           【用途】s06 main枠。3つの行動を一気に頭に入れるチェックリスト図解。
           【主題】3行のチェックボックス。①90分前風呂②スマホ別室③朝日浴び。
@@ -530,6 +642,8 @@ scenes:
           【情報量】1枚1メッセージ。日本語短文6文字以内×3。
           【絵柄】夜寄りフラット、太線、角丸、影は薄く。
           【禁止】ブランド、ロゴ、人物、既存キャラ、英語UI、長文。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 3行が同じ太さで揃う
           - 各行のアイコンが異なる
@@ -595,7 +709,7 @@ scenes:
         expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.30
-  - id: s07
+  - id: s08
     role: cta
     title_text: 寝る前1つで変わる
     scene_goal: 確認＋1つ選ぶ＋逃がすの2アクション以上で締める
@@ -608,17 +722,15 @@ scenes:
     mini_punchline: 今夜の自分から変わる
     visual_role: mainは「予定→1つ選ぶ→逃がす」のフロー
     main:
-      kind: bullets
-      items:
-        - 風呂の時間を確認
-        - 寝る90分前を予定化
-        - スマホは別室に逃がす
+      kind: image
+      asset: assets/s08_main.png
+      caption: 寝る前1つで変わる
     sub: null
     visual_asset_plan:
       - slot: main
         purpose: 視聴後すぐ取れる3アクションをフロー図で残像化する
         insert_timing: シーン冒頭
-        asset_path: assets/s07_main.png
+        asset_path: assets/s08_main.png
         imagegen_prompt: |-
           【用途】s07 main枠。寝る前にやる3アクションをフロー図で示し、視聴後の行動に直結させる。
           【主題】3つの円形ステップ「確認→予定→逃がす」、矢印で連結。各円に小アイコン（時計・カレンダー・別室スマホ）。
@@ -628,6 +740,8 @@ scenes:
           【情報量】1枚1メッセージ。日本語短文4文字以内×3。
           【絵柄】夜寄りフラット、円は均等、影は薄く。
           【禁止】ブランド、ロゴ、人物、既存キャラ、英語UI、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 3ステップが時系列で読める
           - 円とアイコンが揃う

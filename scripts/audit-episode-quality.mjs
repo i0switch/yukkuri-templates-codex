@@ -61,9 +61,51 @@ const QUALITY_PROFILE = {
   minImageHeight: 360,
 };
 
+const VISUAL_TYPES = new Set([
+  'hook_poster',
+  'boke_visual',
+  'tsukkomi_visual',
+  'myth_vs_fact',
+  'danger_simulation',
+  'before_after',
+  'three_step_board',
+  'checklist_panel',
+  'ranking_board',
+  'ui_mockup_safe',
+  'flowchart_scene',
+  'contrast_card',
+  'meme_like_diagram',
+  'mini_story_scene',
+  'final_action_card',
+]);
+
+const REQUIRED_IMAGE_LEDGER_FIELDS = [
+  'scene_id',
+  'slot',
+  'purpose',
+  'adoption_reason',
+  'imagegen_prompt',
+  'imagegen_model',
+  'visual_type',
+  'supports_moment',
+];
+const BANNED_IMAGE_ASSET_METADATA_KEYS = [
+  'generated_asset_sheet',
+  'asset_sheet',
+  'sprite_sheet',
+  'crop_from',
+  'source_rect',
+  'parent_image',
+  'cut_from',
+  'derived_from_sheet',
+  'local_project_generated_asset',
+];
+
 const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
   /local[_ -]?project[_ -]?generated/i,
   /local[_ -]?generated/i,
+  /generated locally by codex image[_ -]?gen skill/i,
+  /generated in local project workspace/i,
   /fallback/i,
   /placeholder/i,
   /smoke/i,
@@ -105,6 +147,14 @@ const REQUIRED_IMAGE_PROMPT_TERMS = [
   {key: 'composition', patterns: [/中央/, /左/, /右/, /上部/, /下部/, /構図/, /配置/, /分割/]},
   {key: 'spacing', patterns: [/余白/, /読みやす/, /見やす/, /シンプル/, /1枚1メッセージ/]},
   {key: 'negative', patterns: [/文字なし/, /細かい文字なし/, /ロゴなし/, /実在人物なし/, /既存キャラクターなし/, /ブランドロゴなし/]},
+];
+
+const REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS = [
+  {key: 'visual_type', patterns: [/visual_type|hook_poster|boke_visual|tsukkomi_visual|myth_vs_fact|danger_simulation|before_after|three_step_board|checklist_panel|ranking_board|ui_mockup_safe|flowchart_scene|contrast_card|meme_like_diagram|mini_story_scene|final_action_card/]},
+  {key: 'composition_type', patterns: [/composition_type|前景|中景|背景|視線/i]},
+  {key: 'dialogue_support', patterns: [/会話|掛け合い|セリフ|ボケ|ツッコミ|誤解|訂正|補強|supports_moment/i]},
+  {key: 'remotion_overlay', patterns: [/Remotion|重ねる|画像内の文字|長文は入れない/]},
+  {key: 'bottom_safety', patterns: [/下部20%|字幕とキャラ|キャラ表示用|左右キャラ/]},
 ];
 
 const normalizeText = (value) =>
@@ -263,6 +313,13 @@ const missingImagePromptTerms = (prompt) => {
   );
 };
 
+const missingDialogueSupportPromptTerms = (prompt) => {
+  const text = String(prompt ?? '');
+  return REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS.filter((requirement) => !requirement.patterns.some((pattern) => pattern.test(text))).map(
+    (requirement) => requirement.key,
+  );
+};
+
 const imageSourceText = (asset) =>
   [
     asset?.source_site,
@@ -283,6 +340,18 @@ const isApprovedImageSource = (asset) => {
   return APPROVED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(text));
 };
 
+const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+
+const imageGenerationIdentifiers = (asset) =>
+  ['source_url', 'generation_id']
+    .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
+    .filter(({value}) => value !== '');
+
+const primaryImageGenerationSource = (asset) => {
+  const source = imageGenerationIdentifiers(asset)[0];
+  return source ? `${source.field}:${source.value}` : '';
+};
+
 const hasSceneMetadata = (scene) =>
   typeof scene.scene_goal === 'string' &&
   scene.scene_goal.trim() !== '' &&
@@ -300,7 +369,21 @@ const hasVisualAssetPlan = (scene) =>
       typeof plan.slot === 'string' &&
       plan.slot.trim() !== '' &&
       typeof plan.purpose === 'string' &&
-      plan.purpose.trim() !== '',
+      plan.purpose.trim() !== '' &&
+      Array.isArray(plan.supports_dialogue) &&
+      plan.supports_dialogue.length > 0 &&
+      typeof plan.supports_moment === 'string' &&
+      plan.supports_moment.trim() !== '' &&
+      VISUAL_TYPES.has(plan.visual_type) &&
+      typeof plan.composition_type === 'string' &&
+      plan.composition_type.trim() !== '' &&
+      isPlainObject(plan.image_direction) &&
+      typeof plan.image_direction.foreground === 'string' &&
+      plan.image_direction.foreground.trim() !== '' &&
+      typeof plan.image_direction.midground === 'string' &&
+      plan.image_direction.midground.trim() !== '' &&
+      typeof plan.image_direction.background === 'string' &&
+      plan.image_direction.background.trim() !== '',
   );
 
 const hasReferenceMetadata = (scene) =>
@@ -597,6 +680,24 @@ const audit = async () => {
     const uniqueImageAssets = new Set(
       imageScenes.flatMap((scene) => [scene.main, scene.sub]).filter((content) => content?.kind === 'image').map((content) => content.asset),
     );
+    const uniqueGenerationSources = new Set(
+      [...uniqueImageAssets]
+        .map((assetPath) => metaEntries.get(String(assetPath ?? '').replaceAll('\\', '/')))
+        .map(primaryImageGenerationSource)
+        .filter(Boolean),
+    );
+    if (uniqueImageAssets.size > 0 && hasOwn(meta ?? {}, 'generated_asset_sheet')) {
+      pushIssue(errors, 'error', 'generated-asset-sheet', 'generated_asset_sheet is not allowed when image assets are present; generate each image separately', {
+        generated_asset_sheet: meta.generated_asset_sheet,
+        unique_image_assets: uniqueImageAssets.size,
+      });
+    }
+    if (uniqueImageAssets.size > 0 && uniqueGenerationSources.size !== uniqueImageAssets.size) {
+      pushIssue(errors, 'error', 'generation-source-count-mismatch', 'unique image assets must have one unique source_url or generation_id each', {
+        unique_image_assets: uniqueImageAssets.size,
+        unique_generation_sources: uniqueGenerationSources.size,
+      });
+    }
     if (script.scenes.length >= QUALITY_PROFILE.longEpisodeSceneThreshold && uniqueImageAssets.size < QUALITY_PROFILE.minImageCountForLongEpisode) {
       pushIssue(errors, 'error', 'too-few-images', 'long episodes need enough distinct image assets to avoid static-card fatigue', {
         scenes: script.scenes.length,
@@ -625,6 +726,7 @@ const audit = async () => {
 
     const weakImagePrompts = [];
     const incompleteImagePrompts = [];
+    const incompleteDialogueSupportPrompts = [];
     for (const scene of script.scenes) {
       for (const key of ['main', 'sub']) {
         const content = scene[key];
@@ -639,6 +741,10 @@ const audit = async () => {
         if (missing.length > 0) {
           incompleteImagePrompts.push({scene: scene.id, slot: key, asset: content.asset, missing, prompt});
         }
+        const dialogueMissing = missingDialogueSupportPromptTerms(prompt);
+        if (dialogueMissing.length > 0) {
+          incompleteDialogueSupportPrompts.push({scene: scene.id, slot: key, asset: content.asset, missing: dialogueMissing, prompt});
+        }
       }
     }
     if (weakImagePrompts.length > 0) {
@@ -650,6 +756,12 @@ const audit = async () => {
       pushIssue(errors, 'error', 'incomplete-imagegen-prompt', 'imagegen prompts must include template/tone/composition/spacing/negative constraints', {
         assets: incompleteImagePrompts.slice(0, 12),
         required_prompt_terms: REQUIRED_IMAGE_PROMPT_TERMS.map((requirement) => requirement.key),
+      });
+    }
+    if (incompleteDialogueSupportPrompts.length > 0) {
+      pushIssue(errors, 'error', 'incomplete-dialogue-support-imagegen-prompt', 'imagegen prompts must support concrete yukkuri/zundamon dialogue moments, not generic icon cards', {
+        assets: incompleteDialogueSupportPrompts.slice(0, 12),
+        required_prompt_terms: REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS.map((requirement) => requirement.key),
       });
     }
 
@@ -665,8 +777,19 @@ const audit = async () => {
 
     const scenesWithoutVisualAssetPlan = script.scenes.filter((scene) => !hasVisualAssetPlan(scene)).map((scene) => scene.id);
     if (scenesWithoutVisualAssetPlan.length > 0) {
-      pushIssue(errors, 'error', 'missing-visual-asset-plan', 'each scene needs visual_asset_plan for asset density and audit handoff', {
+      pushIssue(errors, 'error', 'missing-visual-asset-plan', 'each scene needs visual_asset_plan with image_direction, visual_type, supports_dialogue, and supports_moment for asset density and audit handoff', {
         scenes: scenesWithoutVisualAssetPlan,
+      });
+    }
+
+    const planVisualTypes = script.scenes
+      .flatMap((scene) => (Array.isArray(scene.visual_asset_plan) ? scene.visual_asset_plan : []))
+      .map((plan) => plan.visual_type)
+      .filter(Boolean);
+    if (planVisualTypes.length >= 4 && new Set(planVisualTypes).size < 3) {
+      pushIssue(errors, 'error', 'low-visual-type-variety', 'visual_type must vary across scenes so GPT-Image-2 does not produce samey generic diagrams', {
+        visual_types: planVisualTypes,
+        unique_visual_types: [...new Set(planVisualTypes)],
       });
     }
 
@@ -674,7 +797,11 @@ const audit = async () => {
     const incompleteLedgerAssets = [];
     const disallowedAssetSources = [];
     const unapprovedAssetSources = [];
+    const bannedImageAssetMetadata = [];
+    const duplicateImagegenSources = [];
     const weakImageFiles = [];
+    const invalidDialogueSupportLedger = [];
+    const imageSourceOwners = new Map();
     for (const [file, asset] of metaEntries.entries()) {
       if (!file.startsWith('assets/')) {
         continue;
@@ -683,16 +810,55 @@ const audit = async () => {
       if (!isSpecificAssetPrompt(description)) {
         vagueMetaAssets.push({file, description});
       }
-      const missingLedgerFields = ['scene_id', 'slot', 'purpose', 'adoption_reason', 'imagegen_prompt', 'imagegen_model'].filter(
+      const missingLedgerFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter(
         (field) => typeof asset[field] !== 'string' || asset[field].trim() === '',
       );
+      if (!isPlainObject(asset.image_direction)) {
+        missingLedgerFields.push('image_direction');
+      }
+      if (!Array.isArray(asset.supports_dialogue) || asset.supports_dialogue.length === 0) {
+        missingLedgerFields.push('supports_dialogue');
+      }
+      if (imageGenerationIdentifiers(asset).length === 0) {
+        missingLedgerFields.push('source_url or generation_id');
+      }
       if (missingLedgerFields.length > 0) {
         incompleteLedgerAssets.push({file, missing: missingLedgerFields});
+      }
+      const bannedKeys = BANNED_IMAGE_ASSET_METADATA_KEYS.filter((key) => hasOwn(asset, key));
+      if (bannedKeys.length > 0) {
+        bannedImageAssetMetadata.push({file, banned_keys: bannedKeys});
+      }
+      for (const {field, value} of imageGenerationIdentifiers(asset)) {
+        const key = `${field}:${value}`;
+        const owner = imageSourceOwners.get(key);
+        if (owner) {
+          duplicateImagegenSources.push({file, first_file: owner.file, field, value});
+        } else {
+          imageSourceOwners.set(key, {file});
+        }
       }
       if (isDisallowedImageSource(asset)) {
         disallowedAssetSources.push({file, source: imageSourceText(asset)});
       } else if (!isApprovedImageSource(asset)) {
         unapprovedAssetSources.push({file, source: imageSourceText(asset)});
+      }
+      if (!VISUAL_TYPES.has(asset.visual_type)) {
+        invalidDialogueSupportLedger.push({file, field: 'visual_type', value: asset.visual_type, allowed: [...VISUAL_TYPES]});
+      }
+      if (Array.isArray(asset.supports_dialogue) && asset.supports_dialogue.some((id) => typeof id !== 'string' || !/^s\d+_l\d+/i.test(id))) {
+        invalidDialogueSupportLedger.push({file, field: 'supports_dialogue', value: asset.supports_dialogue});
+      }
+      if (isPlainObject(asset.image_direction)) {
+        const safety = asset.image_direction.layout_safety;
+        if (safety?.keep_bottom_20_percent_empty !== true || safety?.avoid_character_area !== true) {
+          invalidDialogueSupportLedger.push({
+            file,
+            field: 'image_direction.layout_safety',
+            value: safety,
+            expected: 'keep_bottom_20_percent_empty and avoid_character_area must be true',
+          });
+        }
       }
 
       try {
@@ -724,8 +890,24 @@ const audit = async () => {
       });
     }
     if (incompleteLedgerAssets.length > 0) {
-      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need scene_id, slot, purpose, adoption_reason, imagegen_prompt, and imagegen_model', {
+      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need scene_id, slot, purpose, adoption_reason, imagegen_prompt, imagegen_model, image_direction, visual_type, supports_dialogue, supports_moment, and source_url or generation_id', {
         assets: incompleteLedgerAssets.slice(0, 12),
+      });
+    }
+    if (invalidDialogueSupportLedger.length > 0) {
+      pushIssue(errors, 'error', 'invalid-dialogue-support-ledger', 'meta.json image entries must use supported visual_type values and safe dialogue-linked image_direction metadata', {
+        assets: invalidDialogueSupportLedger.slice(0, 20),
+      });
+    }
+    if (bannedImageAssetMetadata.length > 0) {
+      pushIssue(errors, 'error', 'banned-image-asset-metadata', 'image entries must not contain sheet/crop provenance metadata', {
+        assets: bannedImageAssetMetadata.slice(0, 20),
+        banned_keys: BANNED_IMAGE_ASSET_METADATA_KEYS,
+      });
+    }
+    if (duplicateImagegenSources.length > 0) {
+      pushIssue(errors, 'error', 'duplicate-imagegen-source', 'multiple image assets share the same source_url or generation_id', {
+        assets: duplicateImagegenSources.slice(0, 20),
       });
     }
     if (disallowedAssetSources.length > 0) {

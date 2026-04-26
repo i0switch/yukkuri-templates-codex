@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "episode_id": "ep907-zm-free-ai-tool-sprawl",
+  "checked_at": "2026-04-26T04:09:25.980Z",
+  "basis": "_reference/image_prompt_pack",
+  "issues": [],
+  "images": [
+    {
+      "asset": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    },
+    {
+      "asset": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "verdict": "PASS",
+      "notes": "image_directionから展開され、Scene枠、会話補強、下部余白、禁止要素を含む"
+    }
+  ]
+}

@@ -38,9 +38,11 @@
 - 1セリフは25文字以内を安全上限にする。
 - 各シーンにテンプレート枠メモを入れる。
 - 各シーンに `scene_format`、`hook_type`、`viewer_misunderstanding`、`number_or_example` を入れる。
-- 各シーンに `visual_asset_plan` と具体的な `imagegen_prompt` を入れる。
-- `imagegen_prompt` は【用途】【主題】【構図】【テンプレート枠】【色】【情報量】【絵柄】【禁止】の8項目で書く。
+- 各シーンに `visual_asset_plan`、`image_direction`、具体的な `imagegen_prompt` を入れる。
+- `imagegen_prompt` は `image_direction` から展開し、GPT-Image-2向け完成プロンプト形式で書く。
+- `visual_asset_plan` には `supports_dialogue`、`supports_moment`、`visual_type`、`composition_type` を必ず入れる。
 - `imagegen_prompt` には scene_id、slot、main/sub の役割、字幕帯とキャラ位置を避ける余白を必ず入れる。
+- `imagegen_prompt` には、台本内のどの掛け合いを補強するか、前景/中景/背景、Remotionで文字を重ねる場所を必ず入れる。
 - 画像内文字は原則なし。入れる場合も日本語3〜6文字までにし、細かい説明文はセリフへ逃がす。
 - episode共通の `meta.image_style` を決め、全シーンの `imagegen_prompt` の絵柄と色味を揃える。
 - BGM、SE、字幕装飾、ズームなどの確定演出は書かない。
@@ -168,17 +170,34 @@ NG:
 - visual_asset_plan：
   - slot：
   - purpose：
+  - supports_dialogue：
+  - supports_moment：
+  - visual_type：
+  - composition_type：
   - insert_timing：
   - asset_path：
+  - image_direction：
+    - dialogue_role：
+    - scene_emotion：
+    - image_should_support：
+    - key_visual_sentence：
+    - main_subject：
+    - foreground：
+    - midground：
+    - background：
+    - color_palette：
+    - text_strategy：
+    - layout_safety：
+    - must_not_include：
+    - quality_bar：
   - imagegen_prompt：
-    【用途】
-    【主題】
-    【構図】
-    【テンプレート枠】
-    【色】
-    【情報量】
-    【絵柄】
-    【禁止】
+    ゆっくり解説 / ずんだもん解説動画のSceneXX main/sub枠で使う高品質ビジュアル素材。
+    この画像は、台本内の「補強する掛け合い」を視覚的に補強する。
+    visual_typeは「...」、composition_typeは「...」。
+    画面構図：
+    デザイン：
+    文字方針：
+    禁止：
   - audit_points：
 - reference_style：
 - reference_beat：
@@ -214,8 +233,11 @@ NG:
 - シーン形式が3種類以上ある：YES / NO
 - 例え話または小ネタが2回以上ある：YES / NO
 - visual_asset_plan と imagegen_prompt を維持している：YES / NO
-- imagegen_prompt が8項目フォーマットを満たしている：YES / NO
+- image_direction があり会話の補強瞬間が明確：YES / NO
+- visual_type と composition_type が適切：YES / NO
+- imagegen_prompt がGPT-Image-2向け完成形式を満たしている：YES / NO
 - imagegen_prompt に scene_id、slot、テンプレート枠、字幕帯/キャラ回避がある：YES / NO
+- imagegen_prompt に補強する掛け合い、前景/中景/背景、Remotion重ね文字の余白がある：YES / NO
 - 画像内文字が0文字または日本語3〜6文字以内になっている：YES / NO
 - episode全体の image_style と各画像プロンプトの絵柄が揃っている：YES / NO
 - 最終行動が2アクション以上で具体的：YES / NO

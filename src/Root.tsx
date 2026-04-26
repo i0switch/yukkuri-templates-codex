@@ -1,6 +1,6 @@
 import React from 'react';
-import {Composition} from 'remotion';
-import {CHARACTER_PAIRS, VIDEO} from './design-tokens';
+import {cancelRender, Composition, continueRender, delayRender, staticFile} from 'remotion';
+import {CHARACTER_PAIRS, KEIFONT_PUBLIC_PATH, VIDEO} from './design-tokens';
 import {loadEpisodeRenderData} from './lib/load-script';
 import {episodeCompositions} from './generated/episode-compositions';
 import {DebugChars} from './compositions/_DebugChars';
@@ -60,8 +60,40 @@ const sceneEntries = [
 ] as const;
 
 export const Root: React.FC = () => {
+  const keifontUrl = staticFile(KEIFONT_PUBLIC_PATH);
+  const [fontHandle] = React.useState(() => delayRender('Loading Keifont'));
+
+  React.useEffect(() => {
+    let cancelled = false;
+    document.fonts
+      .load('48px "Keifont"')
+      .then(() => {
+        if (!cancelled) {
+          continueRender(fontHandle);
+        }
+      })
+      .catch((error) => {
+        if (!cancelled) {
+          cancelRender(error);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [fontHandle]);
+
   return (
     <>
+      <style>
+        {`
+          @font-face {
+            font-family: "Keifont";
+            src: url("${keifontUrl}") format("truetype");
+            font-display: block;
+          }
+        `}
+      </style>
       <Composition id="DebugChars" component={DebugChars} {...common} />
       {episodeCompositions.map((episodeRenderData) => (
         <Composition

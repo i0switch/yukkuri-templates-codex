@@ -24,7 +24,7 @@ import {Scene21} from '../compositions/Scene21';
 import {findActiveLine, pickLipsyncExpression, type TimedDialogueLine} from './Lipsync';
 import type {EpisodeRenderData, EpisodeScene, SceneContent, TypographyConfig, TypographyFamily} from '../lib/load-script';
 import {AutoFitText} from './AutoFitText';
-import {FONT_FAMILIES} from '../design-tokens';
+import {FONT_FAMILIES, TEXT_STROKE} from '../design-tokens';
 import {SubtitleBar} from './SubtitleBar';
 import type {Rect, SlotRenderer} from '../types';
 
@@ -60,18 +60,50 @@ type ResolvedTypography = {
   subtitle: string;
   content: string;
   title: string;
+  subtitleStroke: TextStroke;
+  contentStroke: TextStroke;
+  titleStroke: TextStroke;
+};
+
+type TextStroke = {
+  color: string;
+  width: number;
 };
 
 const resolveFamily = (family: TypographyFamily | undefined) => FONT_FAMILIES[family ?? 'gothic'];
 
+const resolveStroke = (
+  defaults: TextStroke,
+  color: string | undefined,
+  width: number | undefined,
+): TextStroke => ({
+  color: typeof color === 'string' && color.trim() !== '' ? color : defaults.color,
+  width: typeof width === 'number' && Number.isFinite(width) && width >= 0 ? width : defaults.width,
+});
+
 const resolveTypography = (
   metaTypography: TypographyConfig | undefined,
   sceneTypography: TypographyConfig | undefined,
-  lineTypography: Pick<TypographyConfig, 'subtitle_family'> | undefined,
+  lineTypography: Pick<TypographyConfig, 'subtitle_family' | 'subtitle_stroke_color' | 'subtitle_stroke_width'> | undefined,
 ): ResolvedTypography => ({
   subtitle: resolveFamily(lineTypography?.subtitle_family ?? sceneTypography?.subtitle_family ?? metaTypography?.subtitle_family),
   content: resolveFamily(sceneTypography?.content_family ?? metaTypography?.content_family),
   title: resolveFamily(sceneTypography?.title_family ?? metaTypography?.title_family),
+  subtitleStroke: resolveStroke(
+    TEXT_STROKE.subtitle,
+    lineTypography?.subtitle_stroke_color ?? sceneTypography?.subtitle_stroke_color ?? metaTypography?.subtitle_stroke_color,
+    lineTypography?.subtitle_stroke_width ?? sceneTypography?.subtitle_stroke_width ?? metaTypography?.subtitle_stroke_width,
+  ),
+  contentStroke: resolveStroke(
+    TEXT_STROKE.content,
+    sceneTypography?.content_stroke_color ?? metaTypography?.content_stroke_color,
+    sceneTypography?.content_stroke_width ?? metaTypography?.content_stroke_width,
+  ),
+  titleStroke: resolveStroke(
+    TEXT_STROKE.title,
+    sceneTypography?.title_stroke_color ?? metaTypography?.title_stroke_color,
+    sceneTypography?.title_stroke_width ?? metaTypography?.title_stroke_width,
+  ),
 });
 
 const cardStyle: React.CSSProperties = {
@@ -89,7 +121,7 @@ const cardStyle: React.CSSProperties = {
   boxShadow: '0 20px 48px rgba(8,58,78,0.12)',
 };
 
-const renderText = (text: string, fontFamily: string): SlotRenderer => (rect: Rect) => (
+const renderText = (text: string, fontFamily: string, stroke: TextStroke): SlotRenderer => (rect: Rect) => (
   <div style={cardStyle}>
     <AutoFitText
       text={text}
@@ -102,11 +134,13 @@ const renderText = (text: string, fontFamily: string): SlotRenderer => (rect: Re
       fontWeight={800}
       color="#123646"
       textAlign="center"
+      textStrokeColor={stroke.color}
+      textStrokeWidth={stroke.width}
     />
   </div>
 );
 
-const renderBullets = (items: string[], fontFamily: string): SlotRenderer => (rect: Rect) => (
+const renderBullets = (items: string[], fontFamily: string, stroke: TextStroke): SlotRenderer => (rect: Rect) => (
   <div style={cardStyle}>
     <AutoFitText
       text={items.map((item) => `• ${item}`).join('\n')}
@@ -119,11 +153,19 @@ const renderBullets = (items: string[], fontFamily: string): SlotRenderer => (re
       fontWeight={700}
       color="#123646"
       textAlign="left"
+      textStrokeColor={stroke.color}
+      textStrokeWidth={stroke.width}
     />
   </div>
 );
 
-const renderImage = (assetPath: string, publicDir: string, fontFamily: string, caption?: string): SlotRenderer => (rect: Rect) => (
+const renderImage = (
+  assetPath: string,
+  publicDir: string,
+  fontFamily: string,
+  stroke: TextStroke,
+  caption?: string,
+): SlotRenderer => (rect: Rect) => (
   <div
     style={{
       ...cardStyle,
@@ -154,29 +196,36 @@ const renderImage = (assetPath: string, publicDir: string, fontFamily: string, c
         fontWeight={700}
         color="#0f3d4b"
         textAlign="center"
+        textStrokeColor={stroke.color}
+        textStrokeWidth={stroke.width}
       />
     ) : null}
   </div>
 );
 
-const renderContent = (content: SceneContent | null | undefined, publicDir: string, fontFamily: string) => {
+const renderContent = (
+  content: SceneContent | null | undefined,
+  publicDir: string,
+  fontFamily: string,
+  stroke: TextStroke,
+) => {
   if (!content) {
     return null;
   }
 
   switch (content.kind) {
     case 'text':
-      return renderText(content.text, fontFamily);
+      return renderText(content.text, fontFamily, stroke);
     case 'bullets':
-      return renderBullets(content.items, fontFamily);
+      return renderBullets(content.items, fontFamily, stroke);
     case 'image':
-      return renderImage(content.asset, publicDir, fontFamily, content.caption);
+      return renderImage(content.asset, publicDir, fontFamily, stroke, content.caption);
     default:
       return null;
   }
 };
 
-const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string): SlotRenderer | null => {
+const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string, stroke: TextStroke): SlotRenderer | null => {
   if (!scene.title_text) {
     return null;
   }
@@ -200,12 +249,14 @@ const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string):
       color={textColor}
       textAlign="center"
       textShadow={shadow}
+      textStrokeColor={stroke.color}
+      textStrokeWidth={stroke.width}
       style={{padding: '4px 12px', boxSizing: 'border-box'}}
     />
   );
 };
 
-const renderBarSubtitle = (text: string, fontFamily: string): SlotRenderer => (rect: Rect) => (
+const renderBarSubtitle = (text: string, fontFamily: string, stroke: TextStroke): SlotRenderer => (rect: Rect) => (
   (() => {
     const subtitleRect = rect as Rect & {
       bg?: string;
@@ -234,12 +285,14 @@ const renderBarSubtitle = (text: string, fontFamily: string): SlotRenderer => (r
         fontSize={subtitleRect.fontSize}
         fontWeight={subtitleRect.fontWeight}
         fontFamily={fontFamily}
+        textStrokeColor={stroke.color}
+        textStrokeWidth={stroke.width}
       />
     );
   })()
 );
 
-const renderOverlaySubtitle = (template: string, text: string, fontFamily: string): SlotRenderer => {
+const renderOverlaySubtitle = (template: string, text: string, fontFamily: string, stroke: TextStroke): SlotRenderer => {
   const darkText = DARK_OVERLAY_SUBTITLE_TEMPLATES.has(template);
   return (rect: Rect) => (
     <AutoFitText
@@ -254,6 +307,8 @@ const renderOverlaySubtitle = (template: string, text: string, fontFamily: strin
       color={darkText ? '#1A1A1A' : '#FFFFFF'}
       textAlign="center"
       textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
+      textStrokeColor={stroke.color}
+      textStrokeWidth={stroke.width}
       style={{padding: '16px 36px', boxSizing: 'border-box'}}
     />
   );
@@ -323,10 +378,14 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
           leftCharacter={{character: script.characters.left.character as never, expression: leftExpression as never}}
           rightCharacter={{character: script.characters.right.character as never, expression: rightExpression as never}}
           subtitleText={subtitleText}
-          subtitleSlot={useBarSubtitle ? renderBarSubtitle(subtitleText, typography.subtitle) : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle)}
-          titleSlot={renderTitle(scene, sceneTemplate, typography.title)}
-          mainContentSlot={renderContent(scene.main, script.public_dir, typography.content)}
-          subContentSlot={renderContent(scene.sub ?? null, script.public_dir, typography.content)}
+          subtitleSlot={
+            useBarSubtitle
+              ? renderBarSubtitle(subtitleText, typography.subtitle, typography.subtitleStroke)
+              : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle, typography.subtitleStroke)
+          }
+          titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
+          mainContentSlot={renderContent(scene.main, script.public_dir, typography.content, typography.contentStroke)}
+          subContentSlot={renderContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
           showAreaLabels={false}
         />
       </div>

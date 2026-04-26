@@ -18,6 +18,8 @@ type Props = {
   wordBreak?: 'normal' | 'break-word' | 'break-all';
   letterSpacing?: number;
   textShadow?: string;
+  textStrokeColor?: string;
+  textStrokeWidth?: number;
   style?: React.CSSProperties;
 };
 
@@ -159,6 +161,8 @@ export const AutoFitText: React.FC<Props> = ({
   wordBreak = 'break-all',
   letterSpacing = 0,
   textShadow,
+  textStrokeColor,
+  textStrokeWidth = 0,
   style,
 }) => {
   const fit = resolveFontSize({
@@ -170,6 +174,28 @@ export const AutoFitText: React.FC<Props> = ({
     lineHeight,
     letterSpacing,
   });
+  const strokeWidth = Math.max(0, textStrokeWidth);
+  const strokeShadow =
+    textStrokeColor && strokeWidth > 0
+      ? [
+          `${strokeWidth}px 0 0 ${textStrokeColor}`,
+          `-${strokeWidth}px 0 0 ${textStrokeColor}`,
+          `0 ${strokeWidth}px 0 ${textStrokeColor}`,
+          `0 -${strokeWidth}px 0 ${textStrokeColor}`,
+          `${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
+          `-${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
+          `${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
+          `-${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
+        ].join(', ')
+      : undefined;
+  const resolvedTextShadow = [textShadow, strokeShadow].filter(Boolean).join(', ') || undefined;
+  const strokeStyle: React.CSSProperties =
+    textStrokeColor && strokeWidth > 0
+      ? {
+          WebkitTextStroke: `${strokeWidth}px ${textStrokeColor}`,
+          paintOrder: 'stroke fill',
+        }
+      : {};
 
   return (
     <div
@@ -196,7 +222,8 @@ export const AutoFitText: React.FC<Props> = ({
           whiteSpace,
           wordBreak,
           letterSpacing,
-          textShadow,
+          textShadow: resolvedTextShadow,
+          ...strokeStyle,
         }}
       >
         {text}

@@ -7,8 +7,11 @@ export const SUB_CAPABLE_TEMPLATES = new Set(['Scene02', 'Scene03', 'Scene10', '
 export const TITLE_CAPABLE_TEMPLATES = new Set(['Scene04', 'Scene08', 'Scene12', 'Scene15', 'Scene16', 'Scene17', 'Scene19']);
 export const CONTENT_KINDS = new Set(['text', 'bullets', 'image']);
 export const TYPOGRAPHY_FAMILIES = new Set(['gothic', 'mincho']);
-export const TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'content_family', 'title_family']);
-export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family']);
+export const TYPOGRAPHY_FAMILY_KEYS = new Set(['subtitle_family', 'content_family', 'title_family']);
+export const TYPOGRAPHY_COLOR_KEYS = new Set(['subtitle_stroke_color', 'content_stroke_color', 'title_stroke_color']);
+export const TYPOGRAPHY_WIDTH_KEYS = new Set(['subtitle_stroke_width', 'content_stroke_width', 'title_stroke_width']);
+export const TYPOGRAPHY_KEYS = new Set([...TYPOGRAPHY_FAMILY_KEYS, ...TYPOGRAPHY_COLOR_KEYS, ...TYPOGRAPHY_WIDTH_KEYS]);
+export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'subtitle_stroke_color', 'subtitle_stroke_width']);
 export const KEIFONT_PUBLIC_PATH = path.join('public', 'fonts', 'keifont.ttf');
 
 const countChars = (value) => Array.from(value).length;
@@ -22,6 +25,40 @@ const normalizeAssetPath = (assetPath) => assetPath.replaceAll('\\', '/');
 const pushIssue = (issues, level, pathName, message) => {
   issues.push({level, path: pathName, message});
 };
+
+const IMAGE_ASSET_EXTENSION_RE = /\.(png|jpe?g|webp|gif)$/i;
+const REQUIRED_IMAGE_LEDGER_FIELDS = [
+  'scene_id',
+  'slot',
+  'purpose',
+  'adoption_reason',
+  'imagegen_prompt',
+  'imagegen_model',
+  'image_direction',
+  'visual_type',
+  'supports_moment',
+];
+const BANNED_IMAGE_ASSET_METADATA_KEYS = [
+  'generated_asset_sheet',
+  'asset_sheet',
+  'sprite_sheet',
+  'crop_from',
+  'source_rect',
+  'parent_image',
+  'cut_from',
+  'derived_from_sheet',
+  'local_project_generated_asset',
+];
+const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
+  /local[_ -]?project[_ -]?generated/i,
+  /local[_ -]?generated/i,
+  /generated locally by codex image[_ -]?gen skill/i,
+  /generated in local project workspace/i,
+  /fallback/i,
+  /placeholder/i,
+  /smoke/i,
+  /card/i,
+];
 
 const isSafeEpisodeRelativePath = (filePath) => {
   if (typeof filePath !== 'string' || filePath.trim() === '') {
@@ -75,13 +112,27 @@ const validateTypographyConfig = ({config, pathName, errors, warnings, usedExpli
     if (!allowedKeys.has(key)) {
       const level = pathName.includes('.dialogue[') && TYPOGRAPHY_KEYS.has(key) ? 'error' : 'error';
       const message = pathName.includes('.dialogue[')
-        ? 'dialogue typography only supports subtitle_family'
-        : 'typography only supports subtitle_family, content_family, and title_family';
+        ? 'dialogue typography only supports subtitle_family, subtitle_stroke_color, and subtitle_stroke_width'
+        : 'typography only supports family and stroke keys for subtitle, content, and title';
       pushIssue(level === 'error' ? errors : warnings, level, `${pathName}.${key}`, message);
       continue;
     }
 
     const value = config[key];
+    if (TYPOGRAPHY_COLOR_KEYS.has(key)) {
+      if (typeof value !== 'string' || value.trim() === '') {
+        pushIssue(errors, 'error', `${pathName}.${key}`, `typography stroke color must be a non-empty string: ${value ?? '<missing>'}`);
+      }
+      continue;
+    }
+
+    if (TYPOGRAPHY_WIDTH_KEYS.has(key)) {
+      if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 24) {
+        pushIssue(errors, 'error', `${pathName}.${key}`, `typography stroke width must be a number from 0 to 24: ${value ?? '<missing>'}`);
+      }
+      continue;
+    }
+
     if (!TYPOGRAPHY_FAMILIES.has(value)) {
       pushIssue(errors, 'error', `${pathName}.${key}`, `typography family must be gothic or mincho: ${value ?? '<missing>'}`);
       continue;
@@ -157,6 +208,33 @@ const collectReferencedFiles = (script) => {
   return files;
 };
 
+const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+
+const isImageLedgerFile = (file) => {
+  const normalized = normalizeAssetPath(String(file ?? ''));
+  return normalized.startsWith('assets/') && IMAGE_ASSET_EXTENSION_RE.test(normalized);
+};
+
+const imageSourceText = (asset) =>
+  [
+    asset?.source_site,
+    asset?.source_type,
+    asset?.source_url,
+    asset?.title,
+    asset?.license,
+    asset?.generator,
+    asset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string')
+    .join(' ');
+
+const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
+
+const imageGenerationIdentifiers = (asset) =>
+  ['source_url', 'generation_id']
+    .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
+    .filter(({value}) => value !== '');
+
 const validateMetaLedger = ({script, meta, errors}) => {
   if (!meta) {
     return;
@@ -167,6 +245,9 @@ const validateMetaLedger = ({script, meta, errors}) => {
     return;
   }
 
+  const references = collectReferencedFiles(script);
+  const referencedImageFiles = new Set(references.filter((reference) => reference.kind === 'image').map((reference) => normalizeAssetPath(reference.file)));
+  const imageSourceOwners = new Map();
   const assetEntries = new Map();
   for (const [index, asset] of meta.assets.entries()) {
     if (!isPlainObject(asset)) {
@@ -179,14 +260,86 @@ const validateMetaLedger = ({script, meta, errors}) => {
       continue;
     }
 
-    assetEntries.set(normalizeAssetPath(asset.file), {asset, index});
+    const normalizedFile = normalizeAssetPath(asset.file);
+    assetEntries.set(normalizedFile, {asset, index});
 
     if (typeof asset.license !== 'string' || asset.license.trim() === '') {
       pushIssue(errors, 'error', `meta.json.assets[${index}].license`, `${asset.file}: license is required`);
     }
+
+    const isImageAsset = referencedImageFiles.has(normalizedFile) || isImageLedgerFile(normalizedFile);
+    if (!isImageAsset) {
+      continue;
+    }
+
+    const missingImageFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter((field) => {
+      if (field === 'image_direction') {
+        return !isPlainObject(asset[field]);
+      }
+      return typeof asset[field] !== 'string' || asset[field].trim() === '';
+    });
+    if (!Array.isArray(asset.supports_dialogue) || asset.supports_dialogue.length === 0) {
+      missingImageFields.push('supports_dialogue');
+    }
+    const hasIndividualGenerationSource = imageGenerationIdentifiers(asset).length > 0;
+    if (!hasIndividualGenerationSource) {
+      missingImageFields.push('source_url or generation_id');
+    }
+    if (missingImageFields.length > 0) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image ledger entry requires ${missingImageFields.join(', ')}`,
+      );
+    }
+
+    const bannedKeys = BANNED_IMAGE_ASSET_METADATA_KEYS.filter((key) => hasOwn(asset, key));
+    if (bannedKeys.length > 0) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image assets must not use sheet/crop metadata: ${bannedKeys.join(', ')}`,
+      );
+    }
+
+    if (isDisallowedImageSource(asset)) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image source must be verifiable image generation provenance, not local/fallback/placeholder wording`,
+      );
+    }
+
+    for (const {field, value} of imageGenerationIdentifiers(asset)) {
+      const key = `${field}:${value}`;
+      const owner = imageSourceOwners.get(key);
+      if (owner) {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].${field}`,
+          `duplicate-imagegen-source: ${asset.file} and ${owner.file} share ${field}: ${value}`,
+        );
+      } else {
+        imageSourceOwners.set(key, {file: asset.file, index});
+      }
+    }
   }
 
-  for (const reference of collectReferencedFiles(script)) {
+  const hasImageAssets = referencedImageFiles.size > 0 || [...assetEntries.keys()].some(isImageLedgerFile);
+  if (hasImageAssets && hasOwn(meta, 'generated_asset_sheet')) {
+    pushIssue(
+      errors,
+      'error',
+      'meta.json.generated_asset_sheet',
+      'generated_asset_sheet is not allowed when image assets are present; generate each image as an individual asset',
+    );
+  }
+
+  for (const reference of references) {
     const normalized = normalizeAssetPath(reference.file);
     const entry = assetEntries.get(normalized);
     if (!entry) {

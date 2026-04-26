@@ -73,6 +73,7 @@ const prepareTargetPublicDir = async () => {
   await copyDirectory(path.join(publicDir, 'episodes', episodeId), path.join(targetPublicDir, 'episodes', episodeId));
 };
 
+run(process.execPath, ['scripts/select-bgm.mjs', episodeId]);
 run(process.execPath, ['scripts/pre-render-gate.mjs', episodeId]);
 run(process.execPath, ['scripts/build-episode.mjs', episodeId]);
 run(process.execPath, ['scripts/generate-episode-compositions.mjs', episodeId]);

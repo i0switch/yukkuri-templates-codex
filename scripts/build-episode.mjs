@@ -5,6 +5,7 @@ import {parseDocument} from 'yaml';
 import {buildAudioForEpisode} from './voicevox.mjs';
 import {buildAudioForEpisodeAquesTalk} from './aquestalk.mjs';
 import {formatEpisodeValidationResult, validateEpisodeScript} from './lib/episode-validator.mjs';
+import {loadScriptPromptPack} from './lib/load-script-prompt-pack.mjs';
 
 const rootDir = process.cwd();
 const episodeId = process.argv[2];
@@ -59,19 +60,25 @@ const assertValidScript = async (script, stage) => {
 };
 
 const assertQualityGate = () => {
-  const result = spawnSync(process.execPath, ['scripts/audit-episode-quality.mjs', episodeId], {
-    cwd: rootDir,
-    encoding: 'utf8',
-    windowsHide: true,
-  });
-  if (result.stdout) {
-    console.log(result.stdout.trim());
-  }
-  if (result.stderr) {
-    console.error(result.stderr.trim());
-  }
-  if (result.status !== 0) {
-    throw new Error('Pre-build quality gate failed');
+  for (const args of [
+    ['scripts/validate-script-generation-route.mjs'],
+    ['scripts/audit-script-quality.mjs', episodeId],
+    ['scripts/audit-episode-quality.mjs', episodeId],
+  ]) {
+    const result = spawnSync(process.execPath, args, {
+      cwd: rootDir,
+      encoding: 'utf8',
+      windowsHide: true,
+    });
+    if (result.stdout) {
+      console.log(result.stdout.trim());
+    }
+    if (result.stderr) {
+      console.error(result.stderr.trim());
+    }
+    if (result.status !== 0) {
+      throw new Error(`Pre-build quality gate failed: node ${args.join(' ')}`);
+    }
   }
 };
 
@@ -138,10 +145,7 @@ const buildRenderJson = async (script) => {
 
   const renderData = {
     ...script,
-    scenes: script.scenes.map((scene) => ({
-      ...scene,
-      scene_template: scene.scene_template ?? script.meta.scene_template,
-    })),
+    scenes: script.scenes.map(({scene_template: _sceneTemplate, ...scene}) => scene),
     public_dir: `episodes/${episodeId}`,
     base_layout_width: 1920,
     base_layout_height: 1080,
@@ -150,6 +154,7 @@ const buildRenderJson = async (script) => {
   await fs.writeFile(renderJsonPath, JSON.stringify(renderData, null, 2));
 };
 
+await loadScriptPromptPack(rootDir);
 const document = await readYamlDocument();
 const script = document.toJS();
 await assertValidScript(script, 'Pre-build');

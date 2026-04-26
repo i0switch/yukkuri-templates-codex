@@ -1,0 +1,1545 @@
+meta:
+  id: ep907-zm-free-ai-tool-sprawl
+  title: 無料AIツールを増やしすぎると作業が止まる理由
+  layout_template: Scene10
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: AIツールを試しすぎて作業が進まない初心者
+  tone: 短く刺すが、不安だけで終わらせず対処まで出す
+  bgm_mood: 軽く緊張感のある解説用
+  voice_engine: voicevox
+  target_duration_sec: 180
+  image_style: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+    subtitle_stroke_color: "#000000"
+    subtitle_stroke_width: 6
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 視聴者代表。浅い理解、驚き、ボケを担当。語尾は自然にのだ。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。冷静に刺し、対処まで落とす。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 無料AIツールの増やしすぎが作業停止を招くと刺す
+    scene_format: 誤解訂正型
+    viewer_question: 無料なら増やしてよいのか
+    viewer_misunderstanding: 無料ツールは多いほど得だと思う
+    number_or_example: 5個開いて選ぶだけで10分溶ける
+    visual_role: ずんだもんが無料ツールを増やし、めたんが作業停止を指摘する瞬間
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: ツールが多いほど止まる
+      asset_requirements:
+        description: 画面を埋める多数のAIカード
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが無料ツールを増やし、めたんが作業停止を指摘する瞬間」を視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「calendar_warning_closeup」。
+
+          画面構図：
+          前景には画面を埋める多数のAIカードを大きく配置する。
+          中景には5個開いて選ぶだけで10分溶けるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 迷う
+        - 探す
+        - 止まる
+    visual_asset_plan:
+      - slot: main
+        purpose: 無料AIツールの増やしすぎが作業停止を招くと刺す
+        supports_dialogue:
+          - s01_l01
+          - s01_l02
+        supports_moment: ずんだもんが無料ツールを増やし、めたんが作業停止を指摘する瞬間
+        visual_type: hook_poster
+        composition_type: calendar_warning_closeup
+        insert_timing: s01 の l01 直前から表示
+        asset: assets/s01_main.png
+        image_direction:
+          scene_id: s01
+          dialogue_role: 冒頭フック
+          scene_emotion: 焦り
+          visual_type: hook_poster
+          composition_type: calendar_warning_closeup
+          image_should_support: ずんだもんが無料ツールを増やし、めたんが作業停止を指摘する瞬間
+          key_visual_sentence: 画面を埋める多数のAIカード
+          main_subject: 画面を埋める多数のAIカード
+          secondary_subjects:
+            - 5個開いて選ぶだけで10分溶ける
+            - 迷う / 探す / 止まる
+          foreground: 画面を埋める多数のAIカード
+          midground: 5個開いて選ぶだけで10分溶ける
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - ツールが多いほど止まる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが無料ツールを増やし、めたんが作業停止を指摘する瞬間」を視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「calendar_warning_closeup」。
+
+          画面構図：
+          前景には画面を埋める多数のAIカードを大きく配置する。
+          中景には5個開いて選ぶだけで10分溶けるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 無料AI、全部入れるのだ
+        expression: happy
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: それで作業が止まるわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: え、増やすほど得じゃん
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 選ぶ時間が増えるのよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 使う前に迷うのだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 五個開けば十分溶ける
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 時間の課金じゃん
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 今日は一つに絞る話よ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 無料沼から出るのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: まず増やしすぎを止めるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s02
+    role: body
+    scene_goal: ツール切替のたびに集中が切れると示す
+    scene_format: あるある型
+    viewer_question: 複数ツールを使い分ければよいのか
+    viewer_misunderstanding: 用途別に使えば効率化できると思う
+    number_or_example: ログイン、貼り直し、保存で数分ずつ消える
+    visual_role: ずんだもんが使い分けを主張し、めたんが切替コストを出す瞬間
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 切替だけで時間が消える
+      asset_requirements:
+        description: 矢印と時計で表したツール切替
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが使い分けを主張し、めたんが切替コストを出す瞬間」を視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「trial_to_paid_transition」。
+
+          画面構図：
+          前景には矢印と時計で表したツール切替を大きく配置する。
+          中景にはログイン、貼り直し、保存で数分ずつ消えるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 比較
+        - ログイン
+        - 迷子
+    visual_asset_plan:
+      - slot: main
+        purpose: ツール切替のたびに集中が切れると示す
+        supports_dialogue:
+          - s02_l01
+          - s02_l02
+        supports_moment: ずんだもんが使い分けを主張し、めたんが切替コストを出す瞬間
+        visual_type: danger_simulation
+        composition_type: trial_to_paid_transition
+        insert_timing: s02 の l01 直前から表示
+        asset: assets/s02_main.png
+        image_direction:
+          scene_id: s02
+          dialogue_role: あるある型
+          scene_emotion: 誤解訂正
+          visual_type: danger_simulation
+          composition_type: trial_to_paid_transition
+          image_should_support: ずんだもんが使い分けを主張し、めたんが切替コストを出す瞬間
+          key_visual_sentence: 矢印と時計で表したツール切替
+          main_subject: 矢印と時計で表したツール切替
+          secondary_subjects:
+            - ログイン、貼り直し、保存で数分ずつ消える
+            - 比較 / ログイン / 迷子
+          foreground: 矢印と時計で表したツール切替
+          midground: ログイン、貼り直し、保存で数分ずつ消える
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 切替だけで時間が消える
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが使い分けを主張し、めたんが切替コストを出す瞬間」を視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「trial_to_paid_transition」。
+
+          画面構図：
+          前景には矢印と時計で表したツール切替を大きく配置する。
+          中景にはログイン、貼り直し、保存で数分ずつ消えるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 用途別に使えば最強なのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 切替コストを忘れてるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: コストって何なのだ？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: ログインと貼り直しね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 地味にめんどい
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 保存場所も散らかるのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 出力が行方不明なのだ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 探す時間が一番重いわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 便利のはずが迷路だね
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 一作業一ルートが強いの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s03
+    role: body
+    scene_goal: 無料枠の制限が途中停止を招くと示す
+    scene_format: 失敗エピソード型
+    viewer_question: 無料枠だけで十分か
+    viewer_misunderstanding: 無料なら制限は気にしなくてよい
+    number_or_example: 大事な出力中に上限で止まることがある
+    visual_role: ずんだもんが無料を喜び、めたんが上限停止を出す瞬間
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 無料枠で詰まる
+      asset_requirements:
+        description: FREEロックと進捗バー
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが無料を喜び、めたんが上限停止を出す瞬間」を視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「small_charges_big_loss」。
+
+          画面構図：
+          前景にはFREEロックと進捗バーを大きく配置する。
+          中景には大事な出力中に上限で止まることがあるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 回数
+        - 速度
+        - 保存
+    visual_asset_plan:
+      - slot: main
+        purpose: 無料枠の制限が途中停止を招くと示す
+        supports_dialogue:
+          - s03_l01
+          - s03_l02
+        supports_moment: ずんだもんが無料を喜び、めたんが上限停止を出す瞬間
+        visual_type: before_after
+        composition_type: small_charges_big_loss
+        insert_timing: s03 の l01 直前から表示
+        asset: assets/s03_main.png
+        image_direction:
+          scene_id: s03
+          dialogue_role: 失敗エピソード型
+          scene_emotion: 誤解訂正
+          visual_type: before_after
+          composition_type: small_charges_big_loss
+          image_should_support: ずんだもんが無料を喜び、めたんが上限停止を出す瞬間
+          key_visual_sentence: FREEロックと進捗バー
+          main_subject: FREEロックと進捗バー
+          secondary_subjects:
+            - 大事な出力中に上限で止まることがある
+            - 回数 / 速度 / 保存
+          foreground: FREEロックと進捗バー
+          midground: 大事な出力中に上限で止まることがある
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 無料枠で詰まる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが無料を喜び、めたんが上限停止を出す瞬間」を視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「small_charges_big_loss」。
+
+          画面構図：
+          前景にはFREEロックと進捗バーを大きく配置する。
+          中景には大事な出力中に上限で止まることがあるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 無料枠で十分なのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 途中で止まることがあるわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 作業中に？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 回数や速度に上限があるの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 締切前だと詰むのだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: だから本番用を決める
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 試す用と本番用を分ける？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: そう。遊び場を混ぜない
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 無料は試験場なのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 本番は安定を選ぶわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s04
+    role: body
+    scene_goal: ツール増加で出力ファイルと履歴が散ると示す
+    scene_format: あるある型
+    viewer_question: なぜ後から見つからないのか
+    viewer_misunderstanding: 作ったものは後で探せると思う
+    number_or_example: 3ツールで3つの保存場所になる
+    visual_role: ずんだもんが後で探すと言い、めたんが保存先分散を刺す瞬間
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 出力が散らかる
+      asset_requirements:
+        description: 複数フォルダに散らばるAI出力
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが後で探すと言い、めたんが保存先分散を刺す瞬間」を視覚的に補強する。
+          visual_typeは「flowchart_scene」、composition_typeは「hidden_cancel_path」。
+
+          画面構図：
+          前景には複数フォルダに散らばるAI出力を大きく配置する。
+          中景には3ツールで3つの保存場所になるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 保存先
+        - 名前
+        - 履歴
+    visual_asset_plan:
+      - slot: main
+        purpose: ツール増加で出力ファイルと履歴が散ると示す
+        supports_dialogue:
+          - s04_l01
+          - s04_l02
+        supports_moment: ずんだもんが後で探すと言い、めたんが保存先分散を刺す瞬間
+        visual_type: flowchart_scene
+        composition_type: hidden_cancel_path
+        insert_timing: s04 の l01 直前から表示
+        asset: assets/s04_main.png
+        image_direction:
+          scene_id: s04
+          dialogue_role: あるある型
+          scene_emotion: 誤解訂正
+          visual_type: flowchart_scene
+          composition_type: hidden_cancel_path
+          image_should_support: ずんだもんが後で探すと言い、めたんが保存先分散を刺す瞬間
+          key_visual_sentence: 複数フォルダに散らばるAI出力
+          main_subject: 複数フォルダに散らばるAI出力
+          secondary_subjects:
+            - 3ツールで3つの保存場所になる
+            - 保存先 / 名前 / 履歴
+          foreground: 複数フォルダに散らばるAI出力
+          midground: 3ツールで3つの保存場所になる
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 出力が散らかる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが後で探すと言い、めたんが保存先分散を刺す瞬間」を視覚的に補強する。
+          visual_typeは「flowchart_scene」、composition_typeは「hidden_cancel_path」。
+
+          画面構図：
+          前景には複数フォルダに散らばるAI出力を大きく配置する。
+          中景には3ツールで3つの保存場所になるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 出力は後で探すのだ
+        expression: calm
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: その後でが危ないわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: どこかにはあるでしょ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 三ツールなら三保存先よ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 宝探し始まるのだ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 名前も履歴もバラバラね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 机に紙をばら撒く感じ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 近いわ。しかも見えない紙ね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 保存場所を決めるのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 作る前に決めるのがコツよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s05
+    role: body
+    scene_goal: 中盤再フック。まず1ツール1用途を固定して作業を進める
+    scene_format: 手順型
+    viewer_question: どう絞ればよいか
+    viewer_misunderstanding: 最高のツール探しを先にする
+    number_or_example: 記事下書きなら1ツールに固定
+    visual_role: ずんだもんが最強探しを始め、めたんが一用途固定に戻す瞬間
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 一つ目を固定する
+      asset_requirements:
+        description: 一本のきれいな作業ルート
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが最強探しを始め、めたんが一用途固定に戻す瞬間」を視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「renewal_date_rule」。
+
+          画面構図：
+          前景には一本のきれいな作業ルートを大きく配置する。
+          中景には記事下書きなら1ツールに固定が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 用途
+        - 入力
+        - 出力
+    visual_asset_plan:
+      - slot: main
+        purpose: 中盤再フック。まず1ツール1用途を固定して作業を進める
+        supports_dialogue:
+          - s05_l01
+          - s05_l02
+        supports_moment: ずんだもんが最強探しを始め、めたんが一用途固定に戻す瞬間
+        visual_type: three_step_board
+        composition_type: renewal_date_rule
+        insert_timing: s05 の l01 直前から表示
+        asset: assets/s05_main.png
+        image_direction:
+          scene_id: s05
+          dialogue_role: 手順型
+          scene_emotion: 誤解訂正
+          visual_type: three_step_board
+          composition_type: renewal_date_rule
+          image_should_support: ずんだもんが最強探しを始め、めたんが一用途固定に戻す瞬間
+          key_visual_sentence: 一本のきれいな作業ルート
+          main_subject: 一本のきれいな作業ルート
+          secondary_subjects:
+            - 記事下書きなら1ツールに固定
+            - 用途 / 入力 / 出力
+          foreground: 一本のきれいな作業ルート
+          midground: 記事下書きなら1ツールに固定
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 一つ目を固定する
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが最強探しを始め、めたんが一用途固定に戻す瞬間」を視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「renewal_date_rule」。
+
+          画面構図：
+          前景には一本のきれいな作業ルートを大きく配置する。
+          中景には記事下書きなら1ツールに固定が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 最強ツールを探すのだ
+        expression: happy
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 先に用途を一つ決めるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 最強じゃなくて用途？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 記事下書きなら一つでいい
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 比較は後回しなのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: まず完成物を出すのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 中盤の答え出たのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 道具探しは作業じゃないわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 刺さる言い方なのだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 完成してから増やすの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s06
+    role: body
+    scene_goal: AI作業の最低ワークフローを3点に絞る
+    scene_format: チェックリスト型
+    viewer_question: 最初に何を決めるべきか
+    viewer_misunderstanding: プロンプトだけ決めればよい
+    number_or_example: 入力、出力、保存先の3点
+    visual_role: ずんだもんがプロンプトだけ見るが、めたんが保存先まで含める瞬間
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 三点だけ決める
+      asset_requirements:
+        description: 入力、出力、保存先の三点チェック
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんがプロンプトだけ見るが、めたんが保存先まで含める瞬間」を視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_icon_checklist」。
+
+          画面構図：
+          前景には入力、出力、保存先の三点チェックを大きく配置する。
+          中景には入力、出力、保存先の3点が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 入力
+        - 出力
+        - 保存
+    visual_asset_plan:
+      - slot: main
+        purpose: AI作業の最低ワークフローを3点に絞る
+        supports_dialogue:
+          - s06_l01
+          - s06_l02
+        supports_moment: ずんだもんがプロンプトだけ見るが、めたんが保存先まで含める瞬間
+        visual_type: checklist_panel
+        composition_type: three_icon_checklist
+        insert_timing: s06 の l01 直前から表示
+        asset: assets/s06_main.png
+        image_direction:
+          scene_id: s06
+          dialogue_role: チェックリスト型
+          scene_emotion: 誤解訂正
+          visual_type: checklist_panel
+          composition_type: three_icon_checklist
+          image_should_support: ずんだもんがプロンプトだけ見るが、めたんが保存先まで含める瞬間
+          key_visual_sentence: 入力、出力、保存先の三点チェック
+          main_subject: 入力、出力、保存先の三点チェック
+          secondary_subjects:
+            - 入力、出力、保存先の3点
+            - 入力 / 出力 / 保存
+          foreground: 入力、出力、保存先の三点チェック
+          midground: 入力、出力、保存先の3点
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 三点だけ決める
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんがプロンプトだけ見るが、めたんが保存先まで含める瞬間」を視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_icon_checklist」。
+
+          画面構図：
+          前景には入力、出力、保存先の三点チェックを大きく配置する。
+          中景には入力、出力、保存先の3点が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: プロンプトだけ磨くのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 三点セットで見るわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 三点って何？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 入力、出力、保存先よ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 保存先も最初なのだ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 最後に迷わないためね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 出口を先に決めるのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: そう。作業の線を引くの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: これなら散らからない
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 増やす前に線を作るわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s07
+    role: outro
+    scene_goal: 使わないAIツールを週1で整理する習慣へ落とす
+    scene_format: まとめ再フック型
+    viewer_question: 増えたツールはどう減らすか
+    viewer_misunderstanding: 全部残しておけば安心と思う
+    number_or_example: 1週間使わないショートカットを2つ消す
+    visual_role: ずんだもんが全部残そうとして、めたんが未使用削除へ戻す瞬間
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 週一で捨てる
+      asset_requirements:
+        description: カレンダーとゴミ箱で整理する図
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが全部残そうとして、めたんが未使用削除へ戻す瞬間」を視覚的に補強する。
+          visual_typeは「mini_story_scene」、composition_typeは「monthly_review_scene」。
+
+          画面構図：
+          前景にはカレンダーとゴミ箱で整理する図を大きく配置する。
+          中景には1週間使わないショートカットを2つ消すが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 未使用
+        - 重複
+        - 保留
+    visual_asset_plan:
+      - slot: main
+        purpose: 使わないAIツールを週1で整理する習慣へ落とす
+        supports_dialogue:
+          - s07_l01
+          - s07_l02
+        supports_moment: ずんだもんが全部残そうとして、めたんが未使用削除へ戻す瞬間
+        visual_type: mini_story_scene
+        composition_type: monthly_review_scene
+        insert_timing: s07 の l01 直前から表示
+        asset: assets/s07_main.png
+        image_direction:
+          scene_id: s07
+          dialogue_role: まとめ再フック型
+          scene_emotion: 誤解訂正
+          visual_type: mini_story_scene
+          composition_type: monthly_review_scene
+          image_should_support: ずんだもんが全部残そうとして、めたんが未使用削除へ戻す瞬間
+          key_visual_sentence: カレンダーとゴミ箱で整理する図
+          main_subject: カレンダーとゴミ箱で整理する図
+          secondary_subjects:
+            - 1週間使わないショートカットを2つ消す
+            - 未使用 / 重複 / 保留
+          foreground: カレンダーとゴミ箱で整理する図
+          midground: 1週間使わないショートカットを2つ消す
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 週一で捨てる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが全部残そうとして、めたんが未使用削除へ戻す瞬間」を視覚的に補強する。
+          visual_typeは「mini_story_scene」、composition_typeは「monthly_review_scene」。
+
+          画面構図：
+          前景にはカレンダーとゴミ箱で整理する図を大きく配置する。
+          中景には1週間使わないショートカットを2つ消すが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部残せば安心なのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 安心じゃなくて騒音よ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: ツールが騒ぐのだ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 選択肢が頭を埋めるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 通知みたいなものか
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 週一で二つ消すの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 二つならできるのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 未使用と重複からね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 迷ったら保留？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 使う予定がなければ消すわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s08
+    role: cta
+    scene_goal: 視聴後に1ツールを固定し2ショートカットを消す
+    scene_format: 手順型
+    viewer_question: 今日なにをすればよいか
+    viewer_misunderstanding: 全部比較してから決める
+    number_or_example: 今日使う1ツールを決め、2つ消す
+    visual_role: ずんだもんが全部比較しようとして、めたんが今日の一つに絞る瞬間
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 一つ残して二つ消す
+      asset_requirements:
+        description: 一つのAIツール、保存されたワークフロー、削除された二つのショートカット
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが全部比較しようとして、めたんが今日の一つに絞る瞬間」を視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「final_action_flow」。
+
+          画面構図：
+          前景には一つのAIツール、保存されたワークフロー、削除された二つのショートカットを大きく配置する。
+          中景には今日使う1ツールを決め、2つ消すが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ずんだもん解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 選ぶ
+        - 保存
+        - 削除
+    visual_asset_plan:
+      - slot: main
+        purpose: 視聴後に1ツールを固定し2ショートカットを消す
+        supports_dialogue:
+          - s08_l01
+          - s08_l02
+        supports_moment: ずんだもんが全部比較しようとして、めたんが今日の一つに絞る瞬間
+        visual_type: final_action_card
+        composition_type: final_action_flow
+        insert_timing: s08 の l01 直前から表示
+        asset: assets/s08_main.png
+        image_direction:
+          scene_id: s08
+          dialogue_role: 最終行動提示
+          scene_emotion: 安心
+          visual_type: final_action_card
+          composition_type: final_action_flow
+          image_should_support: ずんだもんが全部比較しようとして、めたんが今日の一つに絞る瞬間
+          key_visual_sentence: 一つのAIツール、保存されたワークフロー、削除された二つのショートカット
+          main_subject: 一つのAIツール、保存されたワークフロー、削除された二つのショートカット
+          secondary_subjects:
+            - 今日使う1ツールを決め、2つ消す
+            - 選ぶ / 保存 / 削除
+          foreground: 一つのAIツール、保存されたワークフロー、削除された二つのショートカット
+          midground: 今日使う1ツールを決め、2つ消す
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 一つ残して二つ消す
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene10 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「ずんだもんが全部比較しようとして、めたんが今日の一つに絞る瞬間」を視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「final_action_flow」。
+
+          画面構図：
+          前景には一つのAIツール、保存されたワークフロー、削除された二つのショートカットを大きく配置する。
+          中景には今日使う1ツールを決め、2つ消すが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセントにする。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene10のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今日全部比べるのだ？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 今日使う一つを選ぶの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 一つだけでいいのだ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: その作業手順を保存するわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 入力と保存先も書く
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: それから二つ消すの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 無料沼を浅くするのだ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 作業が戻れば勝ちね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 一つ残して二つ消す
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 今日の行動はそれよ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+
+
+

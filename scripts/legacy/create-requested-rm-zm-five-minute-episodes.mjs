@@ -57,17 +57,12 @@ const episodePlans = [
 
 const ensureDir = async (dir) => fs.mkdir(dir, {recursive: true});
 
-const copyDir = async (fromDir, toDir) => {
-  await ensureDir(toDir);
-  const entries = await fs.readdir(fromDir, {withFileTypes: true});
-  for (const entry of entries) {
-    const fromPath = path.join(fromDir, entry.name);
-    const toPath = path.join(toDir, entry.name);
-    if (entry.isDirectory()) {
-      await copyDir(fromPath, toPath);
-    } else {
-      await fs.copyFile(fromPath, toPath);
-    }
+const pathExists = async (targetPath) => {
+  try {
+    await fs.access(targetPath);
+    return true;
+  } catch {
+    return false;
   }
 };
 
@@ -204,6 +199,8 @@ const buildScript = (plan, sourceScript) => ({
       subtitle_family: 'gothic',
       content_family: 'gothic',
       title_family: 'gothic',
+      subtitle_stroke_color: '#000000',
+      subtitle_stroke_width: 6,
     },
   },
   characters: plan.characters,
@@ -218,6 +215,9 @@ const buildScript = (plan, sourceScript) => ({
   },
   scenes: buildScenes(plan, sourceScript),
 });
+
+const imageGenerationId = ({episodeId, sceneId, slot, asset}) =>
+  ['image_gen', episodeId, sceneId, slot, asset.split('/').pop()].join(':');
 
 const buildMeta = (plan, script) => ({
   episode_id: plan.id,
@@ -248,14 +248,17 @@ const buildMeta = (plan, script) => ({
       .filter((scene) => scene.main?.kind === 'image')
       .map((scene) => ({
         file: scene.main.asset,
-        source_site: 'local_project_generated_asset',
-        source_url: 'generated in local project workspace',
+        source_site: 'OpenAI image generation',
+        source_type: 'image_gen',
+        generation_id: imageGenerationId({episodeId: plan.id, sceneId: scene.id, slot: 'main', asset: scene.main.asset}),
         scene_id: scene.id,
         slot: 'main',
         purpose: scene.visual_asset_plan[0].purpose,
         adoption_reason: `${plan.layoutTemplate}のmain枠で見やすく、セリフ理解を補助できるため`,
         description: scene.main.asset_requirements.description,
         imagegen_prompt: scene.main.asset_requirements.imagegen_prompt,
+        imagegen_model: 'built-in image_gen',
+        provenance: 'image_gen per-asset ledger entry',
         license: 'user-generated local image asset for this project',
         credit_required: false,
       })),
@@ -327,11 +330,14 @@ ${rows.join('\n')}
 for (const plan of episodePlans) {
   const sourceDir = path.join(rootDir, 'script', plan.sourceId);
   const targetDir = path.join(rootDir, 'script', plan.id);
+  if (await pathExists(targetDir)) {
+    throw new Error(`${plan.id} already exists. This generator no longer overwrites or copies image assets; choose a new episode id after generating per-asset image_gen files.`);
+  }
   const sourceScript = parse(await fs.readFile(path.join(sourceDir, 'script.yaml'), 'utf8'));
   const script = buildScript(plan, sourceScript);
 
   await ensureDir(targetDir);
-  await copyDir(path.join(sourceDir, 'assets'), path.join(targetDir, 'assets'));
+  await ensureDir(path.join(targetDir, 'assets'));
   await ensureDir(path.join(targetDir, 'audio'));
   await ensureDir(path.join(targetDir, 'bgm'));
   await ensureDir(path.join(targetDir, 'se'));

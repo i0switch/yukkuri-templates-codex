@@ -1,4 +1,4 @@
-﻿meta:
+meta:
   id: ep001-rm-fridge-rotten-pattern
   title: 冷蔵庫で食材が早く腐る人の共通点
   layout_template: Scene19
@@ -11,7 +11,8 @@
   bgm_mood: 落ち着いた家事系BGM、明るすぎず邪魔しない
   voice_engine: aquestalk
   target_duration_sec: 180
-  image_style: clean explainer flat illustrations, thick lines, generous whitespace, light pastel palette
+  image_style: clean explainer flat illustrations, thick lines, generous
+    whitespace, light pastel palette
 characters:
   left:
     character: reimu
@@ -35,8 +36,9 @@ scenes:
     mini_punchline: 入れ方で寿命が変わる
     visual_role: mainは「冷蔵庫に入れたのに傷んだ食材」のショックを伝える図解
     main:
-      kind: text
-      text: 冷蔵庫に入れた=安全、は半分ウソ
+      kind: image
+      asset: assets/s01_main.png
+      caption: 冷蔵庫信仰は半分ウソ
     sub: null
     visual_asset_plan:
       - slot: main
@@ -52,6 +54,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は0〜6文字以内。
           【絵柄】太線フラット図解、角丸、余白多め、ゆっくり解説動画向け。
           【禁止】実在ブランド冷蔵庫、ロゴ、人物写真、既存キャラ、英語UI、細かい文字、密な表。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 1枚1メッセージ
           - Scene19のmain（ホワイトボード内）に収まる
@@ -130,8 +134,9 @@ scenes:
     mini_punchline: 奥は冷たく手前はぬるい
     visual_role: mainは「詰め込みすぎで冷気が止まる」を矢印で示す断面図
     main:
-      kind: text
-      text: 詰めるほど冷えない／7割詰めが目安
+      kind: image
+      asset: assets/s02_main.png
+      caption: 詰め込み派の落とし穴
     sub: null
     visual_asset_plan:
       - slot: main
@@ -147,6 +152,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は「7割」など6文字以内。
           【絵柄】太線フラット図解、矢印は太く、影は薄く。
           【禁止】実在ブランド、ロゴ、写真、既存キャラ、英語UI、細かい文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 矢印で冷気の流れが直感的に分かる
           - Scene19のmain枠内に収まる
@@ -225,8 +232,9 @@ scenes:
     mini_punchline: 奥の棚に移すだけ
     visual_role: mainはドアポケに置かれた卵がぬるくなる失敗図解
     main:
-      kind: text
-      text: ドアポケは温度ガチャ／卵牛乳は奥棚へ
+      kind: image
+      asset: assets/s03_main.png
+      caption: ドアポケットに置くと詰む
     sub: null
     visual_asset_plan:
       - slot: main
@@ -242,6 +250,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は「奥」など3文字以内。
           【絵柄】太線フラット、角丸、余白多め。
           【禁止】実在ブランド冷蔵庫の模写、ロゴ、人物、既存キャラ、写真、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 開閉と温度上昇が直感的に分かる
           - 正解の奥棚アイコンが小さく対比表示
@@ -320,8 +330,9 @@ scenes:
     mini_punchline: ラップは仮置き、容器が本命
     visual_role: mainは「ラップ vs 密閉容器」の保存日数を並べた比較図
     main:
-      kind: text
-      text: ラップ＜密閉容器／持ちが1〜2日違う
+      kind: image
+      asset: assets/s04_main.png
+      caption: ラップ巻きで詰む人の特徴
     sub: null
     visual_asset_plan:
       - slot: main
@@ -337,6 +348,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は「+1〜2日」など6文字以内。
           【絵柄】太線フラット、角丸、影は薄く。
           【禁止】実在ブランドの容器の模写、ロゴ、写真、既存キャラ、英語UI、細かい文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 左右比較が瞬間で読める
           - 差分矢印の数字が小さくても読める
@@ -415,8 +428,9 @@ scenes:
     mini_punchline: ここまでで詰む人の型は出た
     visual_role: mainは「冷蔵庫内温度の揺れ」を折れ線で示す簡単グラフ
     main:
-      kind: text
-      text: 開閉で庫内は5度上がることがある
+      kind: image
+      asset: assets/s05_main.png
+      caption: 冷蔵=安全はウソ
     sub: null
     visual_asset_plan:
       - slot: main
@@ -432,6 +446,8 @@ scenes:
           【情報量】1枚1メッセージ。画像内文字は「+5度」「開閉」など6文字以内。
           【絵柄】太線フラット、グリッドは薄く。
           【禁止】実在ブランド、ロゴ、写真、英語UI、密な数値、人物。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 折れ線とスパイクが瞬間で読める
           - 「+5度」が小さくても読める
@@ -498,6 +514,104 @@ scenes:
         pre_pause_sec: 0.06
         post_pause_sec: 0.30
   - id: s06
+    role: body
+    title_text: 温いまま入れる派は詰む
+    scene_goal: 温い食品をそのまま冷蔵庫に入れると庫内温度が上がり周囲が温度ストレスを受けると示す
+    scene_format: 失敗エピソード型
+    viewer_question: 残り物は熱いうちにすぐ冷蔵に入れてもいいか
+    viewer_misunderstanding: 早く入れた方が新鮮、と思い込んでいる
+    boke_or_reaction: 霊夢が「早い方が勝ち」と思い込み
+    reaction_level: L3
+    number_or_example: 1個の温食品で庫内全体がぬるくなる
+    mini_punchline: 粗熱を取ってから入れる
+    visual_role: mainは「温い鍋を冷蔵に入れて庫内温度が上がる」失敗図解
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 温いまま入れる派は詰む
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 温い食品が庫内全体の温度を上げ周囲食材に影響する仕組みを伝える
+        insert_timing: シーン冒頭
+        asset_path: assets/s06_main.png
+        imagegen_prompt: |-
+          【用途】s06 main枠。温い鍋をそのまま冷蔵庫に入れて庫内温度が上がる失敗を伝える。
+          【主題】湯気の出ている鍋が冷蔵庫内に置かれ、周囲の食材に向かう赤い温度上昇矢印。
+          【構図】中央に湯気鍋、周囲の食材アイコンに矢印。下部に小さく「粗熱→OK」の対比アイコン。
+          【テンプレート枠】Scene19 main枠（ホワイトボード内）。タイトル枠と下部机、左右キャラ位置に重要物を置かない。
+          【色】白背景、湯気=ソフトホワイト、温度上昇=薄い赤、対比OK=淡い緑。
+          【情報量】1枚1メッセージ。画像内文字は「粗熱」など3文字以内。
+          【絵柄】太線フラット図解、角丸、余白多め、ゆっくり解説動画向け。
+          【禁止】実在ブランド冷蔵庫、ロゴ、人物写真、既存キャラ、英語UI、細かい文字、密な表。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
+        audit_points:
+          - 温食品が周囲に影響する流れが直感的
+          - main枠内に収まる
+          - キャラ机上部を侵食しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 残り物すぐ冷蔵入れちゃう
+        expression: smile
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 温いまま入れたか？
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 早い方がいいんでしょ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 庫内全体がぬるくなるんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: えっ！？他の食材まで道連れ？
+        expression: halfOpen
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 周囲が温度ストレス受ける
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 1個のせいで全員巻き添え
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 共倒れの典型だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: じゃあ冷ましてから入れる
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 粗熱取ってからが基本だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.3
+  - id: s07
     role: outro
     title_text: 今日やる3つだけ
     scene_goal: 余白・配置・容器の3行動に整理する
@@ -510,17 +624,15 @@ scenes:
     mini_punchline: 3つで腐敗ガチャを抜ける
     visual_role: mainは「3ステップ」のチェックリスト風図解
     main:
-      kind: bullets
-      items:
-        - 奥に余白を残す
-        - 卵牛乳は奥棚に
-        - 残り物は密閉容器
+      kind: image
+      asset: assets/s07_main.png
+      caption: 今日やる3つだけ
     sub: null
     visual_asset_plan:
       - slot: main
         purpose: 今日やる3アクションをチェックリスト風に並べて記憶させる
         insert_timing: シーン冒頭
-        asset_path: assets/s06_main.png
+        asset_path: assets/s07_main.png
         imagegen_prompt: |-
           【用途】s06 main枠。3つの行動を一気に頭に入れるチェックリスト図解。
           【主題】3行のチェックボックス。①余白を残す②卵牛乳は奥棚③残り物は密閉容器。
@@ -530,6 +642,8 @@ scenes:
           【情報量】1枚1メッセージ。日本語短文6文字以内×3。
           【絵柄】太線フラット、角丸、影は薄く。
           【禁止】ブランド、ロゴ、人物、既存キャラ、英語UI、長文。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 3行が同じ太さで揃っている
           - アイコンが行ごとに異なる
@@ -595,7 +709,7 @@ scenes:
         expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.30
-  - id: s07
+  - id: s08
     role: cta
     title_text: 帰宅したら最初にやる
     scene_goal: 確認＋1つ選ぶ＋定位置を決めるの2アクション以上で締める
@@ -608,17 +722,15 @@ scenes:
     mini_punchline: 定位置を決めれば次から詰まない
     visual_role: mainは「帰宅→確認→1つ選ぶ→定位置」のフローチャート
     main:
-      kind: bullets
-      items:
-        - 開けて手前の棚を確認
-        - 食材を1つ選ぶ
-        - 奥棚を定位置にする
+      kind: image
+      asset: assets/s08_main.png
+      caption: 帰宅したら最初にやる
     sub: null
     visual_asset_plan:
       - slot: main
         purpose: 視聴後すぐ取れる3アクションをフロー図で残像化する
         insert_timing: シーン冒頭
-        asset_path: assets/s07_main.png
+        asset_path: assets/s08_main.png
         imagegen_prompt: |-
           【用途】s07 main枠。帰宅後の3アクションをフロー図で示し、視聴後の行動に直結させる。
           【主題】3つの円形ステップ「確認→選ぶ→定位置」、矢印で連結。各円に小アイコン。
@@ -628,6 +740,8 @@ scenes:
           【情報量】1枚1メッセージ。日本語短文4文字以内×3。
           【絵柄】太線フラット、円は均等、影は薄く。
           【禁止】ブランド、ロゴ、人物、既存キャラ、英語UI、密な文字。
+          【トーン】ゆっくり解説動画／ずんだもん解説動画向けの落ち着いたフラット解説図解トーン。
+          【禁止追記】ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし、細かい文字なし、英語UIなし。
         audit_points:
           - 3ステップが時系列で読める
           - 円とアイコンが揃っている
@@ -647,43 +761,43 @@ scenes:
         post_pause_sec: 0.16
       - id: l03
         speaker: left
-        text: 何を確認するの？
+        text: いつも開けてるんだけど
         expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.16
       - id: l04
         speaker: right
-        text: 一番手前のぬるい棚だ
+        text: 今日は手前のぬるい棚を見る
         expression: calm
         pre_pause_sec: 0.06
         post_pause_sec: 0.24
       - id: l05
         speaker: left
-        text: そこ怪しいやつ並んでる
+        text: ぬるい棚って犯人ぽい
         expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.16
       - id: l06
         speaker: right
-        text: 食材を1つ選ぶ
-        expression: calm
+        text: 例え雑だが当たりだぜ
+        expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.16
       - id: l07
         speaker: left
-        text: 卵か牛乳どっち？
+        text: 食材1つ選んで奥に逃がすね
         expression: smile
         pre_pause_sec: 0.06
-        post_pause_sec: 0.20
+        post_pause_sec: 0.2
       - id: l08
         speaker: right
-        text: 卵を奥棚に逃がす
+        text: 卵か牛乳が定番だぜ
         expression: calm
         pre_pause_sec: 0.06
         post_pause_sec: 0.16
       - id: l09
         speaker: left
-        text: 定位置を決めるんだね
+        text: 定位置決めるの引っ越し感
         expression: smile
         pre_pause_sec: 0.06
         post_pause_sec: 0.16
@@ -692,4 +806,4 @@ scenes:
         text: それで次から詰まないんだぜ
         expression: smile
         pre_pause_sec: 0.06
-        post_pause_sec: 0.40
+        post_pause_sec: 0.4

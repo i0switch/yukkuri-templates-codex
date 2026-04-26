@@ -4,7 +4,7 @@
 Claude Code 用プロンプト（`20_prompt_claude-code.md`）との違いは **メイン画像を
 フリー素材サイトから調達する代わりに、Codex の image gen スキルで自前生成する** 点のみ。
 
-前提：`10_video-pipeline.md` と `90_asset-license-memo.md` を既読であること。
+前提：`10_video-pipeline.md`、`90_asset-license-memo.md`、`_reference/script_prompt_pack/` の必須6ファイルを既読であること。
 
 ---
 
@@ -44,7 +44,26 @@ Claude Code 版との差分（太字）：
 
 ## 2. Phase 1 — 台本生成
 
-Claude Code 版 `20_prompt_claude-code.md#2` と完全に同一の手順でやる。差分は以下 1 点のみ：
+Claude Code 版 `20_prompt_claude-code.md#2` と完全に同一の手順でやる。
+ただし新規台本は必ず `_reference/script_prompt_pack/` を使い、`script.md` の監査PASS後だけ `script.yaml` に変換する。
+
+必須順序:
+
+1. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md` を読む
+2. `_reference/script_prompt_pack/01_plan_prompt.md` で構成を作る
+3. `_reference/script_prompt_pack/02_draft_prompt.md` で `script.md` 初稿を作る
+4. `_reference/script_prompt_pack/03_audit_prompt.md` で監査する
+5. FAILなら `_reference/script_prompt_pack/04_rewrite_prompt.md` で修正する
+6. PASS後だけ `_reference/script_prompt_pack/05_yaml_prompt.md` で YAML 化する
+
+禁止:
+
+- 台本本文をJSスクリプトに直書きする
+- `dialogue` 配列を本番生成ルートに持たせる
+- `script.md` を経由せず `script.yaml` / `script.render.json` を作る
+- 監査FAILのまま画像生成、音声生成、レンダーへ進む
+
+差分は以下 1 点のみ：
 
 ### 素材要件の記述を ImageGen 向けプロンプトに寄せる
 

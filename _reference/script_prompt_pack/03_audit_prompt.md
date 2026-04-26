@@ -47,9 +47,11 @@
 - 監査が甘く、改善余地ゼロ扱いになっていないか。
 - テンプレートの main / sub / subtitle / title / avoid_area に合っているか。
 - 全本編シーンに `visual_asset_plan` があるか。
+- 全画像に `image_direction`、`supports_dialogue`、`supports_moment`、`visual_type`、`composition_type` があるか。
 - `imagegen_prompt` が具体的か。
-- `imagegen_prompt` が【用途】【主題】【構図】【テンプレート枠】【色】【情報量】【絵柄】【禁止】の8項目を満たしているか。
+- `imagegen_prompt` がGPT-Image-2向け完成形式を満たしているか。
 - `imagegen_prompt` に scene_id、slot、main/sub の役割、字幕帯とキャラ位置を避ける余白があるか。
+- `imagegen_prompt` に、台本内のどの掛け合いを補強するか、前景/中景/背景、色、光、Remotion重ね文字スペース、禁止要素があるか。
 - main枠とsub枠の画像役割が分かれているか。
 - 画像内文字が0文字または日本語3〜6文字以内に抑えられているか。
 - episode共通の `meta.image_style` と各シーンの `imagegen_prompt` の絵柄が揃っているか。
@@ -135,8 +137,10 @@
 - L3以上のリアクションが動画全体で2回未満。
 - シーン形式が3種類未満。
 - `visual_asset_plan` または `imagegen_prompt` が欠けている。
-- `imagegen_prompt` の8項目フォーマットが欠けている。
+- `image_direction`、`supports_dialogue`、`supports_moment`、`visual_type`、`composition_type` が欠けている。
+- `imagegen_prompt` のGPT-Image-2向け完成形式が欠けている。
 - `imagegen_prompt` にテンプレート枠、色、情報量、禁止要素のいずれかがない。
+- `imagegen_prompt` が白背景中央アイコン、汎用素材、会話と無関係な図解になりそう。
 - 画像内文字が長文、英語UI、細かい表、ブランドロゴ、実在UI模写を要求している。
 - sub枠に複雑な図や長文を要求している。
 - YAML化前提の構造ルールを壊している。
@@ -208,8 +212,8 @@
 | avoid_area |  |  |
 
 ## 9. visual_asset_plan / imagegen_prompt
-| scene_id | 画像量 | 8項目 | 枠/余白 | 色/絵柄 | 文字量 | 判定 | 修正案 |
-|---|---|---|---|---|---|---|---|
+| scene_id | 画像量 | image_direction | visual_type | 会話連動 | GPT-Image-2形式 | 枠/余白 | 色/絵柄 | 文字量 | 判定 | 修正案 |
+|---|---|---|---|---|---|---|---|---|---|---|
 
 ## 10. 口癖・独演チェック
 | 項目 | 結果 | コメント |

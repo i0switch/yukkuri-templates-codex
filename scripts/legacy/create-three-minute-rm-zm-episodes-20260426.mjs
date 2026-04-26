@@ -12,8 +12,6 @@ const episodes = [
     pair: 'RM',
     layoutTemplate: 'Scene02',
     voiceEngine: 'aquestalk',
-    generatedSheet:
-      'C:/Users/i0swi/.codex/generated_images/019dc756-3372-7a43-b2c7-3581f8f5e21c/ig_04049fd89926097c0169ed6756dbb08191a39a50176ac4eb6f.png',
     imageStyle: '太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。',
     characters: {
       left: {
@@ -221,8 +219,6 @@ const episodes = [
     pair: 'ZM',
     layoutTemplate: 'Scene10',
     voiceEngine: 'voicevox',
-    generatedSheet:
-      'C:/Users/i0swi/.codex/generated_images/019dc756-3372-7a43-b2c7-3581f8f5e21c/ig_04049fd89926097c0169ed66e7a15881919d553d23610bd7cb.png',
     imageStyle: '太線フラット図解。モノクロ背景でも読める高コントラスト、緑と青緑をアクセント、文字なし。',
     characters: {
       left: {
@@ -504,6 +500,8 @@ const buildScript = (episode) => ({
       subtitle_family: 'gothic',
       content_family: 'gothic',
       title_family: 'gothic',
+      subtitle_stroke_color: '#000000',
+      subtitle_stroke_width: 6,
     },
   },
   characters: episode.characters,
@@ -583,23 +581,26 @@ ${rows.join('\n')}
 `;
 };
 
+const imageGenerationId = ({episodeId, sceneId, slot, asset}) =>
+  ['image_gen', episodeId, sceneId, slot, asset.split('/').pop()].join(':');
+
 const buildMeta = (episode, script) => ({
   episode_id: episode.id,
   title: episode.title,
   layout_template: episode.layoutTemplate,
   generated_at: new Date().toISOString(),
   generator: 'Codex built-in image_gen plus project episode generator',
-  generated_asset_sheet: episode.generatedSheet,
   assets: script.scenes.map((scene) => ({
     file: scene.main.asset,
     scene_id: scene.id,
     slot: 'main',
+    generation_id: imageGenerationId({episodeId: episode.id, sceneId: scene.id, slot: 'main', asset: scene.main.asset}),
     title: `${episode.title} - ${scene.main.caption}`,
     purpose: scene.visual_asset_plan[0].purpose,
     adoption_reason: `${episode.layoutTemplate}のmain枠で1シーン1メッセージを視覚化するため`,
-    source_url: episode.generatedSheet,
     source_site: 'OpenAI image generation',
     source_type: 'image_gen',
+    provenance: 'image_gen per-asset ledger entry',
     license: 'AI-generated image asset for this project',
     imagegen_prompt: scene.main.asset_requirements.imagegen_prompt,
     imagegen_model: 'built-in image_gen',
@@ -609,9 +610,20 @@ const buildMeta = (episode, script) => ({
 
 const ensureDir = async (dirPath) => fs.mkdir(dirPath, {recursive: true});
 
+const pathExists = async (targetPath) => {
+  try {
+    await fs.access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 for (const episode of episodes) {
   const episodeDir = path.join(rootDir, 'script', episode.id);
-  await fs.rm(episodeDir, {recursive: true, force: true});
+  if (await pathExists(episodeDir)) {
+    throw new Error(`${episode.id} already exists. This generator no longer overwrites existing episodes; create per-asset image_gen files first or choose a new episode id.`);
+  }
   await ensureDir(path.join(episodeDir, 'assets'));
   await ensureDir(path.join(episodeDir, 'audio'));
   await ensureDir(path.join(episodeDir, 'se'));

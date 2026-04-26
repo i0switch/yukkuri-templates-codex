@@ -7,11 +7,21 @@ export interface TypographyConfig {
   subtitle_family?: TypographyFamily;
   content_family?: TypographyFamily;
   title_family?: TypographyFamily;
+  subtitle_stroke_color?: string;
+  subtitle_stroke_width?: number;
+  content_stroke_color?: string;
+  content_stroke_width?: number;
+  title_stroke_color?: string;
+  title_stroke_width?: number;
 }
 
 export interface ImageAssetRequirements {
   description?: string;
   imagegen_prompt?: string;
+  image_direction?: ImageDirection;
+  visual_type?: VisualType;
+  supports_dialogue?: string[];
+  supports_moment?: string;
   style?: string;
   aspect?: string;
   negative?: string;
@@ -22,10 +32,61 @@ export interface ImageAssetRequirements {
   spacing?: string;
 }
 
+export type VisualType =
+  | 'hook_poster'
+  | 'boke_visual'
+  | 'tsukkomi_visual'
+  | 'myth_vs_fact'
+  | 'danger_simulation'
+  | 'before_after'
+  | 'three_step_board'
+  | 'checklist_panel'
+  | 'ranking_board'
+  | 'ui_mockup_safe'
+  | 'flowchart_scene'
+  | 'contrast_card'
+  | 'meme_like_diagram'
+  | 'mini_story_scene'
+  | 'final_action_card';
+
+export interface ImageDirection {
+  scene_id?: string;
+  dialogue_role?: string;
+  scene_emotion?: string;
+  visual_type?: VisualType;
+  composition_type?: string;
+  image_should_support?: string;
+  key_visual_sentence?: string;
+  main_subject?: string;
+  secondary_subjects?: string[];
+  foreground?: string;
+  midground?: string;
+  background?: string;
+  color_palette?: string;
+  text_strategy?: {
+    image_text_allowed?: boolean;
+    image_text_max_words?: number;
+    image_text_examples?: string[];
+    remotion_overlay_text?: string[];
+  };
+  layout_safety?: {
+    keep_bottom_20_percent_empty?: boolean;
+    avoid_character_area?: boolean;
+    avoid_sub_area_overlap?: boolean;
+  };
+  must_not_include?: string[];
+  quality_bar?: string;
+}
+
 export interface VisualAssetPlan {
   required?: boolean;
   slot: 'main' | 'sub' | 'chapter' | 'comparison' | 'summary';
   purpose: string;
+  supports_dialogue?: string[];
+  supports_moment?: string;
+  visual_type?: VisualType;
+  composition_type?: string;
+  image_direction?: ImageDirection;
   insert_timing?: string;
   asset?: string;
   imagegen_prompt?: string;
@@ -56,7 +117,7 @@ export interface DialogueLine {
   speaker: DialogueSpeaker;
   text: string;
   expression?: string;
-  typography?: Pick<TypographyConfig, 'subtitle_family'>;
+  typography?: Pick<TypographyConfig, 'subtitle_family' | 'subtitle_stroke_color' | 'subtitle_stroke_width'>;
   pre_pause_sec?: number;
   post_pause_sec?: number;
   wav_sec?: number;

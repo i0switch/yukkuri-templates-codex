@@ -26,8 +26,12 @@ const run = (args) => {
   }
 };
 
+run(['scripts/validate-script-generation-route.mjs']);
+run(['scripts/audit-script-quality.mjs', episodeId]);
+run(['scripts/audit-image-prompts.mjs', episodeId]);
 run(['scripts/validate-episode-script.mjs', episodeId]);
 run(['scripts/audit-episode-quality.mjs', episodeId]);
+run(['scripts/audit-generated-images.mjs', episodeId]);
 
 const auditsDir = path.join(rootDir, 'script', episodeId, 'audits');
 await fs.mkdir(auditsDir, {recursive: true});
@@ -39,8 +43,17 @@ await fs.writeFile(
       verdict: 'PASS',
       checked_at: new Date().toISOString(),
       checks: [
+        'validate-script-generation-route',
         'validate-episode-script',
+        'audit-script-quality',
+        'audit-image-prompts',
         'audit-episode-quality',
+        'audit-generated-images',
+        'script prompt pack presence',
+        'image prompt pack presence',
+        'image_direction and visual_type are present for every generated image',
+        'image prompts support concrete dialogue moments instead of generic icons',
+        'generated image result audit PASS exists before render',
         'image provenance rejects fallback/local card assets',
         'image files must be inspectable raster assets above delivery thresholds',
         'dialogue rejects known mechanical conversion artifacts',

@@ -20,6 +20,13 @@ const commonMeta = {
   voice_engine: 'voicevox',
   target_duration_sec: 300,
   image_style: 'フラット図解・テキストなし・動画挿入用',
+  typography: {
+    subtitle_family: 'gothic',
+    content_family: 'gothic',
+    title_family: 'gothic',
+    subtitle_stroke_color: '#000000',
+    subtitle_stroke_width: 6,
+  },
 };
 
 const characters = {
@@ -305,7 +312,7 @@ const buildScript = (episode) => ({
   meta: {
     id: episode.id,
     title: episode.title,
-    scene_template: episode.template,
+    layout_template: episode.template,
     ...commonMeta,
   },
   characters,
@@ -402,6 +409,11 @@ ${episode.assets.map(([file, desc]) => `| ${file} | ImageGen PNG | ${desc} | mai
 `;
 };
 
+const sceneIdFromAssetFile = (file) => file.replace(/_main\.png$/u, '');
+
+const imageGenerationId = ({episodeId, sceneId, slot, asset}) =>
+  ['image_gen', episodeId, sceneId, slot, asset.split('/').pop()].join(':');
+
 const buildMeta = (episode) => ({
   episode_id: episode.id,
   generated_at: new Date().toISOString(),
@@ -421,20 +433,31 @@ const buildMeta = (episode) => ({
       license: bgm.license,
       credit_required: false,
     },
-    ...episode.assets.map(([file, description]) => ({
-      file: `assets/${file}`,
-      source_site: 'OpenAI image generation',
-      source_url: 'generated locally by Codex image_gen skill',
-      description,
-      imagegen_prompt: makeImagePrompt({
-        caption: description,
-        description,
-        template: episode.template,
+    ...episode.assets.map(([file, description]) => {
+      const sceneId = sceneIdFromAssetFile(file);
+      const assetPath = `assets/${file}`;
+      return {
+        file: assetPath,
+        source_site: 'OpenAI image generation',
+        source_type: 'image_gen',
+        generation_id: imageGenerationId({episodeId: episode.id, sceneId, slot: 'main', asset: assetPath}),
+        scene_id: sceneId,
         slot: 'main',
-      }),
-      license: 'user-generated AI asset for this project',
-      credit_required: false,
-    })),
+        purpose: description,
+        adoption_reason: `${episode.template}のmain枠で1シーン1メッセージを視覚化するため`,
+        description,
+        imagegen_prompt: makeImagePrompt({
+          caption: description,
+          description,
+          template: episode.template,
+          slot: 'main',
+        }),
+        imagegen_model: 'built-in image_gen',
+        provenance: 'image_gen per-asset ledger entry',
+        license: 'user-generated AI asset for this project',
+        credit_required: false,
+      };
+    }),
   ],
 });
 
