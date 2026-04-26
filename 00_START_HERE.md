@@ -54,55 +54,33 @@
 
 詳細は `templates/scene-XX_*.md` を参照。
 
-## ディレクトリ構成
+## ディレクトリ構成（現行）
 
 ```
 yukkuri-templates/
 ├── 00_START_HERE.md                  (このファイル)
-├── 01_generation-guide.md             生成プロセスの進め方（監査なしフロー）
-├── 02_background-setup.md             21 枚の背景配置ガイド
-├── 03_remotion-project-setup.md       Remotion 初期化（42 Composition）
-├── 04_common-design-tokens.md         design-tokens.ts の実装
-├── 05_component-design.md             共通コンポーネント設計
-├── 06_scene-layout-guide.md           各背景のエリア判定指針（Claude Code が参照）
-├── 07_codex-audit-brief.md            Codex に渡す監査依頼書
+├── CLAUDE.md                         運用指示書（最新フローはここを参照）
+├── 02_演出編集プロンプト.md          演出加工プロンプト
+├── 06_scene-layout-guide.md          各背景のエリア判定指針
+├── 10_video-pipeline.md              動画生成パイプライン
+├── 21_prompt_codex.md                Codex 用マスタープロンプト
+├── 90_asset-license-memo.md          素材ライセンス管理
 ├── _reference/
+│   ├── script_prompt_pack/           台本生成プロンプト正本
+│   ├── image_prompt_pack/            画像生成プロンプト正本
 │   └── remotion_image_recreation_guide.md
-└── templates/
-    ├── scene-01_*.md ～ scene-21_*.md    各背景の個別指示書（21 ファイル）
+├── templates/
+│   └── scene-01_*.md ～ scene-21_*.md  各背景の個別指示書（21 ファイル）
+├── workflows/
+│   └── script_to_video_workflow.md
+├── src/                              Remotion 実装
+├── scripts/                          npm script 群
+├── script/{episode_id}/              エピソードごとの台本・素材
+└── public/                           backgrounds, characters, fonts, episodes
 ```
 
-## 進行順
-
-### Phase 0: 共通基盤
-1. `03_remotion-project-setup.md` に従って Remotion プロジェクトを初期化。
-2. `02_background-setup.md` に従って背景画像 21 枚を配置。
-3. `04_common-design-tokens.md` の `design-tokens.ts` を実装。
-4. `05_component-design.md` の共通コンポーネント 5 種を実装：
-   - `CharacterFace`
-   - `Background`
-   - `SubtitleBar`
-   - `SpeechBubble`
-   - `AreaLabel` (new)
-5. `src/compositions/_DebugChars.tsx` で 4 キャラ動作確認。
-
-### Phase 1: 全シーン実装（21 × 2 = 42 枚）
-
-**重要：各シーンは `templates/scene-XX_*.md` の指示に従って実装する。**
-その指示書には「背景画像の空きスペースを見て、キャラ位置とコンテンツエリア位置を決める」という
-判断を Claude Code 自身に委ねる箇所がある。判断指針は `06_scene-layout-guide.md` に記載。
-
-各シーンで：
-1. `src/compositions/SceneXX.tsx` を実装（props で両ペア対応）。
-2. `src/Root.tsx` に `SceneXX_RM` と `SceneXX_ZM` の 2 Composition を登録。
-3. `npm run render:XX-rm` と `npm run render:XX-zm` で PNG 2 枚を出力。
-4. 出力を Codex 監査用ディレクトリにまとめる。
-5. **監査は Codex が担当**。Claude Code は監査ループを回さない。
-
-### Phase 2: Codex 監査フェーズ
-
-42 枚の生成が終わったら、`07_codex-audit-brief.md` の内容を Codex に渡して監査させる。
-Codex が NG を出したら、該当シーンだけ修正して再生成する。
+> 静止画 42 枚生成フェーズ（Phase 0–2）は完了済み。現在は台本→動画生成フローが正本。
+> 詳細フローは `CLAUDE.md` と `workflows/script_to_video_workflow.md` を参照。
 
 ## 重要な方針変更点（前版との差分）
 
