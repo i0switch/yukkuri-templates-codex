@@ -1,6 +1,6 @@
 import {loadEpisodeRenderData} from '../lib/load-script';
-import ep920RmSmartphonePhotoSearch from '../../script/ep920-rm-smartphone-photo-search/script.render.json';
+import ep921ZmSubscriptionLeakReset from '../../script/ep921-zm-subscription-leak-reset/script.render.json';
 
 export const episodeCompositions = [
-  loadEpisodeRenderData(ep920RmSmartphonePhotoSearch),
+  loadEpisodeRenderData(ep921ZmSubscriptionLeakReset),
 ];
