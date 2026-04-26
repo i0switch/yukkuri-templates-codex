@@ -67,7 +67,6 @@ export interface ImageDirection {
     image_text_allowed?: boolean;
     image_text_max_words?: number;
     image_text_examples?: string[];
-    remotion_overlay_text?: string[];
   };
   layout_safety?: {
     keep_bottom_20_percent_empty?: boolean;

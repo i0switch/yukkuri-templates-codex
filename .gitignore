@@ -1,9 +1,9 @@
 node_modules/
 out/
-docs/
 .cache/
 .remotion-public/
 .analysis/
+.tmp/
 *.log
 notebookLM/.tmp/
 notebookLM/workspace/projects/

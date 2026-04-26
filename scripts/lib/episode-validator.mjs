@@ -14,8 +14,6 @@ export const TYPOGRAPHY_KEYS = new Set([...TYPOGRAPHY_FAMILY_KEYS, ...TYPOGRAPHY
 export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'subtitle_stroke_color', 'subtitle_stroke_width']);
 export const KEIFONT_PUBLIC_PATH = path.join('public', 'fonts', 'keifont.ttf');
 
-const countChars = (value) => Array.from(value).length;
-
 const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 
 const isFinitePositive = (value) => typeof value === 'number' && Number.isFinite(value) && value > 0;
@@ -32,52 +30,6 @@ const REQUIRED_IMAGE_LEDGER_FIELDS = [
   'slot',
   'purpose',
   'adoption_reason',
-  'imagegen_prompt',
-  'imagegen_model',
-  'image_direction',
-  'visual_type',
-  'supports_moment',
-];
-const BANNED_IMAGE_ASSET_METADATA_KEYS = [
-  'generated_asset_sheet',
-  'asset_sheet',
-  'sprite_sheet',
-  'crop_from',
-  'source_rect',
-  'parent_image',
-  'cut_from',
-  'derived_from_sheet',
-  'local_project_generated_asset',
-];
-const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
-  /local[_ -]?project[_ -]?generated/i,
-  /local[_ -]?generated/i,
-  /generated locally by codex image[_ -]?gen skill/i,
-  /generated in local project workspace/i,
-  /fallback/i,
-  /placeholder/i,
-  /smoke/i,
-  /card/i,
-];
-const BATCH_GENERATION_PATTERNS = [
-  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
-  /グリッド/,
-  /8枚/,
-  /八枚/,
-  /複数枚/,
-  /一気に生成/,
-  /一括生成/,
-  /まとめて生成/,
-  /同時生成(?:する|して|で|を)/,
-  /batch/i,
-  /sheet/i,
-  /sprite/i,
-  /asset[_ -]?sheet/i,
-  /sprite[_ -]?sheet/i,
-  /crop/i,
-  /cut\s*out/i,
-  /切り出し/,
-  /切り抜き/,
 ];
 
 const isSafeEpisodeRelativePath = (filePath) => {
@@ -90,13 +42,13 @@ const isSafeEpisodeRelativePath = (filePath) => {
   return !path.isAbsolute(normalized) && !segments.includes('..') && !normalized.startsWith('public/');
 };
 
-const assertEpisodeFile = async ({filePath, episodeDir, issuePath, label, errors}) => {
+const assertEpisodeFile = async ({filePath, episodeDir, issuePath, label, errors, promptOnly = false}) => {
   if (!isSafeEpisodeRelativePath(filePath)) {
     pushIssue(errors, 'error', issuePath, `${label} must be a safe relative episode path: ${filePath ?? '<missing>'}`);
     return;
   }
 
-  if (!episodeDir) {
+  if (!episodeDir || promptOnly) {
     return;
   }
 
@@ -228,71 +180,10 @@ const collectReferencedFiles = (script) => {
   return files;
 };
 
-const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
-
 const isImageLedgerFile = (file) => {
   const normalized = normalizeAssetPath(String(file ?? ''));
   return normalized.startsWith('assets/') && IMAGE_ASSET_EXTENSION_RE.test(normalized);
 };
-
-const imageSourceText = (asset) =>
-  [
-    asset?.source_site,
-    asset?.source_type,
-    asset?.source_url,
-    asset?.title,
-    asset?.license,
-    asset?.generator,
-    asset?.provenance,
-  ]
-    .filter((value) => typeof value === 'string')
-    .join(' ');
-
-const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
-
-const imageGenerationPlanText = (asset) =>
-  [
-    asset?.imagegen_prompt,
-    asset?.generation_plan,
-    asset?.generation_method,
-    asset?.source_site,
-    asset?.source_type,
-    asset?.source_url,
-    asset?.title,
-    asset?.generator,
-    asset?.provenance,
-  ]
-    .filter((value) => typeof value === 'string')
-    .join(' ');
-
-const stripNegativeConstraintLines = (value) =>
-  String(value ?? '')
-    .split(/\r?\n/)
-    .reduce(
-      (state, line) => {
-        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
-          state.skipping = true;
-          return state;
-        }
-        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
-          state.skipping = false;
-        }
-        if (!state.skipping) {
-          state.lines.push(line);
-        }
-        return state;
-      },
-      {lines: [], skipping: false},
-    )
-    .lines.join('\n');
-
-const hasBatchGenerationPlan = (asset) =>
-  BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(imageGenerationPlanText(asset))));
-
-const imageGenerationIdentifiers = (asset) =>
-  ['source_url', 'generation_id']
-    .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
-    .filter(({value}) => value !== '');
 
 const validateMetaLedger = ({script, meta, errors}) => {
   if (!meta) {
@@ -306,7 +197,6 @@ const validateMetaLedger = ({script, meta, errors}) => {
 
   const references = collectReferencedFiles(script);
   const referencedImageFiles = new Set(references.filter((reference) => reference.kind === 'image').map((reference) => normalizeAssetPath(reference.file)));
-  const imageSourceOwners = new Map();
   const assetEntries = new Map();
   for (const [index, asset] of meta.assets.entries()) {
     if (!isPlainObject(asset)) {
@@ -331,19 +221,7 @@ const validateMetaLedger = ({script, meta, errors}) => {
       continue;
     }
 
-    const missingImageFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter((field) => {
-      if (field === 'image_direction') {
-        return !isPlainObject(asset[field]);
-      }
-      return typeof asset[field] !== 'string' || asset[field].trim() === '';
-    });
-    if (!Array.isArray(asset.supports_dialogue) || asset.supports_dialogue.length === 0) {
-      missingImageFields.push('supports_dialogue');
-    }
-    const hasIndividualGenerationSource = imageGenerationIdentifiers(asset).length > 0;
-    if (!hasIndividualGenerationSource) {
-      missingImageFields.push('source_url or generation_id');
-    }
+    const missingImageFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter((field) => typeof asset[field] !== 'string' || asset[field].trim() === '');
     if (missingImageFields.length > 0) {
       pushIssue(
         errors,
@@ -352,59 +230,6 @@ const validateMetaLedger = ({script, meta, errors}) => {
         `${asset.file}: image ledger entry requires ${missingImageFields.join(', ')}`,
       );
     }
-
-    const bannedKeys = BANNED_IMAGE_ASSET_METADATA_KEYS.filter((key) => hasOwn(asset, key));
-    if (bannedKeys.length > 0) {
-      pushIssue(
-        errors,
-        'error',
-        `meta.json.assets[${index}]`,
-        `${asset.file}: image assets must not use sheet/crop metadata: ${bannedKeys.join(', ')}; batch/grid/sheet generation and crop/cut-out adoption are forbidden`,
-      );
-    }
-
-    if (hasBatchGenerationPlan(asset)) {
-      pushIssue(
-        errors,
-        'error',
-        `meta.json.assets[${index}]`,
-        `${asset.file}: image assets must be generated one image per image gen call; grid/sheet/batch/crop generation plans are forbidden`,
-      );
-    }
-
-    if (isDisallowedImageSource(asset)) {
-      pushIssue(
-        errors,
-        'error',
-        `meta.json.assets[${index}]`,
-        `${asset.file}: image source must be verifiable image generation provenance, not local/fallback/placeholder wording`,
-      );
-    }
-
-    for (const {field, value} of imageGenerationIdentifiers(asset)) {
-      const key = `${field}:${value}`;
-      const owner = imageSourceOwners.get(key);
-      if (owner) {
-        pushIssue(
-          errors,
-          'error',
-          `meta.json.assets[${index}].${field}`,
-          `duplicate-imagegen-source: ${asset.file} and ${owner.file} share ${field}: ${value}`,
-        );
-      } else {
-        imageSourceOwners.set(key, {file: asset.file, index});
-      }
-    }
-  }
-
-  const hasImageAssets = referencedImageFiles.size > 0 || [...assetEntries.keys()].some(isImageLedgerFile);
-  if (hasImageAssets && hasOwn(meta, 'generated_asset_sheet')) {
-    pushIssue(
-      errors,
-      'error',
-      'meta.json.generated_asset_sheet',
-      'generated_asset_sheet is not allowed when image assets are present; batch/grid/sheet generation and crop/cut-out adoption are forbidden; generate each image as an individual asset',
-    );
   }
 
   for (const reference of references) {
@@ -415,26 +240,11 @@ const validateMetaLedger = ({script, meta, errors}) => {
       continue;
     }
 
-    const {asset, index} = entry;
-    const hasSource =
-      typeof asset.source_url === 'string' && asset.source_url.trim() !== '' ||
-      typeof asset.source_site === 'string' && asset.source_site.trim() !== '' ||
-      typeof asset.imagegen_prompt === 'string' && asset.imagegen_prompt.trim() !== '' ||
-      typeof asset.source_type === 'string' && asset.source_type.trim() !== '' ||
-      typeof asset.title === 'string' && asset.title.trim() !== '';
-
-    if (!hasSource) {
-      pushIssue(
-        errors,
-        'error',
-        `meta.json.assets[${index}]`,
-        `${asset.file}: source_url, source_site, imagegen_prompt, source_type, or title is required`,
-      );
-    }
+    // Source/provenance fields are intentionally non-blocking in direct script_final image prompt mode.
   }
 };
 
-const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, errors}) => {
+const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, errors, promptOnly = false}) => {
   if (typeof assetPath !== 'string' || assetPath.trim() === '') {
     pushIssue(errors, 'error', contentPath, `${sceneId}: image.asset is required`);
     return;
@@ -455,7 +265,7 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
     pushIssue(errors, 'error', `${contentPath}.asset`, `${sceneId}: image.asset must be a safe relative assets/... path: ${assetPath}`);
   }
 
-  if (!episodeDir) {
+  if (!episodeDir || promptOnly) {
     return;
   }
 
@@ -476,7 +286,7 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
   }
 };
 
-const validateContent = async ({content, sceneId, contentPath, episodeDir, errors}) => {
+const validateContent = async ({content, sceneId, contentPath, episodeDir, errors, promptOnly = false}) => {
   if (content === null || content === undefined) {
     return;
   }
@@ -489,6 +299,15 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
   if (!CONTENT_KINDS.has(content.kind)) {
     pushIssue(errors, 'error', `${contentPath}.kind`, `${sceneId}: content.kind must be text, bullets, or image`);
     return;
+  }
+
+  if (content.kind !== 'image') {
+    pushIssue(
+      errors,
+      'error',
+      `${contentPath}.kind`,
+      `${sceneId}: rendered content slots are image-only; use kind: image or set sub: null instead of Remotion-rendered text`,
+    );
   }
 
   if (content.kind === 'text' && (typeof content.text !== 'string' || content.text.trim() === '')) {
@@ -508,7 +327,10 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
   }
 
   if (content.kind === 'image') {
-    await assertAssetPath({assetPath: content.asset, episodeDir, sceneId, contentPath, errors});
+    if (typeof content.caption === 'string' && content.caption.trim() !== '') {
+      pushIssue(errors, 'error', `${contentPath}.caption`, `${sceneId}: image.caption is disabled because content slots must render image-only`);
+    }
+    await assertAssetPath({assetPath: content.asset, episodeDir, sceneId, contentPath, errors, promptOnly});
   }
 };
 
@@ -676,6 +498,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
       issuePath: 'bgm.file',
       label: 'bgm.file',
       errors,
+      promptOnly: options.promptOnly,
     });
   }
 
@@ -718,8 +541,8 @@ export const validateEpisodeScript = async (script, options = {}) => {
     if (!scene.main) {
       pushIssue(errors, 'error', `${scenePath}.main`, `${sceneId}: main content is required`);
     }
-    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors});
-    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors});
+    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors, promptOnly: options.promptOnly});
+    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors, promptOnly: options.promptOnly});
 
     if (!Array.isArray(scene.dialogue)) {
       pushIssue(errors, 'error', `${scenePath}.dialogue`, `${sceneId}: dialogue must be an array`);
@@ -740,8 +563,6 @@ export const validateEpisodeScript = async (script, options = {}) => {
       }
       if (typeof line.text !== 'string' || line.text.trim() === '') {
         pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text is required`);
-      } else if (countChars(line.text) > 25) {
-        pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text exceeds 25 chars: "${line.text}"`);
       }
       validateTypographyConfig({
         config: line.typography,

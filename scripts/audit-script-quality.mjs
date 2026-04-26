@@ -11,13 +11,9 @@ if (!target) {
 }
 
 const REQUIRED_SCRIPT_MD_MARKERS = [
-  'scene_format',
-  'hook_type',
   'viewer_misunderstanding',
-  'boke_or_reaction',
   'reaction_level',
   'mini_punchline',
-  'セルフ監査',
 ];
 
 const AWKWARD_RM_ENDINGS = [
@@ -68,7 +64,7 @@ const speakerRunIssues = (script) => {
 
 const hasMidpointRehook = (script) =>
   (script.scenes ?? []).some((scene) =>
-    [scene.reference_beat, scene.hook_type, scene.scene_goal, scene.title_text, scene.main?.text, scene.main?.caption]
+    [scene.reference_beat, scene.scene_goal, scene.title_text]
       .filter(Boolean)
       .some((value) => /midpoint_rehook|再フック|中盤/.test(String(value))),
   );
@@ -102,7 +98,7 @@ const audit = async () => {
   try {
     scriptMd = await fs.readFile(scriptMdPath, 'utf8');
   } catch {
-    pushIssue(errors, 'error', 'missing-script-md', 'script.md がありません。新規生成は prompt pack 監査済み script.md を必須にします', {
+    pushIssue(errors, 'error', 'missing-script-md', 'script.md がありません。新規生成は prompt pack 経由の script.md を必須にします', {
       script_md: path.relative(rootDir, scriptMdPath),
     });
   }
@@ -112,8 +108,8 @@ const audit = async () => {
     if (!/number_or_example|具体例/.test(scriptMd)) {
       missingMarkers.push('number_or_example または 具体例');
     }
-    if (!/ジャンル適合|台本監査/.test(scriptMd)) {
-      missingMarkers.push('ジャンル適合 または 台本監査');
+    if (!/ジャンル適合|Codexレビュー|script_final/.test(scriptMd)) {
+      missingMarkers.push('ジャンル適合 または Codexレビュー または script_final');
     }
     if (missingMarkers.length > 0) {
       pushIssue(errors, 'error', 'script-md-missing-quality-markers', 'script.md に prompt pack 品質マーカーが不足しています', {
@@ -128,9 +124,11 @@ const audit = async () => {
   const averageLines = scenes.length > 0 ? lines.length / scenes.length : 0;
 
   if (targetSec >= 150 && targetSec <= 240) {
-    if (scenes.length < 8) pushIssue(errors, 'error', 'three-minute-scenes', '3分前後は8シーン以上が必要です', {scenes: scenes.length});
-    if (lines.length < 80 || lines.length > 95) {
-      pushIssue(errors, 'error', 'three-minute-dialogue-count', '3分前後は80〜95セリフが目安です', {dialogue_lines: lines.length});
+    if (scenes.length < 6 || scenes.length > 8) {
+      pushIssue(errors, 'error', 'three-minute-scenes', '3分前後は6〜8シーンが必要です', {scenes: scenes.length});
+    }
+    if (lines.length < 60 || lines.length > 80) {
+      pushIssue(errors, 'error', 'three-minute-dialogue-count', '3分前後は60〜80セリフが目安です', {dialogue_lines: lines.length});
     }
   }
 

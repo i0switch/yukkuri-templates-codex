@@ -1,0 +1,55 @@
+{
+  "verdict": "FAIL",
+  "pass": false,
+  "score": 4,
+  "scene_count": 3,
+  "dialogue_count": 18,
+  "issues": [
+    {
+      "code": "dialogue_length_variance",
+      "scene": "s01",
+      "stddev": 0.5
+    },
+    {
+      "code": "dialogue_length_variance",
+      "scene": "s02",
+      "stddev": 0.76
+    },
+    {
+      "code": "dialogue_length_variance",
+      "scene": "s03",
+      "stddev": 0.76
+    },
+    {
+      "code": "concrete_example_density",
+      "scenes": [
+        "s01",
+        "s02",
+        "s03"
+      ]
+    },
+    {
+      "code": "ng_keyword_overuse",
+      "counts": {
+        "ヤバい": 3,
+        "それは違う": 9
+      }
+    },
+    {
+      "code": "scene_pattern_repetition",
+      "pattern": "A",
+      "start_index": 0
+    },
+    {
+      "code": "listener_question_only",
+      "speaker": "霊夢"
+    },
+    {
+      "code": "explainer_correction_only",
+      "speaker": "魔理沙"
+    }
+  ],
+  "warnings": [],
+  "human_review_required": true,
+  "input": "scripts\\test_fixtures\\bad_episode\\script_draft_v2.md"
+}

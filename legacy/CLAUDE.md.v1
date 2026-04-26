@@ -1,0 +1,348 @@
+# CLAUDE.md
+
+このプロジェクトは、ゆっくり解説 / ずんだもん解説の台本生成、素材生成、演出加工、Remotion動画生成までを行うためのリポジトリです。
+
+最重要方針は次の3つです。
+
+1. 台本生成は必ず `_reference/script_prompt_pack/` を正本にする
+2. 1本の動画では `Scene01`〜`Scene21` のテンプレートを1つだけ使う
+3. 完成扱いは、台本・素材・YAML・gate・MP4監査が通った場合だけにする
+
+日本語で作業し、日本語で報告してください。
+
+---
+
+## 0. 絶対ルール
+
+次は禁止です。
+
+- `_reference/script_prompt_pack/` を読まずに台本を書く
+- `00_MASTER_SCRIPT_RULES.md` を読まずに企画・初稿・監査・YAML変換へ進む
+- `01_plan_prompt.md` を飛ばして、いきなり完成台本を書く
+- `03_audit_prompt.md` の監査PASS前に YAML 化する
+- `05_yaml_prompt.md` を読まずに `script.yaml` を手書きで整える
+- `scenes[].scene_template` を使う
+- `meta.scene_template` を正準フィールドとして使う
+- `meta.layout_template` 以外に動画全体テンプレートを持たせる
+- hardcoded dialogue / hardcoded episode plan を本番ルートに追加する
+- 旧静止画テンプレート生成フローを動画生成フローの正本として扱う
+- 生成画像・音声・MP4が存在しないのに完成報告する
+- gate / audit が FAIL しているのに納品扱いにする
+
+---
+
+## 1. 作業開始時に読むもの
+
+動画生成、台本生成、YAML生成、素材生成、演出加工の依頼では、まず次を読む。
+
+- `10_video-pipeline.md`
+- `workflows/script_to_video_workflow.md`
+- `06_scene-layout-guide.md`
+- `02_演出編集プロンプト.md`
+- `_reference/script_prompt_pack/README.md`
+- `_reference/image_prompt_pack/README.md` がある場合は読む
+
+テンプレートが決まっている場合は、追加で読む。
+
+- 選択された `templates/scene-XX_*.md`
+
+テンプレートが未指定の場合は、`templates/` と `06_scene-layout-guide.md` を確認し、テーマに合う候補を提示する。
+ただし、ユーザーが「任せる」と明示している場合は、最適な1テンプレートを選んで進める。
+
+---
+
+## 2. 台本生成時の必読ファイル
+
+台本生成時は、必ず `_reference/script_prompt_pack/` の次のファイルをこの順番で使う。
+
+1. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`
+2. `_reference/script_prompt_pack/01_plan_prompt.md`
+3. `_reference/script_prompt_pack/02_draft_prompt.md`
+4. `_reference/script_prompt_pack/03_audit_prompt.md`
+5. `_reference/script_prompt_pack/04_rewrite_prompt.md`  
+   - 監査FAIL、弱い箇所、ズレがある場合のみ使う
+6. `_reference/script_prompt_pack/05_yaml_prompt.md`  
+   - 監査PASS後、YAML変換時だけ使う
+
+`archive/` 配下は通常運用では読まない。
+台本品質の正本は常に `00_MASTER_SCRIPT_RULES.md` とする。
+
+---
+
+## 3. Script Prompt Pack 強制フロー
+
+台本生成依頼を受けたら、次の順で進める。
+
+### 3.1 入力条件の確定
+
+最低限、次を作業メモに固定する。
+
+```text
+theme:
+target_viewer:
+duration:
+character_pair: RM / ZM
+layout_template: Scene01〜Scene21
+main_content:
+sub_content: あり / なし
+subtitle_area:
+title_area:
+avoid_area:
+reference_style: 必要な場合のみ
+```
+
+`layout_template` は必ず `Scene01`〜`Scene21` の形式にする。
+`scene-01`、`01`、`Scene 01` などは使わない。
+
+### 3.2 企画
+
+`01_plan_prompt.md` に従って、企画・構成・シーン役割・視覚素材密度・テンプレート枠の使い方を決める。
+
+この結果は必ず次に保存する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_plan.md
+```
+
+証跡ファイルには、使用元として `01_plan_prompt.md` を明記する。
+
+### 3.3 初稿
+
+`02_draft_prompt.md` に従って、会話台本の初稿を作る。
+
+この結果は必ず次に保存する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_draft.md
+```
+
+証跡ファイルには、使用元として `02_draft_prompt.md` を明記する。
+
+### 3.4 監査
+
+`03_audit_prompt.md` に従って監査する。
+PASS / FAIL を明記する。
+
+この結果は必ず次に保存する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_audit.md
+```
+
+証跡ファイルには、使用元として `03_audit_prompt.md` を明記する。
+
+### 3.5 修正
+
+監査がFAILの場合、または弱い箇所がある場合は、`04_rewrite_prompt.md` に従って該当箇所だけ修正する。
+全体を雑に作り直さない。
+
+修正した場合は、必ず次に保存する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_rewrite.md
+```
+
+証跡ファイルには、使用元として `04_rewrite_prompt.md` を明記する。
+
+### 3.6 YAML変換
+
+監査PASS後だけ、`05_yaml_prompt.md` に従って `script.yaml` へ変換する。
+
+この結果は必ず次に保存する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_yaml.md
+```
+
+証跡ファイルには、使用元として `05_yaml_prompt.md` を明記する。
+
+---
+
+## 4. 必須の台本生成証跡
+
+`npm run gate:episode -- <episode_id>` は、台本生成証跡を検証する。
+そのため、台本を作ったら必ず以下を用意する。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_plan.md
+script/{episode_id}/audits/script_prompt_pack_draft.md
+script/{episode_id}/audits/script_prompt_pack_audit.md
+script/{episode_id}/audits/script_prompt_pack_yaml.md
+script/{episode_id}/audits/script_generation_audit.json
+```
+
+`script_generation_audit.json` は次の形にする。
+
+```json
+{
+  "step": "script_generation",
+  "verdict": "PASS",
+  "reviewer": "second-codex",
+  "prompt_pack_evidence": {
+    "plan": "script/<episode_id>/audits/script_prompt_pack_plan.md",
+    "draft": "script/<episode_id>/audits/script_prompt_pack_draft.md",
+    "audit": "script/<episode_id>/audits/script_prompt_pack_audit.md",
+    "yaml": "script/<episode_id>/audits/script_prompt_pack_yaml.md"
+  }
+}
+```
+
+注意:
+
+- `reviewer: "codex-self"` の単独PASSは禁止
+- `script_prompt_pack_audit.md` には PASS / FAIL / 判定 / 監査 のいずれかを含める
+- 証跡が薄すぎる場合は gate で失敗する
+- rewrite を実施した場合は `script_prompt_pack_rewrite.md` に `04_rewrite_prompt.md` を明記する
+
+検証コマンド:
+
+```powershell
+npm run test:script-prompt-pack-evidence
+node scripts/validate-script-prompt-pack-evidence.mjs <episode_id>
+```
+
+---
+
+## 5. テンプレート運用ルール
+
+このプロジェクトでは、1本の動画につきテンプレートは1つだけ使う。
+
+正しい形:
+
+```yaml
+meta:
+  layout_template: "Scene02"
+scenes:
+  - id: s01
+    title_text: "短い章タイトル"
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub:
+      kind: image
+      asset: assets/s01_sub.png
+```
+
+禁止:
+
+```yaml
+meta:
+  scene_template: "Scene02"
+scenes:
+  - scene_template: "Scene03"
+```
+
+ルール:
+
+- `meta.layout_template` は動画全体に1回だけ置く
+- `scenes[].scene_template` は使わない
+- 各 scene は時間ブロックであり、テンプレート切り替え単位ではない
+- `asset` は `assets/...` の相対パスにする
+- サブ枠がないテンプレートでは `sub: null`
+- `dialogue[].text` は原則として自然な発話単位を維持
+- 字幕枠が狭い場合は、長文1セリフではなく短文複数セリフに分割する
+
+---
+
+## 6. 画像素材生成ルール
+
+画像生成の正本は `_reference/image_prompt_pack/` とする。
+台本生成時点で `visual_asset_plan` を作り、画像生成時に次を必ず持たせる。
+
+- `image_direction`
+- `visual_type`
+- `composition_type`
+- `supports_dialogue`
+- `supports_moment`
+- `imagegen_prompt`
+- `layout_safety`
+- `must_not_include`
+
+Codex CLI が使える環境で、Codexに動画生成をさせる場合は `codex-imagegen` skill を使う。
+画像生成は **1枚 = 1 Codex CLI プロセス** を厳守し、複数枚必要な場合は **画像ごとに別 Codex プロセスを Bash の run_in_background で並列起動** する（デフォルト上限 4並列、超える場合はユーザーに件数とコスト確認）。1つの codex exec プロセスに複数画像をまとめて渡す指示・グリッド／sprite sheet／asset sheet／一括生成・1枚から複数枚を切り出す指示は引き続き禁止。
+Claude Codeで作業する場合は、プロジェクトで指定された素材生成ルートに従う。
+NotebookLMを使う場合は、fallback / placeholder / local card を合格扱いにしない。
+
+生成画像は、実体ファイルがあり、サイズ・内容・テンプレート枠との衝突が確認できた場合だけ採用する。
+
+---
+
+## 7. 動画生成フロー
+
+動画生成まで依頼されている場合は、最低限次をそろえる。
+
+```text
+script/{episode_id}/script.yaml
+script/{episode_id}/assets/
+script/{episode_id}/bgm/
+script/{episode_id}/se/        # 必要な場合のみ
+script/{episode_id}/meta.json
+script/{episode_id}/audits/
+```
+
+レンダー前チェック:
+
+```powershell
+npm run gate:episode -- <episode_id>
+```
+
+推奨レンダー:
+
+```powershell
+npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4
+```
+
+生成後監査:
+
+```powershell
+npm run audit:video -- <episode_id> out/videos/<episode_id>.mp4
+npm run audit:second-codex -- <episode_id>
+```
+
+`render:episode` は gate 付きラッパーとして扱う。
+原則、直接 `npx remotion render` を叩かない。
+
+---
+
+## 8. 完了条件
+
+完成報告は、次をすべて満たした場合だけ行う。
+
+- `_reference/script_prompt_pack/` の必須ファイルを使っている
+- `script_prompt_pack_plan.md` がある
+- `script_prompt_pack_draft.md` がある
+- `script_prompt_pack_audit.md` があり、PASSしている
+- `script_prompt_pack_yaml.md` がある
+- `script_generation_audit.json` があり、`reviewer` が `codex-self` 単独ではない
+- `script.yaml` が `meta.layout_template` を使っている
+- `scenes[].scene_template` が存在しない
+- `dialogue[].text` が自然な発話単位を維持している
+- 画像素材の実体と provenance が確認できる
+- `npm run gate:episode -- <episode_id>` がPASS
+- `npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4` が成功
+- MP4が実在する
+- `npm run audit:video -- <episode_id> out/videos/<episode_id>.mp4` がPASS
+- 必要な別Codex監査がPASS
+
+失敗した場合は、完成報告ではなく、どの工程で止まったか、どのファイルを直すべきか、次の最短手順を報告する。
+
+---
+
+## 9. 報告形式
+
+作業完了時は、次の形式で報告する。
+
+```text
+完了:
+- 作成/更新したファイル:
+- 使用したテンプレート:
+- 使用した Script Prompt Pack:
+- 生成した episode_id:
+- gate結果:
+- render結果:
+- audit結果:
+- 出力MP4:
+- 残課題:
+```
+
+台本だけ作った場合も、どの Script Prompt Pack ファイルを使ったか必ず書く。

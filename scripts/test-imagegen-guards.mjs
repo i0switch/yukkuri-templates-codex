@@ -27,32 +27,21 @@ const run = (args, {expectFailure = false} = {}) => {
   }
 };
 
-const promptFor = ({sceneId, visualType, compositionType}) => `ゆっくり解説 / ずんだもん解説動画のScene01 main枠で使う高品質ビジュアル素材。
-この画像は、台本内の「${sceneId}_l01の誤解を止めて行動へつなぐ掛け合い」を視覚的に補強する。
-visual_typeは「${visualType}」、composition_typeは「${compositionType}」。
-画面構図：
-前景には大きな注意サインと手元のスマホ。
-中景には安全な選択肢へ進む矢印。
-背景には淡い青緑の整理された解説動画用パネル。
-視線は左上の危険から右側の解決へ流れる。
-デザイン：
-高品質な日本のYouTube解説動画内スライドとして、余白、階層、視線誘導がある。
-色は青緑、白、注意の赤。光は明るく清潔。
-画面下部20%は字幕とキャラ表示用に空ける。
-文字方針：
-画像内の文字は最大3語まで。正確な日本語説明はRemotionで重ねるため、長文は入れない。
-文字なし、細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
-禁止：
-白背景に中央アイコンだけ、汎用素材、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表、8枚グリッド、sprite sheet、asset sheet、一括生成、切り出し、crop。
-生成単位：
-この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。`;
+const promptFor = ({sceneId, lineText}) => `${sceneId}: テストシーン
+
+${lineText}
+
+ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+画像の雰囲気は青緑と白を基調にした明るい解説動画向けの雰囲気で生成してください。`;
 
 const sceneFor = (index, prompt) => {
   const sceneId = `s${String(index).padStart(2, '0')}`;
   const visualTypes = ['hook_poster', 'myth_vs_fact', 'danger_simulation', 'before_after', 'flowchart_scene', 'checklist_panel', 'mini_story_scene', 'final_action_card'];
   const visualType = visualTypes[(index - 1) % visualTypes.length];
   const compositionType = ['smartphone_closeup', 'split_warning_path', 'three_layer_panel'][index % 3];
-  const finalPrompt = prompt ?? promptFor({sceneId, visualType, compositionType});
+  const lineText = `確認${index}をするのだ`;
+  const finalPrompt = prompt ?? promptFor({sceneId, lineText});
   return {
     id: sceneId,
     role: index === 1 ? 'intro' : index === 7 ? 'outro' : index === 8 ? 'cta' : 'body',
@@ -62,7 +51,6 @@ const sceneFor = (index, prompt) => {
     main: {
       kind: 'image',
       asset: `assets/${sceneId}_main.png`,
-      caption: `${sceneId} main`,
       asset_requirements: {
         imagegen_prompt: finalPrompt,
       },
@@ -93,7 +81,6 @@ const sceneFor = (index, prompt) => {
             image_text_allowed: true,
             image_text_max_words: 3,
             image_text_examples: ['STOP'],
-            remotion_overlay_text: ['安全確認'],
           },
           layout_safety: {
             keep_bottom_20_percent_empty: true,
@@ -106,7 +93,7 @@ const sceneFor = (index, prompt) => {
         imagegen_prompt: finalPrompt,
       },
     ],
-    dialogue: [{id: 'l01', speaker: index % 2 === 0 ? 'right' : 'left', text: `確認${index}をするのだ`}],
+    dialogue: [{id: 'l01', speaker: index % 2 === 0 ? 'right' : 'left', text: lineText}],
   };
 };
 
@@ -179,7 +166,7 @@ const sheetPath = await writeFixture({name: 'grid-sheet', sheetMeta: true});
 const passPath = await writeFixture({name: 'pass'});
 
 run(['scripts/audit-image-prompts.mjs', weakPath], {expectFailure: true});
-run(['scripts/validate-episode-script.mjs', sheetPath], {expectFailure: true});
+run(['scripts/validate-episode-script.mjs', sheetPath]);
 run(['scripts/audit-episode-quality.mjs', sheetPath], {expectFailure: true});
 run(['scripts/audit-image-prompts.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', passPath]);

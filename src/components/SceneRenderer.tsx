@@ -121,56 +121,14 @@ const cardStyle: React.CSSProperties = {
   boxShadow: '0 20px 48px rgba(8,58,78,0.12)',
 };
 
-const renderText = (text: string, fontFamily: string, stroke: TextStroke): SlotRenderer => (rect: Rect) => (
-  <div style={cardStyle}>
-    <AutoFitText
-      text={text}
-      width={Math.max(1, rect.w - 68)}
-      height={Math.max(1, rect.h - 56)}
-      minFontSize={24}
-      maxFontSize={54}
-      lineHeight={1.32}
-      fontFamily={fontFamily}
-      fontWeight={800}
-      color="#123646"
-      textAlign="center"
-      textStrokeColor={stroke.color}
-      textStrokeWidth={stroke.width}
-    />
-  </div>
-);
-
-const renderBullets = (items: string[], fontFamily: string, stroke: TextStroke): SlotRenderer => (rect: Rect) => (
-  <div style={cardStyle}>
-    <AutoFitText
-      text={items.map((item) => `• ${item}`).join('\n')}
-      width={Math.max(1, rect.w - 68)}
-      height={Math.max(1, rect.h - 56)}
-      minFontSize={20}
-      maxFontSize={42}
-      lineHeight={1.3}
-      fontFamily={fontFamily}
-      fontWeight={700}
-      color="#123646"
-      textAlign="left"
-      textStrokeColor={stroke.color}
-      textStrokeWidth={stroke.width}
-    />
-  </div>
-);
-
 const renderImage = (
   assetPath: string,
   publicDir: string,
-  fontFamily: string,
-  stroke: TextStroke,
-  caption?: string,
 ): SlotRenderer => (rect: Rect) => (
   <div
     style={{
       ...cardStyle,
       padding: 18,
-      gap: 12,
       background: 'rgba(255,255,255,0.62)',
     }}
   >
@@ -179,35 +137,17 @@ const renderImage = (
       style={{
         width: '100%',
         height: '100%',
-        maxHeight: caption ? '88%' : '100%',
+        maxHeight: '100%',
         objectFit: 'contain',
         borderRadius: 20,
       }}
     />
-    {caption ? (
-      <AutoFitText
-        text={caption}
-        width={Math.max(1, rect.w - 36)}
-        height={32}
-        minFontSize={16}
-        maxFontSize={24}
-        lineHeight={1.1}
-        fontFamily={fontFamily}
-        fontWeight={700}
-        color="#0f3d4b"
-        textAlign="center"
-        textStrokeColor={stroke.color}
-        textStrokeWidth={stroke.width}
-      />
-    ) : null}
   </div>
 );
 
 const renderContent = (
   content: SceneContent | null | undefined,
   publicDir: string,
-  fontFamily: string,
-  stroke: TextStroke,
 ) => {
   if (!content) {
     return null;
@@ -215,11 +155,11 @@ const renderContent = (
 
   switch (content.kind) {
     case 'text':
-      return renderText(content.text, fontFamily, stroke);
+      return null;
     case 'bullets':
-      return renderBullets(content.items, fontFamily, stroke);
+      return null;
     case 'image':
-      return renderImage(content.asset, publicDir, fontFamily, stroke, content.caption);
+      return renderImage(content.asset, publicDir);
     default:
       return null;
   }
@@ -384,8 +324,8 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
               : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle, typography.subtitleStroke)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
-          mainContentSlot={renderContent(scene.main, script.public_dir, typography.content, typography.contentStroke)}
-          subContentSlot={renderContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
+          mainContentSlot={renderContent(scene.main, script.public_dir)}
+          subContentSlot={renderContent(scene.sub ?? null, script.public_dir)}
           showAreaLabels={false}
         />
       </div>

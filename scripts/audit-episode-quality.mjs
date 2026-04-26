@@ -9,7 +9,6 @@ if (!target) {
   throw new Error('Usage: node scripts/audit-episode-quality.mjs <episode_id|path/to/script.yaml|path/to/script.render.json>');
 }
 
-const SUB_CAPABLE_TEMPLATES = new Set(['Scene02', 'Scene03', 'Scene10', 'Scene13', 'Scene14']);
 const VISION_SHIFT_WINDOW = 5;
 const REFERENCE_METADATA_RATIO = 0.8;
 
@@ -142,20 +141,18 @@ const ABSTRACT_ASSET_TERMS = [
 ];
 
 const REQUIRED_IMAGE_PROMPT_TERMS = [
-  {key: 'template', patterns: [/Scene\d{2}/i, /テンプレート/, /メイン枠/, /サブ枠/, /main枠/i, /sub枠/i]},
-  {key: 'tone', patterns: [/トーン/, /雰囲気/, /動画/, /解説動画/, /ゆっくり/, /ずんだもん/]},
-  {key: 'composition', patterns: [/中央/, /左/, /右/, /上部/, /下部/, /構図/, /配置/, /分割/]},
-  {key: 'spacing', patterns: [/余白/, /読みやす/, /見やす/, /シンプル/, /1枚1メッセージ/]},
-  {key: 'negative', patterns: [/文字なし/, /細かい文字なし/, /ロゴなし/, /実在人物なし/, /既存キャラクターなし/, /ブランドロゴなし/]},
+  {key: 'insert_image_japanese', patterns: [/ゆっくり解説動画向けの挿入画像を日本語で生成してください/]},
+  {key: 'not_dialogue_recreation', patterns: [/会話内容をそのまま再現するためのものではなく/]},
+  {key: 'no_dialogue_in_image', patterns: [/字幕やセリフは別で表示するため、会話等は画像に入れないでください/]},
+  {key: 'support_visuals', patterns: [/図解、アイコン、小物、UI、概念図、状況説明ビジュアル/]},
+  {key: 'aspect_ratio', patterns: [/Make the aspect ratio 16:9\./]},
+  {key: 'mood_line', patterns: [/画像の雰囲気は.+で生成してください。/s]},
 ];
 
 const REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS = [
-  {key: 'visual_type', patterns: [/visual_type|hook_poster|boke_visual|tsukkomi_visual|myth_vs_fact|danger_simulation|before_after|three_step_board|checklist_panel|ranking_board|ui_mockup_safe|flowchart_scene|contrast_card|meme_like_diagram|mini_story_scene|final_action_card/]},
-  {key: 'composition_type', patterns: [/composition_type|前景|中景|背景|視線/i]},
-  {key: 'dialogue_support', patterns: [/会話|掛け合い|セリフ|ボケ|ツッコミ|誤解|訂正|補強|supports_moment/i]},
-  {key: 'remotion_overlay', patterns: [/Remotion|重ねる|画像内の文字|長文は入れない/]},
-  {key: 'bottom_safety', patterns: [/下部20%|字幕とキャラ|キャラ表示用|左右キャラ/]},
-  {key: 'single_image_generation', patterns: [/1枚ずつ生成|一枚ずつ生成|この1枚専用|この一枚専用|他画像と同時生成しない|同時生成しない|個別生成|1画像につき1回|一画像につき一回/]},
+  {key: 'scene_concept_support', patterns: [/シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強/]},
+  {key: 'no_character_chat_scene', patterns: [/キャラクター同士の会話シーンにはせず/]},
+  {key: 'youtube_16_9', patterns: [/YouTubeの解説動画に適した.+16:9の横長構図/s]},
 ];
 
 const BATCH_GENERATION_PATTERNS = [
@@ -715,13 +712,19 @@ const audit = async () => {
       pushIssue(errors, 'error', 'repeated-sub-content', 'sub content is reused across too many scenes', {repeated: subRepeats});
     }
 
-    const sceneTemplate = resolvedTemplateForScript(script);
-    const missingSubRole = SUB_CAPABLE_TEMPLATES.has(sceneTemplate)
-      ? script.scenes.filter((scene) => !scene.sub || contentSignature(scene.main) === contentSignature(scene.sub)).map((scene) => scene.id)
-      : [];
-    if (missingSubRole.length > 0) {
-      pushIssue(errors, 'error', 'sub-role-missing', 'sub-capable templates must use sub as a distinct support/checklist area', {
-        scenes: missingSubRole,
+    const textContentSlots = script.scenes.flatMap((scene) =>
+      ['main', 'sub']
+        .map((slot) => ({scene: scene.id, slot, content: scene[slot]}))
+        .filter(({content}) => content && (content.kind !== 'image' || typeof content.caption === 'string')),
+    );
+    if (textContentSlots.length > 0) {
+      pushIssue(errors, 'error', 'content-slot-text-disabled', 'rendered content slots must be image-only; use image assets without captions or set sub: null', {
+        slots: textContentSlots.map(({scene, slot, content}) => ({
+          scene,
+          slot,
+          kind: content.kind,
+          has_caption: typeof content.caption === 'string',
+        })),
       });
     }
 
@@ -806,13 +809,13 @@ const audit = async () => {
       });
     }
     if (incompleteImagePrompts.length > 0) {
-      pushIssue(errors, 'error', 'incomplete-imagegen-prompt', 'imagegen prompts must include template/tone/composition/spacing/negative constraints', {
+      pushIssue(errors, 'error', 'incomplete-imagegen-prompt', 'imagegen prompts must include the fixed insertion-image prompt and mood line', {
         assets: incompleteImagePrompts.slice(0, 12),
         required_prompt_terms: REQUIRED_IMAGE_PROMPT_TERMS.map((requirement) => requirement.key),
       });
     }
     if (incompleteDialogueSupportPrompts.length > 0) {
-      pushIssue(errors, 'error', 'incomplete-dialogue-support-imagegen-prompt', 'imagegen prompts must support concrete yukkuri/zundamon dialogue moments, not generic icon cards', {
+      pushIssue(errors, 'error', 'incomplete-dialogue-support-imagegen-prompt', 'imagegen prompts must use the fixed scene-concept support wording, not internal metadata fields', {
         assets: incompleteDialogueSupportPrompts.slice(0, 12),
         required_prompt_terms: REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS.map((requirement) => requirement.key),
       });

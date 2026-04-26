@@ -66,7 +66,9 @@
     "audit:generated-images": "node scripts/audit-generated-images.mjs",
     "audit:video": "node scripts/audit-video.mjs",
     "audit:episode-quality": "node scripts/audit-episode-quality.mjs",
-    "audit:second-codex": "node scripts/verify-second-codex-audits.mjs",
+    "v2:audit:image-result": "python scripts/audit_image_result.py",
+    "v2:pipeline": "python scripts/run_pipeline.py",
+    "v2:gate:episode": "python scripts/run_pipeline.py --skip-image-generation --episode",
     "test:imagegen-guards": "node scripts/test-imagegen-guards.mjs",
     "test:script-prompt-pack-evidence": "node scripts/test-script-prompt-pack-evidence.mjs"
   },

@@ -1,0 +1,26 @@
+meta:
+  id: ep950-rm-storage-first-step-sample
+  title: スマホ容量が足りない人が最初にやるべきこと
+  layout_template: Scene02
+  pair: RM
+  target_duration_sec: 180
+scenes:
+  - id: s01
+    role: intro
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 消す前に止まれ
+    sub:
+      kind: bullets
+      items:
+        - 確認
+        - 逃がす
+        - 最後に実行
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 容量が赤い、終わった？
+      - id: l02
+        speaker: right
+        text: まだ消すな、先に確認だぜ

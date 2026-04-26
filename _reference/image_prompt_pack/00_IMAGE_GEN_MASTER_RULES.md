@@ -2,188 +2,42 @@
 
 ## 目的
 
-GPT-Image-2で作る画像を、単なる説明アイコンではなく、ゆっくり解説 / ずんだもん解説の会話を補強する視聴維持用ビジュアルとして設計する。
+ChatGPT Images 2.0などで作る画像を、`script_final.md` のシーン本文から直接作る。
 
-画像生成では、台本から直接 `imagegen_prompt` を作らない。必ず先に `image_direction` を作り、どのセリフ、どのボケ、どのツッコミ、どの誤解訂正、どの行動提示を補強するかを決める。
+狙いは、細かい中間設計で台本の温度感を薄めず、会話の流れ、生活感、危機感、ジャンルの空気をそのまま画像生成へ渡すこと。
 
-## 生成単位の絶対ルール
+## 正準方式
 
-- image gen は必ず1画像につき1回呼ぶ。
-- 8枚グリッド、複数枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成は禁止。
-- 1枚の生成結果から複数素材を切り出す、cropする、source_rectで採用することは禁止。
-- 各画像は固有の `image_direction`、固有の `imagegen_prompt`、固有の `generation_id` または `source_url` を持つ。
-- `imagegen_prompt` には「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の生成単位を明記する。
-- `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような低品質プロンプトで生成しない。
+画像プロンプトは、対象シーンの会話全文、固定プロンプト、台本に合わせた雰囲気指定だけで作る。
+構図、禁止リスト、品質基準、内部メタ情報は `imagegen_prompt` 本文に足さない。
 
-## 画像の役割
+```text
+s03: 通知は生活のすき間を全部食う
 
-各画像は次のどれかを担当する。
+霊夢「...」
+魔理沙「...」
 
-- 冒頭フック画像
-- ボケ補強画像
-- ツッコミ補強画像
-- 誤解訂正画像
-- 危険・損失の可視化画像
-- Before/After比較画像
-- 手順・チェックリスト画像
-- 中盤再フック画像
-- まとめ・CTA画像
+ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
 
-## visual_type
-
-`visual_asset_plan[].visual_type` は次から選ぶ。
-
-```yaml
-visual_type_options:
-  - hook_poster
-  - boke_visual
-  - tsukkomi_visual
-  - myth_vs_fact
-  - danger_simulation
-  - before_after
-  - three_step_board
-  - checklist_panel
-  - ranking_board
-  - ui_mockup_safe
-  - flowchart_scene
-  - contrast_card
-  - meme_like_diagram
-  - mini_story_scene
-  - final_action_card
+画像の雰囲気は生活空間、スマホ通知、疲労感、時間が溶ける表現で生成してください。
 ```
 
-## 禁止
+## 雰囲気指定
 
-- 白背景に中央アイコンだけ
-- 無意味な人物シルエット
-- 抽象アイコンのみ
-- どのシーンにも使える汎用素材
-- 全シーン同じ構図
-- 実在ブランドUIの模写
-- 実在ロゴ
-- 既存キャラクターの生成
-- 霊夢、魔理沙、ずんだもん、めたん風のキャラを画像内に生成すること
-- 写真風の実在人間
-- 字幕帯やキャラ位置に重要要素を置くこと
-- 長文日本語を画像内に生成させること
+雰囲気は手動固定ではなく、LLMが `script_final.md` 全体を読んで決める。
 
-## 必須
+- 怪談解説なら、暗い照明、影、湿度感、不穏さを足す。
+- 医薬品解説なら、清潔な病院、白、淡い青、安心感を足す。
+- スマホ/通知なら、生活空間、通知、疲労感、時間が溶ける表現を足す。
+- お金/節約なら、レシート、家計簿、生活感、損失回避を足す。
 
-- シーン固有の状況がある
-- 台本のボケ、誤解、ツッコミ、結論のどれを補強するか明確
-- 1枚で何の話か分かる
-- main枠とsub枠の役割が被らない
-- 下部20%は字幕とキャラのために空ける
-- 重要テキストはRemotion側で重ねる
-- 画像内文字は短語だけにする
-- 各シーンで構図を変える
-- 画面の情報密度はあるが、ごちゃつかせない
+## 保存場所
 
-## Scene02 main/sub 役割
+`script.yaml` 内の `visual_asset_plan[].imagegen_prompt` を正本にする。
 
-Scene02では、mainとsubの役割を分ける。
+`image_direction`、`visual_type`、`supports_dialogue`、`supports_moment`、`composition_type`、`hook_type`、`myth_vs_fact`、`boke_or_reaction` は v2 では使用しない。`imagegen_prompt` 本文にも構造メタにも混ぜない。
 
-main:
+## 画像内テキスト
 
-- 状況
-- 感情
-- 対比
-- ボケ
-- ツッコミ
-- 危険導線
-- Before/After
-
-sub:
-
-- 3項目チェック
-- NGワード
-- 行動リスト
-- 注意点
-- まとめ
-
-禁止:
-
-- mainとsubが同じ情報を繰り返す
-- mainに細かいチェックリストを入れる
-- subに複雑な図解を入れる
-
-## シーン配分
-
-3分動画の目安:
-
-```yaml
-three_minute_visual_mix:
-  s01: hook_poster
-  s02: myth_vs_fact or danger_simulation
-  s03: boke_visual or meme_like_diagram
-  s04: danger_simulation
-  s05: before_after or contrast_card
-  s06: checklist_panel
-  s07: mini_story_scene
-  s08: final_action_card or three_step_board
-```
-
-5分動画の目安:
-
-```yaml
-five_minute_visual_mix:
-  s01: hook_poster
-  s02: myth_vs_fact
-  s03: boke_visual
-  s04: danger_simulation
-  s05: before_after
-  s06: flowchart_scene
-  s07: checklist_panel
-  s08: mini_story_scene
-  s09: three_step_board
-  s10: final_action_card
-```
-
-## visual_asset_plan 必須構造
-
-```yaml
-visual_asset_plan:
-  - slot: main
-    supports_dialogue:
-      - s01_l01
-      - s01_l02
-    supports_moment: "霊夢が当選DMに食いつき、魔理沙が止める瞬間"
-    visual_type: hook_poster
-    composition_type: smartphone_closeup
-    purpose: "冒頭フック"
-    image_direction:
-      scene_id: s01
-      dialogue_role: "冒頭フック / ボケ補強 / 誤解訂正 / 手順提示"
-      scene_emotion: "焦り / 驚き / 納得 / 危険 / 安心"
-      visual_type: hook_poster
-      composition_type: smartphone_closeup
-      image_should_support: "どの掛け合いを補強するか"
-      key_visual_sentence: "1枚で伝える状況"
-      main_subject: "主役"
-      secondary_subjects:
-        - "補助要素"
-      foreground: "前景"
-      midground: "中景"
-      background: "背景"
-      color_palette: "色"
-      text_strategy:
-        image_text_allowed: true
-        image_text_max_words: 3
-        image_text_examples:
-          - STOP
-        remotion_overlay_text:
-          - "Remotionで重ねる文"
-      layout_safety:
-        keep_bottom_20_percent_empty: true
-        avoid_character_area: true
-        avoid_sub_area_overlap: true
-      must_not_include:
-        - "実在アプリUI"
-        - "ブランドロゴ"
-        - "既存キャラクター"
-        - "写真風人物"
-        - "長文日本語"
-      quality_bar: "YouTube解説動画の高品質サムネ内スライドとして成立すること"
-    imagegen_prompt: |
-      ...
-```
+固定プロンプト内の「字幕やセリフは別で表示するため、会話等は画像に入れない」を優先する。
+画像内に日本語テキストを使うこと自体は禁止しない。会話全文を画像内に並べる指示だけを禁止する。

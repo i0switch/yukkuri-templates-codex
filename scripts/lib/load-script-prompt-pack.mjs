@@ -1,13 +1,24 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-export const SCRIPT_PROMPT_PACK_FILES = [
+export const SCRIPT_PROMPT_PACK_CANONICAL_FILES = [
   '00_MASTER_SCRIPT_RULES.md',
-  '01_plan_prompt.md',
-  '02_draft_prompt.md',
-  '03_audit_prompt.md',
-  '04_rewrite_prompt.md',
-  '05_yaml_prompt.md',
+  '01_input_normalize_prompt.md',
+  '02_template_analysis_prompt.md',
+  '03_plan_prompt.md',
+  '04_draft_prompt_yukkuri.md',
+  '05_draft_prompt_zundamon.md',
+  '07_rewrite_prompt.md',
+  '08_image_prompt_prompt.md',
+  '09_image_prompt_audit.md',
+  '10_yaml_prompt.md',
+  '11_final_episode_audit.md',
+];
+
+export const SCRIPT_PROMPT_PACK_COMPAT_FILES = [];
+
+export const SCRIPT_PROMPT_PACK_FILES = [
+  ...SCRIPT_PROMPT_PACK_CANONICAL_FILES,
 ];
 
 export async function loadScriptPromptPack(rootDir = process.cwd(), {log = true} = {}) {
@@ -40,5 +51,7 @@ export async function loadScriptPromptPack(rootDir = process.cwd(), {log = true}
   return {
     packDir,
     files: loaded,
+    canonicalFiles: SCRIPT_PROMPT_PACK_CANONICAL_FILES,
+    compatFiles: SCRIPT_PROMPT_PACK_COMPAT_FILES,
   };
 }

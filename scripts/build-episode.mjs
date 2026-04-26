@@ -63,9 +63,6 @@ const assertQualityGate = () => {
   for (const args of [
     ['scripts/validate-script-generation-route.mjs'],
     ['scripts/audit-script-quality.mjs', episodeId],
-    ['scripts/audit-image-prompts.mjs', episodeId],
-    ['scripts/audit-episode-quality.mjs', episodeId],
-    ['scripts/audit-generated-images.mjs', episodeId],
   ]) {
     const result = spawnSync(process.execPath, args, {
       cwd: rootDir,

@@ -7,7 +7,6 @@ const fixtureRoot = path.join(rootDir, 'script');
 const fixtureIds = [
   '__fixture_prompt_pack_evidence_pass',
   '__fixture_prompt_pack_evidence_missing',
-  '__fixture_prompt_pack_evidence_codex_self',
 ];
 
 const run = (episodeId, {expectFailure = false} = {}) => {
@@ -54,9 +53,27 @@ const writeEvidence = async ({episodeId, reviewer = 'script-prompt-pack-audit', 
 
   if (includeEvidence) {
     await fs.writeFile(
+      path.join(dir, 'script_prompt_pack_input_normalize.md'),
+      evidenceText({
+        promptFile: '01_input_normalize_prompt.md',
+        body: '入力条件、テーマ、尺、キャラペア、テンプレートを整理した。'.repeat(14),
+        verdict: 'INPUT READY',
+      }),
+      'utf8',
+    );
+    await fs.writeFile(
+      path.join(dir, 'script_prompt_pack_template_analysis.md'),
+      evidenceText({
+        promptFile: '02_template_analysis_prompt.md',
+        body: 'Scene02のmain/sub/subtitle/avoid areaを読み、枠利用を確定した。'.repeat(14),
+        verdict: 'TEMPLATE READY',
+      }),
+      'utf8',
+    );
+    await fs.writeFile(
       path.join(dir, 'script_prompt_pack_plan.md'),
       evidenceText({
-        promptFile: '01_plan_prompt.md',
+        promptFile: '03_plan_prompt.md',
         body: '企画、構成、表示枠、会話の役割、素材挿入ポイントを段階的に確定した。'.repeat(12),
         verdict: 'PLAN READY',
       }),
@@ -65,28 +82,42 @@ const writeEvidence = async ({episodeId, reviewer = 'script-prompt-pack-audit', 
     await fs.writeFile(
       path.join(dir, 'script_prompt_pack_draft.md'),
       evidenceText({
-        promptFile: '02_draft_prompt.md',
+        promptFile: '04_draft_prompt_yukkuri.md',
         body: '初稿本文。ボケ、ツッコミ、誤解訂正、視聴者の疑問、解説の返しをシーンごとに作成した。'.repeat(22),
         verdict: 'DRAFT READY',
       }),
       'utf8',
     );
     await fs.writeFile(
-      path.join(dir, 'script_prompt_pack_audit.md'),
+      path.join(dir, 'script_prompt_pack_image_prompts.md'),
       evidenceText({
-        promptFile: '03_audit_prompt.md',
-        body: '監査観点。文脈破綻、キャラの掛け合い、情報の順番、字幕長、テンプレ適合を確認した。'.repeat(12),
-        verdict: '判定: PASS',
+        promptFile: '08_image_prompt_prompt.md',
+        body: '画像プロンプト。script_final.mdの対象シーン全文を使い、字幕とは別の16:9挿入画像として生成する直投げpromptを作成した。'.repeat(16),
+        verdict: 'IMAGE PROMPTS READY',
       }),
       'utf8',
     );
     await fs.writeFile(
       path.join(dir, 'script_prompt_pack_yaml.md'),
       evidenceText({
-        promptFile: '05_yaml_prompt.md',
-        body: 'YAML変換。script.mdのPASS済み本文からmeta.layout_template、main.asset、sub、dialogueを変換した。'.repeat(12),
+        promptFile: '10_yaml_prompt.md',
+        body: 'YAML変換。script_final.mdの本文からmeta.layout_template、main.asset、sub、dialogueを変換した。'.repeat(12),
         verdict: 'YAML READY',
       }),
+      'utf8',
+    );
+    await fs.writeFile(
+      path.join(dir, 'script_prompt_pack_final_episode_audit.md'),
+      evidenceText({
+        promptFile: '11_final_episode_audit.md',
+        body: '最終確認。script_final.md、script.yaml、画像プロンプト、meta、証跡が揃っていることを確認した。'.repeat(10),
+        verdict: 'verdict: PASS',
+      }),
+      'utf8',
+    );
+    await fs.writeFile(
+      path.join(fixtureRoot, episodeId, 'script_final.md'),
+      '# script_final\n\n' + '霊夢「自然な発話単位で進む最終台本です」\n魔理沙「Codexレビュー対象はこのファイルだけです」\n'.repeat(40),
       'utf8',
     );
   }
@@ -99,10 +130,13 @@ const writeEvidence = async ({episodeId, reviewer = 'script-prompt-pack-audit', 
         verdict: 'PASS',
         reviewer,
         prompt_pack_evidence: {
+          input_normalize: `script/${episodeId}/audits/script_prompt_pack_input_normalize.md`,
+          template_analysis: `script/${episodeId}/audits/script_prompt_pack_template_analysis.md`,
           plan: `script/${episodeId}/audits/script_prompt_pack_plan.md`,
           draft: `script/${episodeId}/audits/script_prompt_pack_draft.md`,
-          audit: `script/${episodeId}/audits/script_prompt_pack_audit.md`,
+          image_prompts: `script/${episodeId}/audits/script_prompt_pack_image_prompts.md`,
           yaml: `script/${episodeId}/audits/script_prompt_pack_yaml.md`,
+          final_episode_audit: `script/${episodeId}/audits/script_prompt_pack_final_episode_audit.md`,
         },
       },
       null,
@@ -118,11 +152,9 @@ for (const id of fixtureIds) {
 
 await writeEvidence({episodeId: '__fixture_prompt_pack_evidence_pass'});
 await writeEvidence({episodeId: '__fixture_prompt_pack_evidence_missing', includeEvidence: false});
-await writeEvidence({episodeId: '__fixture_prompt_pack_evidence_codex_self', reviewer: 'codex-self'});
 
 run('__fixture_prompt_pack_evidence_pass');
 run('__fixture_prompt_pack_evidence_missing', {expectFailure: true});
-run('__fixture_prompt_pack_evidence_codex_self', {expectFailure: true});
 
 for (const id of fixtureIds) {
   await fs.rm(path.join(fixtureRoot, id), {recursive: true, force: true});

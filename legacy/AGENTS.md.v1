@@ -1,0 +1,336 @@
+# AGENTS.md
+
+このリポジトリで作業するAIエージェント向けの運用ルールです。
+Codex / Claude Code / その他エージェントは、このファイルと `CLAUDE.md` を両方読み、矛盾する場合は「より安全で、より検証が強いルール」を優先してください。
+
+---
+
+## Mission
+
+ユーザーのテーマから、テンプレート認識付きの高品質なゆっくり解説 / ずんだもん解説動画を生成する。
+
+最終成果物は原則として次です。
+
+```text
+script/{episode_id}/script.yaml
+script/{episode_id}/assets/
+script/{episode_id}/meta.json
+script/{episode_id}/audits/
+out/videos/{episode_id}.mp4
+```
+
+---
+
+## Non-Negotiable Rules
+
+### 1. Script Prompt Pack は必須
+
+台本生成では、必ず `_reference/script_prompt_pack/` を使う。
+
+必須順序:
+
+1. `00_MASTER_SCRIPT_RULES.md`
+2. `01_plan_prompt.md`
+3. `02_draft_prompt.md`
+4. `03_audit_prompt.md`
+5. `04_rewrite_prompt.md` if audit fails or quality is weak
+6. `05_yaml_prompt.md` only after audit PASS
+
+禁止:
+
+- prompt pack を読まずに台本を書く
+- いきなり `script.yaml` を作る
+- hardcoded dialogue generator を作る
+- `03_audit_prompt.md` のPASS前に YAML 化する
+- `04_rewrite_prompt.md` を使わずにFAIL箇所を雑に全体再生成する
+- `archive/` 配下の旧プロンプトを通常運用の正本にする
+
+### 2. Evidence is mandatory
+
+台本生成後は、必ず次の証跡を残す。
+
+```text
+script/{episode_id}/audits/script_prompt_pack_plan.md
+script/{episode_id}/audits/script_prompt_pack_draft.md
+script/{episode_id}/audits/script_prompt_pack_audit.md
+script/{episode_id}/audits/script_prompt_pack_yaml.md
+script/{episode_id}/audits/script_generation_audit.json
+```
+
+`script_generation_audit.json` の最低形:
+
+```json
+{
+  "step": "script_generation",
+  "verdict": "PASS",
+  "reviewer": "second-codex",
+  "prompt_pack_evidence": {
+    "plan": "script/<episode_id>/audits/script_prompt_pack_plan.md",
+    "draft": "script/<episode_id>/audits/script_prompt_pack_draft.md",
+    "audit": "script/<episode_id>/audits/script_prompt_pack_audit.md",
+    "yaml": "script/<episode_id>/audits/script_prompt_pack_yaml.md"
+  }
+}
+```
+
+`reviewer: "codex-self"` の単独PASSは禁止。
+rewrite を使った場合は `script_prompt_pack_rewrite.md` に `04_rewrite_prompt.md` を明記する。
+
+検証:
+
+```powershell
+node scripts/validate-script-prompt-pack-evidence.mjs <episode_id>
+npm run test:script-prompt-pack-evidence
+```
+
+### 3. Template is video-wide
+
+1本の動画につき、テンプレートは1つだけ使う。
+
+正準:
+
+```yaml
+meta:
+  layout_template: "Scene02"
+```
+
+禁止:
+
+```yaml
+meta:
+  scene_template: "Scene02"
+scenes:
+  - scene_template: "Scene03"
+```
+
+`scenes[]` は時間ブロックであり、テンプレート切替単位ではない。
+
+### 4. No fake completion
+
+次の場合は完成扱い禁止。
+
+- script prompt pack の証跡がない
+- gate がFAIL
+- 画像素材が placeholder / fallback / local card のまま
+- MP4がない
+- video audit が未実行またはFAIL
+- second-codex audit が必要なのに未実行
+- 失敗理由をごまかしている
+
+---
+
+## Required Read Order
+
+作業開始時:
+
+```text
+CLAUDE.md
+AGENTS.md
+10_video-pipeline.md
+workflows/script_to_video_workflow.md
+06_scene-layout-guide.md
+02_演出編集プロンプト.md
+_reference/script_prompt_pack/README.md
+```
+
+台本生成時:
+
+```text
+_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md
+_reference/script_prompt_pack/01_plan_prompt.md
+_reference/script_prompt_pack/02_draft_prompt.md
+_reference/script_prompt_pack/03_audit_prompt.md
+_reference/script_prompt_pack/04_rewrite_prompt.md
+_reference/script_prompt_pack/05_yaml_prompt.md
+```
+
+画像素材生成時:
+
+```text
+_reference/image_prompt_pack/README.md
+_reference/image_prompt_pack/00_IMAGE_GEN_MASTER_RULES.md
+_reference/image_prompt_pack/01_IMAGE_DIRECTION_PROMPT.md
+_reference/image_prompt_pack/02_IMAGEGEN_PROMPT_PROMPT.md
+_reference/image_prompt_pack/03_IMAGE_PROMPT_AUDIT.md
+_reference/image_prompt_pack/04_IMAGE_REWRITE_PROMPT.md
+_reference/image_prompt_pack/05_IMAGE_RESULT_AUDIT.md
+```
+
+テンプレート決定後:
+
+```text
+templates/scene-XX_*.md
+```
+
+---
+
+## Episode Workflow
+
+### Step 1. Input lock
+
+次を確定する。
+
+```text
+episode_id:
+theme:
+duration:
+character_pair: RM / ZM
+layout_template: Scene01〜Scene21
+reference_style: optional
+```
+
+テンプレート未指定でユーザーが選択を任せた場合は、テーマ・尺・情報密度に合う1つを選ぶ。
+
+### Step 2. Template analysis
+
+`templates/scene-XX_*.md` と `06_scene-layout-guide.md` を読み、次を作業メモ化する。
+
+```text
+layout_template:
+main_content:
+sub_content:
+subtitle_area:
+title_area:
+character_layout:
+avoid_area:
+```
+
+### Step 3. Script generation with prompt pack
+
+`_reference/script_prompt_pack/` に従って、plan → draft → audit → rewrite → yaml の順に進める。
+
+各段階の出力は `script/{episode_id}/audits/` に保存する。
+監査PASS後にだけ `script.yaml` を作る。
+
+### Step 4. Image planning and generation
+
+`visual_asset_plan` を全体に作る。
+画像が必要な scene には、`image_direction` と `imagegen_prompt` を持たせる。
+
+画像生成後は、生成物の実在、サイズ、内容、テンプレート枠との衝突、provenance を確認する。
+素材パスは `assets/...` の相対パスにする。
+
+### Step 5. YAML and assets
+
+最低限そろえる。
+
+```text
+script/{episode_id}/script.yaml
+script/{episode_id}/assets/
+script/{episode_id}/meta.json
+script/{episode_id}/audits/
+```
+
+YAML条件:
+
+- `meta.layout_template: "Scene01"`〜`"Scene21"`
+- `scenes[].scene_template` なし
+- `dialogue[].text` は原則として自然な発話単位を維持
+- main/sub の asset は `assets/...`
+- sub枠がない場合は `sub: null`
+- `visual_asset_plan` を監査メタとして残す
+
+### Step 6. Gate
+
+```powershell
+npm run gate:episode -- <episode_id>
+```
+
+gate がFAILしたら render しない。
+FAIL理由に従って最小修正し、再実行する。
+
+### Step 7. Render
+
+```powershell
+npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4
+```
+
+原則として、直接 `npx remotion render` を実行しない。
+ラッパー経由で gate 飛ばしを防ぐ。
+
+### Step 8. Final audit
+
+```powershell
+npm run audit:video -- <episode_id> out/videos/<episode_id>.mp4
+npm run audit:second-codex -- <episode_id>
+```
+
+MP4の実在、音声、字幕同期、素材表示、ライセンス記録、テンプレート枠衝突を確認する。
+
+---
+
+## Quality Gates
+
+### Script Quality
+
+必須:
+
+- 冒頭5秒以内に強いフック
+- 視聴者役の疑問、誤解、反論、ツッコミがある
+- 解説役だけの独演が続かない
+- 1シーン1役割
+- `scene_goal` / `viewer_question` / `visual_role` が具体的
+- 3〜5シーンごとに視点転換がある
+- 似た結論や同じ注意喚起の反復が少ない
+- 最後に視聴者が取れる具体行動がある
+- 事件・疑惑・実在人物では断定回避と注意書きがある
+
+### Layout Quality
+
+必須:
+
+- main/sub/subtitle/title/avoid_area を読み違えていない
+- サブ枠ありなら補足・比較・チェックリストをsubへ分離
+- サブ枠なしなら `sub: null`
+- 字幕枠が狭い場合は短文セリフに分割
+- 画像内に細かい長文日本語を詰め込まない
+
+### Asset Quality
+
+必須:
+
+- 45〜60秒以上、視覚変化が空かない
+- 画像はシーンの掛け合いを補強している
+- `supports_dialogue` と `supports_moment` が具体的
+- 既存キャラクター、実在UI、ブランドロゴ、権利侵害素材を避ける
+- fallback / placeholder / local card を完成素材扱いにしない
+
+---
+
+## Useful Commands
+
+```powershell
+npm run gate:prompt-pack
+npm run test:script-prompt-pack-evidence
+node scripts/validate-script-prompt-pack-evidence.mjs <episode_id>
+
+npm run audit:script-quality -- <episode_id>
+npm run audit:image-prompts -- <episode_id>
+npm run audit:generated-images -- <episode_id>
+npm run audit:episode-quality -- <episode_id>
+
+npm run gate:episode -- <episode_id>
+npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4
+npm run audit:video -- <episode_id> out/videos/<episode_id>.mp4
+npm run audit:second-codex -- <episode_id>
+```
+
+---
+
+## Final Report Format
+
+```text
+完了:
+- episode_id:
+- 使用テンプレート:
+- 使用した Script Prompt Pack:
+- 証跡:
+- gate:
+- render:
+- video audit:
+- second-codex audit:
+- 出力:
+- 残課題:
+```
+
+未完了の場合は、失敗工程、原因、次の修正手順だけを簡潔に報告する。

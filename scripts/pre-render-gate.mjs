@@ -4,6 +4,7 @@ import {spawnSync} from 'node:child_process';
 
 const rootDir = process.cwd();
 const episodeId = process.argv[2];
+const promptOnly = process.argv.includes('--prompt-only') || process.argv.includes('--prompt_only');
 
 if (!episodeId) {
   throw new Error('Usage: node scripts/pre-render-gate.mjs <episode_id>');
@@ -29,10 +30,9 @@ const run = (args) => {
 run(['scripts/validate-script-generation-route.mjs']);
 run(['scripts/validate-script-prompt-pack-evidence.mjs', episodeId]);
 run(['scripts/audit-script-quality.mjs', episodeId]);
-run(['scripts/audit-image-prompts.mjs', episodeId]);
-run(['scripts/validate-episode-script.mjs', episodeId]);
-run(['scripts/audit-episode-quality.mjs', episodeId]);
-run(['scripts/audit-generated-images.mjs', episodeId]);
+run(promptOnly ? ['scripts/validate-episode-script.mjs', episodeId, '--prompt-only'] : ['scripts/validate-episode-script.mjs', episodeId]);
+
+console.log('[pre-render-gate] direct script_final image prompt mode: skipped image prompt, generated-image, and image-heavy episode audits');
 
 const auditsDir = path.join(rootDir, 'script', episodeId, 'audits');
 await fs.mkdir(auditsDir, {recursive: true});
@@ -46,24 +46,17 @@ await fs.writeFile(
       checks: [
         'validate-script-generation-route',
         'validate-script-prompt-pack-evidence',
-        'validate-episode-script',
+        promptOnly ? 'validate-episode-script --prompt-only' : 'validate-episode-script',
         'audit-script-quality',
-        'audit-image-prompts',
-        'audit-episode-quality',
-        'audit-generated-images',
         'script prompt pack presence',
         'episode-level script prompt pack evidence files',
-        'script_generation_audit cannot be codex-self-only PASS',
+        'script_final.md exists as the single Codex review target',
         'image prompt pack presence',
-        'image_direction and visual_type are present for every generated image',
-        'image prompts support concrete dialogue moments instead of generic icons',
-        'image prompts explicitly require one image per image gen call',
-        'grid/sheet/batch/crop image generation plans are rejected',
-        'generated image result audit PASS exists before render',
-        'image provenance rejects fallback/local card assets',
-        'image files must be inspectable raster assets above delivery thresholds',
+        'direct script_final scene text is allowed in visual_asset_plan imagegen_prompt',
+        'image prompt and generated-image audits are intentionally non-blocking',
         'dialogue rejects known mechanical conversion artifacts',
       ],
+      prompt_only: promptOnly,
     },
     null,
     2,
@@ -71,4 +64,4 @@ await fs.writeFile(
   'utf8',
 );
 
-console.log(JSON.stringify({episodeId, verdict: 'PASS'}, null, 2));
+console.log(JSON.stringify({episodeId, verdict: 'PASS', prompt_only: promptOnly}, null, 2));

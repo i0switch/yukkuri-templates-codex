@@ -1,0 +1,11 @@
+{
+  "verdict": "PASS",
+  "pass": true,
+  "score": 100,
+  "scene_count": 3,
+  "dialogue_count": 18,
+  "issues": [],
+  "warnings": [],
+  "human_review_required": false,
+  "input": "scripts\\test_fixtures\\good_draft.md"
+}

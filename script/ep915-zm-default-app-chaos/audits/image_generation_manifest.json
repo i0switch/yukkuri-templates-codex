@@ -1,0 +1,31 @@
+{
+  "episode_id": "ep915-zm-default-app-chaos",
+  "requested": true,
+  "mode": "built-in image_gen",
+  "status": "DONE",
+  "expected_assets": [
+    "assets/s01_main.png",
+    "assets/s02_main.png",
+    "assets/s03_main.png",
+    "assets/s04_main.png",
+    "assets/s05_main.png",
+    "assets/s06_main.png",
+    "assets/s07_main.png",
+    "assets/s08_main.png",
+    "assets/s09_main.png",
+    "assets/s10_main.png"
+  ],
+  "generated_assets": [
+    "assets/s01_main.png",
+    "assets/s02_main.png",
+    "assets/s03_main.png",
+    "assets/s04_main.png",
+    "assets/s05_main.png",
+    "assets/s06_main.png",
+    "assets/s07_main.png",
+    "assets/s08_main.png",
+    "assets/s09_main.png",
+    "assets/s10_main.png"
+  ],
+  "completed_at": "2026-04-26T15:18:03.363Z"
+}
