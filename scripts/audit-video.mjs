@@ -18,9 +18,7 @@ const videoPath = explicitVideoPath
   ? path.resolve(rootDir, explicitVideoPath)
   : path.resolve(rootDir, 'out', 'videos', `${episodeId}.mp4`);
 
-const DELIVERY_PROFILE = {
-  width: 1920,
-  height: 1080,
+const BASE_DELIVERY_PROFILE = {
   fps: 30,
   max_silence_sec: 0.5,
   duration_tolerance_sec: 1,
@@ -121,6 +119,13 @@ const audit = async () => {
   const errors = [];
   const warnings = [];
   const {path: scriptPath, script} = await readScript();
+  const deliveryProfile = {
+    width: script.meta?.width ?? 1920,
+    height: script.meta?.height ?? 1080,
+    fps: script.meta?.fps ?? BASE_DELIVERY_PROFILE.fps,
+    max_silence_sec: BASE_DELIVERY_PROFILE.max_silence_sec,
+    duration_tolerance_sec: BASE_DELIVERY_PROFILE.duration_tolerance_sec,
+  };
 
   const validation = await validateEpisodeScript(script, {episodeDir});
   for (const error of validation.errors) {
@@ -142,13 +147,30 @@ const audit = async () => {
     pushIssue(errors, 'error', 'bgm-missing', 'script.bgm.file is required for delivery-quality video audit');
   }
 
-  const expectedProfile = {
-    width: script.meta?.width ?? DELIVERY_PROFILE.width,
-    height: script.meta?.height ?? DELIVERY_PROFILE.height,
-    fps: script.meta?.fps ?? DELIVERY_PROFILE.fps,
-    max_silence_sec: DELIVERY_PROFILE.max_silence_sec,
-    duration_tolerance_sec: DELIVERY_PROFILE.duration_tolerance_sec,
-  };
+  if (
+    script.meta?.width !== deliveryProfile.width ||
+    script.meta?.height !== deliveryProfile.height ||
+    script.meta?.fps !== deliveryProfile.fps
+  ) {
+    pushIssue(
+      errors,
+      'error',
+      'delivery-profile-mismatch',
+      `script.meta must target ${deliveryProfile.width}x${deliveryProfile.height} @ ${deliveryProfile.fps}fps`,
+      {
+        expected: {
+          width: deliveryProfile.width,
+          height: deliveryProfile.height,
+          fps: deliveryProfile.fps,
+        },
+        actual: {
+          width: script.meta?.width,
+          height: script.meta?.height,
+          fps: script.meta?.fps,
+        },
+      },
+    );
+  }
 
   let probe = null;
   let silenceDurations = [];
@@ -162,18 +184,18 @@ const audit = async () => {
     if (!videoStream) {
       pushIssue(errors, 'error', 'video-stream-missing', 'MP4 has no video stream');
     } else {
-      if (videoStream.width !== expectedProfile.width || videoStream.height !== expectedProfile.height) {
+      if (videoStream.width !== deliveryProfile.width || videoStream.height !== deliveryProfile.height) {
         pushIssue(
           errors,
           'error',
           'resolution-mismatch',
-          `Expected ${expectedProfile.width}x${expectedProfile.height}, got ${videoStream.width}x${videoStream.height}`,
+          `Expected ${deliveryProfile.width}x${deliveryProfile.height}, got ${videoStream.width}x${videoStream.height}`,
         );
       }
 
       const fps = parseFps(videoStream.avg_frame_rate) ?? parseFps(videoStream.r_frame_rate);
-      if (Math.abs(fps - expectedProfile.fps) > 0.01) {
-        pushIssue(errors, 'error', 'fps-mismatch', `Expected ${expectedProfile.fps}fps, got ${fps}`);
+      if (Math.abs(fps - deliveryProfile.fps) > 0.01) {
+        pushIssue(errors, 'error', 'fps-mismatch', `Expected ${deliveryProfile.fps}fps, got ${fps}`);
       }
     }
 
@@ -184,14 +206,14 @@ const audit = async () => {
     if (
       typeof expectedDuration === 'number' &&
       Number.isFinite(durationSec) &&
-      Math.abs(durationSec - expectedDuration) > DELIVERY_PROFILE.duration_tolerance_sec
+      Math.abs(durationSec - expectedDuration) > deliveryProfile.duration_tolerance_sec
     ) {
       pushIssue(errors, 'error', 'duration-mismatch', `Expected ${expectedDuration}s ±1s, got ${Math.round(durationSec * 100) / 100}s`);
     }
 
     if (audioStream) {
       silenceDurations = detectSilence(videoPath);
-      const longSilences = silenceDurations.filter((duration) => duration >= expectedProfile.max_silence_sec);
+      const longSilences = silenceDurations.filter((duration) => duration >= deliveryProfile.max_silence_sec);
       if (longSilences.length > 0) {
         pushIssue(
           errors,
@@ -208,7 +230,7 @@ const audit = async () => {
     ok: errors.length === 0,
     episode_id: episodeId,
     checked_at: new Date().toISOString(),
-    delivery_profile: expectedProfile,
+    delivery_profile: deliveryProfile,
     script_path: path.relative(rootDir, scriptPath),
     video_path: path.relative(rootDir, videoPath),
     errors,

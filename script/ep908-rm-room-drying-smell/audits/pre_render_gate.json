@@ -1,0 +1,23 @@
+{
+  "step": "pre_render_gate",
+  "verdict": "PASS",
+  "checked_at": "2026-04-26T05:11:40.728Z",
+  "checks": [
+    "validate-script-generation-route",
+    "validate-episode-script",
+    "audit-script-quality",
+    "audit-image-prompts",
+    "audit-episode-quality",
+    "audit-generated-images",
+    "script prompt pack presence",
+    "image prompt pack presence",
+    "image_direction and visual_type are present for every generated image",
+    "image prompts support concrete dialogue moments instead of generic icons",
+    "image prompts explicitly require one image per image gen call",
+    "grid/sheet/batch/crop image generation plans are rejected",
+    "generated image result audit PASS exists before render",
+    "image provenance rejects fallback/local card assets",
+    "image files must be inspectable raster assets above delivery thresholds",
+    "dialogue rejects known mechanical conversion artifacts"
+  ]
+}

@@ -1,0 +1,74 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+
+const rootDir = process.cwd();
+const episodeId = process.argv[2];
+
+if (!episodeId) {
+  throw new Error('Usage: node scripts/pre-render-gate.mjs <episode_id>');
+}
+
+const run = (args) => {
+  const result = spawnSync(process.execPath, args, {
+    cwd: rootDir,
+    encoding: 'utf8',
+    windowsHide: true,
+  });
+  if (result.stdout) {
+    console.log(result.stdout.trim());
+  }
+  if (result.stderr) {
+    console.error(result.stderr.trim());
+  }
+  if (result.status !== 0) {
+    throw new Error(`Gate command failed: node ${args.join(' ')}`);
+  }
+};
+
+run(['scripts/validate-script-generation-route.mjs']);
+run(['scripts/validate-script-prompt-pack-evidence.mjs', episodeId]);
+run(['scripts/audit-script-quality.mjs', episodeId]);
+run(['scripts/audit-image-prompts.mjs', episodeId]);
+run(['scripts/validate-episode-script.mjs', episodeId]);
+run(['scripts/audit-episode-quality.mjs', episodeId]);
+run(['scripts/audit-generated-images.mjs', episodeId]);
+
+const auditsDir = path.join(rootDir, 'script', episodeId, 'audits');
+await fs.mkdir(auditsDir, {recursive: true});
+await fs.writeFile(
+  path.join(auditsDir, 'pre_render_gate.json'),
+  `${JSON.stringify(
+    {
+      step: 'pre_render_gate',
+      verdict: 'PASS',
+      checked_at: new Date().toISOString(),
+      checks: [
+        'validate-script-generation-route',
+        'validate-script-prompt-pack-evidence',
+        'validate-episode-script',
+        'audit-script-quality',
+        'audit-image-prompts',
+        'audit-episode-quality',
+        'audit-generated-images',
+        'script prompt pack presence',
+        'episode-level script prompt pack evidence files',
+        'script_generation_audit cannot be codex-self-only PASS',
+        'image prompt pack presence',
+        'image_direction and visual_type are present for every generated image',
+        'image prompts support concrete dialogue moments instead of generic icons',
+        'image prompts explicitly require one image per image gen call',
+        'grid/sheet/batch/crop image generation plans are rejected',
+        'generated image result audit PASS exists before render',
+        'image provenance rejects fallback/local card assets',
+        'image files must be inspectable raster assets above delivery thresholds',
+        'dialogue rejects known mechanical conversion artifacts',
+      ],
+    },
+    null,
+    2,
+  )}\n`,
+  'utf8',
+);
+
+console.log(JSON.stringify({episodeId, verdict: 'PASS'}, null, 2));

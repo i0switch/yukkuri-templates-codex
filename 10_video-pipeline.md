@@ -1,4 +1,4 @@
-# 動画化パイプライン仕様書
+﻿# 動画化パイプライン仕様書
 
 静止画42枚の基盤から**動画**を生成するための全体仕様。Claude Code / Codex 両方の
 プロンプト（`20_prompt_claude-code.md`・`21_prompt_codex.md`）はこの仕様書に従う。
@@ -10,7 +10,8 @@
 | 用語 | 意味 |
 |---|---|
 | 1本 | 1エピソード分の動画（3〜10分想定） |
-| 台本 | `script/{episode_id}/script.yaml`（単一の正） |
+| 台本ドラフト | `script/{episode_id}/script.md`（prompt packで作る監査対象） |
+| レンダー台本 | `script/{episode_id}/script.yaml`（監査PASS後にYAML化する単一の正） |
 | 素材 | 画像・BGM・効果音など動画に貼り付けるもの |
 | レンダリング | Remotion で MP4 に書き出すこと |
 | リップシンク | セリフ再生中だけ `talk` 表情、それ以外は `neutral/smile/calm` にする処理 |
@@ -22,7 +23,9 @@
 ```
 [01 企画] リュウドウがテーマとエピソードIDを指定
         ↓
-[02 台本生成] AI が script.yaml を書き出す（シーン割り・セリフ・素材要件まで）
+[02 台本生成] AI が _reference/script_prompt_pack を読み script.md を作る
+        ↓
+[02.5 台本監査] 03_audit_prompt.md で監査し、PASS後だけ YAML 化する
         ↓
 [03 素材調達] AI が各 scene の main/sub 用画像を取得（DL or ImageGen）＋ BGM 選定
         ↓
@@ -39,7 +42,33 @@
 [09 納品] out/{episode_id}.mp4 を提示
 ```
 
-**ポイント**：台本 `script.yaml` が全工程のハブ。セリフ追加も素材差し替えも台本編集→再ビルドで完結。
+**ポイント**：新規生成では `script.md` と prompt pack 監査が先。`script.yaml` は監査PASS後のレンダー入力であり、台本本文をJSに直書きして直接作らない。
+
+## 1.1 Script Prompt Pack 必須ルート
+
+台本生成では `_reference/script_prompt_pack/` の必須6ファイルを必ず読む。
+
+1. `00_MASTER_SCRIPT_RULES.md`
+2. `01_plan_prompt.md`
+3. `02_draft_prompt.md`
+4. `03_audit_prompt.md`
+5. `04_rewrite_prompt.md`
+6. `05_yaml_prompt.md`
+
+禁止:
+
+- 台本本文をスクリプト内にハードコードして生成する
+- `dialogue` 配列をJSに直書きして本番台本にする
+- `script.md` を経由せず `script.yaml` を直接作る
+- `03_audit_prompt.md` の監査なしでPASS扱いにする
+- FAIL判定を無視して素材生成やレンダリングへ進む
+
+新規生成の機械チェック:
+
+```powershell
+npm run gate:prompt-pack
+npm run audit:script-quality -- <episode_id>
+```
 
 ---
 
@@ -49,7 +78,8 @@
 yukkuri-templates/
 ├── script/                            ← 新規
 │   └── {episode_id}/
-│       ├── script.yaml                台本（単一の正）
+│       ├── script.md                  監査対象の台本ドラフト
+│       ├── script.yaml                監査PASS後のレンダー台本
 │       ├── audio/
 │       │   ├── s01_l01.wav            セリフ音声（sceneID_line番号）
 │       │   ├── s01_l02.wav
@@ -102,8 +132,8 @@ YAML で書く。JSONより手編集しやすい・コメントが書ける。
 meta:
   id: "ep001-synbio-intro"           # ファイル名と一致
   title: "合成生物学ってなに？"
+  layout_template: "Scene02"        # 1動画につき1つだけ使う背景テンプレ
   pair: "ZM"                         # "RM" | "ZM"
-  layout_template: "Scene02"          # 動画全体で固定する見た目スキン（Scene01〜Scene21）
   fps: 30
   width: 1920
   height: 1080
@@ -112,6 +142,12 @@ meta:
   bgm_mood: "穏やか＋好奇心"
   voice_engine: "voicevox"           # "voicevox" (ZMペア) | "aquestalk" (RMペア)
   target_duration_sec: 180           # 目安（厳守ではない）
+  typography:
+    subtitle_family: "gothic"         # "gothic" | "mincho"
+    content_family: "gothic"          # main/sub/caption 用
+    title_family: "gothic"            # title_text 用
+    subtitle_stroke_color: "#000000"  # 字幕文字の外側の縁取り色
+    subtitle_stroke_width: 6           # 字幕文字の外側の縁取り幅(px)
 
 characters:
   # pair: ZM の例（voice_engine: voicevox）
@@ -143,10 +179,13 @@ bgm:
   fade_out_sec: 1.5
 
 scenes:
-  # シーンの順序＝動画の再生順
+  # シーンの順序＝動画の再生順。全シーンで meta.layout_template を使う
+  # scenes[].scene_template は使用禁止。scene は時間ブロックで、テンプレートではない。
   - id: "s01"
     role: "intro"                    # "intro" | "body" | "outro" | "cta"
     title_text: "合成生物学ってなに？"      # titleSlot に入るテキスト（ある場合）
+    typography:
+      subtitle_family: "mincho"       # 任意。scene 単位の上書き
     main:
       kind: "text"                   # "text" | "image" | "bullets"
       text: "生物を『設計』する学問"
@@ -156,6 +195,8 @@ scenes:
         speaker: "left"              # "left" | "right"
         text: "みんな、こんにちはなのだ！"
         expression: "smile"
+        typography:
+          subtitle_family: "mincho"   # 任意。セリフ字幕だけ上書き
         pre_pause_sec: 0.2           # セリフ前の間
         post_pause_sec: 0.3          # セリフ後の間
       - id: "l02"
@@ -210,7 +251,21 @@ scenes:
         expression: "smile"
 ```
 
-### 3.1 シーン長の決定ルール
+### 3.1 Typography 指定ルール
+
+フォントは `script.yaml` の `typography` で指定する。分類は `gothic` / `mincho` のみで、
+CSSフォント名を直接書かない。
+
+優先順位は `dialogue[].typography.subtitle_family` > `scenes[].typography` > `meta.typography` > 暗黙既定 `gothic`。
+`dialogue[].typography` は字幕用の `subtitle_family`、`subtitle_stroke_color`、`subtitle_stroke_width` だけを指定できる。
+`content_family` は main/sub/caption、`title_family` は `title_text` に使う。
+文字の外側の縁取りは `subtitle_stroke_color` / `subtitle_stroke_width` で指定できる。
+必要な場合は `content_stroke_color` / `content_stroke_width`、`title_stroke_color` / `title_stroke_width` も指定できる。
+
+`gothic` を明示指定する場合は `public/fonts/keifont.ttf` を必須とし、けいふぉんとを先頭フォントとして使う。
+ファイルが無い状態で `gothic` を明示した台本は validator で FAIL にする。
+
+### 3.2 シーン長の決定ルール
 
 各シーンの `duration_sec` は以下で自動算出する（`build-episode.mjs` 内）：
 
@@ -221,19 +276,19 @@ duration_sec = sum(pre_pause + wav_sec + post_pause for each line)
 
 切り上げ単位は 0.1秒。fps=30 なら 3フレーム刻み。
 
-### 3.2 `meta.layout_template` の選び方
+### 3.3 `meta.layout_template` の選び方
 
-このプロジェクトでは **1動画につき1テンプレート固定** とする。`Scene01`〜`Scene21` は動画全体の見た目スキンであり、`scenes[]` は時間ブロックである。各 scene は同じ `meta.layout_template` に流し込み、`main` / `sub` / `title_text` / `dialogue` の中身だけを変える。
+1本の動画では `meta.layout_template` を1つだけ選ぶ。intro/body/outro/cta でテンプレを散らさない。
+テンプレ選定は、動画全体で必要な枠を基準に決める。
 
-| 動画全体の用途 | 推奨 layout_template | 理由 |
+| 必要な画面構造 | 候補テンプレ | 理由 |
 |---|---|---|
-| タイトル表示を重視 | Scene08, Scene15, Scene19, Scene20 | タイトルエリアがある |
-| 図解＋補足を両立 | Scene02, Scene03, Scene10, Scene13, Scene14 | main+sub の2枠で整理しやすい |
-| メイン1枚を大きく見せる | Scene05, Scene06, Scene07, Scene09, Scene18, Scene21 | 図解/写真を大きく出しやすい |
-| UI風・SF風 | Scene11, Scene14, Scene17 | 情報パネル感を出しやすい |
-| シンプル会話中心 | Scene01, Scene04 | 見出しと話者だけで成立しやすい |
+| タイトル枠を強く使う | 04, 08, 12, 15, 16, 17, 19 | 見出しや章タイトルを置きやすい |
+| main + sub で補足を分ける | 02, 03, 10, 13, 14 | 本題と補足を同時に見せられる |
+| main 画像を大きく見せる | 01, 05, 06, 07, 09, 18, 20, 21 | 図解や写真を広く使いやすい |
 
-`scenes[].scene_template` は使用禁止。旧 YAML に残っている場合は validation error とし、`meta.layout_template` へ移す。
+動画内の変化はテンプレ変更ではなく、main/sub/title/subtitle の中身、画像差し替え、字幕、演出で作る。
+validator は `meta.layout_template` を必須にする。`scenes[].scene_template` が残っていたら FAIL にする。
 
 ---
 
@@ -311,6 +366,9 @@ export const SceneXX_Video: React.FC<SceneVideoProps> = ({ sceneData, episodeDir
 `SceneXX_Video` は既存 `SceneXX` の横に増設する（静止画用 `SceneXX` は削らない）。
 
 ### 4.2 `VideoMain.tsx`（新規・タイムライン全体）
+
+`SceneRenderer` は `script.meta.layout_template` を読み、その1つの `SceneXX_Video` / `SceneXX` 系コンポーネントへ全 scene を流し込む。
+`script.render.json` でも各 scene へ `scene_template` は補完しない。
 
 ```tsx
 // src/compositions/VideoMain.tsx
@@ -474,20 +532,15 @@ const durations = script.meta.voice_engine === 'aquestalk'
 
 **大原則：使っていい素材かどうかを確認し、記録する。** 詳細ルールは `90_asset-license-memo.md`。
 
-**画像エンジン大原則：Codex CLI 利用可能時は `yukkuri-codex-imagegen` スキル必須。** 失敗時はユーザー確認のうえで `notebooklm` / `text-fallback` へ降格する（サイレント降格は禁止）。
+| 素材 | Claude Code（プロンプト20） | Codex（プロンプト21） |
+|---|---|---|
+| メイン画像 | いらすとや / ニコニ・コモンズから探してDL | **ImageGen スキルで自前生成** |
+| サブ画像 | 同上（必要なら） | 同上 |
+| BGM | DOVA-SYNDROME / 甘茶の音楽工房から選定 | 同左（BGM は生成しない） |
+| 効果音 | 効果音ラボから選定 | 同左 |
 
-画像素材は **Image Engine** を解決してから振り分ける。Claude Code / Codex どちらで実行する場合でも、まず engine を解決してから対応フローを実行する。判定は `codex login status` ベース（OPENAI_API_KEY は不要）。
-解決ロジックと運用詳細は ルートの `CLAUDE.md#Image Engine Workflow` を参照。
-
-| 素材 | engine = codex-imagegen | engine = notebooklm（フォールバック） | engine = text-fallback |
-|---|---|---|---|
-| メイン画像 | imagegen で自前生成 | NotebookLM artifact として生成 | `main.kind: text` または `bullets` に縮退 |
-| サブ画像 | 同上（必要なら） | 同上 | 同上 |
-| BGM | DOVA-SYNDROME / 甘茶の音楽工房から選定 | 同左 | 同左 |
-| 効果音 | 効果音ラボから選定 | 同左 | 同左 |
-
-写真素材（写実写真）は engine に関わらず外部調達を推奨する（imagegen は写実写真と相性が悪く、NotebookLM も写真生成には向かない）。
-イラスト・図解・アイコンは imagegen の出力強度が高い。
+ImageGen 可の Codex でも、**写真素材は生成ではなく調達**する（写実写真は ImageGen と相性悪い）。
+イラスト・図解・アイコンは ImageGen で生成する運用が強い。
 
 ---
 
@@ -502,3 +555,14 @@ const durations = script.meta.voice_engine === 'aquestalk'
 - [ ] 字幕がセリフに同期している（0.2秒以内のズレ）
 - [ ] `meta.json` に全素材のソースURL・ライセンスが記録されている
 - [ ] キャラが画面外に出ていない・背景の主要装飾を覆っていない
+
+
+
+
+
+
+
+
+
+
+

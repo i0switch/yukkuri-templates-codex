@@ -1,0 +1,12 @@
+{
+  "step": "pre_render_gate",
+  "verdict": "PASS",
+  "checked_at": "2026-04-25T17:39:37.455Z",
+  "checks": [
+    "validate-episode-script",
+    "audit-episode-quality",
+    "image provenance rejects fallback/local card assets",
+    "image files must be inspectable raster assets above delivery thresholds",
+    "dialogue rejects known mechanical conversion artifacts"
+  ]
+}

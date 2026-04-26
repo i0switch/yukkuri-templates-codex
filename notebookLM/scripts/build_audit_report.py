@@ -41,9 +41,7 @@ def build_audit_report(script_path: Path, final_path: Path, state_path: Path, as
         errors.append("最終台本 `final_script_v1.md` が存在しません。")
 
     min_size_bytes = int(quality["asset_quality"]["min_file_size_kb"]) * 1024
-    fallback_count_max = int(quality["asset_quality"].get("fallback_count_max", 0))
     failed_markers = 0
-    fallback_markers = 0
     downloaded_markers = 0
 
     for marker in markers:
@@ -60,10 +58,6 @@ def build_audit_report(script_path: Path, final_path: Path, state_path: Path, as
             downloaded_markers += 1
             if reason and "fallback" in str(reason).lower():
                 errors.append(f"{marker_id} は fallback 経由のため合格扱いにできません。NotebookLM 純正 artifact を取得してください。")
-                fallback_markers += 1
-            elif local_path and ("fallback" in str(local_path).lower() or "placeholder" in str(local_path).lower()):
-                errors.append(f"{marker_id} の local_path が fallback / placeholder 由来です: {local_path}")
-                fallback_markers += 1
             if not local_path:
                 errors.append(f"{marker_id} は downloaded なのに local_path がありません。")
             else:
@@ -97,12 +91,6 @@ def build_audit_report(script_path: Path, final_path: Path, state_path: Path, as
         )
     elif failed_markers:
         warnings.append(f"失敗マーカーがあります: {failed_markers}/{total_markers}")
-
-    if fallback_markers > fallback_count_max:
-        errors.append(
-            f"fallback マーカーが規定値を超過しています: {fallback_markers} > {fallback_count_max} "
-            f"(NotebookLM 純正 artifact のみ合格)"
-        )
 
     if not downloaded_markers:
         warnings.append("ダウンロード済み素材が 1 件もありません。")

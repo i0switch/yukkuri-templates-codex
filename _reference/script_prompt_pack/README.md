@@ -38,7 +38,9 @@
 ## 運用原則
 
 - ルールは `00_MASTER_SCRIPT_RULES.md` に集約する。
+- 画像生成の詳細ルールは `_reference/image_prompt_pack/` も正準として読む。
 - 実作業はフェーズ別に分ける。
 - 監査で FAIL の場合、全体を作り直さず `04_rewrite_prompt.md` で該当箇所だけ直す。
 - YAML変換は監査 PASS 後だけ行う。
+- 画像素材は `image_direction` 作成、生成前監査、image gen生成、生成後監査の順で進める。
 - 演出加工はこのパックではなく、上位の `02_演出編集プロンプト.md` に渡す。

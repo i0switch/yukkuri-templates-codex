@@ -1,5 +1,5 @@
 import React from 'react';
-import {COLORS, FONTS, FS} from '../design-tokens';
+import {COLORS, FONTS, FS, TEXT_STROKE} from '../design-tokens';
 import type {LabelTheme} from '../types';
 import {AutoFitText} from './AutoFitText';
 
@@ -50,7 +50,8 @@ export const AreaLabel: React.FC<Props> = ({kind, theme = 'dark', label, width =
         fontWeight={700}
         color={textColor}
         textAlign="center"
-        letterSpacing={0.8}
+        textStrokeColor={theme === 'dark' ? COLORS.white : COLORS.black}
+        textStrokeWidth={TEXT_STROKE.label.width}
       />
     </div>
   );

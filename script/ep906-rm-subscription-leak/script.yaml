@@ -1,0 +1,1549 @@
+meta:
+  id: ep906-rm-subscription-leak
+  title: サブスク解約忘れで毎月損する理由
+  layout_template: Scene02
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: サブスクを増やしがちな初心者
+  tone: 短く刺すが、不安だけで終わらせず対処まで出す
+  bgm_mood: 軽く緊張感のある解説用
+  voice_engine: aquestalk
+  target_duration_sec: 180
+  image_style: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+    subtitle_stroke_color: "#000000"
+    subtitle_stroke_width: 6
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: れいむ
+    speaking_style: 視聴者代表。損に焦り、雑な解決策とツッコミを担当。
+  right:
+    character: marisa
+    aquestalk_preset: まりさ
+    speaking_style: 解説役。短く訂正し、自然に「だぜ」を混ぜる。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 小さい月額でも放置すると損になると刺す
+    scene_format: あるある型
+    viewer_question: 数百円のサブスクは放置してよいのか
+    viewer_misunderstanding: 数百円なら痛くないと思う
+    number_or_example: 月500円でも年6000円
+    visual_role: 霊夢が小額を軽く見て、魔理沙が年額で止める瞬間
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 毎月の小さな漏れ
+      asset_requirements:
+        description: 料金マークが増えるカレンダー
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が小額を軽く見て、魔理沙が年額で止める瞬間」を視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「calendar_warning_closeup」。
+
+          画面構図：
+          前景には料金マークが増えるカレンダーを大きく配置する。
+          中景には月500円でも年6000円が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 月額
+        - 放置
+        - 積み上げ
+    visual_asset_plan:
+      - slot: main
+        purpose: 小さい月額でも放置すると損になると刺す
+        supports_dialogue:
+          - s01_l01
+          - s01_l02
+        supports_moment: 霊夢が小額を軽く見て、魔理沙が年額で止める瞬間
+        visual_type: hook_poster
+        composition_type: calendar_warning_closeup
+        insert_timing: s01 の l01 直前から表示
+        asset: assets/s01_main.png
+        image_direction:
+          scene_id: s01
+          dialogue_role: 冒頭フック
+          scene_emotion: 焦り
+          visual_type: hook_poster
+          composition_type: calendar_warning_closeup
+          image_should_support: 霊夢が小額を軽く見て、魔理沙が年額で止める瞬間
+          key_visual_sentence: 料金マークが増えるカレンダー
+          main_subject: 料金マークが増えるカレンダー
+          secondary_subjects:
+            - 月500円でも年6000円
+            - 月額 / 放置 / 積み上げ
+          foreground: 料金マークが増えるカレンダー
+          midground: 月500円でも年6000円
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 毎月の小さな漏れ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が小額を軽く見て、魔理沙が年額で止める瞬間」を視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「calendar_warning_closeup」。
+
+          画面構図：
+          前景には料金マークが増えるカレンダーを大きく配置する。
+          中景には月500円でも年6000円が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 月五百円なら平気でしょ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 年なら六千円だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: え、急に痛い
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 小さい漏れは見えにくい
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 財布の水漏れみたい
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: しかも毎月自動で出る
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 放置が一番やばいね
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 今日は止め方まで話すぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 解約忘れを潰したい
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: まず一覧を見るんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s02
+    role: body
+    scene_goal: 無料体験は期限管理しないと有料化すると示す
+    scene_format: 誤解訂正型
+    viewer_question: 無料体験なら安心か
+    viewer_misunderstanding: 無料と書いてあれば安全と思う
+    number_or_example: 7日や30日で更新される
+    visual_role: 霊夢が無料に飛びつき、魔理沙が更新日を出す瞬間
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 無料体験は終わる
+      asset_requirements:
+        description: ギフトから料金マークへ変わる画面
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が無料に飛びつき、魔理沙が更新日を出す瞬間」を視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「trial_to_paid_transition」。
+
+          画面構図：
+          前景にはギフトから料金マークへ変わる画面を大きく配置する。
+          中景には7日や30日で更新されるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 無料期間
+        - 更新日
+        - 通知
+    visual_asset_plan:
+      - slot: main
+        purpose: 無料体験は期限管理しないと有料化すると示す
+        supports_dialogue:
+          - s02_l01
+          - s02_l02
+        supports_moment: 霊夢が無料に飛びつき、魔理沙が更新日を出す瞬間
+        visual_type: danger_simulation
+        composition_type: trial_to_paid_transition
+        insert_timing: s02 の l01 直前から表示
+        asset: assets/s02_main.png
+        image_direction:
+          scene_id: s02
+          dialogue_role: 誤解訂正型
+          scene_emotion: 誤解訂正
+          visual_type: danger_simulation
+          composition_type: trial_to_paid_transition
+          image_should_support: 霊夢が無料に飛びつき、魔理沙が更新日を出す瞬間
+          key_visual_sentence: ギフトから料金マークへ変わる画面
+          main_subject: ギフトから料金マークへ変わる画面
+          secondary_subjects:
+            - 7日や30日で更新される
+            - 無料期間 / 更新日 / 通知
+          foreground: ギフトから料金マークへ変わる画面
+          midground: 7日や30日で更新される
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 無料体験は終わる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が無料に飛びつき、魔理沙が更新日を出す瞬間」を視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「trial_to_paid_transition」。
+
+          画面構図：
+          前景にはギフトから料金マークへ変わる画面を大きく配置する。
+          中景には7日や30日で更新されるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 無料体験なら勝ちだね
+        expression: happy
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 終わる日を見ろだぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 終わったらどうなる？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 自動で有料になることがある
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 無料の顔した有料か
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: だから更新日を先に入れる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 入会より予定が先？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: そう、それが安全順だ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 通知も付けるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 忘れる前提で守るぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s03
+    role: body
+    scene_goal: 小額サブスクを年額で見る癖を作る
+    scene_format: Before / After型
+    viewer_question: 何円から気にするべきか
+    viewer_misunderstanding: 1個ずつなら負担は小さいと思う
+    number_or_example: 980円が3つで月2940円
+    visual_role: 霊夢が安いと言い、魔理沙が合計額で刺す瞬間
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 小額が年額に化ける
+      asset_requirements:
+        description: 小さい料金が大きな袋に集まる図
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が安いと言い、魔理沙が合計額で刺す瞬間」を視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「small_charges_big_loss」。
+
+          画面構図：
+          前景には小さい料金が大きな袋に集まる図を大きく配置する。
+          中景には980円が3つで月2940円が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 500円
+        - 980円
+        - 年額
+    visual_asset_plan:
+      - slot: main
+        purpose: 小額サブスクを年額で見る癖を作る
+        supports_dialogue:
+          - s03_l01
+          - s03_l02
+        supports_moment: 霊夢が安いと言い、魔理沙が合計額で刺す瞬間
+        visual_type: before_after
+        composition_type: small_charges_big_loss
+        insert_timing: s03 の l01 直前から表示
+        asset: assets/s03_main.png
+        image_direction:
+          scene_id: s03
+          dialogue_role: Before / After型
+          scene_emotion: 誤解訂正
+          visual_type: before_after
+          composition_type: small_charges_big_loss
+          image_should_support: 霊夢が安いと言い、魔理沙が合計額で刺す瞬間
+          key_visual_sentence: 小さい料金が大きな袋に集まる図
+          main_subject: 小さい料金が大きな袋に集まる図
+          secondary_subjects:
+            - 980円が3つで月2940円
+            - 500円 / 980円 / 年額
+          foreground: 小さい料金が大きな袋に集まる図
+          midground: 980円が3つで月2940円
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 小額が年額に化ける
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が安いと言い、魔理沙が合計額で刺す瞬間」を視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「small_charges_big_loss」。
+
+          画面構図：
+          前景には小さい料金が大きな袋に集まる図を大きく配置する。
+          中景には980円が3つで月2940円が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 九百八十円も安いよ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 三つなら月二千九百円だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: うわ、外食一回分
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 年なら三万円台もある
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 小銭じゃなかった
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 合計で見ると正体が出る
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 単体価格に騙されるね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 月額表を作ると早いぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 家計簿より先に一覧か
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: それだけで漏れが見える
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s04
+    role: body
+    scene_goal: 解約経路が分からないまま契約しないと伝える
+    scene_format: 失敗エピソード型
+    viewer_question: 入った後で解約すればよいのか
+    viewer_misunderstanding: 後で探せば解約できると思う
+    number_or_example: 設定の奥にある場合がある
+    visual_role: 霊夢が後回しにして、魔理沙が迷路化を指摘する瞬間
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 解約ボタン迷路
+      asset_requirements:
+        description: スマホ内の解約経路が迷路になった図
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が後回しにして、魔理沙が迷路化を指摘する瞬間」を視覚的に補強する。
+          visual_typeは「flowchart_scene」、composition_typeは「hidden_cancel_path」。
+
+          画面構図：
+          前景にはスマホ内の解約経路が迷路になった図を大きく配置する。
+          中景には設定の奥にある場合があるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 場所
+        - 手順
+        - 期限
+    visual_asset_plan:
+      - slot: main
+        purpose: 解約経路が分からないまま契約しないと伝える
+        supports_dialogue:
+          - s04_l01
+          - s04_l02
+        supports_moment: 霊夢が後回しにして、魔理沙が迷路化を指摘する瞬間
+        visual_type: flowchart_scene
+        composition_type: hidden_cancel_path
+        insert_timing: s04 の l01 直前から表示
+        asset: assets/s04_main.png
+        image_direction:
+          scene_id: s04
+          dialogue_role: 失敗エピソード型
+          scene_emotion: 誤解訂正
+          visual_type: flowchart_scene
+          composition_type: hidden_cancel_path
+          image_should_support: 霊夢が後回しにして、魔理沙が迷路化を指摘する瞬間
+          key_visual_sentence: スマホ内の解約経路が迷路になった図
+          main_subject: スマホ内の解約経路が迷路になった図
+          secondary_subjects:
+            - 設定の奥にある場合がある
+            - 場所 / 手順 / 期限
+          foreground: スマホ内の解約経路が迷路になった図
+          midground: 設定の奥にある場合がある
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 解約ボタン迷路
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が後回しにして、魔理沙が迷路化を指摘する瞬間」を視覚的に補強する。
+          visual_typeは「flowchart_scene」、composition_typeは「hidden_cancel_path」。
+
+          画面構図：
+          前景にはスマホ内の解約経路が迷路になった図を大きく配置する。
+          中景には設定の奥にある場合があるが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 解約は後で探せばいい
+        expression: calm
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: それが迷路の入口だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: ボタン一個じゃないの？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 設定の奥にある場合がある
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 宝探しかよ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: だから入る前に見るんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 解約方法を先に確認
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 見つからないなら保留だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 勢い登録を止めるわ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 一分の確認で守れるぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s05
+    role: body
+    scene_goal: 中盤再フック。契約直後に更新日をカレンダーへ入れる行動に落とす
+    scene_format: 手順型
+    viewer_question: 登録したら最初に何をするか
+    viewer_misunderstanding: 使い始めることを優先する
+    number_or_example: 更新3日前に通知を置く
+    visual_role: 霊夢がすぐ使おうとし、魔理沙が先に予定化させる瞬間
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 更新日は先に登録
+      asset_requirements:
+        description: 更新日に赤丸を付けたカレンダー
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢がすぐ使おうとし、魔理沙が先に予定化させる瞬間」を視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「renewal_date_rule」。
+
+          画面構図：
+          前景には更新日に赤丸を付けたカレンダーを大きく配置する。
+          中景には更新3日前に通知を置くが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 契約日
+        - 更新日
+        - 通知
+    visual_asset_plan:
+      - slot: main
+        purpose: 中盤再フック。契約直後に更新日をカレンダーへ入れる行動に落とす
+        supports_dialogue:
+          - s05_l01
+          - s05_l02
+        supports_moment: 霊夢がすぐ使おうとし、魔理沙が先に予定化させる瞬間
+        visual_type: three_step_board
+        composition_type: renewal_date_rule
+        insert_timing: s05 の l01 直前から表示
+        asset: assets/s05_main.png
+        image_direction:
+          scene_id: s05
+          dialogue_role: 手順型
+          scene_emotion: 誤解訂正
+          visual_type: three_step_board
+          composition_type: renewal_date_rule
+          image_should_support: 霊夢がすぐ使おうとし、魔理沙が先に予定化させる瞬間
+          key_visual_sentence: 更新日に赤丸を付けたカレンダー
+          main_subject: 更新日に赤丸を付けたカレンダー
+          secondary_subjects:
+            - 更新3日前に通知を置く
+            - 契約日 / 更新日 / 通知
+          foreground: 更新日に赤丸を付けたカレンダー
+          midground: 更新3日前に通知を置く
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 更新日は先に登録
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢がすぐ使おうとし、魔理沙が先に予定化させる瞬間」を視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「renewal_date_rule」。
+
+          画面構図：
+          前景には更新日に赤丸を付けたカレンダーを大きく配置する。
+          中景には更新3日前に通知を置くが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 登録したらすぐ使いたい
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 先に更新日を入れるだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: そこまで先回りする？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 三日前通知で十分だ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 未来の自分にメモね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 忘れる自分を責めない
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 仕組みで止めるのか
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 気合いよりカレンダーだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 中盤の答え出たね
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 更新日は契約の一部だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s06
+    role: body
+    scene_goal: 確認項目を3つに絞り行動しやすくする
+    scene_format: チェックリスト型
+    viewer_question: 何を見れば十分か
+    viewer_misunderstanding: 全部細かく読まないと無理と思う
+    number_or_example: 料金、更新日、解約先の3点
+    visual_role: 霊夢が面倒がり、魔理沙が3点だけに絞る瞬間
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 見るのは三つだけ
+      asset_requirements:
+        description: 料金、カレンダー、道順の三つのチェック
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が面倒がり、魔理沙が3点だけに絞る瞬間」を視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_icon_checklist」。
+
+          画面構図：
+          前景には料金、カレンダー、道順の三つのチェックを大きく配置する。
+          中景には料金、更新日、解約先の3点が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 料金
+        - 更新日
+        - 解約先
+    visual_asset_plan:
+      - slot: main
+        purpose: 確認項目を3つに絞り行動しやすくする
+        supports_dialogue:
+          - s06_l01
+          - s06_l02
+        supports_moment: 霊夢が面倒がり、魔理沙が3点だけに絞る瞬間
+        visual_type: checklist_panel
+        composition_type: three_icon_checklist
+        insert_timing: s06 の l01 直前から表示
+        asset: assets/s06_main.png
+        image_direction:
+          scene_id: s06
+          dialogue_role: チェックリスト型
+          scene_emotion: 誤解訂正
+          visual_type: checklist_panel
+          composition_type: three_icon_checklist
+          image_should_support: 霊夢が面倒がり、魔理沙が3点だけに絞る瞬間
+          key_visual_sentence: 料金、カレンダー、道順の三つのチェック
+          main_subject: 料金、カレンダー、道順の三つのチェック
+          secondary_subjects:
+            - 料金、更新日、解約先の3点
+            - 料金 / 更新日 / 解約先
+          foreground: 料金、カレンダー、道順の三つのチェック
+          midground: 料金、更新日、解約先の3点
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 見るのは三つだけ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が面倒がり、魔理沙が3点だけに絞る瞬間」を視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_icon_checklist」。
+
+          画面構図：
+          前景には料金、カレンダー、道順の三つのチェックを大きく配置する。
+          中景には料金、更新日、解約先の3点が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 利用規約全部読むの？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: まず三つでいいぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 三つなら聞ける
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 料金、更新日、解約先だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: それだけで漏れ防止？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 大半の事故は減らせる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 細かい文字は苦手だよ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: だから項目を絞るんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: まず三点チェックね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 迷ったら契約を止めるぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s07
+    role: outro
+    scene_goal: 月1回の確認で解約忘れを減らす
+    scene_format: まとめ再フック型
+    viewer_question: 一度整理しても戻るのではないか
+    viewer_misunderstanding: 一回整理すれば終わりと思う
+    number_or_example: 月初5分で十分
+    visual_role: 霊夢が一回で終わらせようとし、魔理沙が月1に戻す瞬間
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 月一で棚卸し
+      asset_requirements:
+        description: 月一レビューの日とアラーム
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が一回で終わらせようとし、魔理沙が月1に戻す瞬間」を視覚的に補強する。
+          visual_typeは「mini_story_scene」、composition_typeは「monthly_review_scene」。
+
+          画面構図：
+          前景には月一レビューの日とアラームを大きく配置する。
+          中景には月初5分で十分が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 月初
+        - 未使用
+        - 保留
+    visual_asset_plan:
+      - slot: main
+        purpose: 月1回の確認で解約忘れを減らす
+        supports_dialogue:
+          - s07_l01
+          - s07_l02
+        supports_moment: 霊夢が一回で終わらせようとし、魔理沙が月1に戻す瞬間
+        visual_type: mini_story_scene
+        composition_type: monthly_review_scene
+        insert_timing: s07 の l01 直前から表示
+        asset: assets/s07_main.png
+        image_direction:
+          scene_id: s07
+          dialogue_role: まとめ再フック型
+          scene_emotion: 誤解訂正
+          visual_type: mini_story_scene
+          composition_type: monthly_review_scene
+          image_should_support: 霊夢が一回で終わらせようとし、魔理沙が月1に戻す瞬間
+          key_visual_sentence: 月一レビューの日とアラーム
+          main_subject: 月一レビューの日とアラーム
+          secondary_subjects:
+            - 月初5分で十分
+            - 月初 / 未使用 / 保留
+          foreground: 月一レビューの日とアラーム
+          midground: 月初5分で十分
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 月一で棚卸し
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が一回で終わらせようとし、魔理沙が月1に戻す瞬間」を視覚的に補強する。
+          visual_typeは「mini_story_scene」、composition_typeは「monthly_review_scene」。
+
+          画面構図：
+          前景には月一レビューの日とアラームを大きく配置する。
+          中景には月初5分で十分が伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 一回消せば終わり？
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 月一で見直すだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: また増えるの？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 便利な物は増えやすい
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 冷蔵庫の調味料みたい
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: まさに期限切れが出る
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 月初五分ならできる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 未使用を一つ見るだけだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 全部やらないのね
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 一つずつで続くぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+  - id: s08
+    role: cta
+    scene_goal: 視聴後に1契約を確認し、残すか解約する行動へ落とす
+    scene_format: 手順型
+    viewer_question: 今日なにをすればよいか
+    viewer_misunderstanding: 全部整理しないと意味がないと思う
+    number_or_example: 使っていない1つだけ選ぶ
+    visual_role: 霊夢が全部やろうとして、魔理沙が一つに絞る瞬間
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 一つ選んで決める
+      asset_requirements:
+        description: 一つの契約を選び、確認し、解約か継続を決める流れ
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が全部やろうとして、魔理沙が一つに絞る瞬間」を視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「final_action_flow」。
+
+          画面構図：
+          前景には一つの契約を選び、確認し、解約か継続を決める流れを大きく配置する。
+          中景には使っていない1つだけ選ぶが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        style: ゆっくり解説向け、16:9、余白多め、文字最小限
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 選ぶ
+        - 確認
+        - 解約
+    visual_asset_plan:
+      - slot: main
+        purpose: 視聴後に1契約を確認し、残すか解約する行動へ落とす
+        supports_dialogue:
+          - s08_l01
+          - s08_l02
+        supports_moment: 霊夢が全部やろうとして、魔理沙が一つに絞る瞬間
+        visual_type: final_action_card
+        composition_type: final_action_flow
+        insert_timing: s08 の l01 直前から表示
+        asset: assets/s08_main.png
+        image_direction:
+          scene_id: s08
+          dialogue_role: 最終行動提示
+          scene_emotion: 安心
+          visual_type: final_action_card
+          composition_type: final_action_flow
+          image_should_support: 霊夢が全部やろうとして、魔理沙が一つに絞る瞬間
+          key_visual_sentence: 一つの契約を選び、確認し、解約か継続を決める流れ
+          main_subject: 一つの契約を選び、確認し、解約か継続を決める流れ
+          secondary_subjects:
+            - 使っていない1つだけ選ぶ
+            - 選ぶ / 確認 / 解約
+          foreground: 一つの契約を選び、確認し、解約か継続を決める流れ
+          midground: 使っていない1つだけ選ぶ
+          background: 淡い余白、少量の矢印、下部20%は空ける
+          color_palette: 太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - OK
+              - "!"
+              - ¥
+              - AI
+            remotion_overlay_text:
+              - 一つ選んで決める
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          ゆっくり解説 / ずんだもん解説動画のScene02 main枠で使う高品質ビジュアル素材。
+          この画像は、台本内の「霊夢が全部やろうとして、魔理沙が一つに絞る瞬間」を視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「final_action_flow」。
+
+          画面構図：
+          前景には一つの契約を選び、確認し、解約か継続を決める流れを大きく配置する。
+          中景には使っていない1つだけ選ぶが伝わる補助アイコンを少量置く。
+          背景には淡い余白と流れを示す線だけを置く。
+          視線は左上の主役から中央の結論へ流れる。
+
+          デザイン：
+          高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+          ただし実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。白基調、青と青緑を主色、警告だけ赤、下部余白を広く取る。。
+          光は柔らかく、影は薄くする。
+          画面下部20%は字幕とキャラ表示用に空ける。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「OK」「!」「¥」「AI」程度。
+
+          安全制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          単体アイコンだけの使い回し画像、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今日全部解約する？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: まず一つだけ選ぶだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 一つでいいの？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 使ってない物を選ぶ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 更新日を確認する
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 残すか解約を決める
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 迷ったら予定に入れる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 次の確認日を置くぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 小さい漏れを止めるわ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+      - id: l10
+        speaker: right
+        text: 今日一つで十分だ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5

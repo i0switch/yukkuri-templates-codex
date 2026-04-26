@@ -1,0 +1,111 @@
+{
+  "episode_id": "ep913-zm-notification-overload",
+  "audited_at": "2026-04-26T07:27:35.443Z",
+  "auditor": "claude-sonnet-4-6",
+  "images": [
+    {
+      "asset": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "スマホから時間が砂のように流れ落ちる時間流出フックポスター。シアン・黄・ネイビー。"
+    },
+    {
+      "asset": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "通知確認（数秒）vs集中回復（23分）の横長タイムライン対比図。"
+    },
+    {
+      "asset": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "ON許可（電話・緊急）とOFF推奨（SNS・広告）の2カラム仕分け図。シアン/朱。"
+    },
+    {
+      "asset": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "通知ON許可3基準のSF黒背景チェックリストパネル。電話・緊急・直接連絡。"
+    },
+    {
+      "asset": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "Before/After棒グラフ、＋28%増の中盤再フック数字ビジュアル。朱・シアン・黄。"
+    },
+    {
+      "asset": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "通知設定3ステップフロー図（全OFF→必要のみ戻す→1週間後追加）。引き算方式。"
+    },
+    {
+      "asset": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "今夜のSNS通知OFF＋集中タイム設定の2行チェックリスト。最終行動カード。"
+    },
+    {
+      "asset": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 7,
+      "low_generic_feel": 7,
+      "scene_fit": 8,
+      "notes": "SNS通知OFFと1h集中タイムの締めカード。シアン・黄・ネイビーのSF暗調トーン。"
+    }
+  ]
+}

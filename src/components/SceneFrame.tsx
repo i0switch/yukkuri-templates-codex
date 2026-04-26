@@ -4,7 +4,7 @@ import {Background} from './Background';
 import {CharacterFace} from './CharacterFace';
 import {SubtitleBar} from './SubtitleBar';
 import {AreaLabel} from './AreaLabel';
-import {CHARACTER_METRICS, FONTS, FS, VIDEO} from '../design-tokens';
+import {CHARACTER_METRICS, COLORS, FONTS, FS, TEXT_STROKE, VIDEO} from '../design-tokens';
 import type {Rect, SceneLayout, SceneProps, SlotRenderer} from '../types';
 
 type Props = SceneProps & {
@@ -71,9 +71,10 @@ const auditTextStyle: React.CSSProperties = {
   color: AUDIT_RED,
   fontFamily: FONTS.ui,
   fontWeight: 800,
-  letterSpacing: '0.04em',
   textAlign: 'center',
   textShadow: '0 2px 8px rgba(255,255,255,0.95)',
+  WebkitTextStroke: `${TEXT_STROKE.label.width}px ${COLORS.white}`,
+  paintOrder: 'stroke fill',
   pointerEvents: 'none',
 };
 

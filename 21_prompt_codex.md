@@ -4,7 +4,7 @@
 Claude Code 用プロンプト（`20_prompt_claude-code.md`）との違いは **メイン画像を
 フリー素材サイトから調達する代わりに、Codex の image gen スキルで自前生成する** 点のみ。
 
-前提：`10_video-pipeline.md` と `90_asset-license-memo.md` を既読であること。
+前提：`10_video-pipeline.md`、`90_asset-license-memo.md`、`_reference/script_prompt_pack/` の必須6ファイルを既読であること。
 
 ---
 
@@ -44,7 +44,26 @@ Claude Code 版との差分（太字）：
 
 ## 2. Phase 1 — 台本生成
 
-Claude Code 版 `20_prompt_claude-code.md#2` と完全に同一の手順でやる。差分は以下 1 点のみ：
+Claude Code 版 `20_prompt_claude-code.md#2` と完全に同一の手順でやる。
+ただし新規台本は必ず `_reference/script_prompt_pack/` を使い、`script.md` の監査PASS後だけ `script.yaml` に変換する。
+
+必須順序:
+
+1. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md` を読む
+2. `_reference/script_prompt_pack/01_plan_prompt.md` で構成を作る
+3. `_reference/script_prompt_pack/02_draft_prompt.md` で `script.md` 初稿を作る
+4. `_reference/script_prompt_pack/03_audit_prompt.md` で監査する
+5. FAILなら `_reference/script_prompt_pack/04_rewrite_prompt.md` で修正する
+6. PASS後だけ `_reference/script_prompt_pack/05_yaml_prompt.md` で YAML 化する
+
+禁止:
+
+- 台本本文をJSスクリプトに直書きする
+- `dialogue` 配列を本番生成ルートに持たせる
+- `script.md` を経由せず `script.yaml` / `script.render.json` を作る
+- 監査FAILのまま画像生成、音声生成、レンダーへ進む
+
+差分は以下 1 点のみ：
 
 ### 素材要件の記述を ImageGen 向けプロンプトに寄せる
 
@@ -93,14 +112,6 @@ main:
 
 禁止：`フラットな図解`、`わかりやすいカード` のような抽象プロンプトだけで生成しない。
 
-### 品質強制チェックリスト（生成前に確認）
-- [ ] 被写体の占有率60-70%以上を明示したか
-- [ ] スタイルが「フラット」1語で終わっていないか（NG: 「フラット系」 OK: 「clean flat vector, bold 3px outlines」）
-- [ ] RM/ZMの色パレットを具体的HEXで指定したか
-- [ ] 照明方向を1行で指定したか
-- [ ] negativeに絶対禁止ワード7語以上を含むか
-- [ ] 「designed for 1920x1080」を末尾に含むか
-
 ---
 
 ## 3. Phase 2 — 素材生成・調達
@@ -110,7 +121,15 @@ main:
 `script.yaml` の全 scene をループし、`main.kind == 'image'` と `sub.kind == 'image'` のものについて
 image gen スキルを呼ぶ。
 main/sub/章切り替え/比較/まとめ用素材は用途を分け、同一プロンプトの使い回しを禁止する。
-長尺動画では `visual_asset_plan` と実シーン数を照合し、45〜60秒ごとに最低1つ新しい視覚素材があるか確認する。
+
+生成単位の絶対ルール:
+
+- image gen は必ず1画像につき1回呼ぶ。
+- 8枚グリッド、複数枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成は禁止。
+- 1枚の生成結果から `s01_main.png`〜`s08_main.png` のように切り出す、cropする、source_rectで採用することは禁止。
+- 各画像は固有の `image_direction`、固有の `imagegen_prompt`、固有の `generation_id` または `source_url` を持つ。
+- `imagegen_prompt` には「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の文を必ず入れる。
+- `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような汎用・低品質プロンプトで生成しない。
 
 ```
 入力: asset_requirements.imagegen_prompt
@@ -124,8 +143,8 @@ main/sub/章切り替え/比較/まとめ用素材は用途を分け、同一プ
 - [ ] 指定アスペクトが守られているか
 - [ ] メインコンテンツエリアは中央に配置されているか（Remotion 側でフィットさせるため）
 - [ ] 動画全体の `meta.image_style` と絵柄・色味が揃っているか
-- [ ] `visual_asset_plan.purpose` と実際の画像内容・用途が一致しているか
-- [ ] 本編画像密度が足りているか（長尺なら不足していないか）
+- [ ] `visual_asset_plan.purpose` と実際の画像内容が一致しているか
+- [ ] 本編シーンの画像密度が足りているか
 
 **アウトが出た時のリトライ基準**：
 - 文字が入っている → `negative` に「文字、タイポグラフィ、ロゴ、署名」を強化して再生成
@@ -133,7 +152,7 @@ main/sub/章切り替え/比較/まとめ用素材は用途を分け、同一プ
 - 要素が多すぎる → プロンプトの主語を絞る（「DNA」だけ、など）
 
 最大 3 回まで再試行。それでもダメなら動画生成完了扱いにせず、素材生成未完了として停止する。
-ユーザー確認なしに `main.kind: text` へ降格しない。
+`main.kind: text` への退避、ローカルカード、静止画スライド組み立て、高速アセンブルなどのフォールバックは使わない。
 
 ### Step 2.2: BGM 選定（自前生成しない）
 
@@ -160,7 +179,6 @@ BGM は AI 生成より人間の作曲家の曲のほうがクオリティが安
       "slot": "main",
       "purpose": "DNAを切る仕組みを一目で理解させる",
       "adoption_reason": "Scene02のメイン枠で中央主題が読みやすく、字幕やキャラと競合しないため",
-      "generator": "Codex (imagegen)",
       "imagegen_prompt": "フラットデザインのイラスト、白背景。中央にDNAの...",
       "imagegen_model": "<スキルで使ったモデル名>",
       "license": "生成画像（プロジェクト内利用）",
@@ -182,15 +200,14 @@ BGM は AI 生成より人間の作曲家の曲のほうがクオリティが安
 `imagegen_prompt` を必ず記録する。後で同じトーンの素材を追加生成したい時の再現性のため。
 `scene_id`、`slot`、`purpose`、`adoption_reason` も必ず記録する。あとで別Codex監査が素材の採用理由を追えるようにする。
 
-### Step 2.5: 別Codex監査（素材生成後ゲート）
+### Step 2.5: 別Codex監査
 
 素材生成後は、別Codexに以下を監査させる。
 
-- `meta.json` の `assets[]` に `scene_id` / `slot` / `purpose` / `adoption_reason` / `generator` / `imagegen_prompt` / `imagegen_model` / `license` が揃っているか
-- 画像量/素材密度が十分か（長尺動画で本編画像密度が不足していないか）
-- `imagegen_prompt` が具体的で、品質強制チェックリストを満たしているか
-- main/sub/章切り替え素材の用途が `visual_asset_plan.purpose` と一致しているか
-- 動画全体の `meta.image_style` と生成画像のトーンが整合しているか
+- `visual_asset_plan` と生成画像が一致しているか
+- 本編シーンの画像量が足りているか
+- `imagegen_prompt` が動画トーン、テンプレート枠、構図、余白、禁止要素まで具体化されているか
+- `meta.json` に prompt、用途、scene_id、slot、adoption_reason が記録されているか
 
 FAIL の場合は、該当画像だけ再生成または素材計画を修正し、PASS するまで次 Phase へ進まない。
 
@@ -339,19 +356,19 @@ const durations = script.meta.voice_engine === 'aquestalk'
 
 ---
 
-## 7. 失敗時の停止・再生成ルール（ImageGen 特有）
+## 7. 失敗時の停止ルール（ImageGen 特有）
 
 | 事象 | 一次対処 | 二次対処 |
 |---|---|---|
-| ImageGen が 3 回連続で要求通りの画像を出さない | プロンプトを最小化（要素を 1 つに絞る） | 素材計画を修正して再生成。解消しない場合は素材生成未完了として停止し、ユーザー確認を取る |
-| ImageGen に文字が入り続ける | negative に「text, typography, logo, signature, watermark, captions, letters, numbers」を追加 | negative 強化でダメなら素材生成未完了として停止し、ユーザー確認を取る |
-| ImageGen の絵柄がシーン間で大きくバラつく | 全 scene の imagegen_prompt を統一プレフィックスで修飾（例：「フラットデザイン・白背景・青緑基調。」を先頭に固定）して再生成 | 既存画像で統一感のないものだけ素材計画を修正して再生成 |
+| ImageGen が 3 回連続で要求通りの画像を出さない | プロンプトを最小化（要素を 1 つに絞る） | 素材生成未完了として停止 |
+| ImageGen に文字が入り続ける | negative に「text, typography, logo, signature, watermark, captions, letters, numbers」を追加 | 素材生成未完了として停止 |
+| ImageGen の絵柄がシーン間で大きくバラつく | 全 scene の imagegen_prompt を統一プレフィックスで修飾（例：「フラットデザイン・白背景・青緑基調。」を先頭に固定）して再生成 | 既存画像で統一感のないものだけ再生成 |
 | AquesTalk が記号で止まる | 記号除去フィルタを通す | SofTalk 側のログを見て該当文字を特定して除去 |
 | 霊夢・魔理沙の音声に違和感（高すぎ・低すぎ） | VOICES テーブルの r/s 値を ±10 調整 | 再生成 |
 
-3回失敗後も、ユーザー確認なしに NotebookLM / text-fallback へ降格しない。
-画像未完成のまま MP4 生成へ進まない。
-Remotion正式レンダーが失敗した場合も、静止画スライド化や ffmpeg 高速アセンブルなど別手段で動画完成扱いにしない。
+動画レンダーは必ず `npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4` を使う。
+Remotion が遅い、タイムアウトする、失敗する場合でも、静止画スライド化や ffmpeg 高速アセンブルへの切り替えは禁止。
+正式レンダーが完了しない場合は、出力失敗として原因を報告する。
 
 ---
 
@@ -360,9 +377,11 @@ Remotion正式レンダーが失敗した場合も、静止画スライド化や
 - ❌ ImageGen で**写真写実**を生成する（Pexels 等のフリー写真サイトから持ってくる）
 - ❌ ImageGen で**既存キャラ・既存IP**を生成する（著作権）
 - ❌ 同一プロンプトで生成した画像を 2 シーン以上で使い回す（視聴者に気付かれる）
+- ❌ 8枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成、切り出し、crop採用
+- ❌ 1つの `generation_id` / `source_url` を複数画像の出所として使い回す
+- ❌ `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` だけの低品質プロンプトで生成する
 - ❌ `imagegen_prompt` を `meta.json` に書かないまま次 Phase へ進む
-- ❌ Remotion正式レンダーではなく別手段・簡易フォールバックで動画完成扱いにする
-- ❌ 画像生成・レンダー失敗を放置して MP4 完成扱いにする
+- ❌ Remotion 正式レンダー失敗時に、静止画スライド組み立て、高速アセンブル、別レンダー経路へフォールバックする
 
 ---
 

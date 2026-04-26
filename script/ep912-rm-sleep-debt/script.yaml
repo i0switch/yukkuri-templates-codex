@@ -1,0 +1,764 @@
+meta:
+  id: ep912-rm-sleep-debt
+  title: 睡眠の借金を毎朝踏み倒してる人の話
+  layout_template: Scene08
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 慢性的に眠いが原因が分からない社会人
+  tone: 日常あるある型。危機感を出しつつ、小さい行動で終わらせる
+  bgm_mood: 落ち着いた和風解説用BGM
+  voice_engine: voicevox
+  target_duration_sec: 180
+  image_style: 太線フラット図解。温かみのある和色（朱・紺・黄緑）アクセント。 余白多め、文字は最小限、モノクロ背景でも読める高コントラスト。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+    subtitle_stroke_color: "#000000"
+    subtitle_stroke_width: 6
+characters:
+  left:
+    character: reimu
+    voicevox_speaker_id: 0
+    speaking_style: 視聴者代表。雑な理解、勘違い、ツッコミ、焦りを担当。
+  right:
+    character: marisa
+    voicevox_speaker_id: 1
+    speaking_style: 解説役。日常例と数字で補足し、短い結論を置く。語尾は「だぜ」中心。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 睡眠負債という借金が無自覚に積もることをフックで刺す
+    scene_format: 誤解訂正型
+    viewer_question: 眠いのはなぜか
+    viewer_misunderstanding: 眠気は疲れのせいで睡眠とは別の問題だと思っている
+    number_or_example: 毎晩1時間不足で週7時間の借金
+    visual_role: 睡眠不足が借金として積み重なるイメージ
+    title_text: 毎朝踏み倒してる「睡眠の借金」
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 知らずに借金が増えている
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 冒頭フックで睡眠負債の概念を視覚化する
+        supports_dialogue:
+          - s01_l03
+          - s01_l04
+        supports_moment: 霊夢が「借金みたいなやつ？」と反応した瞬間
+        visual_type: hook_poster
+        composition_type: balance_sheet_metaphor
+        image_direction:
+          dialogue_role: 視聴者が「自分も借金してるかも」と思わせる冒頭フック
+          scene_emotion: 軽いショック＋日常感
+          image_should_support: 睡眠不足が目に見えない借金として積まれる感覚
+          key_visual_sentence: 毎晩少し眠れない分が静かに積み重なっている
+          main_subject: 積み重なる「睡眠時間の赤字」を表す積み重ねグラフ
+          foreground: 赤字ゲージ（朱色）が下から積み上がる縦棒
+          midground: 毎日の睡眠時間メモリ（水色）が少しずつ減る視覚
+          background: 淡い和紙テクスチャ
+          color_palette: 朱・紺・クリーム・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 睡眠負債
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在ブランドロゴ
+            - 実在人物
+            - 既存キャラクター
+          quality_bar: ゆっくり解説動画のスライドとして視聴維持に貢献する品質
+          composition_type: balance_sheet_metaphor
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠（1920×1080、下部20%空き）用の高品質ビジュアル素材。1枚のみ生成。
+          テーマ：睡眠負債の概念を「借金が積み重なる」比喩で表現する冒頭フックビジュアル。
+          構図：朱色の縦棒グラフが画面中央からやや上に積み上がっていく。各棒に小さい夜のアイコン（月・星）。
+          右側に小さく「睡眠負債」と書いた付箋風ラベル。
+          色：朱・紺・クリーム・薄黄、太線フラット、高コントラスト。
+          禁止：実在ブランド、実在人物、霊夢魔理沙風キャラ、英語UI、写真風。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のhook_posterのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 最近ずっと眠いんだけどなんで？
+      - id: l02
+        speaker: right
+        text: 睡眠負債が溜まってるんだぜ。
+      - id: l03
+        speaker: left
+        text: 負債？借金みたいなやつ？
+      - id: l04
+        speaker: right
+        text: そうだぜ。毎晩少し眠れてない分が
+      - id: l05
+        speaker: right
+        text: 積み重なっていくのが睡眠負債だ。
+      - id: l06
+        speaker: left
+        text: 知らないうちに借金してたの！？
+      - id: l07
+        speaker: right
+        text: 返さないと体と頭に利子がつくぞ。
+      - id: l08
+        speaker: left
+        text: ちなみに今6時間くらいしか寝てないわ。
+      - id: l09
+        speaker: right
+        text: 6時間台は危険ゾーンだぜ。
+      - id: l10
+        speaker: left
+        text: もう借金中だったのね！！
+  - id: s02
+    role: body
+    scene_goal: 睡眠負債の仕組みと「眠気が消える怖さ」を伝える
+    scene_format: 数字補強型
+    viewer_question: どうやって借金が増えるのか
+    viewer_misunderstanding: 眠くなければ睡眠は足りていると思っている
+    number_or_example: 1時間不足が7日続くと週7時間の借金
+    visual_role: 借金が積み重なるグラフと「眠くない＝大丈夫ではない」の対比
+    title_text: 眠くないのに借金が増える理由
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 感覚がなくなるのが一番怖い
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 眠気が消えても負債は増えるという誤解訂正を補強
+        supports_dialogue:
+          - s02_l05
+          - s02_l06
+        supports_moment: 霊夢が「眠くないから大丈夫だと思ってた」と反応した瞬間
+        visual_type: myth_vs_fact
+        composition_type: two_column_contrast
+        image_direction:
+          dialogue_role: 誤解訂正フレーム
+          scene_emotion: じわじわとした気づきの恐怖
+          image_should_support: 眠気センサーが麻痺しても負債は増え続けるという事実
+          key_visual_sentence: 眠くなくなっても借金は増えている
+          main_subject: 左「眠い」右「眠くない」の2コラム比較、どちらも赤字メーター付き
+          foreground: 2コラムの見出し（眠い／眠くない）
+          midground: 赤字メーター（どちらも同じくらい赤い）
+          background: 淡い和紙テクスチャ
+          color_palette: 朱・紺・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 眠くても
+              - 眠くなくても
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 既存キャラクター
+            - 長文テキスト
+          quality_bar: 誤解訂正の2コラム比較として1秒で意味が取れる品質
+          composition_type: two_column_contrast
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：「眠い状態」と「眠くない状態」を左右に並べ、どちらも赤字メーターが同じだけ増えているmyth vs factビジュアル。
+          構図：画面を2カラムに分割。左「眠い」右「眠くない」の見出し付きカラム。
+          各カラム下部に同じ高さの朱色バーゲージ（赤字メーター）を配置。
+          色：朱・紺・薄黄、太線フラットスタイル、高コントラスト。
+          禁止：実在人物、長文、霊夢魔理沙風キャラ。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のmyth_vs_factのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: どうやって借金が増えるの？
+      - id: l02
+        speaker: right
+        text: 必要な睡眠より1時間少ない日が続くと
+      - id: l03
+        speaker: right
+        text: 1週間で7時間分の借金になるんだぜ。
+      - id: l04
+        speaker: left
+        text: 7時間！？気づかないわよそんなの。
+      - id: l05
+        speaker: right
+        text: 眠気を感じなくなるのが怖いところだぜ。
+      - id: l06
+        speaker: left
+        text: 眠くないから大丈夫だと思ってたやつだ！
+      - id: l07
+        speaker: right
+        text: 脳の処理速度は確実に落ちてるんだぜ。
+      - id: l08
+        speaker: left
+        text: 眠くなくても頭が鈍ってるってこと？
+      - id: l09
+        speaker: right
+        text: 自覚なしに劣化していくんだぜ。
+      - id: l10
+        speaker: left
+        text: 怖いわ、自分では気づけないのね。
+  - id: s03
+    role: body
+    scene_goal: 週末の寝だめ神話を誤解訂正する
+    scene_format: 誤解訂正型
+    viewer_question: 土日にたくさん寝れば取り戻せないのか
+    viewer_misunderstanding: 週末の長時間睡眠で睡眠負債は消えると思っている
+    number_or_example: 土日10時間寝ても翌週また1時間ずつ減る
+    visual_role: 寝だめサイクルが根本解決にならない繰り返し図解
+    title_text: 週末の寝だめが借金を返せない理由
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 応急処置と根本解決は別
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 週末寝だめ→平日また不足のループを視覚化
+        supports_dialogue:
+          - s03_l03
+          - s03_l04
+        supports_moment: 魔理沙が「寝だめじゃ返せない」と言った直後
+        visual_type: danger_simulation
+        composition_type: weekly_cycle_loop
+        image_direction:
+          dialogue_role: 繰り返しループで危機感を出す
+          scene_emotion: 「意味なかった」という徒労感
+          image_should_support: 週末大量睡眠→平日再び不足のサイクルが終わらない
+          key_visual_sentence: 週末に寝ても翌週にはまた借金が始まる
+          main_subject: 週カレンダー型サイクル図（月〜金が赤、土日が青、また月から赤）
+          foreground: 月〜金の赤いブロック（睡眠不足）
+          midground: 土日の青いブロック（長時間睡眠）から右矢印でまた月の赤へ
+          background: 淡いグリッド線
+          color_palette: 朱・水色・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 不足
+              - 回復
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 写真風
+            - 長文
+          quality_bar: ループ構造が直感的に分かる品質
+          composition_type: weekly_cycle_loop
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：週末の寝だめが効かない「繰り返しループ」のフロー図解。
+          構図：横長の週カレンダー型。月〜金は朱色ブロック「不足」、土日は水色ブロック「回復」。
+          土日ブロックから右側にカーブ矢印で再び翌週の月曜（朱色）へ。
+          色：朱・水色・薄黄、太線フラット、高コントラスト。
+          文字：「不足」「回復」各2文字のみ許可。
+          禁止：写真風、実在人物、長文テキスト。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のdanger_simulationのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 土日にたくさん寝れば戻るんじゃ？
+      - id: l02
+        speaker: right
+        text: 寝だめじゃ返せないんだぜ。
+      - id: l03
+        speaker: left
+        text: え、なんで！？
+      - id: l04
+        speaker: right
+        text: 週末に10時間寝ても翌週また減るだけだ。
+      - id: l05
+        speaker: left
+        text: じゃあ意味ないじゃないの。
+      - id: l06
+        speaker: right
+        text: 応急処置にはなるが根本解決じゃないぞ。
+      - id: l07
+        speaker: left
+        text: 毎日コツコツ返すしかないの？
+      - id: l08
+        speaker: right
+        text: 正解だぜ。毎日の積み上げだけが解決策だ。
+      - id: l09
+        speaker: left
+        text: 寝だめが効かないのって悔しいのよね。
+      - id: l10
+        speaker: right
+        text: 悔しいが事実だから覚えておいてくれ。
+  - id: s04
+    role: body
+    scene_goal: 返さない場合の体と頭への影響を具体的に示す
+    scene_format: 危機感型
+    viewer_question: 眠れないとどうなるのか
+    viewer_misunderstanding: 眠いだけで体には問題ないと思っている
+    number_or_example: 6時間以下2週間＝2日徹夜と同じ状態
+    visual_role: 睡眠負債の体への影響リスト
+    title_text: 放置すると体と頭に利子がつく
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 集中・免疫・体重に影響が出る
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 睡眠負債の具体的影響を3つのアイコンで視覚化
+        supports_dialogue:
+          - s04_l03
+          - s04_l06
+          - s04_l07
+        supports_moment: 魔理沙が「免疫も下がる」「6時間以下2週間は2日徹夜」と言う場面
+        visual_type: danger_simulation
+        composition_type: three_risk_icons
+        image_direction:
+          dialogue_role: 危機感を具体数字で補強する
+          scene_emotion: じわじわとした不安→数字での確信
+          image_should_support: 睡眠不足が脳・免疫・体重に影響するという3点セット
+          key_visual_sentence: 6時間以下2週間で2日徹夜と同じ状態
+          main_subject: 3つのリスクアイコン（脳・盾・体重計）を横並びに配置
+          foreground: 各アイコン下に朱色の警告バー
+          midground: アイコン間に「＋」記号でつながった構造
+          background: 淡い和紙テクスチャ
+          color_palette: 朱・紺・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 集中力
+              - 免疫
+              - 体重
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 写真風
+            - 実在ブランド
+          quality_bar: 3つのリスクが一目で伝わる品質
+          composition_type: three_risk_icons
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：睡眠負債が「集中力・免疫・体重」の3点に影響するリスク図解。
+          構図：3つのアイコン（脳マーク・盾マーク・体重計）を横に並べ、各アイコン下に朱色の警告バー。
+          色：朱・紺・薄黄、太線フラット、高コントラスト。
+          文字：各アイコンのラベル2文字（集中・免疫・体重）のみ許可。
+          禁止：写真風、実在人物、長文テキスト。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のdanger_simulationのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 返さないとどうなるの？
+      - id: l02
+        speaker: right
+        text: 集中力と記憶力が先に落ちるんだぜ。
+      - id: l03
+        speaker: left
+        text: 最近仕事のミスが多かったのそれか！
+      - id: l04
+        speaker: right
+        text: 免疫も下がるし太りやすくもなるぞ。
+      - id: l05
+        speaker: left
+        text: 眠いだけじゃないの、怖い。
+      - id: l06
+        speaker: right
+        text: 6時間以下が2週間続くと
+      - id: l07
+        speaker: right
+        text: 2日徹夜と同じ状態になるんだぜ。
+      - id: l08
+        speaker: left
+        text: それは嫌すぎるわ。
+      - id: l09
+        speaker: right
+        text: 判断力も落ちるから危険な選択が増えるぞ。
+      - id: l10
+        speaker: left
+        text: 借金のツケが全部体に来るのね。
+  - id: s05
+    role: body
+    scene_goal: 1時間の差が年間15日の差になることで中盤再フックを刺す
+    scene_format: 数字補強型
+    viewer_question: 何時間寝ればいいのか
+    viewer_misunderstanding: 7時間睡眠は無理という思い込み
+    number_or_example: 6時間と7時間の1時間差が年間15日の差になる
+    visual_role: 6時間vs7時間の年間累積差の比較グラフ
+    title_text: 1時間の差が1年で15日になる話
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: たった1時間の差が積み重なる
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 1時間の差が年間換算で巨大な差になることを視覚化する中盤再フック
+        supports_dialogue:
+          - s05_l04
+          - s05_l05
+          - s05_l06
+        supports_moment: 霊夢が「15日！？それはすごい差ね」と驚く瞬間
+        visual_type: contrast_card
+        composition_type: annual_accumulation_compare
+        image_direction:
+          dialogue_role: 中盤再フックの数字インパクト
+          scene_emotion: ショック→「じゃあ30分でいいの？」という前向きな転換
+          image_should_support: 1時間差の年間換算が直感的に伝わる
+          key_visual_sentence: 毎日1時間の差が365日で15日になる
+          main_subject: 2本の棒グラフ（6時間・7時間）の年間累積比較
+          foreground: 「6h/年」vs「7h/年」の2本棒グラフ
+          midground: 差分エリアを朱色でハイライト
+          background: 淡いグリッド線
+          color_palette: 朱・水色・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 6時間
+              - 7時間
+              - 差15日
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 写真風
+            - 長文
+          quality_bar: 1時間差の年間換算インパクトが直感的に分かる品質
+          composition_type: annual_accumulation_compare
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：毎日6時間vs7時間の睡眠が年間でどれだけ差になるかのコントラストグラフ。
+          構図：左側に小さい棒グラフ（6時間・水色）、右側に大きい棒グラフ（7時間・紺）。
+          差分エリアを朱色でハイライトし「差15日」の矢印ラベル。
+          色：朱・水色・紺・薄黄、太線フラット、高コントラスト。
+          禁止：写真風、実在人物、長文。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のcontrast_cardのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: で、何時間寝ればいいの？
+      - id: l02
+        speaker: right
+        text: 成人は7から9時間が目安だぜ。
+      - id: l03
+        speaker: left
+        text: 毎日7時間は無理だって！
+      - id: l04
+        speaker: right
+        text: 6時間と7時間の1時間の差が
+      - id: l05
+        speaker: right
+        text: 1年で15日分の睡眠差になるんだぜ。
+      - id: l06
+        speaker: left
+        text: 15日！？それはすごい差ね。
+      - id: l07
+        speaker: right
+        text: だから30分早く寝るだけでも違うんだぜ。
+      - id: l08
+        speaker: left
+        text: たった30分でいいの？
+      - id: l09
+        speaker: right
+        text: 毎日続けると1週間で3時間半の返済だぜ。
+      - id: l10
+        speaker: left
+        text: 積み重ねって大事ね！
+  - id: s06
+    role: body
+    scene_goal: 就寝時間を30分早める＋起床時間固定の具体的方法を伝える
+    scene_format: 手順型
+    viewer_question: 今から取り返す方法はあるか
+    viewer_misunderstanding: 睡眠を増やすには早起きをやめるしかないと思っている
+    number_or_example: 就寝30分早め＋起床固定で体内時計が安定
+    visual_role: 就寝時間調整の2ステップ図解
+    title_text: 今夜から返し始める2ステップ
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 就寝30分早め＋起床固定が基本
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 就寝時間30分早め＋起床固定の2ステップを手順図で補強
+        supports_dialogue:
+          - s06_l02
+          - s06_l04
+          - s06_l05
+        supports_moment: 魔理沙が「起きる時間を固定して寝る時間だけ早める」と言う場面
+        visual_type: three_step_board
+        composition_type: two_step_timeline
+        image_direction:
+          dialogue_role: 行動手順の明示
+          scene_emotion: 「これならできそう」という安心感
+          image_should_support: 就寝30分早める＋起床固定という2ステップが明確に伝わる
+          key_visual_sentence: 起きる時間は変えず、寝る時間だけ30分早める
+          main_subject: タイムライン上に「起床（固定）」と「就寝（30分前倒し）」の2点マーク
+          foreground: 現在の就寝時刻→30分前倒しの矢印
+          midground: 起床時刻が変わらないことを示す固定マーク
+          background: 淡いタイムライングリッド
+          color_palette: 朱・紺・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 就寝
+              - 起床
+              - 固定
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 写真風
+            - ブランドロゴ
+          quality_bar: 2ステップが1秒で理解できる品質
+          composition_type: two_step_timeline
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：睡眠負債を返す「就寝30分早め＋起床固定」の2ステップタイムライン図解。
+          構図：横長のタイムライン。左側に朱色「就寝（30分前倒し）→」矢印、右側に紺色「起床（固定）」マーク。
+          色：朱・紺・薄黄、太線フラット、高コントラスト。
+          禁止：写真風、実在人物、長文。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のthree_step_boardのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今から取り返す方法ある？
+      - id: l02
+        speaker: right
+        text: まず就寝時間を30分早めることだぜ。
+      - id: l03
+        speaker: left
+        text: 寝るのが遅いのが問題なのね。
+      - id: l04
+        speaker: right
+        text: 起きる時間を固定して
+      - id: l05
+        speaker: right
+        text: 寝る時間だけ少し早めるのがコツだぜ。
+      - id: l06
+        speaker: left
+        text: 休日も同じ時間に起きるの！？
+      - id: l07
+        speaker: right
+        text: 体内時計が安定するから崩さない方がいいぞ。
+      - id: l08
+        speaker: left
+        text: ゲームやめて早く寝ます。
+      - id: l09
+        speaker: right
+        text: 昼寝を15分入れると回復を助けられるぞ。
+      - id: l10
+        speaker: left
+        text: 昼寝15分なら会社でもできるかも！
+  - id: s07
+    role: outro
+    scene_goal: 今夜の3アクションを提示しながら確認・試すを自然に入れる
+    scene_format: 行動型
+    viewer_question: 今夜から何をすればいいか
+    viewer_misunderstanding: 難しい行動をしないと改善しないと思っている
+    number_or_example: 3アクション（確認・早める・遠ざける）で今夜スタート
+    visual_role: 今夜のアクション3つのチェックリスト
+    title_text: 今夜から3つだけ確認すること
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 小さい3アクションで借金返済スタート
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: 今夜のアクション3点チェックリストで視聴者の行動を促す
+        supports_dialogue:
+          - s07_l02
+          - s07_l04
+          - s07_l09
+        supports_moment: 魔理沙が「3つだぜ」と言った直後の箇条書き場面
+        visual_type: final_action_card
+        composition_type: three_item_checklist
+        image_direction:
+          dialogue_role: 最終行動を3ステップで明示する
+          scene_emotion: 「これならやれる」という前向きな達成感
+          image_should_support: 今夜できる3アクションのシンプルチェックリスト
+          key_visual_sentence: 今夜30分早く寝て、起床をセットして、スマホを遠ざける
+          main_subject: 3行チェックリスト（各行にチェックボックス付き）
+          foreground: 3つのチェックボックス（空欄）＋短いラベル
+          midground: 各行を区切る薄い区切り線
+          background: 淡いクリーム色
+          color_palette: 朱・紺・薄黄
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            remotion_overlay_text:
+              - 就寝前倒し
+              - 起床セット
+              - スマホ遠ざける
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在人物
+            - 写真風
+            - ブランドロゴ
+          quality_bar: 3アクションが一目で分かる最終行動カードの品質
+          composition_type: three_item_checklist
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：今夜からできる睡眠改善の3アクションチェックリスト。
+          構図：縦に3行のチェックリスト。各行の左端に空のチェックボックス（朱色の枠線）。
+          ①「就寝 30分前倒し」②「起床 時間セット」③「スマホ 遠ざける」のラベル（各4〜6文字）。
+          色：朱・紺・薄黄、太線フラット、高コントラスト。
+          禁止：写真風、実在人物、長文。
+          下部20%完全空き。
+          【使用目的】ゆっくり解説動画のfinal_action_cardのセリフ補強素材。高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。 余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: で、今夜から何すればいいの？
+      - id: l02
+        speaker: right
+        text: まず就寝時間を確認してみてくれ。
+      - id: l03
+        speaker: left
+        text: 確認って何時に寝るか決めるってこと？
+      - id: l04
+        speaker: right
+        text: 今夜30分早めて試すだけでいいんだぜ。
+      - id: l05
+        speaker: left
+        text: 試すのは今夜から？
+      - id: l06
+        speaker: right
+        text: 枕元のスマホを遠ざけるのも忘れずだぜ。
+      - id: l07
+        speaker: left
+        text: その3つだけでいいの？
+      - id: l08
+        speaker: right
+        text: まずこれだけで体の変化が分かるぞ。
+      - id: l09
+        speaker: left
+        text: 今夜から試してみる！
+      - id: l10
+        speaker: right
+        text: 動いた分だけ確実に返せるぞ。
+  - id: s08
+    role: cta
+    scene_goal: シンプルさを強調して今夜の行動にチェックをかける真の締め
+    scene_format: 行動型
+    viewer_question: これ本当に続けられるの
+    viewer_misunderstanding: 難しいことを続けないと改善しない
+    number_or_example: 30分早く寝るだけが全て
+    visual_role: シンプルな行動が続く理由を伝える締め
+    title_text: 今夜から返し始めよう
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 難しくしない。今夜30分だけ早く寝る。
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: なんか睡眠って奥深いのよね。
+      - id: l02
+        speaker: right
+        text: でも対策はシンプルだぜ。
+      - id: l03
+        speaker: left
+        text: シンプルってどういうこと？
+      - id: l04
+        speaker: right
+        text: 毎日30分早く寝るだけが全てだぜ。
+      - id: l05
+        speaker: left
+        text: それだけ？難しいこと何もないの？
+      - id: l06
+        speaker: right
+        text: 難しくするから続かないんだぜ。
+      - id: l07
+        speaker: left
+        text: 確かに、簡単な方が続くわよね。
+      - id: l08
+        speaker: right
+        text: 今夜の就寝時間をチェックして実行してくれ。
+      - id: l09
+        speaker: left
+        text: チェックするのは難しくないわね。
+      - id: l10
+        speaker: left
+        text: よし、今夜から本気で返し始める！
+    visual_asset_plan:
+      - slot: main
+        purpose: 締め・行動宣言の最終カードで視聴者を動かす
+        supports_dialogue:
+          - s08_l01
+          - s08_l02
+          - s08_l05
+          - s08_l06
+        supports_moment: 霊夢が「今夜から本気で返し始める」と決意する最終シーン
+        visual_type: final_action_card
+        composition_type: sleep_action_outro_card
+        image_direction:
+          dialogue_role: 行動宣言の最終カードで視聴者を動かす
+          scene_emotion: 「今夜からやれる」という前向きな決意
+          composition_type: sleep_action_outro_card
+          image_should_support: 今夜30分早く寝るという具体的な1アクションが明確
+          key_visual_sentence: 難しくしない。今夜30分だけ早く寝る
+          main_subject: 月と星のアイコンと「30分」ラベルの暖かい和風締めカード
+          foreground: 月と星のシルエット・「30分」の大きなラベル
+          midground: 布団アイコン・小さな矢印「30分早く」
+          background: クリームから薄紺のグラデーション
+          color_palette: 朱・紺・クリーム・薄黄
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+        imagegen_prompt: |-
+          ゆっくり解説動画Scene08 main枠用。1枚のみ生成。
+          テーマ：final_action_card。睡眠負債エピソードの締めカード。
+          構図：前景に月と星のアイコン、中景に布団シルエットと「30分」の大きなラベル、背景はクリームから薄紺のグラデーション。
+          色：朱・紺・クリーム・薄黄、太線フラット、高コントラスト、暖かみのある和風トーン。
+          セリフ補強：霊夢が「今夜から本気で返し始める」と決意するシーン。
+          余白を十分に取り、シンプルで読みやすい構図にすること。実在人物なし、ロゴなし、既存キャラクターなし、細かい文字なし。
+          Remotionの重ねテキストは最小限。画像内の文字は長文は入れない。
+          高品質なYouTube解説動画向け仕上がり。この1枚専用に個別生成すること。他画像と同時生成しない。
+          前景・中景・背景の3層で構成すること。
+          禁止：写真風、実在人物、ブランドロゴなし、既存キャラクターなし、英語UI、長文テキスト。
+          下部20%完全空き。
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/23286
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5

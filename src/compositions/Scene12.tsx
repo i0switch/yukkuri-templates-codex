@@ -1,6 +1,6 @@
 import React from 'react';
 import {SceneFrame} from '../components/SceneFrame';
-import {FONTS} from '../design-tokens';
+import {FONTS, TEXT_STROKE} from '../design-tokens';
 import type {SceneLayout, SceneProps} from '../types';
 
 const LAYOUT: SceneLayout = {
@@ -39,8 +39,10 @@ const titleSlot = (
       fontFamily: FONTS.ui,
       fontSize: 30,
       fontWeight: 800,
-      letterSpacing: '0.04em',
       textAlign: 'center',
+      textShadow: `0 2px 0 #ffffff, 0 -2px 0 #ffffff, 2px 0 0 #ffffff, -2px 0 0 #ffffff`,
+      WebkitTextStroke: `${TEXT_STROKE.title.width}px ${TEXT_STROKE.title.color}`,
+      paintOrder: 'stroke fill',
       padding: '10px 36px 14px',
       boxSizing: 'border-box',
     }}

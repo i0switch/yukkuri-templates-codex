@@ -4,13 +4,21 @@ import path from 'node:path';
 const rootDir = process.cwd();
 const scriptDir = path.join(rootDir, 'script');
 const outputPath = path.join(rootDir, 'src', 'generated', 'episode-compositions.ts');
+const targetEpisodeId = process.argv[2];
 
 const toImportName = (episodeId) =>
   episodeId
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
     .replace(/^[^a-zA-Z]+/, 'episode');
 
-const episodeDirs = await fs.readdir(scriptDir, {withFileTypes: true});
+const episodeDirs = targetEpisodeId
+  ? [
+      {
+        name: targetEpisodeId,
+        isDirectory: () => true,
+      },
+    ]
+  : await fs.readdir(scriptDir, {withFileTypes: true});
 const episodes = [];
 
 for (const entry of episodeDirs) {
@@ -27,6 +35,9 @@ for (const entry of episodeDirs) {
       importPath: `../../script/${entry.name}/script.render.json`,
     });
   } catch {
+    if (targetEpisodeId) {
+      throw new Error(`Missing script.render.json for target episode: ${targetEpisodeId}`);
+    }
     // Skip episodes that have not been built yet.
   }
 }

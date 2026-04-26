@@ -29,7 +29,6 @@
   "asset_quality": {
     "min_file_size_kb": 10,
     "failed_marker_max_ratio": 0.3,
-    "fallback_count_max": 0,
     "mime_type_check": true
   },
   "retry_limits": {

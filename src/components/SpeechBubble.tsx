@@ -1,5 +1,5 @@
 import React from 'react';
-import {FONTS, FS} from '../design-tokens';
+import {FONTS, FS, TEXT_STROKE} from '../design-tokens';
 import {AutoFitText} from './AutoFitText';
 
 type Props = {
@@ -89,6 +89,8 @@ export const SpeechBubble: React.FC<Props> = ({
           fontFamily={FONTS.subtitle}
           color={textColor}
           textAlign="center"
+          textStrokeColor={TEXT_STROKE.subtitle.color}
+          textStrokeWidth={TEXT_STROKE.subtitle.width}
         />
       </div>
     </div>

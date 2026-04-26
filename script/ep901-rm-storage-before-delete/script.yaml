@@ -1,0 +1,1717 @@
+meta:
+  id: ep901-rm-storage-before-delete
+  title: スマホ容量、消す前にやること
+  layout_template: Scene02
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: スマホやAI活用に不安がある初心者
+  tone: フランクだが損失回避を短く刺す
+  bgm_mood: 軽めで邪魔しない
+  voice_engine: aquestalk
+  target_duration_sec: 300
+  image_style: licensed photo based, clean explainer visuals
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: AquesTalk10 F1
+    speaking_style: 視聴者代表。雑な理解、焦り、ツッコミを担当。
+  right:
+    character: marisa
+    aquestalk_preset: AquesTalk10 F2
+    speaking_style: 解説役。短く訂正し、結論ではだぜを混ぜる。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 削除より先にバックアップ確認が必要と理解させる
+    viewer_question: 写真を消せば解決なのか
+    visual_role: mainはスマホ容量の警告と写真整理の不安を表す素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s01_main.jpg
+      caption: 消す前に止まれ
+      asset_requirements:
+        description: スマホ容量の警告と写真整理の不安を表す素材
+        imagegen_prompt: スマホ容量、消す前にやること の 消す前に止まれ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 消す前に確認
+        - 容量一覧を見る
+        - 逃がし先を決める
+    visual_asset_plan:
+      - slot: main
+        purpose: スマホ容量の警告と写真整理の不安を表す素材
+        insert_timing: 消す前に止まれ の冒頭
+        asset: assets/s01_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 消す前に止まれ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 容量が赤い、終わった？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: まだ消すな、先に確認だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 写真を消せば勝ちでしょ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: それが一番危ないんだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: バックアップ未確認なら？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 消した瞬間に詰むことがある
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: え、救出より削除が先？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 逆だぜ、逃がしてから消す
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 焦るほど順番が大事だね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 今日の結論はそこだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s02
+    role: body
+    scene_goal: 容量を圧迫する主因が動画になりやすいと示す
+    viewer_question: なぜ写真整理だけでは足りないのか
+    visual_role: mainは写真と動画の容量差をイメージできる素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s02_main.jpg
+      caption: 写真より動画が重い
+      asset_requirements:
+        description: 写真と動画の容量差をイメージできる素材
+        imagegen_prompt: スマホ容量、消す前にやること の 写真より動画が重い 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 動画を優先
+        - 長尺を探す
+        - 重い順で見る
+    visual_asset_plan:
+      - slot: main
+        purpose: 写真と動画の容量差をイメージできる素材
+        insert_timing: 写真より動画が重い の冒頭
+        asset: assets/s02_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 写真より動画が重い 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 写真千枚が犯人かな
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: まず動画を疑うんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 写真じゃないの？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 1分で数百MBもある
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: ええっ、そんな重いの？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 旅行動画は特に膨らむ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: じゃあ思い出が犯人？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 犯人扱いは雑だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 重い順に見るのが早い
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 数字で見ると迷わない
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s03
+    role: body
+    scene_goal: 同期とバックアップの違いを理解させる
+    viewer_question: クラウドがあれば安全なのか
+    visual_role: mainはクラウド同期と保存の違いを表す素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s03_main.jpg
+      caption: クラウド安心は半分違う
+      asset_requirements:
+        description: クラウド同期と保存の違いを表す素材
+        imagegen_prompt: スマホ容量、消す前にやること の クラウド安心は半分違う 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 同期を確認
+        - 保存先を見る
+        - 削除前に開く
+    visual_asset_plan:
+      - slot: main
+        purpose: クラウド同期と保存の違いを表す素材
+        insert_timing: クラウド安心は半分違う の冒頭
+        asset: assets/s03_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の クラウド安心は半分違う 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: クラウドあるから平気？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 半分だけ正解だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 半分って怖いな
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 同期は鏡みたいなものだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 鏡を割ったら？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 元も消える設定がある
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: え、罠じゃん
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 設定次第なんだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 別端末で開ける？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: それを先に確認だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s04
+    role: body
+    scene_goal: キャッシュ削除の限界と安全性を整理する
+    viewer_question: キャッシュ削除だけで解決するのか
+    visual_role: mainは一時保存と本体データの違いを示す素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s04_main.jpg
+      caption: キャッシュは倉庫じゃない
+      asset_requirements:
+        description: 一時保存と本体データの違いを示す素材
+        imagegen_prompt: スマホ容量、消す前にやること の キャッシュは倉庫じゃない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 一時保存だけ
+        - 効果は限定的
+        - 本体は別
+    visual_asset_plan:
+      - slot: main
+        purpose: 一時保存と本体データの違いを示す素材
+        insert_timing: キャッシュは倉庫じゃない の冒頭
+        asset: assets/s04_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の キャッシュは倉庫じゃない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: キャッシュ削除で優勝？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 掃除としてはありだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: じゃあ全部解決？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: それは期待しすぎだな
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 机のレシート整理？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 近い、でも倉庫は別だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: レシートの山かよ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 本体データも見るんだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: アプリごとに差がある
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 万能薬ではない
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s05
+    role: body
+    scene_goal: メッセージアプリの添付ファイルが重くなる例を出す
+    viewer_question: 会話アプリは容量に関係するのか
+    visual_role: mainはメッセージ添付が積み上がる様子の素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s05_main.jpg
+      caption: トーク履歴の落とし穴
+      asset_requirements:
+        description: メッセージ添付が積み上がる様子の素材
+        imagegen_prompt: スマホ容量、消す前にやること の トーク履歴の落とし穴 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 動画添付
+        - 古い画像
+        - 保存済み確認
+    visual_asset_plan:
+      - slot: main
+        purpose: メッセージ添付が積み上がる様子の素材
+        insert_timing: トーク履歴の落とし穴 の冒頭
+        asset: assets/s05_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の トーク履歴の落とし穴 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 会話で容量食うの？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 添付が積もるんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 文字だけじゃないのか
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 動画や画像が残ることがある
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 完全に油断してた
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 何年分もある人は要注意
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 消したら会話も消える？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: だから先に保存確認だ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 必要な物だけ逃がす
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 全部削除は最後だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s06
+    role: body
+    scene_goal: ここまでの行動順を再確認する
+    viewer_question: 結局何からやるのか
+    visual_role: mainは確認、選択、保存、削除の順番を示す素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s06_main.jpg
+      caption: 中盤で順番を戻す
+      asset_requirements:
+        description: 確認、選択、保存、削除の順番を示す素材
+        imagegen_prompt: スマホ容量、消す前にやること の 中盤で順番を戻す 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 見る
+        - 選ぶ
+        - 逃がす
+    visual_asset_plan:
+      - slot: main
+        purpose: 確認、選択、保存、削除の順番を示す素材
+        insert_timing: 中盤で順番を戻す の冒頭
+        asset: assets/s06_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 中盤で順番を戻す 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 情報多くて混乱した
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 順番は4つだけだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: まず消す、じゃない？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 違う、まず見るんだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 容量一覧を見る
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 次に重い1つを選ぶ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: そこから逃がす？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: そう、削除は最後だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: なるほど、迷子防止だ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: この順番で事故が減る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s07
+    role: body
+    scene_goal: 保存できたつもりを防ぐ確認方法を示す
+    viewer_question: 保存完了表示だけで安全か
+    visual_role: mainは別端末で写真を開いて確認する素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s07_main.jpg
+      caption: バックアップは開いて確認
+      asset_requirements:
+        description: 別端末で写真を開いて確認する素材
+        imagegen_prompt: スマホ容量、消す前にやること の バックアップは開いて確認 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 別端末
+        - 別アプリ
+        - 1枚開く
+    visual_asset_plan:
+      - slot: main
+        purpose: 別端末で写真を開いて確認する素材
+        insert_timing: バックアップは開いて確認 の冒頭
+        asset: assets/s07_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の バックアップは開いて確認 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 保存完了って出たよ
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: まだ勝ち確ではないぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: え、疑い深いな
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 1枚だけ開いて確認する
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 見るだけでいいの？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 別の場所で開くのが大事だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: スクショじゃだめ？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 元画像で確認だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: ここで安心が作れる
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 削除前の保険になる
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s08
+    role: body
+    scene_goal: アプリ別容量の見方を具体化する
+    viewer_question: どのアプリから見るべきか
+    visual_role: mainはアプリ別ストレージ一覧の抽象素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s08_main.jpg
+      caption: 重いアプリは犯人探し
+      asset_requirements:
+        description: アプリ別ストレージ一覧の抽象素材
+        imagegen_prompt: スマホ容量、消す前にやること の 重いアプリは犯人探し 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 設定を開く
+        - 容量順を見る
+        - 上位3つだけ
+    visual_asset_plan:
+      - slot: main
+        purpose: アプリ別ストレージ一覧の抽象素材
+        insert_timing: 重いアプリは犯人探し の冒頭
+        asset: assets/s08_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 重いアプリは犯人探し 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部のアプリ見るの？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 上位3つでいいぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: それならできそう
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 容量順に並べるんだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 小さいのは無視？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 最初は無視でいい
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 完璧主義が邪魔するやつ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: まさにそれだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 大物だけ倒せば変わる
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 5分ならここまでで十分
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s09
+    role: body
+    scene_goal: クラウド、PC、外部ストレージの選択軸を示す
+    viewer_question: 逃がし先は何を選べばよいか
+    visual_role: mainは3つの保存先を比較する素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s09_main.jpg
+      caption: 外部保存の選び方
+      asset_requirements:
+        description: 3つの保存先を比較する素材
+        imagegen_prompt: スマホ容量、消す前にやること の 外部保存の選び方 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - クラウド
+        - PC
+        - 外部メモリ
+    visual_asset_plan:
+      - slot: main
+        purpose: 3つの保存先を比較する素材
+        insert_timing: 外部保存の選び方 の冒頭
+        asset: assets/s09_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 外部保存の選び方 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 逃がし先って何が正解？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 使いやすさで選ぶんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 一番安いのでいい？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 続かないなら負けだな
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 毎月見るならクラウド？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 家でまとめるならPCもあり
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 外部メモリは？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 抜き差し管理が必要だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 自分が続く場所を選ぶ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: それが一番現実的だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s10
+    role: body
+    scene_goal: 削除判断を感情ではなく基準化する
+    viewer_question: どれを消してよいのか
+    visual_role: mainは残す、逃がす、消すの3分類素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s10_main.jpg
+      caption: 消す基準を先に決める
+      asset_requirements:
+        description: 残す、逃がす、消すの3分類素材
+        imagegen_prompt: スマホ容量、消す前にやること の 消す基準を先に決める 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 残す
+        - 逃がす
+        - 消す
+    visual_asset_plan:
+      - slot: main
+        purpose: 残す、逃がす、消すの3分類素材
+        insert_timing: 消す基準を先に決める の冒頭
+        asset: assets/s10_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 消す基準を先に決める 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 結局どれ消すの？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 先に基準を作るんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 思い出会議が始まるな
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: だから3分類にする
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 残す、逃がす、消す？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: その順で迷いを減らす
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 全部見返すのは無理
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 上位だけで十分だぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 基準がないと止まる
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 感情より先に箱を作る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s11
+    role: body
+    scene_goal: 一度きりの整理で終わらない仕組みを作る
+    viewer_question: なぜまた容量不足になるのか
+    visual_role: mainは月1のカレンダー確認を表す素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s11_main.jpg
+      caption: 月1確認でまた詰まない
+      asset_requirements:
+        description: 月1のカレンダー確認を表す素材
+        imagegen_prompt: スマホ容量、消す前にやること の 月1確認でまた詰まない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 月1予定
+        - 重い順
+        - 1つ逃がす
+    visual_asset_plan:
+      - slot: main
+        purpose: 月1のカレンダー確認を表す素材
+        insert_timing: 月1確認でまた詰まない の冒頭
+        asset: assets/s11_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 月1確認でまた詰まない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: また赤くなる未来が見える
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 月1で止めるんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 気合いじゃだめ？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 気合いは賞味期限が短い
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 予定に入れるのか
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 重い順を5分だけ見る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 5分なら続きそう
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 1つ逃がせば勝ちだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 完璧より継続だね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 仕組みにすると楽になる
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s12
+    role: body
+    scene_goal: 視聴後の具体行動を1つに絞る
+    viewer_question: 今すぐ何をすればよいか
+    visual_role: mainは最初の1アクションを強調する素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s12_main.jpg
+      caption: 今日やるのは1個だけ
+      asset_requirements:
+        description: 最初の1アクションを強調する素材
+        imagegen_prompt: スマホ容量、消す前にやること の 今日やるのは1個だけ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 容量一覧
+        - 最大1つ
+        - 保存確認
+    visual_asset_plan:
+      - slot: main
+        purpose: 最初の1アクションを強調する素材
+        insert_timing: 今日やるのは1個だけ の冒頭
+        asset: assets/s12_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 今日やるのは1個だけ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部やるの無理だよ
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 今日は1個だけでいいぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: それなら助かる
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 容量一覧を開く
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 一番重い動画を選ぶ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 別の場所へ逃がす
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 開けるか確認する
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 確認できたら削除候補だ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: いきなり消さない
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: それが今日の宿題だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s13
+    role: body
+    scene_goal: 視聴者が自分の状態を言語化できるようにする
+    viewer_question: 自分の状況をどう整理するか
+    visual_role: mainは容量確認メモを作る素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s13_main.jpg
+      caption: コメント用の確認メモ
+      asset_requirements:
+        description: 容量確認メモを作る素材
+        imagegen_prompt: スマホ容量、消す前にやること の コメント用の確認メモ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 最大アプリ
+        - 最大動画
+        - 逃がし先
+    visual_asset_plan:
+      - slot: main
+        purpose: 容量確認メモを作る素材
+        insert_timing: コメント用の確認メモ の冒頭
+        asset: assets/s13_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の コメント用の確認メモ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 何を報告すればいい？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 3つだけ書けばいいぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 最大アプリは何か
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 最大動画が何分か
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 逃がし先はどこか
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: この3つで状況が見える
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 個人情報は書かない？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: もちろん書かないんだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 数字だけで十分だね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 次の行動が決まる
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s14
+    role: body
+    scene_goal: 削除前チェックの重要性を再度刺す
+    viewer_question: 削除前に何を確認するか
+    visual_role: mainは削除ボタン前のチェックリスト素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s14_main.jpg
+      caption: 削除は最後のボタン
+      asset_requirements:
+        description: 削除ボタン前のチェックリスト素材
+        imagegen_prompt: スマホ容量、消す前にやること の 削除は最後のボタン 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 保存済み
+        - 開ける
+        - 不要と判断
+    visual_asset_plan:
+      - slot: main
+        purpose: 削除ボタン前のチェックリスト素材
+        insert_timing: 削除は最後のボタン の冒頭
+        asset: assets/s14_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 削除は最後のボタン 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: もう消していい？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 最後に3つ確認だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 保存済みか
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 別の場所で開けるか
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 本当に不要か
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: ここで初めて削除候補だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 慎重すぎない？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 思い出は戻らないからな
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: たしかに重い一言だ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 安全確認は短くていい
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s15
+    role: body
+    scene_goal: ありがちな失敗を疑似体験させる
+    viewer_question: どんな失敗が起きやすいか
+    visual_role: mainは旅行先で容量不足になる素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s15_main.jpg
+      caption: 失敗例を先に知る
+      asset_requirements:
+        description: 旅行先で容量不足になる素材
+        imagegen_prompt: スマホ容量、消す前にやること の 失敗例を先に知る 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 旅行前
+        - 機種変更前
+        - 更新前
+    visual_asset_plan:
+      - slot: main
+        purpose: 旅行先で容量不足になる素材
+        insert_timing: 失敗例を先に知る の冒頭
+        asset: assets/s15_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 失敗例を先に知る 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 失敗例ってある？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 旅行先で保存できない
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: それ普通にきつい
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 機種変更で詰む人もいる
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 更新できないとか？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 空き容量不足で止まることも
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 前日に気づくの最悪
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: だから平時に見るんだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 焦る前に見るだけ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: それが一番安い対策だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s16
+    role: body
+    scene_goal: やりすぎを防ぎ、実行可能な範囲に落とす
+    viewer_question: 全部整理しないと意味がないのか
+    visual_role: mainは完璧主義を手放す整理イメージ素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s16_main.jpg
+      caption: 完璧整理はしない
+      asset_requirements:
+        description: 完璧主義を手放す整理イメージ素材
+        imagegen_prompt: スマホ容量、消す前にやること の 完璧整理はしない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 上位だけ
+        - 5分だけ
+        - 月1だけ
+    visual_asset_plan:
+      - slot: main
+        purpose: 完璧主義を手放す整理イメージ素材
+        insert_timing: 完璧整理はしない の冒頭
+        asset: assets/s16_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 完璧整理はしない 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部きれいにしたい
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: それで止まるんだぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 耳が痛い
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 上位だけで効果は出る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 5分だけでいい？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 毎月続けば十分だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 掃除大会じゃないんだ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 事故防止の仕組みだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 目的が変わるね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 守るのは思い出だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s17
+    role: outro
+    scene_goal: 本編の要点を短く回収する
+    viewer_question: 今日の結論は何か
+    visual_role: mainは確認、保存、削除の結論素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s17_main.jpg
+      caption: まとめ、消す前に逃がせ
+      asset_requirements:
+        description: 確認、保存、削除の結論素材
+        imagegen_prompt: スマホ容量、消す前にやること の まとめ、消す前に逃がせ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 見る
+        - 逃がす
+        - 最後に消す
+    visual_asset_plan:
+      - slot: main
+        purpose: 確認、保存、削除の結論素材
+        insert_timing: まとめ、消す前に逃がせ の冒頭
+        asset: assets/s17_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の まとめ、消す前に逃がせ 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 結論を一言で頼む
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 消す前に逃がせ、だぜ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 写真も動画も？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: まず重いものから見る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: クラウドは確認する
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 別の場所で開けるか見る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: それから削除？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: 不要なら最後に消す
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: 順番が命だね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 焦りほど危ないんだ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.7
+  - id: s18
+    role: cta
+    scene_goal: 確認、選択、保存の行動に落とす
+    viewer_question: 視聴後に何を実行するか
+    visual_role: mainは3ステップの行動チェック素材、subは3項目の確認メモを担当
+    main:
+      kind: image
+      asset: assets/s18_main.jpg
+      caption: 今すぐやる3手順
+      asset_requirements:
+        description: 3ステップの行動チェック素材
+        imagegen_prompt: スマホ容量、消す前にやること の 今すぐやる3手順 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        style: licensed photo style, clean explainer thumbnail, high readability
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 容量一覧
+        - 最大動画
+        - 月1予定
+    visual_asset_plan:
+      - slot: main
+        purpose: 3ステップの行動チェック素材
+        insert_timing: 今すぐやる3手順 の冒頭
+        asset: assets/s18_main.jpg
+        imagegen_prompt: スマホ容量、消す前にやること の 今すぐやる3手順 用。Scene02
+          テンプレートのメイン枠に置く解説動画素材。落ち着いたゆっくり/ずんだもん解説動画のトーン。中央に主題を大きく配置し、左右と下部に余白を残す構図。1枚1メッセージで見やすく、細かい文字なし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: じゃあ今から何する？
+        expression: halfOpen
+        pre_pause_sec: 0.12
+        post_pause_sec: 0.24
+      - id: l02
+        speaker: right
+        text: 設定で容量一覧を見る
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l03
+        speaker: left
+        text: 一番重い動画を選ぶ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l04
+        speaker: right
+        text: 逃がし先を決めて保存だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l05
+        speaker: left
+        text: 開けるか確認する
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l06
+        speaker: right
+        text: 最後に月1予定を入れる
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l07
+        speaker: left
+        text: 削除はその後だね
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+      - id: l08
+        speaker: right
+        text: そう、順番を守るんだぜ
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l09
+        speaker: left
+        text: コメントは数字だけ？
+        expression: smile
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.16
+      - id: l10
+        speaker: right
+        text: 最大容量だけで十分だ
+        expression: calm
+        pre_pause_sec: 0.06
+        post_pause_sec: 0.24
+    duration_sec: 16.1
+total_duration_sec: 300

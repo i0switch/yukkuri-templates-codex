@@ -1,6 +1,6 @@
 import React from 'react';
 import type {Rect, SceneProps, SlotRenderer} from '../types';
-import {CHARACTER_PAIRS, FONTS, type PairId} from '../design-tokens';
+import {CHARACTER_PAIRS, FONTS, TEXT_STROKE, type PairId} from '../design-tokens';
 import {Scene01} from './Scene01';
 import {Scene02} from './Scene02';
 import {Scene03} from './Scene03';
@@ -95,6 +95,8 @@ const makeTextSlot = (kind: 'title' | 'main' | 'sub' | 'subtitle'): SlotRenderer
       color="#111111"
       textAlign="center"
       textShadow="0 2px 0 rgba(255,255,255,0.9), 0 -2px 0 rgba(255,255,255,0.9), 2px 0 0 rgba(255,255,255,0.9), -2px 0 0 rgba(255,255,255,0.9)"
+      textStrokeColor={TEXT_STROKE.subtitle.color}
+      textStrokeWidth={TEXT_STROKE.subtitle.width}
       style={{
         padding: isTitle ? '4px 10px' : isSubtitle ? '8px 28px' : isSub ? '12px 14px' : '20px 28px',
         boxSizing: 'border-box',

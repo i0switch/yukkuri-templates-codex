@@ -1,6 +1,6 @@
 import React from 'react';
 import {SceneFrame} from '../components/SceneFrame';
-import {FONTS} from '../design-tokens';
+import {FONTS, TEXT_STROKE} from '../design-tokens';
 import type {SceneLayout, SceneProps} from '../types';
 
 const LAYOUT: SceneLayout = {
@@ -32,8 +32,10 @@ const subContentSlot = (
       fontFamily: FONTS.ui,
       fontSize: 24,
       fontWeight: 800,
-      letterSpacing: '0.04em',
       textAlign: 'center',
+      textShadow: `0 2px 0 #ffffff, 0 -2px 0 #ffffff, 2px 0 0 #ffffff, -2px 0 0 #ffffff`,
+      WebkitTextStroke: `${TEXT_STROKE.content.width}px ${TEXT_STROKE.content.color}`,
+      paintOrder: 'stroke fill',
       lineHeight: 1.35,
       padding: '24px 18px',
       boxSizing: 'border-box',

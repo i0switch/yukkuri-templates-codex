@@ -33,10 +33,10 @@
 - 強すぎる煽りや根拠のない数字は使わない。
 - 実在ブランドUIの模写を避け、必要に応じて一般化する。
 - キャラ口調、テンプレート枠、素材計画、参照動画型メタを壊さない。
-- `visual_asset_plan` と `imagegen_prompt` は維持し、必要な場合だけシーン内容に合わせて更新する。
-- `imagegen_prompt` を更新する場合、【用途】【主題】【構図】【テンプレート枠】【色】【情報量】【絵柄】【禁止】の8項目を維持する。
+- `visual_asset_plan`、`image_direction`、`visual_type`、`supports_dialogue`、`supports_moment`、`imagegen_prompt` は維持し、必要な場合だけシーン内容に合わせて更新する。
+- `imagegen_prompt` を更新する場合、先に `image_direction` を直し、GPT-Image-2向け完成形式を維持する。
 - 抽象化して「フラットな図解」「わかりやすいカード」「中央に主題、余白多め」だけへ戻さない。
-- `imagegen_prompt` には scene_id、slot、字幕帯/キャラ位置回避、画像内文字0文字または日本語3〜6文字以内の指示を残す。
+- `imagegen_prompt` には scene_id、slot、補強する掛け合い、前景/中景/背景、字幕帯/キャラ位置回避、画像内文字最大3語、Remotion重ね文字の余白を残す。
 - main枠とsub枠の役割分担を崩さない。sub枠に複雑な図や長文を追加しない。
 - 5分前後なら10〜12シーン、90〜130セリフ、平均8セリフ以上を目安に増補する。
 - 各シーンが6セリフ固定の場合、深掘り往復を追加して8〜12セリフにする。
@@ -118,8 +118,10 @@
 - 25文字以内：YES / NO
 - テンプレート枠適合：YES / NO
 - visual_asset_plan 維持：YES / NO
+- image_direction 維持：YES / NO
+- visual_type / supports_dialogue 維持：YES / NO
 - imagegen_prompt 具体性：YES / NO
-- imagegen_prompt 8項目維持：YES / NO
+- imagegen_prompt GPT-Image-2形式維持：YES / NO
 - imagegen_prompt の枠/余白/色/禁止要素が具体的：YES / NO
 - 判定：PASS / FAIL
 ```

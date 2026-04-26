@@ -1,0 +1,813 @@
+meta:
+  id: ep904-rm-scam-dm-stop
+  title: 詐欺DM、開く前に止まれ
+  layout_template: Scene02
+  scene_template: Scene02
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: SNSやスマホ利用で失敗を避けたい初心者
+  tone: 短く刺すが、不安だけで終わらせず対処まで出す
+  bgm_mood: 軽く緊張感のある解説用
+  voice_engine: aquestalk
+  target_duration_sec: 180
+  image_style: 太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: れいむ
+    speaking_style: 視聴者代表。焦り、雑な理解、ツッコミを担当。
+  right:
+    character: marisa
+    aquestalk_preset: まりさ
+    speaking_style: 解説役。短く訂正し、自然に「だぜ」を混ぜる。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 怪しいDMは開く前に止まる必要があると刺す
+    viewer_question: 急ぎの通知は開いてよいのか
+    visual_role: mainは警告つき通知、subは最初の停止ルール
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 怪しい通知で止まる
+      asset_requirements:
+        description: 不審なスマホ通知と警告マークを、開く前に止まる図解で示す
+        imagegen_prompt: 【用途】s01 main枠。ゆっくり解説で「怪しい通知で止まる」を一瞬で理解させる素材。【主題】不審なスマホ通知と警告マークを、開く前に止まる図解で示す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 開かない
+        - 押さない
+        - 急がない
+    visual_asset_plan:
+      - slot: main
+        purpose: 不審なスマホ通知と警告マークを、開く前に止まる図解で示す
+        insert_timing: s01 の l01 直前から表示
+        asset: assets/s01_main.png
+        imagegen_prompt: 【用途】s01 main枠。ゆっくり解説で「怪しい通知で止まる」を一瞬で理解させる素材。【主題】不審なスマホ通知と警告マークを、開く前に止まる図解で示す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s01 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 当選DM来た、勝った？
+        expression: happy
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: まず開くな、止まれだぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: え、見るだけもダメ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: リンク先で誘導される
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 急げって書いてあるよ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 急がせるのが手口だ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: もう怖くなってきた
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 今日は見分け方を話すぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 開く前に知りたい
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: 最初の数秒が勝負だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s02
+    role: body
+    scene_goal: 期限や停止を強調する文面ほど一度止まると理解させる
+    viewer_question: 急ぎなら本物ではないのか
+    visual_role: mainはカウントダウン罠、subは危険語の例
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 急かす文面は疑う
+      asset_requirements:
+        description: 急かすカウントダウン通知と焦る導線を、罠として示す
+        imagegen_prompt: 【用途】s02 main枠。ゆっくり解説で「急かす文面は疑う」を一瞬で理解させる素材。【主題】急かすカウントダウン通知と焦る導線を、罠として示す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 期限
+        - 停止
+        - 今すぐ
+    visual_asset_plan:
+      - slot: main
+        purpose: 急かすカウントダウン通知と焦る導線を、罠として示す
+        insert_timing: s02 の l01 直前から表示
+        asset: assets/s02_main.png
+        imagegen_prompt: 【用途】s02 main枠。ゆっくり解説で「急かす文面は疑う」を一瞬で理解させる素材。【主題】急かすカウントダウン通知と焦る導線を、罠として示す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s02 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今日中に停止だって
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: 典型的な焦らせ方だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 本物なら急ぐでしょ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 本物でも別経路で見られる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: DMから行かない？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 公式アプリから開くんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: 一手間ふえるなあ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 事故より安い一手間だぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 急ぐほど遠回りね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: それが安全な順番だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s03
+    role: body
+    scene_goal: うますぎる話は個人情報や手数料へ誘導されると示す
+    viewer_question: 当選DMはどこが危険か
+    visual_role: mainは賞品箱と釣り針、subはよくある誘い文句
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 当選と無料は釣り針
+      asset_requirements:
+        description: 無料賞品の箱と釣り針を組み合わせ、うますぎる話の危険を表す
+        imagegen_prompt: 【用途】s03 main枠。ゆっくり解説で「当選と無料は釣り針」を一瞬で理解させる素材。【主題】無料賞品の箱と釣り針を組み合わせ、うますぎる話の危険を表す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 高額当選
+        - 無料
+        - 手数料
+    visual_asset_plan:
+      - slot: main
+        purpose: 無料賞品の箱と釣り針を組み合わせ、うますぎる話の危険を表す
+        insert_timing: s03 の l01 直前から表示
+        asset: assets/s03_main.png
+        imagegen_prompt: 【用途】s03 main枠。ゆっくり解説で「当選と無料は釣り針」を一瞬で理解させる素材。【主題】無料賞品の箱と釣り針を組み合わせ、うますぎる話の危険を表す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s03 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 無料ギフトは嬉しいよ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: 無料ほど入口に注意だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 送料だけなら安い？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: カード情報を狙うことがある
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: それは詰みじゃん
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 少額で油断させるんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: 釣り針が小さいのね
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: そう、見えにくい針だぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 当選より確認が先
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: 喜ぶ前に止まるんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s04
+    role: body
+    scene_goal: DM内リンクを押さず、入力画面へ進まない判断を作る
+    viewer_question: リンクを押すだけなら安全か
+    visual_role: mainはリンクから危険迷路へ入る図、subは危険な遷移
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: リンクは迷路になる
+      asset_requirements:
+        description: リンクが迷路に変わり、入力画面へ誘導される危険を表す
+        imagegen_prompt: 【用途】s04 main枠。ゆっくり解説で「リンクは迷路になる」を一瞬で理解させる素材。【主題】リンクが迷路に変わり、入力画面へ誘導される危険を表す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 短縮URL
+        - 別サイト
+        - 入力画面
+    visual_asset_plan:
+      - slot: main
+        purpose: リンクが迷路に変わり、入力画面へ誘導される危険を表す
+        insert_timing: s04 の l01 直前から表示
+        asset: assets/s04_main.png
+        imagegen_prompt: 【用途】s04 main枠。ゆっくり解説で「リンクは迷路になる」を一瞬で理解させる素材。【主題】リンクが迷路に変わり、入力画面へ誘導される危険を表す【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s04 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 押すだけなら平気？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: そこから迷路に入るぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 迷路って何？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 別サイトへ飛ばされる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 見た目が本物なら？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 見た目は真似できる
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: うわ、信用できない
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: だから入口を変えるんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 公式から入り直す
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: その癖が守ってくれる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s05
+    role: body
+    scene_goal: 安全確認はDMではなく公式アプリやブックマークから行うと示す
+    viewer_question: 安全に確認する経路は何か
+    visual_role: mainは危険リンクと公式ルートの分岐、subは確認手順
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 公式ルートで確認
+      asset_requirements:
+        description: 危険な近道と安全な公式ルートを分ける分岐図
+        imagegen_prompt: 【用途】s05 main枠。ゆっくり解説で「公式ルートで確認」を一瞬で理解させる素材。【主題】危険な近道と安全な公式ルートを分ける分岐図【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 検索しない
+        - 公式アプリ
+        - 通知欄
+    visual_asset_plan:
+      - slot: main
+        purpose: 危険な近道と安全な公式ルートを分ける分岐図
+        insert_timing: s05 の l01 直前から表示
+        asset: assets/s05_main.png
+        imagegen_prompt: 【用途】s05 main枠。ゆっくり解説で「公式ルートで確認」を一瞬で理解させる素材。【主題】危険な近道と安全な公式ルートを分ける分岐図【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s05 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: じゃあ何で確認する？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: 公式アプリから見るだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 検索でもいい？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 広告や偽サイトもある
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 安全ルート意外と狭い
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 登録済みアプリが無難だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: ブックマークもあり？
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 自分で保存した物ならな
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: DMは入口にしない
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: これが中盤の結論だぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s06
+    role: body
+    scene_goal: 入力してはいけない情報を3つに絞る
+    viewer_question: 何を入力すると危険か
+    visual_role: mainは個人情報を守る盾、subは入力禁止の代表例
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 個人情報は盾で守る
+      asset_requirements:
+        description: 住所、カード、認証コードを盾で守る抽象図解
+        imagegen_prompt: 【用途】s06 main枠。ゆっくり解説で「個人情報は盾で守る」を一瞬で理解させる素材。【主題】住所、カード、認証コードを盾で守る抽象図解【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 住所
+        - カード
+        - 認証コード
+    visual_asset_plan:
+      - slot: main
+        purpose: 住所、カード、認証コードを盾で守る抽象図解
+        insert_timing: s06 の l01 直前から表示
+        asset: assets/s06_main.png
+        imagegen_prompt: 【用途】s06 main枠。ゆっくり解説で「個人情報は盾で守る」を一瞬で理解させる素材。【主題】住所、カード、認証コードを盾で守る抽象図解【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s06 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 名前くらいなら平気？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: 情報はつながるんだぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: つながる？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 住所やカードへ進む
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 認証コードは？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 絶対に渡さない
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: それは鍵そのものね
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: まさに最後の鍵だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 聞かれたら閉じる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: 入力前に相談でいい
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s07
+    role: outro
+    scene_goal: 支払い前に第三者確認を入れることで被害を止める
+    viewer_question: 不安なとき誰に聞くか
+    visual_role: mainは支払い前の確認フロー、subは相談先
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 支払い前に確認する
+      asset_requirements:
+        description: 支払いボタンの前で第三者確認を挟む安全フロー
+        imagegen_prompt: 【用途】s07 main枠。ゆっくり解説で「支払い前に確認する」を一瞬で理解させる素材。【主題】支払いボタンの前で第三者確認を挟む安全フロー【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 家族
+        - 友人
+        - 公式窓口
+    visual_asset_plan:
+      - slot: main
+        purpose: 支払いボタンの前で第三者確認を挟む安全フロー
+        insert_timing: s07 の l01 直前から表示
+        asset: assets/s07_main.png
+        imagegen_prompt: 【用途】s07 main枠。ゆっくり解説で「支払い前に確認する」を一瞬で理解させる素材。【主題】支払いボタンの前で第三者確認を挟む安全フロー【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s07 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 支払い前なら遅い？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: そこで止まれば間に合う
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 誰に聞けばいい？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 家族か公式窓口だぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 恥ずかしい気もする
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 被害よりずっと軽い
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: たしかに安い相談だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: 焦りは外に出すんだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 一人で決めない
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: それだけで防げる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+  - id: s08
+    role: cta
+    scene_goal: 視聴後に実行する3手順へ落とす
+    viewer_question: 今日なにをすればよいか
+    visual_role: mainは止まる確認ブロックの3ステップ、subは最終行動
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 止まる、確認、ブロック
+      asset_requirements:
+        description: 止まる、公式確認、ブロックの3ステップ行動図
+        imagegen_prompt: 【用途】s08 main枠。ゆっくり解説で「止まる、確認、ブロック」を一瞬で理解させる素材。【主題】止まる、公式確認、ブロックの3ステップ行動図【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        style: ゆっくり解説向け、16:9、余白多め、文字なし
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items:
+        - 止まる
+        - 公式確認
+        - ブロック
+    visual_asset_plan:
+      - slot: main
+        purpose: 止まる、公式確認、ブロックの3ステップ行動図
+        insert_timing: s08 の l01 直前から表示
+        asset: assets/s08_main.png
+        imagegen_prompt: 【用途】s08 main枠。ゆっくり解説で「止まる、確認、ブロック」を一瞬で理解させる素材。【主題】止まる、公式確認、ブロックの3ステップ行動図【構図】主役を中央大きめ、補助アイコンは左右上部に少量。下部字幕帯と左右キャラ位置は空ける。【テンプレート枠】Scene02 の main枠に収める。右sub枠、下字幕帯、左右キャラ領域に重要物を置かない。【色】白または淡い背景、主色は青緑、注意だけ赤、影は薄く、全シーンで色味を揃える。【情報量】1枚1メッセージ。画像内文字なし。細部を詰めず遠目でも読める。【絵柄】太線フラット図解。白背景、青緑基調、警告だけ赤、文字なし。 ゆっくり/ずんだもん解説向けの太線フラット図解。【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - ロゴや細かい文字がない
+      - slot: sub
+        purpose: 右サブ枠で要点を3項目に整理する
+        insert_timing: s08 全体で表示
+        audit_points:
+          - 3項目以内
+          - mainと役割が違う
+          - 字幕を邪魔しない
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 今日やることは？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.2
+      - id: l02
+        speaker: right
+        text: 怪しいDMを一つ見る
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l03
+        speaker: left
+        text: 開かずに確認？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l04
+        speaker: right
+        text: 公式アプリから見るだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l05
+        speaker: left
+        text: 不要ならブロック
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l06
+        speaker: right
+        text: 通報もできるならやる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l07
+        speaker: left
+        text: 家族にも共有する
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l08
+        speaker: right
+        text: それで次の被害も減る
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.2
+      - id: l09
+        speaker: left
+        text: 止まる癖をつけるわ
+        expression: happy
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28
+      - id: l10
+        speaker: right
+        text: 急ぐDMほど止まろう
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.28

@@ -9,7 +9,7 @@ export const FONT_FAMILIES = {
 
 export const FONTS = {
   subtitle: FONT_FAMILIES.gothic,
-  ui: M_PLUS,
+  ui: FONT_FAMILIES.gothic,
 } as const;
 
 export type FontFamilyKey = keyof typeof FONT_FAMILIES;
@@ -45,6 +45,10 @@ export const TEXT_STROKE = {
   content: {
     color: 'rgba(0,0,0,0.45)',
     width: 1,
+  },
+  label: {
+    color: 'rgba(255,255,255,0.95)',
+    width: 2,
   },
 } as const;
 

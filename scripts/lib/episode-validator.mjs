@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
 
 export const SCENE_TEMPLATE_IDS = Array.from({length: 21}, (_, index) => `Scene${String(index + 1).padStart(2, '0')}`);
@@ -6,6 +6,13 @@ export const SCENE_TEMPLATE_ID_SET = new Set(SCENE_TEMPLATE_IDS);
 export const SUB_CAPABLE_TEMPLATES = new Set(['Scene02', 'Scene03', 'Scene10', 'Scene13', 'Scene14']);
 export const TITLE_CAPABLE_TEMPLATES = new Set(['Scene04', 'Scene08', 'Scene12', 'Scene15', 'Scene16', 'Scene17', 'Scene19']);
 export const CONTENT_KINDS = new Set(['text', 'bullets', 'image']);
+export const TYPOGRAPHY_FAMILIES = new Set(['gothic', 'mincho']);
+export const TYPOGRAPHY_FAMILY_KEYS = new Set(['subtitle_family', 'content_family', 'title_family']);
+export const TYPOGRAPHY_COLOR_KEYS = new Set(['subtitle_stroke_color', 'content_stroke_color', 'title_stroke_color']);
+export const TYPOGRAPHY_WIDTH_KEYS = new Set(['subtitle_stroke_width', 'content_stroke_width', 'title_stroke_width']);
+export const TYPOGRAPHY_KEYS = new Set([...TYPOGRAPHY_FAMILY_KEYS, ...TYPOGRAPHY_COLOR_KEYS, ...TYPOGRAPHY_WIDTH_KEYS]);
+export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'subtitle_stroke_color', 'subtitle_stroke_width']);
+export const KEIFONT_PUBLIC_PATH = path.join('public', 'fonts', 'keifont.ttf');
 
 const countChars = (value) => Array.from(value).length;
 
@@ -18,6 +25,60 @@ const normalizeAssetPath = (assetPath) => assetPath.replaceAll('\\', '/');
 const pushIssue = (issues, level, pathName, message) => {
   issues.push({level, path: pathName, message});
 };
+
+const IMAGE_ASSET_EXTENSION_RE = /\.(png|jpe?g|webp|gif)$/i;
+const REQUIRED_IMAGE_LEDGER_FIELDS = [
+  'scene_id',
+  'slot',
+  'purpose',
+  'adoption_reason',
+  'imagegen_prompt',
+  'imagegen_model',
+  'image_direction',
+  'visual_type',
+  'supports_moment',
+];
+const BANNED_IMAGE_ASSET_METADATA_KEYS = [
+  'generated_asset_sheet',
+  'asset_sheet',
+  'sprite_sheet',
+  'crop_from',
+  'source_rect',
+  'parent_image',
+  'cut_from',
+  'derived_from_sheet',
+  'local_project_generated_asset',
+];
+const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
+  /local[_ -]?project[_ -]?generated/i,
+  /local[_ -]?generated/i,
+  /generated locally by codex image[_ -]?gen skill/i,
+  /generated in local project workspace/i,
+  /fallback/i,
+  /placeholder/i,
+  /smoke/i,
+  /card/i,
+];
+const BATCH_GENERATION_PATTERNS = [
+  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
+  /グリッド/,
+  /8枚/,
+  /八枚/,
+  /複数枚/,
+  /一気に生成/,
+  /一括生成/,
+  /まとめて生成/,
+  /同時生成(?:する|して|で|を)/,
+  /batch/i,
+  /sheet/i,
+  /sprite/i,
+  /asset[_ -]?sheet/i,
+  /sprite[_ -]?sheet/i,
+  /crop/i,
+  /cut\s*out/i,
+  /切り出し/,
+  /切り抜き/,
+];
 
 const isSafeEpisodeRelativePath = (filePath) => {
   if (typeof filePath !== 'string' || filePath.trim() === '') {
@@ -54,6 +115,68 @@ const assertEpisodeFile = async ({filePath, episodeDir, issuePath, label, errors
     }
   } catch {
     pushIssue(errors, 'error', issuePath, `${label} does not exist: ${filePath}`);
+  }
+};
+
+const validateTypographyConfig = ({config, pathName, errors, warnings, usedExplicitGothic, allowedKeys = TYPOGRAPHY_KEYS}) => {
+  if (config === undefined || config === null) {
+    return;
+  }
+
+  if (!isPlainObject(config)) {
+    pushIssue(errors, 'error', pathName, 'typography must be an object');
+    return;
+  }
+
+  for (const key of Object.keys(config)) {
+    if (!allowedKeys.has(key)) {
+      const level = pathName.includes('.dialogue[') && TYPOGRAPHY_KEYS.has(key) ? 'error' : 'error';
+      const message = pathName.includes('.dialogue[')
+        ? 'dialogue typography only supports subtitle_family, subtitle_stroke_color, and subtitle_stroke_width'
+        : 'typography only supports family and stroke keys for subtitle, content, and title';
+      pushIssue(level === 'error' ? errors : warnings, level, `${pathName}.${key}`, message);
+      continue;
+    }
+
+    const value = config[key];
+    if (TYPOGRAPHY_COLOR_KEYS.has(key)) {
+      if (typeof value !== 'string' || value.trim() === '') {
+        pushIssue(errors, 'error', `${pathName}.${key}`, `typography stroke color must be a non-empty string: ${value ?? '<missing>'}`);
+      }
+      continue;
+    }
+
+    if (TYPOGRAPHY_WIDTH_KEYS.has(key)) {
+      if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 24) {
+        pushIssue(errors, 'error', `${pathName}.${key}`, `typography stroke width must be a number from 0 to 24: ${value ?? '<missing>'}`);
+      }
+      continue;
+    }
+
+    if (!TYPOGRAPHY_FAMILIES.has(value)) {
+      pushIssue(errors, 'error', `${pathName}.${key}`, `typography family must be gothic or mincho: ${value ?? '<missing>'}`);
+      continue;
+    }
+
+    if (value === 'gothic') {
+      usedExplicitGothic.value = true;
+    }
+  }
+};
+
+const assertKeifontIfNeeded = async ({rootDir, usedExplicitGothic, errors}) => {
+  if (!usedExplicitGothic.value) {
+    return;
+  }
+
+  const fontPath = path.resolve(rootDir, KEIFONT_PUBLIC_PATH);
+  try {
+    const stat = await fs.stat(fontPath);
+    if (!stat.isFile()) {
+      pushIssue(errors, 'error', 'public/fonts/keifont.ttf', 'explicit gothic typography requires public/fonts/keifont.ttf');
+    }
+  } catch {
+    pushIssue(errors, 'error', 'public/fonts/keifont.ttf', 'explicit gothic typography requires public/fonts/keifont.ttf');
   }
 };
 
@@ -105,6 +228,72 @@ const collectReferencedFiles = (script) => {
   return files;
 };
 
+const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+
+const isImageLedgerFile = (file) => {
+  const normalized = normalizeAssetPath(String(file ?? ''));
+  return normalized.startsWith('assets/') && IMAGE_ASSET_EXTENSION_RE.test(normalized);
+};
+
+const imageSourceText = (asset) =>
+  [
+    asset?.source_site,
+    asset?.source_type,
+    asset?.source_url,
+    asset?.title,
+    asset?.license,
+    asset?.generator,
+    asset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string')
+    .join(' ');
+
+const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
+
+const imageGenerationPlanText = (asset) =>
+  [
+    asset?.imagegen_prompt,
+    asset?.generation_plan,
+    asset?.generation_method,
+    asset?.source_site,
+    asset?.source_type,
+    asset?.source_url,
+    asset?.title,
+    asset?.generator,
+    asset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string')
+    .join(' ');
+
+const stripNegativeConstraintLines = (value) =>
+  String(value ?? '')
+    .split(/\r?\n/)
+    .reduce(
+      (state, line) => {
+        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
+          state.skipping = true;
+          return state;
+        }
+        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
+          state.skipping = false;
+        }
+        if (!state.skipping) {
+          state.lines.push(line);
+        }
+        return state;
+      },
+      {lines: [], skipping: false},
+    )
+    .lines.join('\n');
+
+const hasBatchGenerationPlan = (asset) =>
+  BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(imageGenerationPlanText(asset))));
+
+const imageGenerationIdentifiers = (asset) =>
+  ['source_url', 'generation_id']
+    .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
+    .filter(({value}) => value !== '');
+
 const validateMetaLedger = ({script, meta, errors}) => {
   if (!meta) {
     return;
@@ -115,6 +304,9 @@ const validateMetaLedger = ({script, meta, errors}) => {
     return;
   }
 
+  const references = collectReferencedFiles(script);
+  const referencedImageFiles = new Set(references.filter((reference) => reference.kind === 'image').map((reference) => normalizeAssetPath(reference.file)));
+  const imageSourceOwners = new Map();
   const assetEntries = new Map();
   for (const [index, asset] of meta.assets.entries()) {
     if (!isPlainObject(asset)) {
@@ -127,14 +319,95 @@ const validateMetaLedger = ({script, meta, errors}) => {
       continue;
     }
 
-    assetEntries.set(normalizeAssetPath(asset.file), {asset, index});
+    const normalizedFile = normalizeAssetPath(asset.file);
+    assetEntries.set(normalizedFile, {asset, index});
 
     if (typeof asset.license !== 'string' || asset.license.trim() === '') {
       pushIssue(errors, 'error', `meta.json.assets[${index}].license`, `${asset.file}: license is required`);
     }
+
+    const isImageAsset = referencedImageFiles.has(normalizedFile) || isImageLedgerFile(normalizedFile);
+    if (!isImageAsset) {
+      continue;
+    }
+
+    const missingImageFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter((field) => {
+      if (field === 'image_direction') {
+        return !isPlainObject(asset[field]);
+      }
+      return typeof asset[field] !== 'string' || asset[field].trim() === '';
+    });
+    if (!Array.isArray(asset.supports_dialogue) || asset.supports_dialogue.length === 0) {
+      missingImageFields.push('supports_dialogue');
+    }
+    const hasIndividualGenerationSource = imageGenerationIdentifiers(asset).length > 0;
+    if (!hasIndividualGenerationSource) {
+      missingImageFields.push('source_url or generation_id');
+    }
+    if (missingImageFields.length > 0) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image ledger entry requires ${missingImageFields.join(', ')}`,
+      );
+    }
+
+    const bannedKeys = BANNED_IMAGE_ASSET_METADATA_KEYS.filter((key) => hasOwn(asset, key));
+    if (bannedKeys.length > 0) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image assets must not use sheet/crop metadata: ${bannedKeys.join(', ')}; batch/grid/sheet generation and crop/cut-out adoption are forbidden`,
+      );
+    }
+
+    if (hasBatchGenerationPlan(asset)) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image assets must be generated one image per image gen call; grid/sheet/batch/crop generation plans are forbidden`,
+      );
+    }
+
+    if (isDisallowedImageSource(asset)) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image source must be verifiable image generation provenance, not local/fallback/placeholder wording`,
+      );
+    }
+
+    for (const {field, value} of imageGenerationIdentifiers(asset)) {
+      const key = `${field}:${value}`;
+      const owner = imageSourceOwners.get(key);
+      if (owner) {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].${field}`,
+          `duplicate-imagegen-source: ${asset.file} and ${owner.file} share ${field}: ${value}`,
+        );
+      } else {
+        imageSourceOwners.set(key, {file: asset.file, index});
+      }
+    }
   }
 
-  for (const reference of collectReferencedFiles(script)) {
+  const hasImageAssets = referencedImageFiles.size > 0 || [...assetEntries.keys()].some(isImageLedgerFile);
+  if (hasImageAssets && hasOwn(meta, 'generated_asset_sheet')) {
+    pushIssue(
+      errors,
+      'error',
+      'meta.json.generated_asset_sheet',
+      'generated_asset_sheet is not allowed when image assets are present; batch/grid/sheet generation and crop/cut-out adoption are forbidden; generate each image as an individual asset',
+    );
+  }
+
+  for (const reference of references) {
     const normalized = normalizeAssetPath(reference.file);
     const entry = assetEntries.get(normalized);
     if (!entry) {
@@ -203,7 +476,7 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
   }
 };
 
-const validateContent = async ({content, sceneId, contentPath, episodeDir, errors, warnings}) => {
+const validateContent = async ({content, sceneId, contentPath, episodeDir, errors}) => {
   if (content === null || content === undefined) {
     return;
   }
@@ -236,75 +509,6 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
 
   if (content.kind === 'image') {
     await assertAssetPath({assetPath: content.asset, episodeDir, sceneId, contentPath, errors});
-    validateAssetRequirements({content, sceneId, contentPath, warnings});
-  }
-};
-
-const NLM_MARKER_RE = /^\[(FIG|INFO|SLIDE|MAP|VIDEO):\d+\]$/;
-const TEXT_FORBID_RE = /(文字|テキスト|text|typography|letters|wordmark|caption)/i;
-
-const validateAssetRequirements = ({content, sceneId, contentPath, warnings}) => {
-  const requirements = content.asset_requirements;
-  const reqPath = `${contentPath}.asset_requirements`;
-
-  if (requirements === undefined || requirements === null) {
-    pushIssue(
-      warnings,
-      'warning',
-      reqPath,
-      `${sceneId}: asset_requirements is recommended for image content (engine routing)`,
-    );
-    return;
-  }
-
-  if (!isPlainObject(requirements)) {
-    pushIssue(warnings, 'warning', reqPath, `${sceneId}: asset_requirements should be an object`);
-    return;
-  }
-
-  const hasImagegenPrompt =
-    typeof requirements.imagegen_prompt === 'string' && requirements.imagegen_prompt.trim() !== '';
-  const hasNlmMarker =
-    typeof requirements.nlm_marker_id === 'string' && requirements.nlm_marker_id.trim() !== '';
-
-  if (!hasImagegenPrompt && !hasNlmMarker) {
-    pushIssue(
-      warnings,
-      'warning',
-      reqPath,
-      `${sceneId}: asset_requirements should include imagegen_prompt (codex-imagegen) or nlm_marker_id (notebooklm)`,
-    );
-  }
-
-  if (hasImagegenPrompt) {
-    if (typeof requirements.aspect !== 'string' || requirements.aspect.trim() === '') {
-      pushIssue(
-        warnings,
-        'warning',
-        `${reqPath}.aspect`,
-        `${sceneId}: aspect is recommended when imagegen_prompt is set (e.g. "16:9")`,
-      );
-    }
-    const promptMentionsForbid =
-      TEXT_FORBID_RE.test(requirements.imagegen_prompt) ||
-      (typeof requirements.negative === 'string' && TEXT_FORBID_RE.test(requirements.negative));
-    if (!promptMentionsForbid) {
-      pushIssue(
-        warnings,
-        'warning',
-        `${reqPath}.imagegen_prompt`,
-        `${sceneId}: imagegen_prompt or negative should explicitly forbid text/letters in the image`,
-      );
-    }
-  }
-
-  if (hasNlmMarker && !NLM_MARKER_RE.test(requirements.nlm_marker_id.trim())) {
-    pushIssue(
-      warnings,
-      'warning',
-      `${reqPath}.nlm_marker_id`,
-      `${sceneId}: nlm_marker_id should match [FIG|INFO|SLIDE|MAP|VIDEO:N]: ${requirements.nlm_marker_id}`,
-    );
   }
 };
 
@@ -376,6 +580,52 @@ const validateTiming = ({script, errors}) => {
   }
 };
 
+const uniqueValues = (values) => [...new Set(values.filter((value) => typeof value === 'string' && value.trim() !== ''))];
+
+const resolveSceneTemplate = ({script, errors, warnings}) => {
+  if (script.meta?.allow_duplicate_templates === true) {
+    pushIssue(warnings, 'warning', 'meta.allow_duplicate_templates', 'allow_duplicate_templates is deprecated; use meta.layout_template for the single video template');
+  }
+
+  const sceneTemplates = uniqueValues(script.scenes.map((scene) => scene?.scene_template));
+  let sceneTemplate = typeof script.meta?.layout_template === 'string' ? script.meta.layout_template : undefined;
+  const legacyMetaTemplate = typeof script.meta?.scene_template === 'string' ? script.meta.scene_template : undefined;
+
+  if (legacyMetaTemplate !== undefined) {
+    if (sceneTemplate === undefined) {
+      sceneTemplate = legacyMetaTemplate;
+      pushIssue(warnings, 'warning', 'meta.scene_template', 'meta.scene_template is accepted as a legacy alias; prefer meta.layout_template');
+    } else if (sceneTemplate !== legacyMetaTemplate) {
+      pushIssue(errors, 'error', 'meta.scene_template', `meta.scene_template must match meta.layout_template (${sceneTemplate}), got ${legacyMetaTemplate}`);
+    }
+  }
+
+  if (sceneTemplate !== undefined && !SCENE_TEMPLATE_ID_SET.has(sceneTemplate)) {
+    pushIssue(errors, 'error', 'meta.layout_template', `meta.layout_template must be Scene01-Scene21: ${sceneTemplate}`);
+  }
+
+  if (!sceneTemplate) {
+    if (sceneTemplates.length === 1) {
+      sceneTemplate = sceneTemplates[0];
+      pushIssue(warnings, 'warning', 'meta.layout_template', `legacy script: move shared scenes[].scene_template (${sceneTemplate}) to meta.layout_template`);
+    } else {
+      pushIssue(errors, 'error', 'meta.layout_template', 'meta.layout_template is required as the single template for the whole video');
+    }
+  }
+
+  if (sceneTemplates.length > 1) {
+    pushIssue(errors, 'error', 'scenes', `Only one scene_template is allowed per video; found ${sceneTemplates.join(', ')}`);
+  }
+
+  script.scenes.forEach((scene, sceneIndex) => {
+    if (typeof scene?.scene_template === 'string' && scene.scene_template !== sceneTemplate) {
+      const sceneId = scene.id ?? `scenes[${sceneIndex}]`;
+      pushIssue(errors, 'error', `scenes[${sceneIndex}].scene_template`, `${sceneId}: scene_template must match meta.layout_template (${sceneTemplate}), got ${scene.scene_template}`);
+    }
+  });
+
+  return sceneTemplate;
+};
 export const formatEpisodeValidationResult = (result) => {
   const lines = [];
   for (const error of result.errors) {
@@ -391,6 +641,8 @@ export const validateEpisodeScript = async (script, options = {}) => {
   const errors = [];
   const warnings = [];
   const episodeDir = options.episodeDir ? path.resolve(options.episodeDir) : null;
+  const rootDir = options.rootDir ? path.resolve(options.rootDir) : process.cwd();
+  const usedExplicitGothic = {value: false};
 
   if (!isPlainObject(script)) {
     pushIssue(errors, 'error', 'script', 'script must be an object');
@@ -399,6 +651,14 @@ export const validateEpisodeScript = async (script, options = {}) => {
 
   if (!isPlainObject(script.meta)) {
     pushIssue(errors, 'error', 'meta', 'meta is required');
+  } else {
+    validateTypographyConfig({
+      config: script.meta.typography,
+      pathName: 'meta.typography',
+      errors,
+      warnings,
+      usedExplicitGothic,
+    });
   }
 
   if (!Array.isArray(script.scenes) || script.scenes.length === 0) {
@@ -419,14 +679,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
     });
   }
 
-  if (script.meta?.scene_template !== undefined) {
-    pushIssue(errors, 'error', 'meta.scene_template', 'meta.scene_template is deprecated; use meta.layout_template');
-  }
-
-  const template = script.meta?.layout_template;
-  if (!SCENE_TEMPLATE_ID_SET.has(template)) {
-    pushIssue(errors, 'error', 'meta.layout_template', `meta.layout_template must be Scene01-Scene21: ${template ?? '<missing>'}`);
-  }
+  const canonicalTemplate = resolveSceneTemplate({script, errors, warnings});
 
   for (const [sceneIndex, scene] of script.scenes.entries()) {
     const scenePath = `scenes[${sceneIndex}]`;
@@ -436,23 +689,37 @@ export const validateEpisodeScript = async (script, options = {}) => {
     }
 
     const sceneId = typeof scene.id === 'string' && scene.id.trim() ? scene.id : scenePath;
-    if (scene.scene_template !== undefined) {
-      pushIssue(errors, 'error', `${scenePath}.scene_template`, `${sceneId}: scene_template is forbidden in scenes[]; use meta.layout_template`);
+    const resolvedTemplate = scene.scene_template ?? canonicalTemplate;
+    if (!SCENE_TEMPLATE_ID_SET.has(resolvedTemplate)) {
+      pushIssue(
+        errors,
+        'error',
+        scene.scene_template === undefined ? 'meta.layout_template' : `${scenePath}.scene_template`,
+        `${sceneId}: scene_template must be Scene01-Scene21: ${resolvedTemplate ?? '<missing>'}`,
+      );
     }
 
-    if (scene.sub && !SUB_CAPABLE_TEMPLATES.has(template)) {
-      pushIssue(warnings, 'warning', `${scenePath}.sub`, `${sceneId}: ${template} has no renderable sub content area; use sub: null`);
+    validateTypographyConfig({
+      config: scene.typography,
+      pathName: `${scenePath}.typography`,
+      errors,
+      warnings,
+      usedExplicitGothic,
+    });
+
+    if (scene.sub && !SUB_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
+      pushIssue(warnings, 'warning', `${scenePath}.sub`, `${sceneId}: ${resolvedTemplate} has no renderable sub content area; use sub: null`);
     }
 
-    if (scene.title_text && !TITLE_CAPABLE_TEMPLATES.has(template)) {
-      pushIssue(warnings, 'warning', `${scenePath}.title_text`, `${sceneId}: ${template} has no title slot; move the heading into main.text if needed`);
+    if (scene.title_text && !TITLE_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
+      pushIssue(warnings, 'warning', `${scenePath}.title_text`, `${sceneId}: ${resolvedTemplate} has no title slot; move the heading into main.text if needed`);
     }
 
     if (!scene.main) {
       pushIssue(errors, 'error', `${scenePath}.main`, `${sceneId}: main content is required`);
     }
-    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors, warnings});
-    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors, warnings});
+    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors});
+    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors});
 
     if (!Array.isArray(scene.dialogue)) {
       pushIssue(errors, 'error', `${scenePath}.dialogue`, `${sceneId}: dialogue must be an array`);
@@ -476,10 +743,25 @@ export const validateEpisodeScript = async (script, options = {}) => {
       } else if (countChars(line.text) > 25) {
         pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text exceeds 25 chars: "${line.text}"`);
       }
+      validateTypographyConfig({
+        config: line.typography,
+        pathName: `${linePath}.typography`,
+        errors,
+        warnings,
+        usedExplicitGothic,
+        allowedKeys: DIALOGUE_TYPOGRAPHY_KEYS,
+      });
     }
   }
 
+  await assertKeifontIfNeeded({rootDir, usedExplicitGothic, errors});
   validateTiming({script, errors});
 
   return {ok: errors.length === 0, errors, warnings};
 };
+
+
+
+
+
+

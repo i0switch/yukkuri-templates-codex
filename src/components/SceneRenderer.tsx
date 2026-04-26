@@ -70,7 +70,7 @@ type TextStroke = {
   width: number;
 };
 
-const resolveFamily = (family: TypographyFamily | undefined) => FONT_FAMILIES[family ?? 'gothic'];
+const resolveFamily = (_family: TypographyFamily | undefined) => FONT_FAMILIES.gothic;
 
 const resolveStroke = (
   defaults: TextStroke,
@@ -78,7 +78,7 @@ const resolveStroke = (
   width: number | undefined,
 ): TextStroke => ({
   color: typeof color === 'string' && color.trim() !== '' ? color : defaults.color,
-  width: typeof width === 'number' && Number.isFinite(width) && width >= 0 ? width : defaults.width,
+  width: Math.max(1, typeof width === 'number' && Number.isFinite(width) ? width : defaults.width),
 });
 
 const resolveTypography = (

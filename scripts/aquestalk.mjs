@@ -11,7 +11,7 @@ const probeWavSeconds = (filePath) => {
   const result = spawnSync(
     'ffprobe',
     ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', filePath],
-    {encoding: 'utf8'},
+    {encoding: 'utf8', windowsHide: true},
   );
   if (result.status !== 0) {
     throw new Error(`ffprobe failed for ${filePath}: ${result.stderr || result.stdout}`);
@@ -53,6 +53,7 @@ const synthAquesTalk = async ({text, preset, outFile}) => {
   const result = spawnSync(AQUESTALK_PATH, args, {
     cwd: path.dirname(AQUESTALK_PATH),
     encoding: 'utf8',
+    windowsHide: true,
   });
 
   if (result.status !== 0) {
@@ -102,7 +103,7 @@ export const listAquesTalkPresets = () => {
   const raw = execFileSync(
     'powershell',
     ['-NoProfile', '-Command', `Get-Content -Encoding Default -Raw '${presetFile.replace(/'/g, "''")}'`],
-    {encoding: 'utf8'},
+    {encoding: 'utf8', windowsHide: true},
   );
   return raw;
 };

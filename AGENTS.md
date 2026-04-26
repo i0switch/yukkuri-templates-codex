@@ -1,4 +1,4 @@
-# AGENTS.md
+﻿# AGENTS.md
 
 ## Purpose
 
@@ -6,34 +6,6 @@
 目的は、ゆっくり解説 / ずんだもん解説の台本生成依頼を受けたときに、テンプレートの画面構造を読んだうえで、台本生成、素材生成、画像挿入ポイント付与、演出加工、動画生成まで一貫して進めること。
 
 出力は日本語で統一する。
-
-## Script Prompt Pack Is Mandatory
-
-台本生成では `_reference/script_prompt_pack` の改善版プロンプトを必ず使用する。
-ハードコード台本生成（JS 配列にシーン台本を直書きして書き出す）はバイパスとみなし禁止する。
-
-禁止事項：
-
-- 台本本文（`scenes` / `dialogue`）を `.mjs` / `.ts` の中で直接ハードコードして書き出す
-- `script.md` を経由せず `script.yaml` を直接作る
-- `03_audit_prompt.md` の監査なしで PASS 扱いにする
-- FAIL 判定を無視して画像生成や Remotion レンダリングへ進む
-- 既存ハードコード生成スクリプトを `scripts/` 直下に新設する
-
-**正しい流れ**：
-
-1. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md` を読む
-2. `01_plan_prompt.md` で構成（フック型 / scene_format / boke_or_reaction / reaction_level / 視聴者誤解 / mini_punchline / 数字・具体例）を作る
-3. `02_draft_prompt.md` で初稿（`script.md`）を作る
-4. `03_audit_prompt.md` で監査（100点満点・Blocking Issues）を実施し、PASS / 仮PASS / FAIL を判定
-5. FAIL なら `04_rewrite_prompt.md` で問題箇所だけを差分修正
-6. PASS 後に `05_yaml_prompt.md` で `script.yaml` 化
-7. `node scripts/validate-script-generation-route.mjs <episode_id>` で生成ルートをゲートチェック
-8. `node scripts/audit-script-quality.mjs <episode_id>` で尺・密度・語尾・最終行動の機械監査
-9. プリチェック → 素材生成 → `build-episode` → render
-
-ハードコード台本を残しているスクリプトは `scripts/legacy/` または `scripts/experimental/` 配下に隔離する（`scripts/legacy/README.md` 参照）。
-通常の動画生成フローから legacy / experimental を呼んではいけない。
 
 ## First Read Order
 
@@ -46,23 +18,73 @@
 5. `workflows/script_to_video_workflow.md`
 6. `_reference/script_prompt_pack/README.md`
 
-台本生成依頼の場合は、さらに次を **必ず** 読む（v3 正本パイプライン）。
+台本生成依頼の場合は、さらに次を読む。
 
 1. 選択された `templates/scene-XX_*.md`
-2. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（正本ルール）
-3. `_reference/script_prompt_pack/01_plan_prompt.md`（構成）
-4. `_reference/script_prompt_pack/02_draft_prompt.md`（初稿）
-5. `_reference/script_prompt_pack/03_audit_prompt.md`（監査）
-6. 必要に応じて `_reference/script_prompt_pack/04_rewrite_prompt.md`（差分修正）
-7. PASS 後 `_reference/script_prompt_pack/05_yaml_prompt.md`（YAML化）
+2. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`
+3. `_reference/script_prompt_pack/01_plan_prompt.md`
+4. `_reference/script_prompt_pack/02_draft_prompt.md`
+5. `_reference/script_prompt_pack/03_audit_prompt.md`
+6. 必要に応じて `_reference/script_prompt_pack/04_rewrite_prompt.md`
+7. YAML変換時は `_reference/script_prompt_pack/05_yaml_prompt.md`
 
-v3 セットに無い RM / ZM 固有指示が必要な場合の **補助のみ**：
-- `_reference/script_prompt_pack/ゆっくり解説_霊夢魔理沙_台本生成プロンプト_改善版.md`（RM 補助）
-- `_reference/script_prompt_pack/ずんだもん解説_ずんだもんめたん_台本生成プロンプト_改善版.md`（ZM 補助）
+## Script Prompt Pack Is Mandatory
 
-下記は **旧版・参考のみ。新規生成では使わない**：
-- `_reference/script_prompt_pack/01_台本生成プロンプト.md`（旧版）
-- `_reference/script_prompt_pack/台本監査_改善プロンプト.md`（旧版）
+台本生成、動画台本、ゆっくり台本、ずんだもん台本、解説動画作成、YAML変換を含む依頼では、`_reference/script_prompt_pack/` を必須の正準手順として扱う。
+テンプレートの画面構造だけを読んで独自判断で台本を作らない。
+
+### Script Prompt Pack Evidence Is Mandatory
+
+台本生成を伴う新規 episode は、`script/{episode_id}/audits/` に Script Prompt Pack を実際に使った証跡を必ず残す。
+`npm run gate:episode -- <episode_id>` はこの証跡が無い episode を render 前に停止する。
+
+必須証跡:
+
+- `script_prompt_pack_plan.md`
+- `script_prompt_pack_draft.md`
+- `script_prompt_pack_audit.md`
+- `script_prompt_pack_yaml.md`
+- FAIL 修正がある場合は `script_prompt_pack_rewrite.md`
+- `script_generation_audit.json`
+
+各証跡ファイルには、使用した prompt pack ファイル名、入力条件、生成・監査した本文、PASS/FAIL 判断を残す。
+`script_generation_audit.json` には `prompt_pack_evidence` を持たせ、上記証跡ファイルへの参照を入れる。
+
+禁止事項:
+
+- `.analysis/` や `scripts/legacy/` の一時スクリプトで `rmScenes`、`zmScenes`、`dialogue` 配列を直書きして本番台本を生成する
+- `script.md`、`script.yaml`、`meta.json` を直書きジェネレータで組み立てて、Prompt Pack 生成済みとして扱う
+- `script_generation_audit.json` の `reviewer: codex-self` 単独PASSを完成条件にする
+- `gate:episode` や `render:episode` のログに prompt pack が loaded と出たことを、台本生成で prompt pack を使った証拠として扱う
+- `gate` が通る YAML を作れたことを、ゆっくり台本の品質PASSとして扱う
+
+新規セッションでもこのルールは省略禁止。
+証跡が無い場合は、動画生成完了ではなく「台本生成証跡不足」として停止する。
+
+禁止事項:
+
+- `00_MASTER_SCRIPT_RULES.md` を読まずに企画、初稿、監査、YAML変換へ進まない
+- `01_plan_prompt.md` を飛ばして、いきなり完成台本を書かない
+- `03_audit_prompt.md` の監査 PASS 前に YAML 化しない
+- FAIL 箇所を全体作り直しで潰さず、`04_rewrite_prompt.md` で弱い箇所だけ修正する
+- `05_yaml_prompt.md` を読まずに `script.yaml` を手書きで整えない
+- `scenes[].scene_template` を使わない
+- `meta.scene_template` を新規の正準フィールドとして使わない。正準は `meta.layout_template`
+- Script Prompt Pack が見つからない、削除されている、または必要ファイルが欠けている状態で、台本生成完了や動画生成完了として報告しない
+
+正しい流れ:
+
+1. 必須確認項目を受け取る
+2. 選択テンプレートと `06_scene-layout-guide.md` で表示枠を確定する
+3. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md` を読む
+4. `_reference/script_prompt_pack/01_plan_prompt.md` で企画、構成、枠利用を確定する
+5. `_reference/script_prompt_pack/02_draft_prompt.md` で初稿を作る
+6. `_reference/script_prompt_pack/03_audit_prompt.md` で監査する
+7. FAIL の場合は `_reference/script_prompt_pack/04_rewrite_prompt.md` で差分修正し、再監査する
+8. PASS 後だけ `_reference/script_prompt_pack/05_yaml_prompt.md` で `script.yaml` に変換する
+
+`_reference/script_prompt_pack/` とこのファイルの記述が食い違う場合は、台本生成品質と YAML 構造については Script Prompt Pack を優先する。
+ただし Codex の素材生成、NotebookLM 例外運用、render 実行コマンド、完了条件はこの `AGENTS.md` のルールも同時に満たす。
 
 ## Script Request Trigger
 
@@ -73,7 +95,7 @@ v3 セットに無い RM / ZM 固有指示が必要な場合の **補助のみ**
 - 作りたいテーマ
 - ざっくり入れたい内容
 - 想定尺
-- 使用テンプレート
+- 使用テンプレート（1動画につき1つだけ）
 - キャラペア: `RM` 霊夢・魔理沙 / `ZM` ずんだもん・めたん
 
 テンプレート未指定の場合は、先にテンプレート選択を求める。
@@ -92,9 +114,9 @@ v3 セットに無い RM / ZM 固有指示が必要な場合の **補助のみ**
 - キャラ配置
 - 背景装飾を避けるべき領域
 
-台本には、動画単位のテンプレートとして `layout_template` を1つだけ含め、各素材ポイントごとに次を含める。
+台本には、動画全体のテンプレート情報と、各シーンまたは各素材ポイントの枠利用情報を含める。
 
-- `layout_template`（動画全体で1つ）
+- `meta.layout_template`（動画全体で1つだけ）
 - `main_content`
 - `sub_content` または `sub_contentなし`
 - `subtitle_area`
@@ -102,16 +124,19 @@ v3 セットに無い RM / ZM 固有指示が必要な場合の **補助のみ**
 - `image_insert_point`
 - `asset_path`
 
-`asset_path` と `image_insert_point` は台本メモ用の情報。動画レンダー用の `script.yaml` では、下の `script.yaml Render Schema 注意` に従って `main.asset` または `sub.asset` へ変換する。
+`asset_path` と `image_insert_point` は台本メモ用の情報。動画レンダー用の `script.yaml` では、下の `script.yaml Render Schema 注意` に従って `main.asset` または `sub.asset` へ変換する。テンプレート指定は scene 側ではなく `meta.layout_template` に1回だけ入れる。
 
+動画内の全シーンは同じ `meta.layout_template` を使い、場面変化は main/sub/title/subtitle の中身、画像、字幕、演出で作る。
 サブコンテンツエリアがあるテンプレートでは、補足、比較、チェックリスト、注意点をサブ枠に分離する。
 サブコンテンツエリアがないテンプレートでは、無理にサブ素材を作らず、メイン素材と字幕で成立させる。
 字幕枠が狭いテンプレートでは、1セリフを短くし、字幕は最大2行かつ25文字以内で収まるようにする。
 
 ## script.yaml Render Schema 注意
 
-動画レンダーで実際に読まれる `layout_template` は `meta.layout_template` に1回だけ置き、`Scene01`〜`Scene21` の形式に統一する。
-各 scene に `scene_template` は置かない。`scene-01`、`scene-XX`、`01` は使わない。
+動画レンダーで実際に読まれる `meta.layout_template` は `Scene01`〜`Scene21` の形式に統一する。
+`scenes[].scene_template` は使用禁止。
+`meta.scene_template` は legacy alias のため、新規作成では使わない。
+`scene-01`、`scene-XX`、`01` は使わない。
 
 画像素材を表示する場合、台本メモ用の `asset_path` ではなく、レンダー用 YAML では次の形に変換する。
 
@@ -139,61 +164,44 @@ sub:
 タイトルは `title_text` に入れる。
 タイトル枠がないテンプレートでは、無理に `title_text` で見せようとせず `main.text` 側に入れる。
 
-## Yukkuri / Zundamon Image Direction Rule
+## Visual Asset Density Rule
 
-ゆっくり解説・ずんだもん解説の画像生成では、単なる説明アイコンではなく、会話のボケ・ツッコミ・誤解訂正・行動提示を補強するビジュアルを作る。
+5分程度の動画で画像素材が5枚程度しかない構成は、動画として薄すぎるため原則禁止。
+素材枚数は validator の最低合格ラインではなく、視聴維持に必要な画面変化量を基準に決める。
 
-画像生成は次の 5 フェーズパイプラインに従う。**正本は `_reference/image_prompt_pack/`**。
+目安:
 
-| フェーズ | ファイル | 役割 |
-|---|---|---|
-| 0 | `00_IMAGE_GEN_MASTER_RULES.md` | マスタールール（visual_type 15 種定義、禁止/必須） |
-| 1 | `01_IMAGE_DIRECTION_PROMPT.md` | scene → image_direction |
-| 2 | `02_IMAGEGEN_PROMPT_PROMPT.md` | image_direction → imagegen_prompt |
-| 3 | `03_IMAGE_PROMPT_AUDIT.md` | 生成前 prompt 監査（55点ゲート） |
-| 4 | `04_IMAGE_REWRITE_PROMPT.md` | FAIL 時の構図再設計 |
-| 5 | `05_IMAGE_RESULT_AUDIT.md` | 生成後画像監査 |
+- 3分前後: 最低6枚、推奨7〜8枚
+- 5分前後: 最低8枚、推奨10〜12枚
+- 8分前後: 最低12枚、推奨14〜18枚
 
-各画像には必ず `image_direction` を作成し、以下を決める：
+1分1枚ペースを「十分」と判断しない。
+45秒以上同じ画像・同じ画面役割が続く場合は、追加の `main` 画像、比較図、チェックリスト、手順図、まとめ図を入れる。
 
-- `dialogue_role`（冒頭フック/ボケ補強/ツッコミ補強/誤解訂正/危険喚起/比較提示/手順提示/中盤再フック/まとめ/最終行動）
-- `scene_emotion`（焦り/驚き/納得/危険/安心/怒り/混乱/希望/皮肉/ワクワク）
-- `visual_type`（hook_poster / boke_visual / tsukkomi_visual / myth_vs_fact / danger_simulation / before_after / three_step_board / checklist_panel / ranking_board / ui_mockup_safe / flowchart_scene / contrast_card / meme_like_diagram / mini_story_scene / final_action_card）
-- `composition_type`（smartphone_closeup ほか 15 種、`_reference/image_prompt_pack/archetypes/composition_type_catalog.md` 参照）
-- `image_should_support`（台本セリフを具体引用）
-- `key_visual_sentence`（30〜60文字、画像を見れば会話の山が分かる）
-- `foreground` / `midground` / `background`（それぞれ別の役割）
-- `color_palette`（3〜4色、危険部だけ赤など意味付け）
-- `text_strategy`（`image_text_max_words: 3` 以下、Remotion overlay へ正確テキスト分離）
-- `layout_safety`（`keep_bottom_20_percent_empty: true`、`avoid_character_area: true`）
-- `must_not_include`（実在ロゴ / 既存キャラ / 写真風人物 / 長文日本語 を最低限含む）
-- `quality_bar`
+NotebookLMで素材生成する場合も、NotebookLM側 validator の最低マーカー数だけで満足しない。
+5分前後なら `FIG:1`、`INFO:1`〜`INFO:8` 以上、`SLIDE:1` を目安に、合計10枚前後の素材 marker を台本へ入れる。
+NotebookLMのセクション数制約がある場合でも、1セクションに複数 marker を置いて素材密度を確保する。
 
-`imagegen_prompt` は image_direction を `02_IMAGEGEN_PROMPT_PROMPT.md` の手順で展開して作る。本文には必ず「前景」「中景」「背景」「下部20%」「Remotion」「禁止」のキーワードを含める。
-
-禁止：
-
-- 白背景中央アイコン
-- 汎用フラット図解
-- 既存キャラ（霊夢/魔理沙/ずんだもん/めたん）の生成
-- 全シーン同じ構図 / 同じ visual_type の連続使用
-- 台本の会話と無関係な素材
-- 同一プロンプトで生成した画像を 2 シーン以上で使い回す
-
-機械ゲート：
-
-- `node scripts/audit-image-prompts.mjs <episode_id>` で生成前 prompt 監査（FAIL なら `run-codex-imagegen-pwsh.mjs` が abort）
-- `node scripts/validate-image-direction.mjs <episode_id>` で軽量 lint
-- `node scripts/audit-generated-images.mjs <episode_id>` で生成後画像メタ監査（PNG サイズ/解像度/重複/`meta.json` 必須フィールド）
-- 緊急バイパスは `YUKKURI_SKIP_IMAGE_GATE=1` のみ。サイレント設定禁止
-
-画像生成前後に監査し、汎用アイコン素材に見える場合は再生成ではなく構図から作り直す。
+素材密度を下げる判断をする場合は、必ず理由を明記する。
+「まず通すため」「validator が通るため」「セクション数を減らすため」だけを理由に、画像枚数を減らしてはいけない。
 
 ## Codex Asset Rule
 
-Codexで画像生成スキルが使える場合は、上記 Yukkuri / Zundamon Image Direction Rule に従って image_direction → imagegen_prompt を作り、image gen で動画用の挿入画像を生成する。
+Codexで動画生成する場合、挿入画像は必ず image gen スキルで生成する。
+Codexでは NotebookLM、フリー素材、licensed download、local card、fallback、placeholder を挿入画像の代替手段や合格ルートとして使わない。
+image gen スキルが使えない場合は、動画生成完了ではなく「素材生成未完了」として停止する。
 
 生成素材は `script/{episode_id}/assets/` に保存する前提で整理し、台本には画像の挿入ポイントと画像パスを必ず記載する。
+`meta.json.assets[]` の挿入画像には `source_site` または `source_type` に image gen / image_gen / OpenAI image generation 系の出所を記録し、`imagegen_prompt`、`imagegen_model`、`scene_id`、`slot`、`purpose`、`adoption_reason` を必ず入れる。
+
+ImageGen生成単位の絶対ルール:
+
+- image gen は必ず1画像につき1回だけ呼ぶ
+- 8枚グリッド、複数枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成は禁止
+- 1枚の生成画像から複数素材を切り出す、cropする、source_rectで採用することは禁止
+- 画像ごとに固有の `image_direction`、`imagegen_prompt`、`generation_id` または `source_url` を持たせる
+- `imagegen_prompt` には「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の生成単位を明記する
+- 低品質プロンプト、汎用プロンプト、`中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような抽象指定で生成しない
 
 素材生成時の原則:
 
@@ -205,9 +213,40 @@ Codexで画像生成スキルが使える場合は、上記 Yukkuri / Zundamon I
 - サブ枠用素材は小さく読める単純な図にする
 - 生成後にファイルの存在と用途を確認する
 
+## Yukkuri / Zundamon Image Direction Rule
+
+ゆっくり解説・ずんだもん解説の画像生成では、単なる説明アイコンではなく、会話のボケ・ツッコミ・誤解訂正・行動提示を補強するビジュアルを作る。
+
+画像生成では、台本やcaptionから直接 `imagegen_prompt` を作らない。
+必ず `_reference/image_prompt_pack/` を読み、各画像に `image_direction` を作成してから `imagegen_prompt` に展開する。
+
+各画像で必ず決める項目:
+
+- `dialogue_role`
+- `supports_dialogue`
+- `supports_moment`
+- `visual_type`
+- `composition_type`
+- `foreground` / `midground` / `background`
+- `text_overlay_plan` または `text_strategy`
+- Scene安全余白
+
+禁止:
+
+- 白背景中央アイコン
+- 汎用フラット図解
+- 既存キャラ生成
+- 全シーン同じ構図
+- 台本の会話と無関係な素材
+
+生成前に `npm run audit:image-prompts -- <episode_id>` を通す。
+生成後は `script/{episode_id}/audits/image_result_audit.json` を作り、`npm run audit:generated-images -- <episode_id>` を通す。
+汎用アイコン素材に見える場合は同じプロンプトで再生成せず、`visual_type`、`composition_type`、補強する会話ポイントから作り直す。
+
 ## NotebookLM Fallback Rule
 
-Claude Code環境、またはCodexで image gen を使わない場合は、`notebookLM/` の運用に従って素材を生成する。
+NotebookLM は Claude Code 環境用の例外運用としてのみ使う。
+Codexでは image gen を使わない NotebookLM 素材生成へ切り替えない。
 
 参照する入口:
 
@@ -227,27 +266,23 @@ NotebookLM版では fallback 画像やローカル生成カードを合格扱い
 
 1. ユーザーから必須確認項目を受け取る
 2. 選択テンプレートとレイアウト指針を読む
-3. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md` を読む
-4. `01_plan_prompt.md` で構成を作る
-5. `02_draft_prompt.md` で初稿（`script/{episode_id}/script.md`）を作る
-6. `03_audit_prompt.md` で監査し、必要なら `04_rewrite_prompt.md` で差分修正
-7. PASS 後に `05_yaml_prompt.md` で `script.yaml` を生成する
-8. 素材生成方法を選ぶ
-    - Codex: image gen（`yukkuri-codex-imagegen` skill）
-    - Claude Code / image genなし: NotebookLM
-9. 生成素材を確認し、画像挿入ポイントと画像パスを台本に反映する
-10. `02_演出編集プロンプト.md` に従って演出加工する
-11. **動画生成は `npm run render:episode -- <episode_id>` （または `node scripts/render-episode.mjs <episode_id>`）一発で実行する**。これが gate → audit → lint → validate → build → composition → remotion render を一括で行う正規入口。直接 `build-episode` / `npx remotion` を叩いて bypass しない。
+3. `01_plan_prompt.md` で企画・構成・枠利用を確定する
+4. `02_draft_prompt.md` でテンプレートの表示枠に合わせて台本を生成する
+5. `03_audit_prompt.md` で監査し、FAIL の場合は `04_rewrite_prompt.md` で弱い箇所だけ修正する
+6. 素材生成方法を選ぶ
+   - Codex: 必ず image gen
+   - Claude Code: image gen が使えない環境では NotebookLM
+7. 生成素材を確認し、画像挿入ポイントと画像パスを台本に反映する
+8. `02_演出編集プロンプト.md` に従って演出加工する
+9. `05_yaml_prompt.md` に従って `script/{episode_id}/script.yaml` を整える
+10. `npm run gate:episode -- <episode_id>` で非破壊チェック、素材実体チェック、素材出所チェック、機械変換台詞チェックを通す
+11. `npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4` で gate、音声・尺・render JSON、Composition 登録、動画生成まで一括実行する
 
-部分実行が必要な場合のみ、以下の個別コマンドを使う：
+補足:
 
-- `node scripts/validate-script-generation-route.mjs <episode_id>` — prompt pack 経由ゲート
-- `node scripts/audit-script-quality.mjs <episode_id>` — 機械監査
-- `node scripts/lint-script-pre.mjs <episode_id>` — プリチェック
-- `node scripts/validate-episode-script.mjs <episode_id>` — 非破壊チェック
-- `node scripts/build-episode.mjs <episode_id>` — 音声・尺・render JSON 生成（冒頭で gate を再呼出するので bypass 不可）
-- `node scripts/generate-episode-compositions.mjs` — Composition 登録
-- `npx remotion render src/index.ts Video-<episode_id> out/videos/<episode_id>.mp4` — 最終 MP4 生成
+- 直接 `npx remotion render` を実行しない。検証飛ばしを防ぐため、必ず `render:episode` を使う。
+- `scripts/build-episode.mjs` も内部で `audit-episode-quality.mjs` を実行するため、gate に通らない episode は音声生成前に停止する。
+- Codex動画生成では、image gen 以外の挿入画像、fallback / placeholder / local card / copied asset は本番画像として合格扱いにしない。
 
 ## Completion Criteria
 
@@ -257,9 +292,13 @@ NotebookLM版では fallback 画像やローカル生成カードを合格扱い
 - 字幕がテンプレートの字幕枠に収まる前提で短く分割されている
 - サブコンテンツエリアの有無に応じて素材配置が変わっている
 - 画像挿入ポイントと画像パスが台本に入っている
-- `script.yaml` は `Scene01`〜`Scene21`、`main.asset` / `sub.asset`、25文字以内セリフの制約を満たしている
+- `script.yaml` は `meta.layout_template: Scene01`〜`Scene21`、`main.asset` / `sub.asset`、25文字以内セリフの制約を満たしている
 - 演出加工済み台本が `02_演出編集プロンプト.md` の方針に沿っている
-- `script/{episode_id}/script.md` が prompt pack 02_draft 経由で生成されている
-- `node scripts/validate-script-generation-route.mjs <episode_id>` が PASS している
-- `node scripts/audit-script-quality.mjs <episode_id>` が PASS している
 - 動画生成まで依頼された場合は、出力ファイルまたは失敗理由を明示する
+
+
+
+
+
+
+

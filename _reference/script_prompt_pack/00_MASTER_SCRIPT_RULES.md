@@ -15,7 +15,8 @@
 - `meta.layout_template` にだけテンプレートを書く。
 - `scenes[].scene_template` は使わない。
 - 台本段階では BGM、SE、字幕装飾、ズーム、フェード、キャラアニメーションを確定しない。
-- 画像素材は台本段階で `visual_asset_plan` と `imagegen_prompt` まで具体化する。
+- 画像素材は台本段階で `visual_asset_plan`、`image_direction`、`imagegen_prompt` まで具体化する。
+- 画像生成の詳細は `_reference/image_prompt_pack/` を正準として扱い、台本やcaptionから直接 `imagegen_prompt` を作らない。
 - 演出加工は後続の `02_演出編集プロンプト.md` に渡す。
 
 ## 入力必須項目
@@ -400,30 +401,74 @@ OK例:
 原則として本編シーンは最低1枚の main 画像を計画する。
 長尺動画では45から60秒以上、新しい視覚素材が空かないようにする。
 
+GPT-Image-2で作る画像は、白背景中央アイコンではなく、会話のボケ、ツッコミ、誤解訂正、危険可視化、行動提示を補強する視聴維持用ビジュアルにする。
+各画像は、生成前に `image_direction` を作り、どのセリフを補強するかを `supports_dialogue` と `supports_moment` で明記する。
+
+`visual_type` は次から選ぶ。
+
+- `hook_poster`
+- `boke_visual`
+- `tsukkomi_visual`
+- `myth_vs_fact`
+- `danger_simulation`
+- `before_after`
+- `three_step_board`
+- `checklist_panel`
+- `ranking_board`
+- `ui_mockup_safe`
+- `flowchart_scene`
+- `contrast_card`
+- `meme_like_diagram`
+- `mini_story_scene`
+- `final_action_card`
+
 `imagegen_prompt` には必ず次を入れる。
 
-- シーン目的
-- 動画トーン
-- テンプレート枠
-- 主題
-- 構図
+- 使用目的
+- 動画ジャンル
+- Sceneテンプレート
+- `visual_type`
+- `composition_type`
+- 台本内のどの掛け合いを補強するか
+- 主役
+- 前景
+- 中景
+- 背景
 - 色
+- 光
 - 余白
+- Remotionで文字を重ねるスペース
 - 禁止要素
-- 文字有無
+- 品質基準
 
 `imagegen_prompt` は、次の固定フォーマットで書く。
-1行の抽象文ではなく、画像生成AIへそのまま渡せる粒度にする。
+1行の抽象文ではなく、GPT-Image-2へそのまま渡せる粒度にする。
 
 ```text
-【用途】scene_id と slot、視聴者に何を一瞬で理解させる素材か
-【主題】画面の中心に置く具体物、図解対象、象徴モチーフ
-【構図】主役オブジェクト、補助オブジェクト、視線誘導、前景/背景、左右下部の空け方
-【テンプレート枠】SceneXX の main/sub/title/subtitle/キャラ位置を避ける指示
-【色】背景色、主色、アクセント色、警告色の使いどころ
-【情報量】1枚1メッセージ。入れる文字は0文字、または日本語3〜6文字まで
-【絵柄】meta.image_style と一致する、ゆっくり/ずんだもん解説向けの太線フラット図解
-【禁止】実在人物、既存キャラクター、ブランドロゴ、実在UI模写、英語UI、細かい文字、密な表、写真風人物
+ゆっくり解説 / ずんだもん解説動画のSceneXX main/sub枠で使う高品質ビジュアル素材。
+この画像は、台本内の「補強する掛け合い」を視覚的に補強する。
+visual_typeは「...」、composition_typeは「...」。
+
+画面構図：
+前景には...
+中景には...
+背景には...
+視線は...へ流れる。
+
+デザイン：
+高品質な日本の解説動画内スライドのように、余白、階層、視線誘導がある完成度の高い画面。
+ただし実在ブランドや実在UIは模写しない。
+色は...
+光は...
+画面下部20%は字幕とキャラ表示用に空ける。
+
+文字方針：
+画像内の文字は最大3語まで。
+正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+入れてよい短語は...
+
+禁止：
+白背景に中央アイコンだけ、汎用素材、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
 ```
 
 main枠とsub枠は役割を分ける。
@@ -507,8 +552,26 @@ asset_path:
 visual_asset_plan:
   - slot:
     purpose:
+    supports_dialogue:
+    supports_moment:
+    visual_type:
+    composition_type:
     insert_timing:
     asset_path:
+    image_direction:
+      dialogue_role:
+      scene_emotion:
+      image_should_support:
+      key_visual_sentence:
+      main_subject:
+      foreground:
+      midground:
+      background:
+      color_palette:
+      text_strategy:
+      layout_safety:
+      must_not_include:
+      quality_bar:
     imagegen_prompt:
     audit_points:
 ```
@@ -582,10 +645,12 @@ scenes:
 - サブ枠の有無が反映されている。
 - `dialogue[].text` が25文字以内。
 - 全本編シーンに `visual_asset_plan` がある。
+- 全画像に `image_direction`、`supports_dialogue`、`supports_moment`、`visual_type`、`composition_type` がある。
 - `imagegen_prompt` が具体的。
-- `imagegen_prompt` が固定フォーマットの8項目を満たしている。
-- `imagegen_prompt` に scene_id、slot、主題、構図、テンプレート枠、色、余白、禁止要素がある。
+- `imagegen_prompt` がGPT-Image-2向けの完成形式を満たしている。
+- `imagegen_prompt` に Sceneテンプレート、visual_type、composition_type、補強する掛け合い、前景/中景/背景、色、光、余白、Remotion重ね文字、禁止要素がある。
 - main/sub の役割が分かれ、字幕帯とキャラ位置を避ける指示がある。
+- 生成前監査がPASSし、生成後画像監査もPASSしている。
 - 参照動画型では参照メタが入っている。
 - `meta.layout_template` が `Scene01` から `Scene21`。
 - `scenes[].scene_template` を使っていない。

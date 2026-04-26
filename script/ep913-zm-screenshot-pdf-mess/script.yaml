@@ -1,0 +1,1742 @@
+meta:
+  id: ep913-zm-screenshot-pdf-mess
+  title: スクショとPDFが散らかると資料が見つからない理由
+  layout_template: Scene13
+  pair: ZM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: スクショやPDFをとりあえず保存して探せなくなる人
+  tone: 危機感は出すが、3つの箱と今日の小掃除に落とす
+  bgm_mood: 少し不穏だが前向きな整理解説
+  voice_engine: voicevox
+  target_duration_sec: 180
+  image_style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+    subtitle_stroke_color: "#000000"
+    subtitle_stroke_width: 6
+  reference_style: single_big_question_mystery
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 視聴者代表。浅い理解、驚き、ボケを担当。語尾は自然にのだ。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。冷静に刺し、対処まで落とす。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 保存したのに迷子
+    scene_format: 誤解訂正型
+    hook_type: loss_or_warning
+    viewer_question: スクショは撮るだけなら安全と思う
+    viewer_misunderstanding: スクショは撮るだけなら安全と思う
+    boke_or_reaction: 保存したのに迷子
+    reaction_level: L3
+    number_or_example: 30枚たまると探す方が長い
+    mini_punchline: 保存したのに迷子
+    visual_role: ずんだもんがとりあえず撮れば安心と言い、めたんが探せなくなると刺す瞬間
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 保存したのに迷子
+      asset_requirements:
+        description: スクショとPDFの山に埋もれた資料
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんがとりあえず撮れば安心と言い、めたんが探せなくなると刺す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「screenshot_pile_dark」。
+
+          画面構図：
+          主役は山積みのスクショカードとPDF束。
+          前景には山積みのスクショカードとPDF束。
+          中景には探している虫眼鏡と焦りマーク。
+          背景には黒基調のScene13に合う暗い整理ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「保存したのに迷子」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a1
+        - 撮る
+        - 積む
+        - 迷う
+    visual_asset_plan:
+      - slot: main
+        purpose: 保存したのに迷子
+        supports_dialogue:
+          - s01_l01
+          - s01_l02
+        supports_moment: ずんだもんがとりあえず撮れば安心と言い、めたんが探せなくなると刺す瞬間
+        visual_type: hook_poster
+        composition_type: screenshot_pile_dark
+        insert_timing: s01 の l01 直前から表示
+        asset: assets/s01_main.png
+        image_direction:
+          scene_id: s01
+          dialogue_role: 冒頭フック
+          scene_emotion: L3
+          visual_type: hook_poster
+          composition_type: screenshot_pile_dark
+          image_should_support: ずんだもんがとりあえず撮れば安心と言い、めたんが探せなくなると刺す瞬間
+          key_visual_sentence: スクショとPDFの山に埋もれた資料
+          main_subject: スクショとPDFの山に埋もれた資料
+          secondary_subjects: *a1
+          foreground: 山積みのスクショカードとPDF束
+          midground: 探している虫眼鏡と焦りマーク
+          background: 黒基調のScene13に合う暗い整理ボード
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 保存したのに迷子
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんがとりあえず撮れば安心と言い、めたんが探せなくなると刺す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「screenshot_pile_dark」。
+
+          画面構図：
+          主役は山積みのスクショカードとPDF束。
+          前景には山積みのスクショカードとPDF束。
+          中景には探している虫眼鏡と焦りマーク。
+          背景には黒基調のScene13に合う暗い整理ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「保存したのに迷子」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: とりあえず撮れば安心なのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 安心じゃなく迷子の入口よ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: え、保存してるじゃん
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 探せなければ無いのと同じ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: それ普通にヤバいのだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 30枚超えると探す方が長いわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 資料が砂漠に消えるやつ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 今日は山を崩す話ね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: スクショ山の登山なのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: まず頂上を低くするわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: op_hook
+    curiosity_gap: なぜ保存や通知があるのに作業が止まるのか
+    evidence_role: claim
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s02
+    role: body
+    scene_goal: 日付は記憶を助けない
+    scene_format: あるある型
+    hook_type: counterintuitive
+    viewer_question: 日付順ならあとで探せると思う
+    viewer_misunderstanding: 日付順ならあとで探せると思う
+    boke_or_reaction: 日付は記憶を助けない
+    reaction_level: L2
+    number_or_example: 会議資料と買い物メモが同じ場所に並ぶ
+    mini_punchline: 日付は記憶を助けない
+    visual_role: ずんだもんが日付で探せると言い、めたんが中身不明を指摘する瞬間
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 日付だけは弱い
+      asset_requirements:
+        description: 名前なしファイルが混ざる棚
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが日付で探せると言い、めたんが中身不明を指摘する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「myth_vs_fact」、composition_typeは「unnamed_files_mix」。
+
+          画面構図：
+          主役は同じ見た目のファイルカードが並ぶ棚。
+          前景には同じ見た目のファイルカードが並ぶ棚。
+          中景には会議、請求、メモが混ざった抽象ラベル。
+          背景には暗いパネルに白線の整理棚。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「日付だけは弱い」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a2
+        - 日付だけ
+        - 中身不明
+        - 探す
+    visual_asset_plan:
+      - slot: main
+        purpose: 日付は記憶を助けない
+        supports_dialogue:
+          - s02_l01
+          - s02_l02
+        supports_moment: ずんだもんが日付で探せると言い、めたんが中身不明を指摘する瞬間
+        visual_type: myth_vs_fact
+        composition_type: unnamed_files_mix
+        insert_timing: s02 の l01 直前から表示
+        asset: assets/s02_main.png
+        image_direction:
+          scene_id: s02
+          dialogue_role: あるある型
+          scene_emotion: L2
+          visual_type: myth_vs_fact
+          composition_type: unnamed_files_mix
+          image_should_support: ずんだもんが日付で探せると言い、めたんが中身不明を指摘する瞬間
+          key_visual_sentence: 名前なしファイルが混ざる棚
+          main_subject: 名前なしファイルが混ざる棚
+          secondary_subjects: *a2
+          foreground: 同じ見た目のファイルカードが並ぶ棚
+          midground: 会議、請求、メモが混ざった抽象ラベル
+          background: 暗いパネルに白線の整理棚
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 日付だけは弱い
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが日付で探せると言い、めたんが中身不明を指摘する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「myth_vs_fact」、composition_typeは「unnamed_files_mix」。
+
+          画面構図：
+          主役は同じ見た目のファイルカードが並ぶ棚。
+          前景には同じ見た目のファイルカードが並ぶ棚。
+          中景には会議、請求、メモが混ざった抽象ラベル。
+          背景には暗いパネルに白線の整理棚。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「日付だけは弱い」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 日付順なら探せるのだ
+        expression: calm
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 昨日の中身、覚えてる？
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: えーっと、たぶん資料？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: その時点で危険ね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 名前なしって弱いな
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 中身の手がかりが無いわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 同じ顔のファイル軍団なのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: だから3語だけ名前を足すの
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 長文じゃなくていい？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 短いほど続くわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: topic_setup
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: background
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s03
+    role: body
+    scene_goal: 用途で箱を分ける
+    scene_format: 反証型
+    hook_type: counterintuitive
+    viewer_question: 全部同じ保存場所でよいと思う
+    viewer_misunderstanding: 全部同じ保存場所でよいと思う
+    boke_or_reaction: 用途で箱を分ける
+    reaction_level: L2
+    number_or_example: 提出用PDFとメモスクショは用途が違う
+    mini_punchline: 用途で箱を分ける
+    visual_role: ずんだもんが全部同じフォルダでいいと言い、めたんが用途で箱を分ける瞬間
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 用途で分ける
+      asset_requirements:
+        description: PDF箱とスクショ箱の対比
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが全部同じフォルダでいいと言い、めたんが用途で箱を分ける瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「contrast_card」、composition_typeは「pdf_vs_screenshot_boxes」。
+
+          画面構図：
+          主役はPDF箱とスクショ箱の大きな2分類。
+          前景にはPDF箱とスクショ箱の大きな2分類。
+          中景には提出用、確認用、一時メモの抽象カード。
+          背景には黒背景に青紫アクセントの分類棚。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「用途で分ける」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a3
+        - 提出用
+        - 一時メモ
+        - 写真
+    visual_asset_plan:
+      - slot: main
+        purpose: 用途で箱を分ける
+        supports_dialogue:
+          - s03_l01
+          - s03_l02
+        supports_moment: ずんだもんが全部同じフォルダでいいと言い、めたんが用途で箱を分ける瞬間
+        visual_type: contrast_card
+        composition_type: pdf_vs_screenshot_boxes
+        insert_timing: s03 の l01 直前から表示
+        asset: assets/s03_main.png
+        image_direction:
+          scene_id: s03
+          dialogue_role: 反証型
+          scene_emotion: L2
+          visual_type: contrast_card
+          composition_type: pdf_vs_screenshot_boxes
+          image_should_support: ずんだもんが全部同じフォルダでいいと言い、めたんが用途で箱を分ける瞬間
+          key_visual_sentence: PDF箱とスクショ箱の対比
+          main_subject: PDF箱とスクショ箱の対比
+          secondary_subjects: *a3
+          foreground: PDF箱とスクショ箱の大きな2分類
+          midground: 提出用、確認用、一時メモの抽象カード
+          background: 黒背景に青紫アクセントの分類棚
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 用途で分ける
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが全部同じフォルダでいいと言い、めたんが用途で箱を分ける瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「contrast_card」、composition_typeは「pdf_vs_screenshot_boxes」。
+
+          画面構図：
+          主役はPDF箱とスクショ箱の大きな2分類。
+          前景にはPDF箱とスクショ箱の大きな2分類。
+          中景には提出用、確認用、一時メモの抽象カード。
+          背景には黒背景に青紫アクセントの分類棚。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「用途で分ける」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部同じ場所でよくない？
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 用途が違うから混ざるのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: PDFも画像も資料なのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 提出用とメモは別物ね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 確かに提出物は重い
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 一時メモと混ぜると怖いわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 弁当箱に領収書入れる感じ？
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 近いけど嫌な例えね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 用途で箱を分けるのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: それだけで探す時間が減るわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: background
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: evidence
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s04
+    role: body
+    scene_goal: あとでは大体こない
+    scene_format: 手順型
+    hook_type: counterintuitive
+    viewer_question: 整理はあとで一気にやればいいと思う
+    viewer_misunderstanding: 整理はあとで一気にやればいいと思う
+    boke_or_reaction: あとでは大体こない
+    reaction_level: L3
+    number_or_example: 撮った直後の5秒で箱を決める
+    mini_punchline: あとでは大体こない
+    visual_role: ずんだもんが後で整理と言い、めたんが撮った直後5秒を出す瞬間
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 撮る前に決める
+      asset_requirements:
+        description: 撮った直後に箱を決める3手順
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが後で整理と言い、めたんが撮った直後5秒を出す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「capture_then_sort_steps」。
+
+          画面構図：
+          主役は撮影直後のスマホと3ステップ矢印。
+          前景には撮影直後のスマホと3ステップ矢印。
+          中景には名前を足すペン、箱に入れる動き。
+          背景には黒基調の手順ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「撮る前に決める」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a4
+        - 撮る
+        - 名前
+        - 箱
+    visual_asset_plan:
+      - slot: main
+        purpose: あとでは大体こない
+        supports_dialogue:
+          - s04_l01
+          - s04_l02
+        supports_moment: ずんだもんが後で整理と言い、めたんが撮った直後5秒を出す瞬間
+        visual_type: three_step_board
+        composition_type: capture_then_sort_steps
+        insert_timing: s04 の l01 直前から表示
+        asset: assets/s04_main.png
+        image_direction:
+          scene_id: s04
+          dialogue_role: 手順型
+          scene_emotion: L3
+          visual_type: three_step_board
+          composition_type: capture_then_sort_steps
+          image_should_support: ずんだもんが後で整理と言い、めたんが撮った直後5秒を出す瞬間
+          key_visual_sentence: 撮った直後に箱を決める3手順
+          main_subject: 撮った直後に箱を決める3手順
+          secondary_subjects: *a4
+          foreground: 撮影直後のスマホと3ステップ矢印
+          midground: 名前を足すペン、箱に入れる動き
+          background: 黒基調の手順ボード
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 撮る前に決める
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが後で整理と言い、めたんが撮った直後5秒を出す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「capture_then_sort_steps」。
+
+          画面構図：
+          主役は撮影直後のスマホと3ステップ矢印。
+          前景には撮影直後のスマホと3ステップ矢印。
+          中景には名前を足すペン、箱に入れる動き。
+          背景には黒基調の手順ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「撮る前に決める」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: あとで一気に整理するのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: そのあとでは来ないわ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 言い切った！？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 撮った直後が一番強いの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 記憶が残ってるから？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: そう、5秒で箱を決めるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 5秒ならできそうなのだ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 名前を足して箱へ入れる
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 中盤の結論、早いほど勝ち
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: その通りね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: midpoint_rehook
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: interpretation
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s05
+    role: body
+    scene_goal: 保険がノイズになる
+    scene_format: 失敗エピソード型
+    hook_type: loss_or_warning
+    viewer_question: 念のため複数撮れば安全と思う
+    viewer_misunderstanding: 念のため複数撮れば安全と思う
+    boke_or_reaction: 保険がノイズになる
+    reaction_level: L4
+    number_or_example: 同じ画面を3枚撮って本物が分からない
+    mini_punchline: 保険がノイズになる
+    visual_role: ずんだもんが念のため連写し、めたんが本物が分からなくなると突っ込む瞬間
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 保険がノイズ
+      asset_requirements:
+        description: 同じスクショが3枚並んで混乱
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが念のため連写し、めたんが本物が分からなくなると突っ込む瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「boke_visual」、composition_typeは「duplicate_screenshots_confusion」。
+
+          画面構図：
+          主役は似たスクショ3枚と大きな疑問符。
+          前景には似たスクショ3枚と大きな疑問符。
+          中景には最新版を探す虫眼鏡と焦り線。
+          背景には暗い比較パネル。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「保険がノイズ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a5
+        - 重複
+        - 最新版不明
+        - 削れない
+    visual_asset_plan:
+      - slot: main
+        purpose: 保険がノイズになる
+        supports_dialogue:
+          - s05_l01
+          - s05_l02
+        supports_moment: ずんだもんが念のため連写し、めたんが本物が分からなくなると突っ込む瞬間
+        visual_type: boke_visual
+        composition_type: duplicate_screenshots_confusion
+        insert_timing: s05 の l01 直前から表示
+        asset: assets/s05_main.png
+        image_direction:
+          scene_id: s05
+          dialogue_role: 失敗エピソード型
+          scene_emotion: L4
+          visual_type: boke_visual
+          composition_type: duplicate_screenshots_confusion
+          image_should_support: ずんだもんが念のため連写し、めたんが本物が分からなくなると突っ込む瞬間
+          key_visual_sentence: 同じスクショが3枚並んで混乱
+          main_subject: 同じスクショが3枚並んで混乱
+          secondary_subjects: *a5
+          foreground: 似たスクショ3枚と大きな疑問符
+          midground: 最新版を探す虫眼鏡と焦り線
+          background: 暗い比較パネル
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 保険がノイズ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが念のため連写し、めたんが本物が分からなくなると突っ込む瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「boke_visual」、composition_typeは「duplicate_screenshots_confusion」。
+
+          画面構図：
+          主役は似たスクショ3枚と大きな疑問符。
+          前景には似たスクショ3枚と大きな疑問符。
+          中景には最新版を探す虫眼鏡と焦り線。
+          背景には暗い比較パネル。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「保険がノイズ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 念のため三枚撮るのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: それがノイズになるのよ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 保険じゃないの？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 最新版が分からなくなるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: うわ、それ詰むのだ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 似た画像ほど削れないの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 全部大事に見えるやつ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 撮るなら一枚、残すも一枚
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 保険が敵になるとは
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 重複は今日削る候補ね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: evidence
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: evidence
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s06
+    role: body
+    scene_goal: 細かすぎる分類は続かない
+    scene_format: 手順型
+    hook_type: counterintuitive
+    viewer_question: 細かいフォルダを大量に作るべきと思う
+    viewer_misunderstanding: 細かいフォルダを大量に作るべきと思う
+    boke_or_reaction: 細かすぎる分類は続かない
+    reaction_level: L2
+    number_or_example: 仕事、生活、一時保管の3つで始める
+    mini_punchline: 細かすぎる分類は続かない
+    visual_role: ずんだもんが細かく分類しようとして、めたんが3つだけに絞る瞬間
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 箱は3つだけ
+      asset_requirements:
+        description: 仕事・生活・一時の3フォルダ
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが細かく分類しようとして、めたんが3つだけに絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_folder_panel」。
+
+          画面構図：
+          主役は3つの大きなフォルダ箱。
+          前景には3つの大きなフォルダ箱。
+          中景には紙片がそれぞれの箱へ入る動き。
+          背景には暗い背景に明るいフォルダ色。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「箱は3つだけ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a6
+        - 仕事
+        - 生活
+        - 一時
+    visual_asset_plan:
+      - slot: main
+        purpose: 細かすぎる分類は続かない
+        supports_dialogue:
+          - s06_l01
+          - s06_l02
+        supports_moment: ずんだもんが細かく分類しようとして、めたんが3つだけに絞る瞬間
+        visual_type: checklist_panel
+        composition_type: three_folder_panel
+        insert_timing: s06 の l01 直前から表示
+        asset: assets/s06_main.png
+        image_direction:
+          scene_id: s06
+          dialogue_role: 手順型
+          scene_emotion: L2
+          visual_type: checklist_panel
+          composition_type: three_folder_panel
+          image_should_support: ずんだもんが細かく分類しようとして、めたんが3つだけに絞る瞬間
+          key_visual_sentence: 仕事・生活・一時の3フォルダ
+          main_subject: 仕事・生活・一時の3フォルダ
+          secondary_subjects: *a6
+          foreground: 3つの大きなフォルダ箱
+          midground: 紙片がそれぞれの箱へ入る動き
+          background: 暗い背景に明るいフォルダ色
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 箱は3つだけ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが細かく分類しようとして、めたんが3つだけに絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_folder_panel」。
+
+          画面構図：
+          主役は3つの大きなフォルダ箱。
+          前景には3つの大きなフォルダ箱。
+          中景には紙片がそれぞれの箱へ入る動き。
+          背景には暗い背景に明るいフォルダ色。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「箱は3つだけ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: フォルダ20個作るのだ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 続かない設計ね
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 細かい方が正確じゃん
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 迷う分類は使われないわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: じゃあ何個？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 仕事、生活、一時の三つ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: めちゃ少ないのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 最初は少ない方が勝つわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 一時は逃げ場？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 週一で空にする箱ね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: counterpoint
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: counterpoint
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s07
+    role: outro
+    scene_goal: 検索できる名前が正義
+    scene_format: Before / After型
+    hook_type: counterintuitive
+    viewer_question: ファイル名は見た目で分かると思う
+    viewer_misunderstanding: ファイル名は見た目で分かると思う
+    boke_or_reaction: 検索できる名前が正義
+    reaction_level: L3
+    number_or_example: 2026_契約_更新 のように3語で足りる
+    mini_punchline: 検索できる名前が正義
+    visual_role: ずんだもんが見た目で分かると言い、めたんが検索語3つを入れると示す瞬間
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 検索できる名前
+      asset_requirements:
+        description: 検索できる名前とできない名前の比較
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが見た目で分かると言い、めたんが検索語3つを入れると示す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「searchable_name_comparison」。
+
+          画面構図：
+          主役は検索バーに3語が入った大きな画面。
+          前景には検索バーに3語が入った大きな画面。
+          中景には見つかるファイルと見つからないファイルの比較。
+          背景には黒いUI風だが実在UIではない抽象画面。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「検索できる名前」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a7
+        - 日付
+        - 種類
+        - 目的
+    visual_asset_plan:
+      - slot: main
+        purpose: 検索できる名前が正義
+        supports_dialogue:
+          - s07_l01
+          - s07_l02
+        supports_moment: ずんだもんが見た目で分かると言い、めたんが検索語3つを入れると示す瞬間
+        visual_type: before_after
+        composition_type: searchable_name_comparison
+        insert_timing: s07 の l01 直前から表示
+        asset: assets/s07_main.png
+        image_direction:
+          scene_id: s07
+          dialogue_role: Before / After型
+          scene_emotion: L3
+          visual_type: before_after
+          composition_type: searchable_name_comparison
+          image_should_support: ずんだもんが見た目で分かると言い、めたんが検索語3つを入れると示す瞬間
+          key_visual_sentence: 検索できる名前とできない名前の比較
+          main_subject: 検索できる名前とできない名前の比較
+          secondary_subjects: *a7
+          foreground: 検索バーに3語が入った大きな画面
+          midground: 見つかるファイルと見つからないファイルの比較
+          background: 黒いUI風だが実在UIではない抽象画面
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 検索できる名前
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが見た目で分かると言い、めたんが検索語3つを入れると示す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「searchable_name_comparison」。
+
+          画面構図：
+          主役は検索バーに3語が入った大きな画面。
+          前景には検索バーに3語が入った大きな画面。
+          中景には見つかるファイルと見つからないファイルの比較。
+          背景には黒いUI風だが実在UIではない抽象画面。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「検索できる名前」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 見た目で分かるっしょ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 縮小表示では無理よ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 確かに豆粒になるのだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 探す言葉を名前に入れるの
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 例えば？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 日付、種類、目的ね
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 2026 契約 更新みたいな？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: それで十分強いわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 検索できる名前が正義なのだ
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 未来の自分が助かるわ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: summary
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: summary
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s08
+    role: cta
+    scene_goal: 小さく終わらせる
+    scene_format: まとめ再フック型
+    hook_type: loss_or_warning
+    viewer_question: 全部整理しないと意味がないと思う
+    viewer_misunderstanding: 全部整理しないと意味がないと思う
+    boke_or_reaction: 小さく終わらせる
+    reaction_level: L2
+    number_or_example: 同じスクショを10枚だけ見て1枚残す
+    mini_punchline: 小さく終わらせる
+    visual_role: ずんだもんが全部整理しようとして、めたんが重複10枚だけに絞る瞬間
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 重複だけ消す
+      asset_requirements:
+        description: 重複だけ消す今日の行動カード
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが全部整理しようとして、めたんが重複10枚だけに絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「duplicate_cleanup_action」。
+
+          画面構図：
+          主役は同じ画像の束から1枚だけ残す手元。
+          前景には同じ画像の束から1枚だけ残す手元。
+          中景には10枚チェックと週1予定の小さなカレンダー。
+          背景には暗い背景から少し明るくなる締め画面。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「重複だけ消す」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a8
+        - 10枚見る
+        - 1枚残す
+        - 週1予定
+    visual_asset_plan:
+      - slot: main
+        purpose: 小さく終わらせる
+        supports_dialogue:
+          - s08_l01
+          - s08_l02
+        supports_moment: ずんだもんが全部整理しようとして、めたんが重複10枚だけに絞る瞬間
+        visual_type: final_action_card
+        composition_type: duplicate_cleanup_action
+        insert_timing: s08 の l01 直前から表示
+        asset: assets/s08_main.png
+        image_direction:
+          scene_id: s08
+          dialogue_role: 最終行動
+          scene_emotion: L2
+          visual_type: final_action_card
+          composition_type: duplicate_cleanup_action
+          image_should_support: ずんだもんが全部整理しようとして、めたんが重複10枚だけに絞る瞬間
+          key_visual_sentence: 重複だけ消す今日の行動カード
+          main_subject: 重複だけ消す今日の行動カード
+          secondary_subjects: *a8
+          foreground: 同じ画像の束から1枚だけ残す手元
+          midground: 10枚チェックと週1予定の小さなカレンダー
+          background: 暗い背景から少し明るくなる締め画面
+          color_palette: 太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 重複だけ消す
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene13 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene13。
+          この画像は、台本内の「ずんだもんが全部整理しようとして、めたんが重複10枚だけに絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「duplicate_cleanup_action」。
+
+          画面構図：
+          主役は同じ画像の束から1枚だけ残す手元。
+          前景には同じ画像の束から1枚だけ残す手元。
+          中景には10枚チェックと週1予定の小さなカレンダー。
+          背景には暗い背景から少し明るくなる締め画面。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。黒背景に映える白、青紫、ミントを基調、警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「重複だけ消す」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene13のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部整理しないとダメ？
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 今日は重複だけでいいわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: それなら逃げないのだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 同じスクショを10枚確認
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 1枚だけ残すのだ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: そう、残りは消すの
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: PDFは名前を3語で保存
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 最後に週一予定を入れるわ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 探す未来を救うのだ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 今日の行動はそれで十分よ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: cta
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: summary
+    next_reason: 今すぐ1つだけ行動する
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5
