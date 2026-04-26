@@ -1,0 +1,59 @@
+project:
+  slug: notebooklm-smoke-test
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "ツカミ"
+    insert_timing: "auto"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "0:00–0:20 **ずんだもん**：なんでコーヒーを飲むと目が覚めるのだ？ **めたん**：眠気の信号をカフェインが先回りするからですわ。 [FIG:1] カフェインがアデノシン受容体をふさぐ全体像"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "ツカミ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "02"
+    scene_title: "受容体"
+    insert_timing: "auto"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "0:20–1:20 **ずんだもん**：眠気の信号ってどうやって止まるのだ？ **めたん**：脳ではアデノシンが受容体にくっつくと眠気が強まるのですけれど、カフェインがそこを先に埋めるのですわ。 [INFO:1] アデノシンとカフェインが受"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "受容体"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "03"
+    scene_title: "まとめ"
+    insert_timing: "auto"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "1:20–2:00 **めたん**：つまり、カフェインは眠気そのものを消すのではなく、眠気の合図を受け取りにくくしているのですわ。 **ずんだもん**：なるほどなのだ！ だから一時的にシャキッとするのだ！ [SLIDE:1] カフェインで目"
+    asset_type:
+      - slide_deck
+    notebooklm_candidate:
+      primary: slide_deck
+      secondary: report
+    must_include:
+      - "まとめ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"

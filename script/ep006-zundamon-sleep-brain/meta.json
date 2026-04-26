@@ -1,0 +1,104 @@
+{
+  "episode_id": "ep006-zundamon-sleep-brain",
+  "generated_at": "2026-04-25T17:16:05.014Z",
+  "generator": "Codex (imagegen)",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラットイラスト。中央に眠る脳のアイコン、周囲に星と小さな掃除ロボ風アイコン。青紫とミント色、発光感。16:9。文字、数字、ロゴ、人物の顔は入れない。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s02_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。左に散らばる小さなカード、中央に眠る脳、右に整列したカード。青紫背景、カードは淡いミント。16:9。文字、数字、ロゴは禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s03_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。脳の中を青い流れが通り、小さな粒子を外へ運ぶ構図。医療っぽく清潔、青と紫の発光。16:9。文字、ロゴ、リアルな臓器表現は禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s04_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラットイラスト。眠る脳から半透明の吹き出しが伸び、迷路、雨雲、星の抽象アイコンが浮かぶ。青紫と淡い黄色。16:9。文字なし。ロゴ、人物の顔、写真風は禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s05_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。小さな月、時計アイコン、充電される脳バッテリー。文字や数字は描かず、短時間を抽象的に示す。青紫背景、ミントの発光。16:9。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s06_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。脳アイコンと感情メーター、ブレーキのアイコン。メーターは抽象バーで文字なし。赤は控えめ。青紫背景、発光線。16:9。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s07_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。ベッド横のスマホから青い光、脳の覚醒スイッチが点く構図。文字なし、人物の顔なし。青紫とシアン。16:9。ロゴ、実在端末デザインは禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s08_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラット図解。積み上がる月形コインと、低下する脳バッテリー。文字、数字なし。青紫、ミント、薄い黄色。16:9。通貨記号、ロゴは禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s09_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラットチェックリスト。3つのアイコンを横並び、スマホを遠ざける、照明を落とす、起床時刻を固定。文字なし。青紫背景、ミントの線。16:9。ロゴ、実在UI、人物は禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s10_main.png",
+      "license": "AI生成素材。公開前に利用条件を再確認",
+      "generator": "Codex (imagegen)",
+      "imagegen_model": "gpt-image-2",
+      "imagegen_prompt": "ダークSF風フラットイラスト。月、ペン、カレンダー、チェックマークをシンプルに配置。今夜の行動を促す明るい構図。文字なし。青紫とミント、16:9。ロゴ、人物は禁止。\n",
+      "source_site": "imagegen",
+      "credit_required": false
+    },
+    {
+      "file": "bgm/track.mp3",
+      "license": "既存ローカルBGMを再利用。公開前に原典と利用条件を再確認",
+      "source_site": "local-existing-bgm",
+      "title": "track.mp3 from ep900-quality-sample",
+      "credit_required": false
+    }
+  ]
+}

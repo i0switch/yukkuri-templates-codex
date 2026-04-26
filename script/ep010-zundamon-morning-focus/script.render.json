@@ -1,0 +1,1106 @@
+{
+  "meta": {
+    "id": "ep010-zundamon-morning-focus",
+    "episode_id": "ep010-zundamon-morning-focus",
+    "layout_template": "Scene12",
+    "character_pair": "ZM",
+    "pair": "ZM",
+    "title": "朝の集中力が落ちるNG習慣",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "audience": "初心者向け",
+    "tone": "やさしく実用的",
+    "voice_engine": "voicevox",
+    "target_duration_sec": 180
+  },
+  "characters": {
+    "left": {
+      "character": "zundamon",
+      "voicevox_speaker_id": 3
+    },
+    "right": {
+      "character": "metan",
+      "voicevox_speaker_id": 2
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "role": "intro",
+      "title_text": "朝の集中力、最初で決まる",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s01_main.png",
+        "caption": "朝の集中スイッチ",
+        "image_direction": {
+          "scene_id": "s01",
+          "dialogue_role": "冒頭フック",
+          "scene_emotion": "ワクワク",
+          "visual_type": "hook_poster",
+          "composition_type": "desk_top_down",
+          "image_should_support": "ずんだもんが朝の集中力は才能ではなく、最初の行動で崩れると気づく冒頭",
+          "key_visual_sentence": "朝の机に、スマホ通知、白いノート、湯気のある飲み物が並ぶ",
+          "main_subject": "朝の作業机と集中スイッチの抽象表現",
+          "foreground": "通知が光るスマホと小さな集中スイッチ",
+          "midground": "開いたノート、ペン、湯気のあるマグ",
+          "background": "柔らかい朝日と薄い教室風の壁",
+          "color_palette": "コーラルピンク、ミント、クリーム、淡い紫",
+          "text_strategy": {
+            "image_text_allowed": false,
+            "image_text_max_words": 0
+          },
+          "layout_safety": {
+            "keep_bottom_20_percent_empty": true,
+            "avoid_character_area": true,
+            "avoid_sub_area_overlap": true
+          },
+          "must_not_include": [
+            "実在アプリ",
+            "実在ロゴ",
+            "既存キャラ",
+            "長文日本語",
+            "人物の顔"
+          ],
+          "quality_bar": "朝の気分と集中の崩れが同時に伝わる、やさしい教育イラスト"
+        },
+        "asset_requirements": {
+          "imagegen_prompt": "ずんだもん解説のScene01メイン枠で使う hook_poster 型ビジュアル。構図は机の上を見下ろす desk top down で、前景に通知が光るスマホと小さな集中スイッチ、中景に開いたノート、ペン、湯気のあるマグ、背景に柔らかい朝日と薄い教室風の壁を置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, top-left morning light。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な日本語タイトルを重ねる余白を上部に残す。文字方針：画像内文字は入れない。禁止：実在アプリ、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+          "style": "soft flat illustration, warm coral-pink explanatory diagram",
+          "aspect": "16:9",
+          "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "朝から集中できないのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.546667,
+          "start_sec": 0.1,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "才能より手順の問題よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.429333,
+          "start_sec": 1.9,
+          "end_sec": 3.3
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "手順で変わるの？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.098667,
+          "start_sec": 3.5,
+          "end_sec": 4.6
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "朝は脳の入口が大事",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.365333,
+          "start_sec": 4.7,
+          "end_sec": 6.1
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "入口で転んでたのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.322667,
+          "start_sec": 6.3,
+          "end_sec": 7.6
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "転ぶ習慣を外しましょ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.301333,
+          "start_sec": 7.8,
+          "end_sec": 9.1
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "今日は朝のNG探しだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.706667,
+          "start_sec": 9.3,
+          "end_sec": 11
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "やさしく直せるものだけよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.258667,
+          "start_sec": 11.2,
+          "end_sec": 12.4
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "朝が怖くなくなるのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.397333,
+          "start_sec": 12.6,
+          "end_sec": 14
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "まず通知から見るわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.013333,
+          "start_sec": 14.2,
+          "end_sec": 15.2
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 23
+    },
+    {
+      "id": "s02",
+      "role": "body",
+      "title_text": "通知で一日を始めるNG",
+      "main": {
+        "kind": "text",
+        "text": "通知チェックは\n集中の主導権を渡す"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "起きたらスマホを見るよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.28,
+          "start_sec": 0.1,
+          "end_sec": 1.4
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "一つ目のNGね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.002667,
+          "start_sec": 1.6,
+          "end_sec": 2.6
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "目覚ましのついでなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.333333,
+          "start_sec": 2.8,
+          "end_sec": 4.1
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "ついでが一番強いの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.162667,
+          "start_sec": 4.3,
+          "end_sec": 5.4
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "ニュースも見ちゃう",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 0.906667,
+          "start_sec": 5.6,
+          "end_sec": 6.5
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "脳が他人の予定に入る",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.322667,
+          "start_sec": 6.7,
+          "end_sec": 8
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "自分の朝じゃなくなる？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.365333,
+          "start_sec": 8.2,
+          "end_sec": 9.6
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "そう、主導権が移るわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.6,
+          "start_sec": 9.8,
+          "end_sec": 11.4
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "通知は後回しなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.44,
+          "start_sec": 11.5,
+          "end_sec": 13
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "最初の十分は守って",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.269333,
+          "start_sec": 13.2,
+          "end_sec": 14.4
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 22.3
+    },
+    {
+      "id": "s03",
+      "role": "body",
+      "title_text": "甘い物だけで始めるNG",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s03_main.png",
+        "caption": "朝食の急上昇",
+        "image_direction": {
+          "scene_id": "s03",
+          "dialogue_role": "誤解訂正",
+          "scene_emotion": "納得",
+          "visual_type": "myth_vs_fact",
+          "composition_type": "split_danger_safe",
+          "image_should_support": "甘い物だけの朝食で一瞬元気になっても、その後に集中が落ちやすいことを訂正する",
+          "key_visual_sentence": "甘い朝食だけの急な波と、たんぱく質を足した安定した波を比較する",
+          "main_subject": "朝食と集中エネルギーの比較図",
+          "foreground": "急上昇して落ちる抽象エネルギー波",
+          "midground": "甘いパン、卵、ヨーグルト風の抽象皿",
+          "background": "左右分割のやさしい比較パネル",
+          "color_palette": "コーラルピンク、クリーム、ミント、淡い黄色",
+          "text_strategy": {
+            "image_text_allowed": false,
+            "image_text_max_words": 0
+          },
+          "layout_safety": {
+            "keep_bottom_20_percent_empty": true,
+            "avoid_character_area": true,
+            "avoid_sub_area_overlap": true
+          },
+          "must_not_include": [
+            "実在食品ブランド",
+            "実在ロゴ",
+            "既存キャラ",
+            "長文説明",
+            "人物の顔"
+          ],
+          "quality_bar": "食事制限ではなく、朝の安定感を伝えるやさしい図解"
+        },
+        "asset_requirements": {
+          "imagegen_prompt": "ずんだもん解説のScene03メイン枠で使う myth_vs_fact 型ビジュアル。構図は左右分割で、前景に急上昇して落ちる抽象エネルギー波、中景に甘いパン、卵、ヨーグルト風の抽象皿、背景にやさしい比較パネルを置く。左は不安定な波、右はなだらかで安定した波にする。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), cream and mint accents, soft shadows, light bg。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion 用の文字余白を上部に確保。文字方針：画像内文字は入れない。禁止：実在食品ブランド、実在ロゴ、既存キャラクター、写真風、人物の顔、長文テキスト、単体アイコンだけの無背景素材、細かい栄養表、watermark。\n",
+          "style": "soft flat illustration, warm nutrition comparison",
+          "aspect": "16:9",
+          "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "甘いパンだけでも元気だよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.568,
+          "start_sec": 0.1,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "二つ目のNGね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.013333,
+          "start_sec": 1.9,
+          "end_sec": 2.9
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "朝は糖が必要なのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.493333,
+          "start_sec": 3.1,
+          "end_sec": 4.6
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "必要だけど偏ると落ちる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.365333,
+          "start_sec": 4.7,
+          "end_sec": 6.1
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "急に眠くなるやつ？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.322667,
+          "start_sec": 6.3,
+          "end_sec": 7.6
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "波が大きいと集中も揺れる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.504,
+          "start_sec": 7.8,
+          "end_sec": 9.3
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "何を足せばいいの？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.194667,
+          "start_sec": 9.5,
+          "end_sec": 10.7
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "たんぱく質を少し足す",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.162667,
+          "start_sec": 10.9,
+          "end_sec": 12
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "完璧朝食じゃなくていい？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.770667,
+          "start_sec": 12.2,
+          "end_sec": 14
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "足すだけで十分よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 0.970667,
+          "start_sec": 14.1,
+          "end_sec": 15.1
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 23
+    },
+    {
+      "id": "s04",
+      "role": "body",
+      "title_text": "予定を全部並べるNG",
+      "main": {
+        "kind": "text",
+        "text": "朝いちばんに\n全部を見ない"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "今日やる事を全部見るよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.525333,
+          "start_sec": 0.1,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "三つ目のNGね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.002667,
+          "start_sec": 1.8,
+          "end_sec": 2.8
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "真面目な行動なのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.301333,
+          "start_sec": 3,
+          "end_sec": 4.3
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "量で脳が固まるの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.034667,
+          "start_sec": 4.5,
+          "end_sec": 5.5
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "朝から絶望するやつ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.397333,
+          "start_sec": 5.7,
+          "end_sec": 7.1
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "実は選ぶ数が大事よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.312,
+          "start_sec": 7.3,
+          "end_sec": 8.6
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "一個だけ選ぶの？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.184,
+          "start_sec": 8.8,
+          "end_sec": 10
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "最初の一個に絞る",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.034667,
+          "start_sec": 10.1,
+          "end_sec": 11.2
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "全部見るより軽いのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.397333,
+          "start_sec": 11.4,
+          "end_sec": 12.8
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "朝は入口を細くするの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.344,
+          "start_sec": 12.9,
+          "end_sec": 14.3
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 22.1
+    },
+    {
+      "id": "s05",
+      "role": "body",
+      "title_text": "最初の5分を空白にするNG",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s05_main.png",
+        "caption": "最初の5分設計",
+        "image_direction": {
+          "scene_id": "s05",
+          "dialogue_role": "手順提示",
+          "scene_emotion": "希望",
+          "visual_type": "three_step_board",
+          "composition_type": "three_cards",
+          "image_should_support": "最初の5分だけを決めると、朝の迷いが減って集中に入りやすい手順",
+          "key_visual_sentence": "机、タイマー、ノートの3カードで小さく始める流れを示す",
+          "main_subject": "朝の最初5分を決める3ステップ",
+          "foreground": "3枚の丸いステップカード",
+          "midground": "机を整える、タイマー、ノート一行の抽象アイコン",
+          "background": "淡い朝色のグラデーションと教室風の丸い飾り",
+          "color_palette": "コーラルピンク、ミント、クリーム、淡い紫",
+          "text_strategy": {
+            "image_text_allowed": false,
+            "image_text_max_words": 0
+          },
+          "layout_safety": {
+            "keep_bottom_20_percent_empty": true,
+            "avoid_character_area": true,
+            "avoid_sub_area_overlap": true
+          },
+          "must_not_include": [
+            "実在タイマーアプリ",
+            "実在ロゴ",
+            "既存キャラ",
+            "長文日本語",
+            "人物の顔"
+          ],
+          "quality_bar": "小さく始める安心感があり、3手順が一目で分かるボード"
+        },
+        "asset_requirements": {
+          "imagegen_prompt": "ずんだもん解説のScene05メイン枠で使う three_step_board 型ビジュアル。構図は横並び3カードで、前景に丸いステップカード、中景に机を整える、タイマー、ノート一行を示す抽象アイコン、背景に淡い朝色のグラデーションと教室風の丸い飾りを置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, top-left morning light。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な手順テキストを重ねる余白を残す。文字方針：画像内文字は入れない。禁止：実在アプリ、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+          "style": "soft flat illustration, three step morning board",
+          "aspect": "16:9",
+          "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "机に座ってから迷うよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.568,
+          "start_sec": 0.1,
+          "end_sec": 1.7
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "四つ目のNGね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.002667,
+          "start_sec": 1.9,
+          "end_sec": 2.9
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "座れば始まると思ってた",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.610667,
+          "start_sec": 3.1,
+          "end_sec": 4.7
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "最初の5分が空白なの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.365333,
+          "start_sec": 4.9,
+          "end_sec": 6.2
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "ここで迷子になるのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.269333,
+          "start_sec": 6.4,
+          "end_sec": 7.7
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "前夜に一行だけ書く",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.141333,
+          "start_sec": 7.8,
+          "end_sec": 9
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "何から始めるか？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.248,
+          "start_sec": 9.2,
+          "end_sec": 10.4
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "それだけで十分よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.002667,
+          "start_sec": 10.6,
+          "end_sec": 11.6
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "朝の自分を助けるのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.429333,
+          "start_sec": 11.8,
+          "end_sec": 13.2
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "未来の自分に渡すの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.109333,
+          "start_sec": 13.4,
+          "end_sec": 14.5
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 22.4
+    },
+    {
+      "id": "s06",
+      "role": "body",
+      "title_text": "同時に片づけるNG",
+      "main": {
+        "kind": "text",
+        "text": "朝の脳は\n一つずつ温める"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "音楽と返信と作業をする",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.696,
+          "start_sec": 0.1,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "五つ目は同時進行よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.333333,
+          "start_sec": 2,
+          "end_sec": 3.3
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "効率よさそうなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.28,
+          "start_sec": 3.5,
+          "end_sec": 4.8
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "切り替えで力を使うの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.226667,
+          "start_sec": 5,
+          "end_sec": 6.2
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "頭のタブが多い感じ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.429333,
+          "start_sec": 6.4,
+          "end_sec": 7.8
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "まさにそれね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 0.64,
+          "start_sec": 8,
+          "end_sec": 8.6
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "一つだけにする？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.056,
+          "start_sec": 8.8,
+          "end_sec": 9.9
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "朝の一発目ほど一つよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.344,
+          "start_sec": 10.1,
+          "end_sec": 11.4
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "返信は後でいいのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.344,
+          "start_sec": 11.6,
+          "end_sec": 12.9
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "通知と作業は分けて",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.130667,
+          "start_sec": 13.1,
+          "end_sec": 14.2
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 22.1
+    },
+    {
+      "id": "s07",
+      "role": "body",
+      "title_text": "休憩を後払いにするNG",
+      "main": {
+        "kind": "text",
+        "text": "疲れてから休むより\n先に区切りを入れる"
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "集中したら休まないよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.504,
+          "start_sec": 0.1,
+          "end_sec": 1.6
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "六つ目のNGね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.002667,
+          "start_sec": 1.8,
+          "end_sec": 2.8
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "続くなら良くない？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.173333,
+          "start_sec": 3,
+          "end_sec": 4.2
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "後で反動が来るわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.077333,
+          "start_sec": 4.4,
+          "end_sec": 5.4
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "午後に眠くなるやつ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.194667,
+          "start_sec": 5.6,
+          "end_sec": 6.8
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "朝から借金してるの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.12,
+          "start_sec": 7,
+          "end_sec": 8.1
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "怖い例えなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.066667,
+          "start_sec": 8.3,
+          "end_sec": 9.3
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "25分で一度立って",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.216,
+          "start_sec": 9.5,
+          "end_sec": 10.7
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "先に区切るのだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.109333,
+          "start_sec": 10.9,
+          "end_sec": 12
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "短い休憩で守るの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.258667,
+          "start_sec": 12.2,
+          "end_sec": 13.5
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 21.3
+    },
+    {
+      "id": "s08",
+      "role": "cta",
+      "title_text": "明日の朝にやる3セット",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s08_main.png",
+        "caption": "閉じる・選ぶ・区切る",
+        "image_direction": {
+          "scene_id": "s08",
+          "dialogue_role": "最終行動",
+          "scene_emotion": "安心",
+          "visual_type": "final_action_card",
+          "composition_type": "three_cards",
+          "image_should_support": "スマホを閉じる、最初の一つを選ぶ、休憩を先に入れる3行動で締める",
+          "key_visual_sentence": "スマホオフ、ノート一行、タイマー休憩の3カードを並べる",
+          "main_subject": "朝の集中を守る3アクションカード",
+          "foreground": "3枚の大きな丸角カードとチェックマーク",
+          "midground": "スマホオフ、ノート一行、タイマー休憩の抽象アイコン",
+          "background": "明るいコーラルとミントの柔らかいグラデーション",
+          "color_palette": "コーラルピンク、ミント、クリーム、白",
+          "text_strategy": {
+            "image_text_allowed": false,
+            "image_text_max_words": 0
+          },
+          "layout_safety": {
+            "keep_bottom_20_percent_empty": true,
+            "avoid_character_area": true,
+            "avoid_sub_area_overlap": true
+          },
+          "must_not_include": [
+            "実在アプリ",
+            "実在ロゴ",
+            "既存キャラ",
+            "長文日本語",
+            "人物の顔"
+          ],
+          "quality_bar": "明日の朝すぐ実行できる安心感のある行動カード"
+        },
+        "asset_requirements": {
+          "imagegen_prompt": "ずんだもん解説のScene08メイン枠で使う final_action_card 型ビジュアル。構図は横並び3カードで、前景に大きな丸角カードとチェックマーク、中景にスマホオフ、ノート一行、タイマー休憩の抽象アイコン、背景に明るいコーラルとミントの柔らかいグラデーションを置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, light bg。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な3アクション文字を重ねる余白を確保。文字方針：画像内文字は入れない。禁止：実在UI、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+          "style": "soft flat illustration, final morning action cards",
+          "aspect": "16:9",
+          "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "明日の朝は何をする？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.429333,
+          "start_sec": 0.1,
+          "end_sec": 1.6
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "三つだけ決めるわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 0.874667,
+          "start_sec": 1.7,
+          "end_sec": 2.6
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "一つ目、通知を閉じる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.6,
+          "start_sec": 2.8,
+          "end_sec": 4.4
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "スマホを遠くへ置いて",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.088,
+          "start_sec": 4.6,
+          "end_sec": 5.7
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "二つ目、最初の一個を選ぶ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.952,
+          "start_sec": 5.8,
+          "end_sec": 7.8
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "ノートに一行書くの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.013333,
+          "start_sec": 8,
+          "end_sec": 9
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "三つ目、休憩を予定する",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.941333,
+          "start_sec": 9.2,
+          "end_sec": 11.1
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "タイマーに登録してね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.141333,
+          "start_sec": 11.3,
+          "end_sec": 12.4
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "これならできそうなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.248,
+          "start_sec": 12.6,
+          "end_sec": 13.9
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "閉じる、選ぶ、区切るよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.1,
+          "wav_sec": 1.642667,
+          "start_sec": 14,
+          "end_sec": 15.7
+        }
+      ],
+      "tail_pad_sec": 7.7,
+      "duration_sec": 23.5
+    }
+  ],
+  "bgm": {
+    "title": "upbeat step",
+    "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+    "file": "bgm/track.mp3",
+    "license": "DOVA-SYNDROME 標準利用規約",
+    "volume": 0.09,
+    "fade_in_sec": 1,
+    "fade_out_sec": 1.5
+  },
+  "total_duration_sec": 179.7,
+  "public_dir": "episodes/ep010-zundamon-morning-focus",
+  "base_layout_width": 1920,
+  "base_layout_height": 1080
+}

@@ -1,0 +1,699 @@
+meta:
+  id: ep010-zm-sleep-smartphone
+  episode_id: ep010-zm-sleep-smartphone
+  layout_template: Scene02
+  character_pair: ZM
+  pair: ZM
+  title: 寝る前スマホで眠れなくなる理由と対策
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 初心者向け
+  tone: やさしい失敗回避
+  bgm_mood: 夜でも軽いテンポ
+  voice_engine: voicevox
+  target_duration_sec: 180
+  image_style: 太線フラット図解、夜の紺色と青緑、危険部だけ赤
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.09
+  fade_in_sec: 1.0
+  fade_out_sec: 1.5
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 視聴者代表。油断、ボケ、強い驚きを担当する。
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 解説役。冷静に訂正し、現実的な対策へ落とす。
+scenes:
+  - id: s01
+    role: hook
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 5分が30分に伸びる
+      image_direction:
+        scene_id: s01
+        dialogue_role: 冒頭フック
+        scene_emotion: 焦り
+        visual_type: hook_poster
+        composition_type: smartphone_closeup
+        image_should_support: 30分に変身する人が多いの
+        key_visual_sentence: 夜の5分スマホが赤い30分ゲージへ伸びる
+        main_subject: ベッド横スマホと伸びる時間ゲージ
+        foreground: 枕元のスマホ画面
+        midground: 5分から長く伸びる赤い時間ゲージ
+        background: 夜の紺色グラデーション
+        color_palette:
+          - 紺
+          - 青緑
+          - 白
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - その5分、睡眠を削る
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 5分が30分へ伸びる損失が夜の絵で伝わる
+      asset_requirements:
+        description: 寝る前5分スマホが30分化する危険喚起
+        imagegen_prompt: |
+          【用途】s01 main、冒頭フック。寝る前5分だけのスマホが30分へ伸びて睡眠を削る危険を見せる。前景に枕元の抽象スマホを置く。中景に5分から長く伸びる赤い時間ゲージと眠そうな月アイコンを配置。背景は夜の紺色グラデーション。下部20%はRemotion字幕とキャラ用に空ける。Scene02の左main枠内で右sub枠と左右下キャラ領域を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット夜スマホ図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 5分
+        - 30分化
+        - 翌朝だるい
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 寝る前5分だけ見るのだ
+      - id: l02
+        speaker: right
+        text: その5分、だいたい伸びるわ
+      - id: l03
+        speaker: left
+        text: え、ぼくの5分は強いよ
+      - id: l04
+        speaker: right
+        text: 30分に変身する人が多いの
+      - id: l05
+        speaker: left
+        text: 5分が進化してるのだ
+      - id: l06
+        speaker: right
+        text: 進化じゃなくて沼よ
+      - id: l07
+        speaker: left
+        text: 朝だるい理由、それか
+      - id: l08
+        speaker: right
+        text: まず寝る前の入口を疑う
+      - id: l09
+        speaker: left
+        text: 入口から罠なのだ
+      - id: l10
+        speaker: right
+        text: 今日はそこを閉じるわ
+  - id: s02
+    role: body
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 光だけじゃない
+      image_direction:
+        scene_id: s02
+        dialogue_role: 誤解訂正
+        scene_emotion: 納得
+        visual_type: myth_vs_fact
+        composition_type: split_danger_safe
+        image_should_support: 通知1個で脳が起きるの
+        key_visual_sentence: 光より通知ベルが脳を起こす比較図
+        main_subject: 光と通知ベルの比較
+        foreground: 左に光の波、右に通知ベル
+        midground: 右側の脳アイコンが起きる
+        background: 左は青、右は警告赤を薄く入れる
+        color_palette:
+          - 紺
+          - 青
+          - 青緑
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 光より通知
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: ブルーライトだけでなく通知刺激が原因と分かる
+      asset_requirements:
+        description: 光と通知刺激を比較する誤解訂正図
+        imagegen_prompt: |
+          【用途】s02 main、誤解訂正。寝る前スマホの原因が光だけでなく通知刺激にもあることを見せる。前景は左に青い光の波、右に赤い通知ベル。中景に右側だけ起き上がる脳アイコンを配置。背景は左右分割で、左は静かな青、右は薄い警告赤。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット比較図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 光
+        - 通知
+        - 返信欲
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 原因はブルーライトだけ？
+      - id: l02
+        speaker: right
+        text: それだけじゃないわ
+      - id: l03
+        speaker: left
+        text: 画面を暗くしたら勝ち？
+      - id: l04
+        speaker: right
+        text: 通知1個で脳が起きるの
+      - id: l05
+        speaker: left
+        text: 脳内インターホンなのだ
+      - id: l06
+        speaker: right
+        text: 返信するか考え始めるでしょ
+      - id: l07
+        speaker: left
+        text: 確かに会議が始まる
+      - id: l08
+        speaker: right
+        text: それで眠る準備が戻る
+      - id: l09
+        speaker: left
+        text: 暗くしても油断できない
+      - id: l10
+        speaker: right
+        text: 通知を先に止めるのよ
+  - id: s03
+    role: body
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: ショート動画の連鎖
+      image_direction:
+        scene_id: s03
+        dialogue_role: ボケ補強
+        scene_emotion: 混乱
+        visual_type: meme_like_diagram
+        composition_type: diagonal_flow
+        image_should_support: 20本で10分を超えるの
+        key_visual_sentence: 30秒カードが階段状に連なり出口が消える
+        main_subject: 連続するショート動画カード
+        foreground: 1枚目の動画カード
+        midground: 奥へ増えるカードと斜め矢印
+        background: 夜の紺色に赤い注意線
+        color_palette:
+          - 紺
+          - 紫
+          - 青緑
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 1本だけが20本へ
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 連続視聴の沼と時間増加が一目で分かる
+      asset_requirements:
+        description: ショート動画が連鎖して時間を失う図
+        imagegen_prompt: |
+          【用途】s03 main、ボケ補強。ショート動画1本だけのつもりが20本へ増える沼を見せる。前景に1枚目の抽象動画カードを置く。中景にカードが階段状に奥へ増え、斜め矢印で連続再生を表現する。背景は夜の紺色で、赤い注意線を薄く入れる。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在SNS UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かいサムネ文字。
+        style: 太線フラットミーム風図解
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 30秒
+        - 20本
+        - 10分超
+    dialogue:
+      - id: l01
+        speaker: left
+        text: ショート1本だけなら平気
+      - id: l02
+        speaker: right
+        text: その言葉が一番危ないわ
+      - id: l03
+        speaker: left
+        text: 1本30秒だよ？
+      - id: l04
+        speaker: right
+        text: 20本で10分を超えるの
+      - id: l05
+        speaker: left
+        text: えっ、算数が殴ってきた
+      - id: l06
+        speaker: right
+        text: しかも次が勝手に来る
+      - id: l07
+        speaker: left
+        text: 指が勝手に残業するのだ
+      - id: l08
+        speaker: right
+        text: 出口が見えない設計なのよ
+      - id: l09
+        speaker: left
+        text: じゃあ寝る前は不利だね
+      - id: l10
+        speaker: right
+        text: 意志より仕組みで止めるわ
+  - id: s04
+    role: body
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 枕元から1m離す
+      image_direction:
+        scene_id: s04
+        dialogue_role: 手順提示
+        scene_emotion: 納得
+        visual_type: before_after
+        composition_type: before_after_split
+        image_should_support: まず1mだけ離しなさい
+        key_visual_sentence: 枕元スマホを机へ移して小さい壁を作る
+        main_subject: ベッドと机へ移動するスマホ
+        foreground: 枕元のスマホ
+        midground: 机へ向かう矢印と距離の余白
+        background: 夜の部屋を抽象化した背景
+        color_palette:
+          - 紺
+          - 青緑
+          - 白
+          - 黄色
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 枕元から1m
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 物理的に離すだけで開きにくくなる手順が分かる
+      asset_requirements:
+        description: 枕元スマホを1m離す行動図
+        imagegen_prompt: |
+          【用途】s04 main、手順提示。ベッドを充電所にせず、スマホを枕元から1m離す対策を見せる。前景に枕元のスマホ、少し離れた机を中景に置き、太い矢印で移動を示す。背景は夜の部屋を抽象化し、暗くしすぎない。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在端末ロゴ、実在UI、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット室内図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 枕元NG
+        - 1m離す
+        - 机に置く
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 枕元充電が一番便利なのだ
+      - id: l02
+        speaker: right
+        text: 便利すぎるのが問題よ
+      - id: l03
+        speaker: left
+        text: 届くから安心じゃん
+      - id: l04
+        speaker: right
+        text: 届くから開くの
+      - id: l05
+        speaker: left
+        text: ぐう正論で刺された
+      - id: l06
+        speaker: right
+        text: まず1mだけ離しなさい
+      - id: l07
+        speaker: left
+        text: スマホを島流しなのだ
+      - id: l08
+        speaker: right
+        text: 机か棚で十分よ
+      - id: l09
+        speaker: left
+        text: 手を伸ばす手間が壁か
+      - id: l10
+        speaker: right
+        text: 小さい壁が効くのよ
+  - id: s05
+    role: body
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: アラームと閲覧を分ける
+      image_direction:
+        scene_id: s05
+        dialogue_role: 誤解訂正
+        scene_emotion: 驚き
+        visual_type: tsukkomi_visual
+        composition_type: flow_chart_horizontal
+        image_should_support: アラームと閲覧は別問題よ
+        key_visual_sentence: アラームだけを残し誘惑カードを切り離す
+        main_subject: アラームと閲覧カードの分離
+        foreground: アラーム時計アイコン
+        midground: 閲覧カードが赤い線で切り離される
+        background: 夜の紺色に青緑の整理ライン
+        color_palette:
+          - 紺
+          - 青緑
+          - 白
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - アラームと閲覧は別
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: アラームを理由に枕元閲覧する言い訳が崩れる
+      asset_requirements:
+        description: アラーム言い訳を分解する図
+        imagegen_prompt: |
+          【用途】s05 main、誤解訂正。アラームが必要だから枕元にスマホを置くという言い訳を分解する。前景にアラーム時計アイコン、横に閲覧カードを置く。中景で赤い分離線を引き、アラームだけを青緑の安全側へ残す。背景は夜の紺色。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在時計UI、実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット分解図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - アラーム
+        - 別置き
+        - 予備時計
+    dialogue:
+      - id: l01
+        speaker: left
+        text: でもアラームで使うのだ
+      - id: l02
+        speaker: right
+        text: ここで一回分解するわ
+      - id: l03
+        speaker: left
+        text: 言い訳を手術される
+      - id: l04
+        speaker: right
+        text: アラームと閲覧は別問題よ
+      - id: l05
+        speaker: left
+        text: 確かに起きるだけならね
+      - id: l06
+        speaker: right
+        text: 音が聞こえる距離でいい
+      - id: l07
+        speaker: left
+        text: 枕元じゃなくても鳴るのだ
+      - id: l08
+        speaker: right
+        text: 予備の時計でもいいわ
+      - id: l09
+        speaker: left
+        text: アラームの人質だった
+      - id: l10
+        speaker: right
+        text: 人質解放ね
+  - id: s06
+    role: body
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 根性より配置
+      image_direction:
+        scene_id: s06
+        dialogue_role: 中盤再フック
+        scene_emotion: 安心
+        visual_type: flowchart_scene
+        composition_type: security_visual
+        image_should_support: 通知オフを1つ作る
+        key_visual_sentence: 通知オフと置き場所変更の二段ガード
+        main_subject: 二段ガードの睡眠準備
+        foreground: 通知ベルオフのシンボル
+        midground: スマホを机へ置くガード線
+        background: 落ち着いた青緑の夜背景
+        color_palette:
+          - 紺
+          - 青緑
+          - 白
+          - グレー
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 根性より配置
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 根性論から配置と通知オフへ切り替わる
+      asset_requirements:
+        description: 通知オフと置き場所変更の二段ガード
+        imagegen_prompt: |
+          【用途】s06 main、中盤再フック。根性で見ないのではなく、通知オフと置き場所変更で寝る準備へ戻す場面。前景に通知ベルオフのシンボルを置く。中景にスマホを机へ置くガード線を配置し、二段の守りを示す。背景は落ち着いた青緑の夜背景。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。
+        style: 太線フラット安全図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 通知
+        - 置き場所
+        - 30分前
+    dialogue:
+      - id: l01
+        speaker: right
+        text: ここで一回、寝る準備へ戻すわ
+      - id: l02
+        speaker: left
+        text: 根性で見ない作戦は？
+      - id: l03
+        speaker: right
+        text: 根性は夜に弱いのよ
+      - id: l04
+        speaker: left
+        text: 夜のぼく、信用できない
+      - id: l05
+        speaker: right
+        text: 通知オフを1つ作る
+      - id: l06
+        speaker: left
+        text: 全部じゃなくて1つ？
+      - id: l07
+        speaker: right
+        text: まず一番鳴るアプリだけ
+      - id: l08
+        speaker: left
+        text: 小さく始めるのだ
+      - id: l09
+        speaker: right
+        text: 次に置き場所を変える
+      - id: l10
+        speaker: left
+        text: 配置で勝つ作戦だね
+  - id: s07
+    role: body
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 30分前だけ別モード
+      image_direction:
+        scene_id: s07
+        dialogue_role: 手順提示
+        scene_emotion: 希望
+        visual_type: three_step_board
+        composition_type: flow_chart_horizontal
+        image_should_support: 寝る前30分を別モードにする
+        key_visual_sentence: 30分前から通知オフ、充電、準備へ進む
+        main_subject: 30分前の夜モードフロー
+        foreground: 時計アイコン
+        midground: 通知オフ、充電場所、明日の準備の3ノード
+        background: 紺と青緑の落ち着いた夜背景
+        color_palette:
+          - 紺
+          - 青緑
+          - 白
+          - 黄色
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 30分前だけ変える
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 30分前だけなら実行できる低負荷な手順に見える
+      asset_requirements:
+        description: 寝る30分前の夜モード手順
+        imagegen_prompt: |
+          【用途】s07 main、手順提示。寝る何時間も前ではなく、30分前だけ別モードにする現実的な手順を見せる。前景に時計アイコンを置く。中景に通知オフ、充電場所、明日の準備の3ノードを横方向に並べ、矢印でつなぐ。背景は紺と青緑の落ち着いた夜。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。
+        style: 太線フラット手順図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 30分前
+        - 通知オフ
+        - 充電場所
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 何時間も我慢は無理なのだ
+      - id: l02
+        speaker: right
+        text: 30分前だけでいいわ
+      - id: l03
+        speaker: left
+        text: 短い門限ならいけそう
+      - id: l04
+        speaker: right
+        text: 寝る前30分を別モードにする
+      - id: l05
+        speaker: left
+        text: スマホの門限なのだ
+      - id: l06
+        speaker: right
+        text: 通知を切って充電場所へ置く
+      - id: l07
+        speaker: left
+        text: その後は何するの？
+      - id: l08
+        speaker: right
+        text: 歯磨きや明日の準備ね
+      - id: l09
+        speaker: left
+        text: 手持ち無沙汰を潰すのか
+      - id: l10
+        speaker: right
+        text: 空白を作らないのが大事よ
+  - id: s08
+    role: cta
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 今夜の1か所変更
+      image_direction:
+        scene_id: s08
+        dialogue_role: 最終行動
+        scene_emotion: 希望
+        visual_type: final_action_card
+        composition_type: three_cards
+        image_should_support: まず就寝時刻を確認して
+        key_visual_sentence: 確認、通知オフ選択、充電場所保存を3カードで示す
+        main_subject: 今夜やる3つの行動カード
+        foreground: 置き場所変更カード
+        midground: 通知オフ選択カードと予定カード
+        background: 明るい青緑の夜明け背景
+        color_palette:
+          - 青緑
+          - 紺
+          - 白
+          - 黄色
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 今夜やるのは置き場所
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 視聴後すぐ1か所だけ変える行動が分かる
+      asset_requirements:
+        description: 就寝時刻確認、通知オフ選択、充電場所保存の最終行動
+        imagegen_prompt: |
+          【用途】s08 main、最終行動。今夜やることを置き場所変更に絞り、就寝時刻確認、通知オフ選択、充電場所保存、予定化へつなぐ。前景に置き場所変更カードを大きく配置。中景に通知オフ選択カードと予定カードを並べ、矢印で流れを示す。背景は明るい青緑の夜明け風。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。
+        style: 太線フラット行動カード
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub:
+      kind: bullets
+      items:
+        - 確認
+        - 選ぶ
+        - 保存
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 今夜やるのは1か所だけ
+      - id: l02
+        speaker: left
+        text: 全部直さなくていいのだ？
+      - id: l03
+        speaker: right
+        text: まず就寝時刻を確認して
+      - id: l04
+        speaker: left
+        text: 何時に寝たいか見るのだ
+      - id: l05
+        speaker: right
+        text: 通知オフを1つ選ぶ
+      - id: l06
+        speaker: left
+        text: 一番うるさいやつだね
+      - id: l07
+        speaker: right
+        text: 充電場所をメモに保存する
+      - id: l08
+        speaker: left
+        text: 寝る30分前に予定を入れる
+      - id: l09
+        speaker: right
+        text: これで枕元卒業よ
+      - id: l10
+        speaker: left
+        text: 今夜から島流しなのだ
+

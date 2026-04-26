@@ -171,18 +171,20 @@ credits:
 台本生成時に outro シーン（最後の scene）の `sub` に以下を自動挿入する：
 
 ```yaml
-- id: "s{N}"
-  scene_template: "Scene04"
-  role: "outro"
-  main:
-    kind: "text"
-    text: "ご視聴ありがとうございました"
-  sub:
-    kind: "bullets"
-    items:
-      - "音声：VOICEVOX（ずんだもん・四国めたん）"
-      - "BGM：{曲名}（{サイト}）"
-      - "素材：いらすとや 他"
+meta:
+  layout_template: "Scene04"
+scenes:
+  - id: "s{N}"
+    role: "outro"
+    main:
+      kind: "text"
+      text: "ご視聴ありがとうございました"
+    sub:
+      kind: "bullets"
+      items:
+        - "音声：VOICEVOX（ずんだもん・四国めたん）"
+        - "BGM：{曲名}（{サイト}）"
+        - "素材：いらすとや 他"
 ```
 
 RMペアなら `音声：AquesTalk（ゆっくり音声）` に差し替え。

@@ -54,6 +54,48 @@ TERMINAL_MARKER_STATUSES = {"completed", "failed_permanent", "downloaded", "down
 TERMINAL_STAGE_STATUSES = {"done", "partial", "blocked", "failed"}
 
 
+def _is_japanese_text(text: str | None, threshold_ratio: float = 0.4) -> bool:
+    if not text:
+        return True
+    cleaned = "".join(ch for ch in text if not ch.isspace())
+    if not cleaned:
+        return True
+    japanese_count = sum(
+        1
+        for ch in cleaned
+        if "぀" <= ch <= "ゟ"  # ひらがな
+        or "゠" <= ch <= "ヿ"  # カタカナ
+        or "一" <= ch <= "鿿"  # 漢字（CJK 統合漢字）
+    )
+    return japanese_count / len(cleaned) >= threshold_ratio
+
+
+class DescLanguageError(ValueError):
+    pass
+
+
+def validate_marker_descs(
+    markers: list[dict[str, Any]],
+    retry_marker_id: str | None = None,
+) -> None:
+    invalid: list[tuple[str, str]] = []
+    for marker in markers:
+        if retry_marker_id and marker.get("id") != retry_marker_id:
+            continue
+        if marker.get("status") in {"completed", "downloaded"}:
+            continue
+        desc = marker.get("desc")
+        if desc and not _is_japanese_text(desc):
+            invalid.append((str(marker.get("id", "?")), str(desc)))
+    if invalid:
+        details = "\n".join(f"  - {mid}: {d}" for mid, d in invalid)
+        raise DescLanguageError(
+            "marker.desc に日本語以外（英文）が混入しています。"
+            "NotebookLM が拒否 → fallback の原因になるため、台本の該当 marker を"
+            "日本語に修正してください。\n" + details
+        )
+
+
 class NotebookLmCommandError(RuntimeError):
     def __init__(self, command: list[str], returncode: int, stdout: str, stderr: str):
         self.command = command
@@ -200,14 +242,29 @@ def build_add_file_source_command(notebook_id: str, script_path: Path) -> list[s
     return ["nlm", "source", "add", notebook_id, "--file", str(script_path), "--wait"]
 
 
-def build_artifact_create_command(kind: str, notebook_id: str, focus: str | None = None) -> list[str]:
-    mapping = {
-        "infographic": ["nlm", "infographic", "create", notebook_id, "--orientation", "landscape", "--language", "ja", "--confirm"],
-        "slide_deck": ["nlm", "slides", "create", notebook_id, "--language", "ja", "--confirm"],
-        "mind_map": ["nlm", "mindmap", "create", notebook_id, "--confirm"],
-        "video": ["nlm", "video", "create", notebook_id, "--format", "explainer", "--style", "classic", "--confirm"],
-    }
-    command = list(mapping[kind])
+def build_artifact_create_command(
+    kind: str,
+    notebook_id: str,
+    focus: str | None = None,
+    marker_type: str | None = None,
+) -> list[str]:
+    if kind == "infographic":
+        orientation = "portrait" if marker_type == "INFO" else "landscape"
+        command = [
+            "nlm", "infographic", "create", notebook_id,
+            "--orientation", orientation,
+            "--language", "ja",
+            "--confirm",
+        ]
+    elif kind == "slide_deck":
+        command = ["nlm", "slides", "create", notebook_id, "--language", "ja", "--confirm"]
+    elif kind == "mind_map":
+        command = ["nlm", "mindmap", "create", notebook_id, "--confirm"]
+    elif kind == "video":
+        command = ["nlm", "video", "create", notebook_id, "--format", "explainer", "--style", "classic", "--confirm"]
+    else:
+        raise ValueError(f"Unsupported artifact kind: {kind}")
+
     if kind == "mind_map" and focus:
         command.extend(["--title", focus])
     elif focus:
@@ -554,11 +611,18 @@ def merge_studio_artifacts(
     return payload.get("markers", [])
 
 
+def _marker_type(marker: dict[str, Any]) -> str:
+    marker_id = str(marker.get("id", ""))
+    return str(marker.get("type") or marker_id.split(":", 1)[0])
+
+
 def build_artifact_creation_plan(state_path: Path, retry_marker_id: str | None = None) -> list[dict[str, Any]]:
     payload = _load_state(state_path)
     notebook_id = payload.get("notebook", {}).get("id")
     if not notebook_id:
         return []
+
+    validate_marker_descs(payload.get("markers", []), retry_marker_id)
 
     plan: list[dict[str, Any]] = []
     for marker in payload.get("markers", []):
@@ -566,10 +630,17 @@ def build_artifact_creation_plan(state_path: Path, retry_marker_id: str | None =
             continue
         if not retry_marker_id and marker.get("status") in {"completed", "downloaded"}:
             continue
+        marker_type = _marker_type(marker)
         plan.append({
             "id": marker["id"],
             "kind": marker["kind"],
-            "command": build_artifact_create_command(marker["kind"], str(notebook_id), marker.get("desc")),
+            "marker_type": marker_type,
+            "command": build_artifact_create_command(
+                marker["kind"],
+                str(notebook_id),
+                marker.get("desc"),
+                marker_type=marker_type,
+            ),
             "desc": marker.get("desc"),
         })
     return plan

@@ -1,0 +1,119 @@
+{
+  "slug": "smoke-zundamon-caffeine",
+  "style": "zundamon",
+  "script_path": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\ゆっくり＆ずんだもん Codex\\workspace\\projects\\smoke-zundamon-caffeine\\zundamon\\script\\script_v1.md",
+  "notebook": {
+    "id": "d206f23e-484f-42a6-9107-ae06c61baf7b",
+    "title": "smoke-zundamon-caffeine-zundamon",
+    "status": "ready",
+    "checked_at": "2026-04-23T17:43:58Z"
+  },
+  "stages": {
+    "script_generation": {
+      "status": "done",
+      "started_at": "2026-04-23T17:42:28Z",
+      "finished_at": "2026-04-23T17:42:28Z",
+      "last_error": null,
+      "next_action": "/prepare-assets の検証を通過"
+    },
+    "asset_planning": {
+      "status": "done",
+      "started_at": "2026-04-23T17:31:46Z",
+      "finished_at": "2026-04-23T17:42:29Z",
+      "last_error": null,
+      "next_action": "/fetch-assets に進んでよい状態です。"
+    },
+    "notebooklm_upload": {
+      "status": "done",
+      "started_at": "2026-04-23T17:31:46Z",
+      "finished_at": "2026-04-23T17:43:58Z",
+      "last_error": null,
+      "next_action": "/fetch-assets を実行して素材生成に進む。補足: Codex CLI 側の MCP 設定は確認できていません。必要なら Codex 側で `mcp.json` を参照して手動設定してください。"
+    },
+    "asset_generation": {
+      "status": "done",
+      "started_at": "2026-04-23T17:33:12Z",
+      "finished_at": "2026-04-23T17:44:59Z",
+      "last_error": null,
+      "next_action": "未生成マーカーはありません。ダウンロード整合性を確認します。",
+      "total": 4,
+      "completed": 4,
+      "failed": 0
+    },
+    "asset_download": {
+      "status": "done",
+      "started_at": "2026-04-23T17:40:03Z",
+      "finished_at": "2026-04-23T17:45:41Z",
+      "last_error": null,
+      "next_action": "/audit を実行して最終監査に進む",
+      "total": 4,
+      "completed": 4,
+      "failed": 0
+    },
+    "audit": {
+      "status": "done",
+      "started_at": "2026-04-23T17:41:10Z",
+      "finished_at": "2026-04-23T17:47:16Z",
+      "last_error": null,
+      "next_action": "監査合格"
+    }
+  },
+  "markers": [
+    {
+      "id": "FIG:1",
+      "type": "FIG",
+      "seq": 1,
+      "desc": "カフェインが眠気の信号を弱める全体像",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "fig_1.png",
+      "status": "downloaded",
+      "artifact_id": "17da8e0a-94e2-4c0b-8bda-1764b0eb1d26",
+      "local_path": "../materials/generated/fig_1.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:1",
+      "type": "INFO",
+      "seq": 1,
+      "desc": "アデノシン受容体がブロックされる仕組み",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_1.png",
+      "status": "downloaded",
+      "artifact_id": "fa2a4cbc-cb1d-40c6-ba50-5773264958e0",
+      "local_path": "../materials/generated/info_1.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:2",
+      "type": "INFO",
+      "seq": 2,
+      "desc": "覚醒感が出る理由と飲みすぎの限界",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_2.png",
+      "status": "downloaded",
+      "artifact_id": "a454d129-7f5d-4bbf-a90d-c2eb9ae45c08",
+      "local_path": "../materials/generated/info_2.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "SLIDE:1",
+      "type": "SLIDE",
+      "seq": 1,
+      "desc": "カフェインの仕組みと注意点の要点3つ",
+      "kind": "slide_deck",
+      "extension": "pdf",
+      "output_name": "slide_1.pdf",
+      "status": "downloaded",
+      "artifact_id": "a19db590-7142-4dec-a8c0-912b70f70e5b",
+      "local_path": "../materials/generated/slide_1.pdf",
+      "reason": null,
+      "retry_count": 0
+    }
+  ]
+}

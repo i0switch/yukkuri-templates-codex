@@ -1,0 +1,161 @@
+project:
+  slug: ep003-cognitive-traps
+  style: yukkuri
+
+assets:
+  - scene_id: "01"
+    scene_title: "自分は冷静、と思った瞬間が罠"
+    insert_timing: "0:00–0:40"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**霊夢**：私、見出しだけで内容はわかるのよ。冷静に判断できる方なの。 **魔理沙**：待て、その「冷静に判断できる」って思った瞬間が今日の罠だぜ。 **霊夢**：罠？私が？ [FIG:1] 5つの認知の罠の全体像。中央に脳のシルエット、"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: FIG
+      orientation: landscape
+      detail_level: standard
+      text_density: low
+    must_include:
+      - "自分は冷静、と思った瞬間が罠"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "02"
+    scene_title: "信じたいから集める罠と、その対策"
+    insert_timing: "0:40–1:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**魔理沙**：1つ目は確証バイアスだ。信じたい情報だけ集める癖のことだぜ。 **霊夢**：それ卑怯じゃない？ [INFO:1] 確証バイアスの比喩図。手に持ったふるいから青い玉だけが下に落ち、赤い玉は弾かれる構図。白背景・フラット・青系。"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "信じたいから集める罠と、その対策"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "03"
+    scene_title: "慣れすぎると見えなくなる罠"
+    insert_timing: "1:30–2:20"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**魔理沙**：2つ目はゲシュタルト崩壊。同じ字を見すぎて変に見える現象だ。 **霊夢**：あ、これ知ってるわ。漢字を30秒見たら歪んで見えたわよ。 [INFO:3] ゲシュタルト崩壊の抽象視覚化。中央に文字風の幾何学図形（実在の漢字ではな"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "慣れすぎると見えなくなる罠"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "04"
+    scene_title: "選択的注意と聞き逃しの罠"
+    insert_timing: "2:20–3:10"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**魔理沙**：3つ目はカクテルパーティ効果。カフェで自分の名前だけ拾う現象だ。 **霊夢**：あ、私もよくあるわ。集中力が高い証拠じゃないの？ [INFO:5] カクテルパーティ効果の視覚化。複数の人影シルエットが点在し、中央から黄色の波"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "選択的注意と聞き逃しの罠"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "05"
+    scene_title: "当たる気がする罠と、直前情報の罠"
+    insert_timing: "3:10–4:20"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**魔理沙**：4つ目はフォアラー効果。占いや診断が当たる気がする理由の罠だ。 **霊夢**：占いって全部偶然じゃないの？ [INFO:7] 鏡の前の人影と星印で、自分に当てはまる感覚を示す白背景フラット図。紫青系で文字なし。 **魔理沙*"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "当たる気がする罠と、直前情報の罠"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "06"
+    scene_title: "直感じゃなく1個ずらす"
+    insert_timing: "4:20–5:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**魔理沙**：5つの罠、まとめるぜ。 **霊夢**：結局気合で防ぐの？ [SLIDE:1] 5つの認知の罠まとめスライド。横並びの5つの円形アイコン（確証バイアス／ゲシュタルト崩壊／カクテルパーティ効果／フォアラー効果／プライミング）と、"
+    asset_type:
+      - slide_deck
+    notebooklm_candidate:
+      primary: slide_deck
+      secondary: report
+    visual_parameters:
+      marker_type: SLIDE
+      orientation: portrait
+      detail_level: concise
+      text_density: low
+    must_include:
+      - "直感じゃなく1個ずらす"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"

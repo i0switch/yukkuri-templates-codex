@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "tracks": [
+    {
+      "id": "dova-16211",
+      "title": "upbeat step",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "download_url": "https://dova-s.jp/bgm/download.php?id=16211",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "credit_required": false,
+      "moods": ["upbeat", "light", "educational", "calm", "mysterious"],
+      "tones": ["軽快で実用的", "軽快なミステリー雑学", "やさしい科学ミステリー", "やさしい生物ミステリー"],
+      "pairs": [],
+      "volume": 0.09,
+      "fade_in_sec": 1.0,
+      "fade_out_sec": 1.5
+    }
+  ]
+}

@@ -53,3 +53,26 @@ Claude Code はこの仕様に従って台本から素材要求を抽出し、No
 [SLIDE:1] -> slide_1.pdf
 [VIDEO:1] -> video_1.mp4
 ```
+
+## 言語ルール（必達）
+
+`<要求内容1行説明>`（marker.desc）は **日本語のみ**で記述する。
+
+- 英文（ASCII alphabet のみで構成された語、空白除去後 60% 以上が ASCII alphabet）が含まれる desc は NotebookLM が拒否しやすく、結果として fallback 画像が生成される原因になる
+- 固有名詞・専門用語の英語ラベル（例：`CRISPR`、`DNA`、`NotebookLM`）は許容するが、説明文の地文は必ず日本語で書く
+- desc は `notebooklm_runner.py` の `build_artifact_create_command` の `--focus` 引数として渡される。この引数は NotebookLM 内部で図内文言の生成シードとして使われるため、日本語でないと図内が英文化する
+
+## main / sub 差別化要件
+
+scene_template が main + sub 構成（`Scene02 / 03 / 10 / 13 / 14`）の場合、main 用と sub 用は別 marker として分け、内容を差別化する：
+
+- **main**：そのシーンの主訴を 1 つだけ。横長レイアウトに耐える構図。タイトル要素なし
+- **sub**：main を補完する観点（比較・チェックリスト・注意点・補足）。3 項目以内の小要素だけ。文字主体
+
+main marker と sub marker の `desc` 内容が同一だと NotebookLM が同じ artifact を返してしまい main/sub 同一画像になる。`desc` 文言を必ず変える。
+
+## 失敗時の挙動
+
+- NotebookLM が拒否（kind=infographic で生成失敗）した場合、**fallback 画像（`create_fallback_cards.py` 由来）を採用しない**
+- 失敗 marker は `status = failed_permanent` または `download_failed` で残し、retry または手動介入で解決する
+- `quality-criteria.json` の `asset_quality.fallback_count_max: 0` により、fallback が混入した時点で audit が FAIL になる

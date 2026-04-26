@@ -1,0 +1,573 @@
+meta:
+  episode_id: "ep004-zundamon-everyday-physics"
+  layout_template: "Scene04"
+  character_pair: "ZM"
+  title: "ふだん使ってるのに知らない物理現象5選"
+  voice_engine: "voicevox"
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.09
+  fade_in_sec: 1.0
+  fade_out_sec: 1.5
+characters:
+  left:
+    character: "zundamon"
+    voicevox_speaker_id: 3
+  right:
+    character: "metan"
+    voicevox_speaker_id: 2
+scenes:
+  - id: s01
+    title_text: "シャワーの水が曲がる理由"
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: "シャワー水流"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          シャワーヘッドから水流が手のシルエットへ巻き付く構図。色は水色系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、人物の顔、実在ブランド"
+        nlm_marker_id: "[FIG:1]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "ずんだもんなのだ。"
+      - id: l02
+        speaker: right
+        text: "わたくしが四国めたんですわ。"
+      - id: l03
+        speaker: left
+        text: "シャワーの水って、手にまとわりつくね。"
+      - id: l04
+        speaker: right
+        text: "それ、名前のある物理現象よ。"
+      - id: l05
+        speaker: left
+        text: "えっ、毎日のあれが？"
+      - id: l06
+        speaker: right
+        text: "今日は身近な物理現象を5つ紹介するわ。"
+
+  - id: s02
+    title_text: "物理は毎日触ってる5つある"
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: "5つの現象"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          中央に抽象的な物理アイコン、周囲に5つのドットを等間隔に配置。色は青緑系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、人物の顔、実在ブランド"
+        nlm_marker_id: "[INFO:1]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "物理は学校で終わったと思った？"
+      - id: l02
+        speaker: left
+        text: "思ってた、もう関係ないじゃん。"
+      - id: l03
+        speaker: right
+        text: "目安として、1日に何十回か触れてるのよ。"
+      - id: l04
+        speaker: left
+        text: "えっ、毎日？！"
+      - id: l05
+        speaker: right
+        text: "今日紹介する5つは全部、毎日のあれよ。"
+      - id: l06
+        speaker: left
+        text: "ボクの日常、物理だらけなのだ？"
+      - id: l07
+        speaker: right
+        text: "ええ。全部に名前があるの。"
+      - id: l08
+        speaker: left
+        text: "早く知りたいな。"
+
+  - id: s03
+    title_text: "水は壁に沿って流れたがる"
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: "コアンダ効果"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          スプーンの裏側に水流が沿って流れる構図。色は水色とシルバー。
+          16:9 アスペクト比。文字・数字・ロゴ・実在ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在ブランド、人物の顔"
+        nlm_marker_id: "[INFO:2]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "1つ目はコアンダ効果よ。"
+      - id: l02
+        speaker: left
+        text: "ボク、知ってた気がする。"
+      - id: l03
+        speaker: right
+        text: "本当に？説明できる？"
+      - id: l04
+        speaker: left
+        text: "……名前だけ知ってたのだ。"
+      - id: l05
+        speaker: right
+        text: "水は壁に沿って流れたがる現象なの。"
+      - id: l06
+        speaker: left
+        text: "スプーン裏で水が逃げないやつ？"
+      - id: l07
+        speaker: right
+        text: "そう、蛇口の水を指で受けたら沿うでしょ？"
+      - id: l08
+        speaker: left
+        text: "本当に身近すぎるね。"
+      - id: l09
+        speaker: right
+        text: "これ、もっと大きな場所でも使われてるのよ。"
+
+  - id: s04
+    title_text: "飛行機の翼にも使われてる"
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: "翼の流れ"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          翼の断面に上面を流れる風の流線を描く構図。色は青系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在航空機ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在航空機ブランド"
+        nlm_marker_id: "[INFO:3]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "応用例の1つが飛行機の翼よ。"
+      - id: l02
+        speaker: left
+        text: "えっ、飛行機？！"
+      - id: l03
+        speaker: right
+        text: "翼の表面に空気が沿う一例ね。"
+      - id: l04
+        speaker: left
+        text: "台所から空までつながるのだ？"
+      - id: l05
+        speaker: right
+        text: "揚力は複数の説明が重なるの。"
+      - id: l06
+        speaker: left
+        text: "ひとつだけで決まらないんだね。"
+      - id: l07
+        speaker: right
+        text: "でも、流れが面に沿う見方は大事よ。"
+      - id: l08
+        speaker: left
+        text: "めたん、これ覚えとく。"
+      - id: l09
+        speaker: right
+        text: "では2つ目に進みましょう。"
+
+  - id: s05
+    title_text: "タオルが水を吸い上げる謎"
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: "毛細管現象"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          タオルが水を吸い上げ、上向き矢印で水の移動を示す構図。色は青系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在タオルブランド"
+        nlm_marker_id: "[INFO:4]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "2つ目は毛細管現象よ。"
+      - id: l02
+        speaker: left
+        text: "タオル、宇宙のもの吸ってるのだ。"
+      - id: l03
+        speaker: right
+        text: "宇宙までは無理よ、地球の中だけね。"
+      - id: l04
+        speaker: left
+        text: "あっ、ちょっと残念。"
+      - id: l05
+        speaker: right
+        text: "細い隙間があると水が登るの。"
+      - id: l06
+        speaker: left
+        text: "細いと、水がはい上がるんだ？"
+      - id: l07
+        speaker: right
+        text: "重力に勝つというより、表面張力と濡れね。"
+      - id: l08
+        speaker: left
+        text: "ボクも何か染みてみたいな。"
+      - id: l09
+        speaker: right
+        text: "そこは染みなくていいわ。"
+
+  - id: s06
+    title_text: "細い隙間が水を引っ張る"
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: "細い管の水"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          細い管の束の中を水が上昇する図。緑と青系の清潔な配色。
+          16:9 アスペクト比。文字・数字・ロゴ・実在植物名は一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在植物名"
+        nlm_marker_id: "[INFO:5]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "植物の根が水を吸うのも、これと同じ仕組みよ。"
+      - id: l02
+        speaker: left
+        text: "えっ、植物もこれ？！"
+      - id: l03
+        speaker: right
+        text: "細い管が中にたくさん通ってるからよ。"
+      - id: l04
+        speaker: left
+        text: "ボクの観葉植物、頑張ってたね。"
+      - id: l05
+        speaker: right
+        text: "木の幹も同じ。何メートルも上に水が登るの。"
+      - id: l06
+        speaker: left
+        text: "木って、しれっと物理してるのだ。"
+      - id: l07
+        speaker: right
+        text: "紙ナプキンに水がにじむのも同じ仕組みよ。"
+      - id: l08
+        speaker: left
+        text: "身の回り、毛細管だらけじゃん。"
+      - id: l09
+        speaker: right
+        text: "3つ目は飲み物のあのやつね。"
+
+  - id: s07
+    title_text: "ストローで吸うときの不思議"
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: "大気圧"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          コップとストロー、外側から水面を押す大気圧の矢印を配置。色は青系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在飲料ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在飲料ブランド"
+        nlm_marker_id: "[INFO:6]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "ここまで2つ。3つ目は飲み物のあれよ。"
+      - id: l02
+        speaker: left
+        text: "ストロー！？毎日吸ってる。"
+      - id: l03
+        speaker: right
+        text: "そう。でも実は吸ってるんじゃないのよ。"
+      - id: l04
+        speaker: left
+        text: "えっ、ボク吸ってるじゃん！"
+      - id: l05
+        speaker: right
+        text: "あなたが口の中の圧を下げる。"
+      - id: l06
+        speaker: left
+        text: "そしたら何が起きるの？"
+      - id: l07
+        speaker: right
+        text: "周りの大気圧が水面を押し上げてるの。"
+      - id: l08
+        speaker: left
+        text: "吸ってるんじゃなく押されてるのだ？"
+      - id: l09
+        speaker: right
+        text: "そう。あなたは引っ張ってないのよ。"
+      - id: l10
+        speaker: left
+        text: "ボクの世界観、揺らいだ。"
+
+  - id: s08
+    title_text: "細いところで速く流れる仕組み"
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: "ベンチュリ効果"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          ホースの口が細く絞られ、水流が長く伸びる構図。色は青系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在園芸ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在園芸ブランド"
+        nlm_marker_id: "[INFO:7]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "4つ目はベンチュリ効果よ。"
+      - id: l02
+        speaker: left
+        text: "狭いと詰まるはずなのだ。"
+      - id: l03
+        speaker: right
+        text: "それが意外と逆なの。"
+      - id: l04
+        speaker: left
+        text: "嘘でしょ、流れにくくなるじゃん。"
+      - id: l05
+        speaker: right
+        text: "ホースの口を指で絞ると、水が遠くまで飛ぶでしょ？"
+      - id: l06
+        speaker: left
+        text: "あ、めっちゃ飛ぶ。"
+      - id: l07
+        speaker: right
+        text: "細い場所では流れが速くなるの。"
+      - id: l08
+        speaker: left
+        text: "知らずに毎回やってたのだ。"
+      - id: l09
+        speaker: right
+        text: "次はその応用例ね。"
+
+  - id: s09
+    title_text: "霧吹きが液体を吸い出す理由"
+    main:
+      kind: image
+      asset: assets/s09_main.png
+      caption: "霧吹きの仕組み"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          霧吹きノズルの断面、速い空気流と下から吸い上がる液体を矢印で示す。
+          色は青系。16:9 アスペクト比。文字・数字・ロゴ・実在製品ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在製品ブランド、危険行為"
+        nlm_marker_id: "[INFO:8]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "霧吹きも、この応用例よ。"
+      - id: l02
+        speaker: left
+        text: "押してるだけじゃないの？"
+      - id: l03
+        speaker: right
+        text: "速い空気の流れが、液体を引き込むの。"
+      - id: l04
+        speaker: left
+        text: "空気が液体を連れてくるのだ？"
+      - id: l05
+        speaker: right
+        text: "そう。圧が下がる場所へ液体が上がるの。"
+      - id: l06
+        speaker: left
+        text: "ホースと霧吹きが仲間なんだ。"
+      - id: l07
+        speaker: right
+        text: "細い口、速い流れ、圧の変化がセットね。"
+      - id: l08
+        speaker: left
+        text: "家の道具、急に賢く見える。"
+      - id: l09
+        speaker: right
+        text: "ただし速い流れには弱点もあるわ。"
+      - id: l10
+        speaker: left
+        text: "え、物理に副作用あるの？"
+
+  - id: s10
+    title_text: "速すぎる流れは泡も作る"
+    main:
+      kind: image
+      asset: assets/s10_main.png
+      caption: "圧力低下の泡"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          船のスクリュー周辺に小さな気泡が発生する図。色は青系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在船舶ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在船舶ブランド、危険な実験描写"
+        nlm_marker_id: "[INFO:9]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "圧が下がりすぎると、水に泡が生まれることもあるの。"
+      - id: l02
+        speaker: left
+        text: "泡まで？ボクのお風呂でも起きるのだ？"
+      - id: l03
+        speaker: right
+        text: "お風呂の規模では、ほぼ起きないわ。"
+      - id: l04
+        speaker: left
+        text: "よかった、入浴が無事だった。"
+      - id: l05
+        speaker: right
+        text: "船のスクリューでは金属を傷めることがあるの。"
+      - id: l06
+        speaker: left
+        text: "速い流れ、便利だけど怖いね。"
+      - id: l07
+        speaker: right
+        text: "これはキャビテーションと呼ばれる損失現象よ。"
+      - id: l08
+        speaker: left
+        text: "4つ目の裏側まで見えた。"
+      - id: l09
+        speaker: right
+        text: "では最後、空と地面の話に行くわよ。"
+
+  - id: s11
+    title_text: "雲ない夜が一番寒くなる理由"
+    main:
+      kind: image
+      asset: assets/s11_main.png
+      caption: "放射冷却"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          夜空と地面、地面から宇宙へ熱が逃げる上向き矢印を配置。色は紺系。
+          16:9 アスペクト比。文字・数字・ロゴ・実在天文ブランドは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在天文ブランド"
+        nlm_marker_id: "[INFO:10]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "5つ目は放射冷却よ。"
+      - id: l02
+        speaker: left
+        text: "これも知らない、難しそう。"
+      - id: l03
+        speaker: right
+        text: "地面の熱が宇宙へ逃げる現象よ。"
+      - id: l04
+        speaker: left
+        text: "宇宙へ？でも雲があるじゃん。"
+      - id: l05
+        speaker: right
+        text: "雲は布団なの。雲があると逃げにくい。"
+      - id: l06
+        speaker: left
+        text: "雲は寒さのバリアじゃないのだ？"
+      - id: l07
+        speaker: right
+        text: "逆ね。晴れた夜のほうが冷えるの。"
+      - id: l08
+        speaker: left
+        text: "布団も宇宙へ熱逃げるの？"
+      - id: l09
+        speaker: right
+        text: "布団は逃さないのよ。ありがたいわね。"
+      - id: l10
+        speaker: left
+        text: "めたん、今日めっちゃ詳しい。"
+
+  - id: s12
+    title_text: "日常の見え方が変わる"
+    main:
+      kind: image
+      asset: assets/s12_main.png
+      caption: "1つ選ぶ"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットなアイコンスタイルのイラスト、白背景。
+          5つの円形アイコンを横並びにし、1つに緑の丸印を付ける。色は緑強調。
+          16:9 アスペクト比。文字・数字・ロゴ・実在UIは一切入れない。
+        style: "フラット・アイコン系"
+        aspect: "16:9"
+        negative: "写真風、リアル調、文字、ロゴ、実在UI、実在ブランド"
+        nlm_marker_id: "[SLIDE:1]"
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: "5つの現象、まとめましょう。"
+      - id: l02
+        speaker: left
+        text: "全部に名前があるのだ。"
+      - id: l03
+        speaker: right
+        text: "気づく目線こそが、得るものよ。"
+      - id: l04
+        speaker: left
+        text: "今日からどうすればいい？"
+      - id: l05
+        speaker: right
+        text: "まず今日触った1つを思い出す。"
+      - id: l06
+        speaker: left
+        text: "シャワーかストローかな。"
+      - id: l07
+        speaker: right
+        text: "次に、気になる現象を1つ選ぶ。"
+      - id: l08
+        speaker: left
+        text: "ボクはコアンダ効果がいい。"
+      - id: l09
+        speaker: right
+        text: "そして明日もう一度観察するの。"
+      - id: l10
+        speaker: left
+        text: "3手ならすぐできそうだね。"
+      - id: l11
+        speaker: right
+        text: "コメントでは、気づいた現象を1つ教えてね。"
+      - id: l12
+        speaker: left
+        text: "みんなの発見も見たいのだ。"
+      - id: l13
+        speaker: right
+        text: "今日の動画はここまでよ。最後までご視聴ありがとう。"
+      - id: l14
+        speaker: left
+        text: "高評価とチャンネル登録、よろしくなのだ。"

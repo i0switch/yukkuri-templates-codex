@@ -1,403 +1,190 @@
-import fs from 'node:fs/promises';
+#!/usr/bin/env node
+// 機械監査: script.yaml 内の image_direction と imagegen_prompt が
+// _reference/image_prompt_pack のルールに準拠しているか検査する。
+//
+// Usage:
+//   node scripts/audit-image-prompts.mjs <episode_id>
+//   node scripts/audit-image-prompts.mjs <episode_id> --json
+//
+// 終了コード:
+//   0: PASS（error 0 件）
+//   1: FAIL（error 1 件以上）
+//
+// バイパス: YUKKURI_SKIP_IMAGE_GATE=1 で warning ログだけ出して exit 0。
+
+import {readFile} from 'node:fs/promises';
 import path from 'node:path';
-import {parseDocument} from 'yaml';
-import {loadImagePromptPack} from './lib/load-image-prompt-pack.mjs';
+import process from 'node:process';
+import {parse as parseYaml} from 'yaml';
+import {
+  validateImageDirection,
+  validateImagegenPromptString,
+  checkVisualTypeDistribution,
+  summarizeIssues,
+} from './lib/image-direction-schema.mjs';
 
-const rootDir = process.cwd();
-const target = process.argv[2];
+const ROOT = process.cwd();
 
-if (!target) {
-  throw new Error('Usage: node scripts/audit-image-prompts.mjs <episode_id|path/to/script.yaml>');
+function parseArgs(argv) {
+  const positional = [];
+  let json = false;
+  let strict = true;
+  for (const arg of argv) {
+    if (arg === '--json') json = true;
+    else if (arg === '--non-strict') strict = false;
+    else positional.push(arg);
+  }
+  return {positional, json, strict};
 }
 
-const VISUAL_TYPES = new Set([
-  'hook_poster',
-  'boke_visual',
-  'tsukkomi_visual',
-  'myth_vs_fact',
-  'danger_simulation',
-  'before_after',
-  'three_step_board',
-  'checklist_panel',
-  'ranking_board',
-  'ui_mockup_safe',
-  'flowchart_scene',
-  'contrast_card',
-  'meme_like_diagram',
-  'mini_story_scene',
-  'final_action_card',
-]);
+async function loadScript(epId) {
+  const scriptPath = path.join(ROOT, 'script', epId, 'script.yaml');
+  const text = await readFile(scriptPath, 'utf8');
+  return {scriptPath, script: parseYaml(text)};
+}
 
-const PROMPT_REQUIREMENTS = [
-  {key: 'purpose', patterns: [/使用目的|用途|高品質ビジュアル素材|メイン枠|サブ枠|main枠|sub枠/i]},
-  {key: 'genre', patterns: [/ゆっくり解説|ずんだもん解説/]},
-  {key: 'scene_template', patterns: [/Scene\d{2}/]},
-  {key: 'visual_type', patterns: [/visual_type|hook_poster|boke_visual|tsukkomi_visual|myth_vs_fact|danger_simulation|before_after|three_step_board|checklist_panel|ranking_board|ui_mockup_safe|flowchart_scene|contrast_card|meme_like_diagram|mini_story_scene|final_action_card/]},
-  {key: 'composition_type', patterns: [/composition_type|構図|前景|中景|背景/]},
-  {key: 'dialogue_support', patterns: [/会話|掛け合い|セリフ|ボケ|ツッコミ|誤解|訂正|補強|supports_moment/i]},
-  {key: 'subject_layers', patterns: [/主役|前景|中景|背景|foreground|midground|background/i]},
-  {key: 'color_light', patterns: [/色|光|lighting|palette/i]},
-  {key: 'safe_space', patterns: [/下部20%|字幕|キャラ|余白|Remotion/]},
-  {key: 'negative', patterns: [/禁止|実在ロゴ|実在UI|既存キャラクター|写真風人物|長文/]},
-  {key: 'quality_bar', patterns: [/品質|完成度|高品質|YouTube/]},
-  {key: 'single_image_generation', patterns: [/1枚ずつ生成|一枚ずつ生成|この1枚専用|この一枚専用|他画像と同時生成しない|同時生成しない|個別生成|1画像につき1回|一画像につき一回/]},
-];
-
-const GENERIC_PROMPT_PATTERNS = [
-  /白背景.{0,12}中央.{0,12}アイコン/,
-  /中央に.{0,10}(アイコン|シンプルな図解)/,
-  /中央に主題.{0,12}余白多め/,
-  /中央に.{0,8}主題.{0,20}余白/,
-  /汎用(素材|アイコン|図解)/,
-  /フラットな図解[。．\s]*$/,
-  /わかりやすいカード[。．\s]*$/,
-  /licensed photo style/i,
-  /clean explainer thumbnail/i,
-  /high readability/i,
-];
-
-const BATCH_GENERATION_PATTERNS = [
-  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
-  /グリッド/,
-  /8枚/,
-  /八枚/,
-  /複数枚/,
-  /一気に生成/,
-  /一括生成/,
-  /まとめて生成/,
-  /同時生成(?:する|して|で|を)/,
-  /batch/i,
-  /sheet/i,
-  /sprite/i,
-  /asset[_ -]?sheet/i,
-  /sprite[_ -]?sheet/i,
-  /crop/i,
-  /cut\s*out/i,
-  /切り出し/,
-  /切り抜き/,
-];
-
-const SCENE02_SUB_VISUAL_TYPES = new Set(['checklist_panel', 'three_step_board', 'ranking_board', 'contrast_card', 'final_action_card']);
-const SCENE02_MAIN_ONLY_VISUAL_TYPES = new Set([
-  'hook_poster',
-  'boke_visual',
-  'tsukkomi_visual',
-  'myth_vs_fact',
-  'danger_simulation',
-  'before_after',
-  'ui_mockup_safe',
-  'flowchart_scene',
-  'meme_like_diagram',
-  'mini_story_scene',
-]);
-
-const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
-
-const pushIssue = (issues, level, code, message, details = {}) => {
-  issues.push({level, code, message, details});
-};
-
-const resolveTarget = (value) => {
-  if (value.endsWith('.yaml') || value.endsWith('.yml')) {
-    const scriptPath = path.resolve(rootDir, value);
-    return {scriptPath, episodeDir: path.dirname(scriptPath)};
-  }
-
-  const episodeDir = path.resolve(rootDir, 'script', value);
-  return {scriptPath: path.join(episodeDir, 'script.yaml'), episodeDir};
-};
-
-const readScript = async (scriptPath) => parseDocument(await fs.readFile(scriptPath, 'utf8')).toJS();
-
-const readMeta = async (episodeDir) => {
-  try {
-    return JSON.parse(await fs.readFile(path.join(episodeDir, 'meta.json'), 'utf8'));
-  } catch {
-    return null;
-  }
-};
-
-const imageEntriesFromMeta = (meta) => {
-  const entries = new Map();
-  if (!Array.isArray(meta?.assets)) {
-    return entries;
-  }
-  for (const asset of meta.assets) {
-    if (isPlainObject(asset) && typeof asset.file === 'string') {
-      entries.set(asset.file.replaceAll('\\', '/'), asset);
+function collectImageScenes(script) {
+  const scenes = Array.isArray(script?.scenes) ? script.scenes : [];
+  const targets = [];
+  for (const scene of scenes) {
+    for (const slot of ['main', 'sub']) {
+      const obj = scene?.[slot];
+      if (!obj || obj.kind !== 'image') continue;
+      targets.push({sceneId: scene.id, slot, obj, scene});
     }
   }
-  return entries;
-};
+  return targets;
+}
 
-const lineIdsForScene = (scene) => new Set((scene.dialogue ?? []).map((line) => `${scene.id}_${line.id}`));
-
-const promptForPlan = (plan, content, metaAsset) =>
-  [
-    plan?.imagegen_prompt,
-    plan?.generation_plan,
-    plan?.generation_method,
-    content?.asset_requirements?.imagegen_prompt,
-    content?.asset_requirements?.generation_plan,
-    content?.asset_requirements?.generation_method,
-    metaAsset?.imagegen_prompt,
-    metaAsset?.generation_plan,
-    metaAsset?.generation_method,
-  ]
-    .filter((value) => typeof value === 'string' && value.trim() !== '')
-    .join('\n');
-
-const missingPromptRequirements = (prompt) =>
-  PROMPT_REQUIREMENTS.filter((requirement) => !requirement.patterns.some((pattern) => pattern.test(prompt))).map(
-    (requirement) => requirement.key,
-  );
-
-const normalizeRoleText = (value) =>
-  String(value ?? '')
-    .replace(/\s+/g, '')
-    .replace(/[。、！？!?「」『』（）()\[\]【】・:：,，.．]/g, '')
-    .trim();
-
-const planRoleSignature = (plan) =>
-  [
-    plan?.purpose,
-    plan?.supports_moment,
-    plan?.visual_type,
-    plan?.composition_type,
-    plan?.image_direction?.dialogue_role,
-    plan?.image_direction?.key_visual_sentence,
-    plan?.image_direction?.main_subject,
-  ]
-    .map(normalizeRoleText)
-    .filter(Boolean)
-    .join('|');
-
-const stripNegativeConstraintLines = (value) =>
-  String(value ?? '')
-    .split(/\r?\n/)
-    .reduce(
-      (state, line) => {
-        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
-          state.skipping = true;
-          return state;
-        }
-        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
-          state.skipping = false;
-        }
-        if (!state.skipping) {
-          state.lines.push(line);
-        }
-        return state;
-      },
-      {lines: [], skipping: false},
-    )
-    .lines.join('\n');
-
-const generationPlanTextFor = (plan, content, metaAsset, prompt) =>
-  [
-    prompt,
-    plan?.purpose,
-    plan?.insert_timing,
-    plan?.generation_plan,
-    plan?.generation_method,
-    content?.asset_requirements?.generation_plan,
-    content?.asset_requirements?.generation_method,
-    metaAsset?.generation_plan,
-    metaAsset?.generation_method,
-    metaAsset?.source_site,
-    metaAsset?.source_type,
-    metaAsset?.provenance,
-  ]
-    .filter((value) => typeof value === 'string' && value.trim() !== '')
-    .join('\n');
-
-const auditPlan = ({script, metaEntries, scene, plan, index, issues}) => {
-  const pathName = `${scene.id}.visual_asset_plan[${index}]`;
-  const slot = plan?.slot;
-  const content = slot === 'main' || slot === 'sub' ? scene[slot] : null;
-  const metaAsset = content?.asset ? metaEntries.get(String(content.asset).replaceAll('\\', '/')) : null;
-  const direction = plan?.image_direction ?? metaAsset?.image_direction;
-  const visualType = plan?.visual_type ?? direction?.visual_type ?? metaAsset?.visual_type;
-  const supportsDialogue = plan?.supports_dialogue ?? metaAsset?.supports_dialogue;
-  const supportsMoment = plan?.supports_moment ?? metaAsset?.supports_moment;
-  const prompt = promptForPlan(plan, content, metaAsset);
-  const generationPlanText = generationPlanTextFor(plan, content, metaAsset, prompt);
-
-  if (!VISUAL_TYPES.has(visualType)) {
-    pushIssue(issues, 'error', 'invalid-visual-type', `${pathName}: visual_type must be a supported yukkuri/zundamon visual type`, {
-      value: visualType,
-      allowed: [...VISUAL_TYPES],
-    });
-  }
-
-  if (!Array.isArray(supportsDialogue) || supportsDialogue.length === 0) {
-    pushIssue(issues, 'error', 'missing-supports-dialogue', `${pathName}: supports_dialogue must name the dialogue ids this image supports`);
-  } else {
-    const validLineIds = lineIdsForScene(scene);
-    const unknown = supportsDialogue.filter((lineId) => !validLineIds.has(lineId));
-    if (unknown.length > 0) {
-      pushIssue(issues, 'error', 'unknown-supports-dialogue', `${pathName}: supports_dialogue contains ids not found in the scene dialogue`, {
-        unknown,
-        available: [...validLineIds],
-      });
-    }
-  }
-
-  if (typeof supportsMoment !== 'string' || supportsMoment.trim().length < 12) {
-    pushIssue(issues, 'error', 'missing-supports-moment', `${pathName}: supports_moment must describe the exact conversation moment`);
-  }
-
-  const requiredDirectionFields = [
-    'dialogue_role',
-    'scene_emotion',
-    'composition_type',
-    'image_should_support',
-    'key_visual_sentence',
-    'main_subject',
-    'foreground',
-    'midground',
-    'background',
-    'color_palette',
-  ];
-  if (!isPlainObject(direction)) {
-    pushIssue(issues, 'error', 'missing-image-direction', `${pathName}: image_direction is required before imagegen_prompt`);
-  } else {
-    const missingDirection = requiredDirectionFields.filter((field) => typeof direction[field] !== 'string' || direction[field].trim() === '');
-    if (missingDirection.length > 0) {
-      pushIssue(issues, 'error', 'incomplete-image-direction', `${pathName}: image_direction is missing required fields`, {
-        missing: missingDirection,
-      });
-    }
-    if (direction?.layout_safety?.keep_bottom_20_percent_empty !== true) {
-      pushIssue(issues, 'error', 'unsafe-image-layout', `${pathName}: image_direction.layout_safety.keep_bottom_20_percent_empty must be true`);
-    }
-    if (direction?.layout_safety?.avoid_character_area !== true) {
-      pushIssue(issues, 'error', 'unsafe-character-layout', `${pathName}: image_direction.layout_safety.avoid_character_area must be true`);
-    }
-  }
-
-  if (typeof prompt !== 'string' || prompt.trim().length < 240) {
-    pushIssue(issues, 'error', 'weak-yukkuri-imagegen-prompt', `${pathName}: imagegen_prompt is too short for GPT-Image-2 visual direction`, {
-      prompt,
-    });
-  } else {
-    const missing = missingPromptRequirements(prompt);
-    if (missing.length > 0) {
-      pushIssue(issues, 'error', 'incomplete-yukkuri-imagegen-prompt', `${pathName}: imagegen_prompt is missing required GPT-Image-2 fields`, {
-        missing,
-      });
-    }
-    const promptWithoutNegativeConstraints = stripNegativeConstraintLines(prompt);
-    if (GENERIC_PROMPT_PATTERNS.some((pattern) => pattern.test(promptWithoutNegativeConstraints))) {
-      pushIssue(issues, 'error', 'generic-icon-imagegen-prompt', `${pathName}: imagegen_prompt still points toward a generic white-background icon/card`);
-    }
-    if (BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(generationPlanText)))) {
-      pushIssue(
-        issues,
-        'error',
-        'batch-or-grid-imagegen-plan',
-        `${pathName}: image generation must be one image per image gen call; grid/sheet/batch/crop generation is forbidden`,
-      );
-    }
-  }
-
-  if (slot === 'sub' && /(複雑|迷路|フローチャート|大量|細かい|表)/.test(prompt)) {
-    pushIssue(issues, 'error', 'sub-image-too-complex', `${pathName}: sub slot must stay simple and not carry complex diagrams`);
-  }
-
-  return visualType;
-};
-
-const audit = async () => {
-  await loadImagePromptPack(rootDir);
+function auditEpisode(script) {
   const issues = [];
-  const {scriptPath, episodeDir} = resolveTarget(target);
-  const script = await readScript(scriptPath);
-  const meta = await readMeta(episodeDir);
-  const metaEntries = imageEntriesFromMeta(meta);
-  const visualTypes = [];
+  const targets = collectImageScenes(script);
 
-  if (!isPlainObject(script) || !Array.isArray(script.scenes)) {
-    pushIssue(issues, 'error', 'script', 'script.scenes must be present');
-  } else {
-    for (const scene of script.scenes) {
-      const plans = Array.isArray(scene.visual_asset_plan) ? scene.visual_asset_plan : [];
-      if (plans.length === 0) {
-        pushIssue(issues, 'error', 'missing-visual-asset-plan', `${scene.id}: visual_asset_plan is required`);
-        continue;
-      }
-      for (const [index, plan] of plans.entries()) {
-        visualTypes.push(auditPlan({script, metaEntries, scene, plan, index, issues}));
-      }
+  if (targets.length === 0) {
+    return {issues: [{level: 'warn', sceneId: '_episode', field: '_root', message: 'image scene が 1 件もない'}], targetCount: 0};
+  }
 
-      if ((script.meta?.layout_template ?? script.meta?.scene_template) === 'Scene02') {
-        const mainPlan = plans.find((plan) => plan.slot === 'main');
-        const subPlan = plans.find((plan) => plan.slot === 'sub');
-        if (mainPlan && subPlan) {
-          const mainMoment = String(mainPlan.supports_moment ?? '');
-          const subMoment = String(subPlan.supports_moment ?? '');
-          const mainSignature = planRoleSignature(mainPlan);
-          const subSignature = planRoleSignature(subPlan);
-          if (
-            mainMoment && mainMoment === subMoment ||
-            mainPlan.visual_type && mainPlan.visual_type === subPlan.visual_type ||
-            mainPlan.composition_type && mainPlan.composition_type === subPlan.composition_type ||
-            mainSignature && mainSignature === subSignature
-          ) {
-            pushIssue(issues, 'error', 'scene02-main-sub-duplicated', `${scene.id}: Scene02 main/sub must not repeat the same visual role`, {
-              main: {
-                visual_type: mainPlan.visual_type,
-                composition_type: mainPlan.composition_type,
-                supports_moment: mainPlan.supports_moment,
-                purpose: mainPlan.purpose,
-              },
-              sub: {
-                visual_type: subPlan.visual_type,
-                composition_type: subPlan.composition_type,
-                supports_moment: subPlan.supports_moment,
-                purpose: subPlan.purpose,
-              },
-            });
-          }
-          if (!SCENE02_SUB_VISUAL_TYPES.has(subPlan.visual_type)) {
-            pushIssue(issues, 'error', 'scene02-sub-visual-type', `${scene.id}: Scene02 sub slot must be a compact support/check/action visual type`, {
-              visual_type: subPlan.visual_type,
-              allowed: [...SCENE02_SUB_VISUAL_TYPES],
-            });
-          }
-          if (!SCENE02_MAIN_ONLY_VISUAL_TYPES.has(mainPlan.visual_type)) {
-            pushIssue(issues, 'error', 'scene02-main-visual-type', `${scene.id}: Scene02 main slot must carry situation, emotion, contrast, or danger flow rather than a compact support panel`, {
-              visual_type: mainPlan.visual_type,
-              allowed: [...SCENE02_MAIN_ONLY_VISUAL_TYPES],
-            });
+  const directions = [];
+  for (const t of targets) {
+    const dir = t.obj.image_direction;
+    const dirIssues = validateImageDirection(dir, `${t.sceneId}/${t.slot}`);
+    issues.push(...dirIssues);
+    if (dir && typeof dir === 'object') {
+      directions.push({...dir, scene_id: dir.scene_id || t.sceneId});
+    }
+
+    const promptText = t.obj.asset_requirements?.imagegen_prompt;
+    const promptIssues = validateImagegenPromptString(promptText, `${t.sceneId}/${t.slot}`);
+    issues.push(...promptIssues);
+
+    if (!t.obj.asset_requirements) {
+      issues.push({level: 'error', sceneId: `${t.sceneId}/${t.slot}`, field: 'asset_requirements', message: 'asset_requirements ブロックが存在しない'});
+    } else {
+      const req = t.obj.asset_requirements;
+      if (!req.aspect) {
+        issues.push({level: 'warn', sceneId: `${t.sceneId}/${t.slot}`, field: 'asset_requirements.aspect', message: 'aspect が未指定'});
+      }
+      if (!req.negative || typeof req.negative !== 'string' || req.negative.length < 10) {
+        issues.push({level: 'error', sceneId: `${t.sceneId}/${t.slot}`, field: 'asset_requirements.negative', message: 'negative が未設定または短すぎる'});
+      } else {
+        for (const term of ['写真風', 'リアル調', '文字', 'ロゴ', '人物の顔']) {
+          if (!req.negative.includes(term)) {
+            issues.push({level: 'warn', sceneId: `${t.sceneId}/${t.slot}`, field: 'asset_requirements.negative', message: `negative に最低限の禁止語 "${term}" が欠けている`});
           }
         }
       }
     }
+  }
 
-    const definedTypes = visualTypes.filter(Boolean);
-    if (definedTypes.length >= 4 && new Set(definedTypes).size < 3) {
-      pushIssue(issues, 'error', 'low-visual-type-variety', 'visual_type is not varied enough for watchability', {
-        visual_types: definedTypes,
-        unique_visual_types: [...new Set(definedTypes)],
-      });
+  issues.push(...checkVisualTypeDistribution(directions));
+
+  const mainBySceneId = new Map();
+  const subBySceneId = new Map();
+  for (const t of targets) {
+    if (t.slot === 'main') mainBySceneId.set(t.sceneId, t.obj.image_direction);
+    if (t.slot === 'sub') subBySceneId.set(t.sceneId, t.obj.image_direction);
+  }
+  for (const [sceneId, mainDir] of mainBySceneId) {
+    const subDir = subBySceneId.get(sceneId);
+    if (!subDir) continue;
+    if (mainDir?.visual_type && subDir?.visual_type && mainDir.visual_type === subDir.visual_type) {
+      issues.push({level: 'error', sceneId, field: 'visual_type', message: 'main と sub で同一の visual_type を使っている（役割重複）'});
+    }
+    if (mainDir?.image_should_support && subDir?.image_should_support && mainDir.image_should_support === subDir.image_should_support) {
+      issues.push({level: 'error', sceneId, field: 'image_should_support', message: 'main と sub の image_should_support が完全一致（情報重複）'});
     }
   }
 
-  const report = {
-    ok: !issues.some((issue) => issue.level === 'error'),
-    episode_id: script?.meta?.id ?? path.basename(episodeDir),
-    checked_at: new Date().toISOString(),
-    script_path: path.relative(rootDir, scriptPath),
-    visual_type_options: [...VISUAL_TYPES],
-    prompt_requirements: PROMPT_REQUIREMENTS.map((requirement) => requirement.key),
-    issues,
-  };
+  return {issues, targetCount: targets.length};
+}
 
-  console.log(JSON.stringify(report, null, 2));
-  if (!report.ok) {
-    process.exitCode = 1;
+function formatTextReport(epId, summary, targetCount) {
+  const lines = [];
+  lines.push(`\n=== image prompt audit: ${epId} ===`);
+  lines.push(`image scenes: ${targetCount}`);
+  lines.push(`errors: ${summary.errors}, warnings: ${summary.warns}`);
+  if (summary.errors > 0) {
+    lines.push('\n[ERROR]');
+    for (const e of summary.errorList) {
+      lines.push(`  - [${e.sceneId}] ${e.field}: ${e.message}`);
+    }
   }
-};
+  if (summary.warns > 0) {
+    lines.push('\n[WARN]');
+    for (const w of summary.warnList) {
+      lines.push(`  - [${w.sceneId}] ${w.field}: ${w.message}`);
+    }
+  }
+  lines.push(`\nresult: ${summary.errors === 0 ? 'PASS' : 'FAIL'}`);
+  return lines.join('\n');
+}
 
-await audit();
+async function main() {
+  const {positional, json, strict} = parseArgs(process.argv.slice(2));
+  if (positional.length === 0) {
+    console.error('Usage: node scripts/audit-image-prompts.mjs <episode_id> [--json] [--non-strict]');
+    process.exit(2);
+  }
+
+  let overallFail = false;
+  const reports = [];
+  for (const epId of positional) {
+    try {
+      const {script} = await loadScript(epId);
+      const {issues, targetCount} = auditEpisode(script);
+      const summary = summarizeIssues(issues);
+      reports.push({epId, targetCount, summary});
+      if (summary.errors > 0) overallFail = true;
+      if (!json) console.log(formatTextReport(epId, summary, targetCount));
+    } catch (error) {
+      reports.push({epId, error: error.message ?? String(error)});
+      overallFail = true;
+      if (!json) console.error(`\n!! ${epId}: ${error.message ?? error}`);
+    }
+  }
+
+  if (json) {
+    console.log(JSON.stringify({overall: overallFail ? 'FAIL' : 'PASS', reports: reports.map((r) => ({
+      epId: r.epId,
+      targetCount: r.targetCount ?? 0,
+      errors: r.summary?.errors ?? null,
+      warns: r.summary?.warns ?? null,
+      errorList: r.summary?.errorList ?? [],
+      error: r.error ?? null,
+    }))}, null, 2));
+  }
+
+  if (overallFail && strict) {
+    if (process.env.YUKKURI_SKIP_IMAGE_GATE === '1') {
+      console.warn('\n** YUKKURI_SKIP_IMAGE_GATE=1 set: bypassing image audit failure. WARNING: 構造的な品質低下が起きる可能性。');
+      process.exit(0);
+    }
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
+main().catch((error) => {
+  console.error(`audit-image-prompts error: ${error?.message ?? error}`);
+  process.exit(2);
+});

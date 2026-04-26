@@ -1,0 +1,287 @@
+meta:
+  id: "ep005-yukkuri-decision-traps"
+  episode_id: "ep005-yukkuri-decision-traps"
+  layout_template: "Scene19"
+  character_pair: "RM"
+  pair: "RM"
+  title: "後悔する前に見抜け、日常の判断ミス7選"
+  fps: 30
+  width: 1920
+  height: 1080
+  audience: "初心者向け"
+  tone: "軽快で実用的"
+  voice_engine: "aquestalk"
+  target_duration_sec: 300
+characters:
+  left:
+    character: "reimu"
+    aquestalk_preset: "AquesTalk10 F1"
+  right:
+    character: "marisa"
+    aquestalk_preset: "AquesTalk10 F2"
+scenes:
+  - id: s01
+    role: intro
+    title_text: "後悔する前に見抜け"
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: "判断ミス7選"
+      asset_requirements:
+        imagegen_prompt: |
+          フラットデザイン、白背景。中央に迷路と分岐矢印、右上に小さな警告アイコン。色は青緑とオレンジ、余白多めのシンプルな図解。16:9。文字、数字、ロゴ、人物の顔は入れない。
+        style: "フラット・図解"
+        aspect: "16:9"
+        negative: "文字、数字、ロゴ、人物の顔、写真風"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "今日は失敗しない話？" }
+      - { id: l02, speaker: right, text: "いや、失敗前提の話だぜ" }
+      - { id: l03, speaker: left, text: "前提からひどくない？" }
+      - { id: l04, speaker: right, text: "人は毎日判断ミスする" }
+      - { id: l05, speaker: left, text: "私は慎重派だから平気" }
+      - { id: l06, speaker: right, text: "その自信が危ないぜ" }
+      - { id: l07, speaker: left, text: "もう罠に入ってる？" }
+      - { id: l08, speaker: right, text: "入口で片足入ってるな" }
+      - { id: l09, speaker: left, text: "ええっ、早すぎない？" }
+      - { id: l10, speaker: right, text: "今日は7つ見抜くぜ" }
+
+  - id: s02
+    role: body
+    title_text: "安いから買う罠"
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: "セール判断"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。値札アイコンと買い物かご、横に大きな分岐矢印。色は青緑と黄色。数字や文字は描かない。16:9。ロゴ、ブランド、人物は禁止。
+        style: "フラット・買い物図解"
+        aspect: "16:9"
+        negative: "文字、数字、ロゴ、ブランド、人物"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "半額なら得じゃない？" }
+      - { id: l02, speaker: right, text: "使わない物なら損だぜ" }
+      - { id: l03, speaker: left, text: "安さで判断してた" }
+      - { id: l04, speaker: right, text: "基準は必要かどうかだ" }
+      - { id: l05, speaker: left, text: "値札が主役になってた" }
+      - { id: l06, speaker: right, text: "買う前に置き場所を見る" }
+      - { id: l07, speaker: left, text: "財布より部屋を見るのね" }
+      - { id: l08, speaker: right, text: "部屋は嘘をつかないぜ" }
+      - { id: l09, speaker: left, text: "それ普通に刺さるわ" }
+      - { id: l10, speaker: right, text: "1つ目、安さの罠だぜ" }
+
+  - id: s03
+    role: body
+    title_text: "今だけに弱い罠"
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: "限定の圧力"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラットイラスト。砂時計、ベル、押されるボタンを三角配置。赤は控えめ、青緑主体。文字なし。16:9。ロゴ、実在UIは禁止。
+        style: "フラット・警告アイコン"
+        aspect: "16:9"
+        negative: "文字、数字、ロゴ、実在UI"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "今だけって焦るよね" }
+      - { id: l02, speaker: right, text: "焦りは判断を雑にするぜ" }
+      - { id: l03, speaker: left, text: "急がないと損な気がする" }
+      - { id: l04, speaker: right, text: "損より確認不足が高い" }
+      - { id: l05, speaker: left, text: "一晩置くのが正解？" }
+      - { id: l06, speaker: right, text: "高い物ほど寝かせるぜ" }
+      - { id: l07, speaker: left, text: "熱が冷めたら勝ちね" }
+      - { id: l08, speaker: right, text: "まだ欲しけりゃ本物だ" }
+      - { id: l09, speaker: left, text: "私の衝動、弱すぎる" }
+      - { id: l10, speaker: right, text: "2つ目、限定の罠だぜ" }
+
+  - id: s04
+    role: body
+    title_text: "みんな選んでる罠"
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: "多数派バイアス"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。多数の丸い人型アイコンが右へ進み、1つだけ立ち止まる。顔は描かない。青緑とグレーで整理。16:9。文字、ロゴ、表情なし。
+        style: "フラット・集団図解"
+        aspect: "16:9"
+        negative: "文字、ロゴ、表情、写真風"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "レビュー多いと安心する" }
+      - { id: l02, speaker: right, text: "安心と自分向きは別だぜ" }
+      - { id: l03, speaker: left, text: "人気なら正解では？" }
+      - { id: l04, speaker: right, text: "多数派は平均向けだ" }
+      - { id: l05, speaker: left, text: "私の条件とは違うのか" }
+      - { id: l06, speaker: right, text: "用途を先に書くといい" }
+      - { id: l07, speaker: left, text: "人の答えを見る前に？" }
+      - { id: l08, speaker: right, text: "自分の条件を固定するぜ" }
+      - { id: l09, speaker: left, text: "群れから一歩引く感じね" }
+      - { id: l10, speaker: right, text: "3つ目、多数派の罠だ" }
+
+  - id: s05
+    role: body
+    title_text: "払ったから続ける罠"
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: "サンクコスト"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。途中まで積まれたコインと、戻る矢印と進む矢印。コインは抽象形状で文字なし。青緑と金色。16:9。通貨記号、数字、ロゴは禁止。
+        style: "フラット・意思決定図解"
+        aspect: "16:9"
+        negative: "文字、数字、通貨記号、ロゴ"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "課金したゲームやめにくい" }
+      - { id: l02, speaker: right, text: "それサンクコストだぜ" }
+      - { id: l03, speaker: left, text: "払った分が惜しいのよ" }
+      - { id: l04, speaker: right, text: "過去のお金は戻らない" }
+      - { id: l05, speaker: left, text: "未来だけ見ろってこと？" }
+      - { id: l06, speaker: right, text: "明日の時間で決めるぜ" }
+      - { id: l07, speaker: left, text: "時間課金もあるのね" }
+      - { id: l08, speaker: right, text: "むしろそっちが重い" }
+      - { id: l09, speaker: left, text: "それは詰みじゃない？" }
+      - { id: l10, speaker: right, text: "4つ目、埋没費用だぜ" }
+
+  - id: s06
+    role: body
+    title_text: "最初の案に縛られる罠"
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: "アンカー"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。大きな錨アイコンが紙のリストを固定している構図。リストの中身は横線だけで文字なし。青緑、紺、薄いオレンジ。16:9。
+        style: "フラット・ビジネス図解"
+        aspect: "16:9"
+        negative: "文字、数字、ロゴ、実在資料"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "最初の案って強いよね" }
+      - { id: l02, speaker: right, text: "脳の錨になるからだぜ" }
+      - { id: l03, speaker: left, text: "会議でよく起きるやつ" }
+      - { id: l04, speaker: right, text: "最初の数字も危ない" }
+      - { id: l05, speaker: left, text: "対策はどうするの？" }
+      - { id: l06, speaker: right, text: "案を3つ同時に出すぜ" }
+      - { id: l07, speaker: left, text: "一案スタートを避ける" }
+      - { id: l08, speaker: right, text: "比較で錨が弱まる" }
+      - { id: l09, speaker: left, text: "脳、簡単に固定されるね" }
+      - { id: l10, speaker: right, text: "5つ目、アンカーだぜ" }
+
+  - id: s07
+    role: body
+    title_text: "疲れて決める罠"
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: "判断疲れ"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラットイラスト。低くなったバッテリーと分岐路、ぼんやりした脳アイコン。色は青緑と薄い赤。文字、数字なし。16:9。人物の顔、ロゴなし。
+        style: "フラット・健康図解"
+        aspect: "16:9"
+        negative: "文字、数字、ロゴ、人物の顔"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "夜に大事な決断しがち" }
+      - { id: l02, speaker: right, text: "一番まずい時間だぜ" }
+      - { id: l03, speaker: left, text: "疲れると適当になる？" }
+      - { id: l04, speaker: right, text: "脳が省エネを選ぶ" }
+      - { id: l05, speaker: left, text: "高い買い物も夜やる" }
+      - { id: l06, speaker: right, text: "朝の自分に渡すべきだ" }
+      - { id: l07, speaker: left, text: "夜は下書きだけ？" }
+      - { id: l08, speaker: right, text: "決定ボタンは朝だぜ" }
+      - { id: l09, speaker: left, text: "マジで？夜の私危険すぎ" }
+      - { id: l10, speaker: right, text: "6つ目、判断疲れだぜ" }
+
+  - id: s08
+    role: body
+    title_text: "嫌な予感だけ信じる罠"
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: "ネガティブ偏重"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。天秤の片側に暗い雲、片側に小さな太陽。雲側が重く下がっている。青緑とグレー主体。16:9。文字、ロゴ、顔なし。
+        style: "フラット・心理図解"
+        aspect: "16:9"
+        negative: "文字、ロゴ、顔、写真風"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "悪い予感って当たりそう" }
+      - { id: l02, speaker: right, text: "脳は危険を大きく見るぜ" }
+      - { id: l03, speaker: left, text: "生き残るため？" }
+      - { id: l04, speaker: right, text: "昔は役立った仕組みだ" }
+      - { id: l05, speaker: left, text: "現代だと疲れそう" }
+      - { id: l06, speaker: right, text: "だから確率を書くぜ" }
+      - { id: l07, speaker: left, text: "最悪の確率を数字化？" }
+      - { id: l08, speaker: right, text: "怖さと確率を分ける" }
+      - { id: l09, speaker: left, text: "それ普通に使えるやつ" }
+      - { id: l10, speaker: right, text: "7つ目、悪い予感の罠だ" }
+
+  - id: s09
+    role: body
+    title_text: "説明できる気になる罠"
+    main:
+      kind: image
+      asset: assets/s09_main.png
+      caption: "理解の錯覚"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラット図解。電球、歯車、空白の説明カードを並べる。カードは横線だけで文字なし。青緑と黄色。16:9。人物、ロゴ、文字は禁止。
+        style: "フラット・学習図解"
+        aspect: "16:9"
+        negative: "文字、ロゴ、人物、実在UI"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "知ってる話は説明できる" }
+      - { id: l02, speaker: right, text: "じゃあ税金を説明してみろ" }
+      - { id: l03, speaker: left, text: "急にラスボス出さないで" }
+      - { id: l04, speaker: right, text: "それが理解の錯覚だぜ" }
+      - { id: l05, speaker: left, text: "聞いたことあるだけか" }
+      - { id: l06, speaker: right, text: "説明すると穴が見える" }
+      - { id: l07, speaker: left, text: "人に話すのが対策？" }
+      - { id: l08, speaker: right, text: "30秒で説明してみるぜ" }
+      - { id: l09, speaker: left, text: "できなきゃ知ったか判定？" }
+      - { id: l10, speaker: right, text: "仕上げは説明テストだぜ" }
+
+  - id: s10
+    role: cta
+    title_text: "今日から使う3手順"
+    main:
+      kind: image
+      asset: assets/s10_main.png
+      caption: "止める・書く・寝かす"
+      asset_requirements:
+        imagegen_prompt: |
+          白背景のフラットチェックリスト。3つの大きなチェックボックスと、停止、ペン、月のアイコン。文字は入れない。青緑とオレンジで明るく。16:9。ロゴ、実在UIは禁止。
+        style: "フラット・チェックリスト"
+        aspect: "16:9"
+        negative: "文字、ロゴ、実在UI、人物"
+    sub: null
+    dialogue:
+      - { id: l01, speaker: left, text: "全部覚えるの無理じゃない？" }
+      - { id: l02, speaker: right, text: "3手順だけでいいぜ" }
+      - { id: l03, speaker: left, text: "まず止める" }
+      - { id: l04, speaker: right, text: "次に理由を1行書く" }
+      - { id: l05, speaker: left, text: "最後に一晩寝かせる" }
+      - { id: l06, speaker: right, text: "迷う判断ほど効くぜ" }
+      - { id: l07, speaker: left, text: "今日の買い物で試すわ" }
+      - { id: l08, speaker: right, text: "1つ選んで保存だぜ" }
+      - { id: l09, speaker: left, text: "結果をコメントで報告ね" }
+      - { id: l10, speaker: right, text: "止める、書く、寝かすだ" }
+bgm:
+  file: bgm/track.mp3
+  license: 既存ローカルBGMを再利用。公開前に原典と利用条件を再確認
+  volume: 0.08
+  fade_in_sec: 1
+  fade_out_sec: 1.5

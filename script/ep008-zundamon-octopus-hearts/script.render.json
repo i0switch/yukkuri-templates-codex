@@ -1,0 +1,793 @@
+{
+  "meta": {
+    "id": "ep008-zundamon-octopus-hearts",
+    "episode_id": "ep008-zundamon-octopus-hearts",
+    "layout_template": "Scene07",
+    "character_pair": "ZM",
+    "pair": "ZM",
+    "title": "なぜタコは3つの心臓を持つのか",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "audience": "初心者向け",
+    "tone": "やさしい生物ミステリー",
+    "voice_engine": "voicevox",
+    "target_duration_sec": 180
+  },
+  "characters": {
+    "left": {
+      "character": "zundamon",
+      "voicevox_speaker_id": 3
+    },
+    "right": {
+      "character": "metan",
+      "voicevox_speaker_id": 2
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title_text": "心臓3つで血が青い生き物",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s01_main.png",
+        "caption": "3心臓の謎",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n中央に紫色の抽象的なタコのシルエット、頭部に3つのハートマーク（赤、青、青）が並ぶ。\n周囲に薄い青の波線で水中表現。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物の顔、リアル写真は禁止。\n",
+          "style": "フラット・かわいい生物アイコン",
+          "aspect": "16:9",
+          "negative": "写真風、グロ、文字、ロゴ、リアル動物"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "めたん、タコの心臓は何個なのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.293333,
+          "start_sec": 0.2,
+          "end_sec": 2.5
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "普通は1個だけど、タコは違うのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.984,
+          "start_sec": 2.8,
+          "end_sec": 4.8
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "えっ、まさか2個なのか",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.685333,
+          "start_sec": 5.1,
+          "end_sec": 6.8
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "もう1個足しなさい、3個よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.664,
+          "start_sec": 7.1,
+          "end_sec": 8.7
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "みっつ！？心臓フェスじゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.738667,
+          "start_sec": 9,
+          "end_sec": 10.8
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "しかも血の色は青なのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.312,
+          "start_sec": 11.1,
+          "end_sec": 12.4
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "ガチでエイリアンなのだ…",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.258667,
+          "start_sec": 12.7,
+          "end_sec": 14
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "今日はその謎を3分で解くわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.525333,
+          "start_sec": 14.3,
+          "end_sec": 15.8
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 22.6
+    },
+    {
+      "id": "s02",
+      "title_text": "1つは全身、2つは鰓専用",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s02_main.png",
+        "caption": "心臓3つの役割分担",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n中央に大きなハート、左右に少し小さめのハートが2つ。\n中央のハートから全身を表す矢印が放射状に伸び、左右のハートからは鰓を表すシダ状の形へ短い矢印。\n色は赤と青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、解剖図のリアル表現は禁止。\n",
+          "style": "フラット解剖アイコン",
+          "aspect": "16:9",
+          "negative": "グロ、リアル解剖、文字、ロゴ、人物"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "心臓3つの内訳から見るわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.653333,
+          "start_sec": 0.2,
+          "end_sec": 1.9
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "全部全身に血を送るやつ？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.824,
+          "start_sec": 2.2,
+          "end_sec": 4
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "違う、ちゃんと役割分担があるのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.122667,
+          "start_sec": 4.3,
+          "end_sec": 6.4
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "心臓の派遣バイトみたいだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.781333,
+          "start_sec": 6.7,
+          "end_sec": 8.5
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "真ん中の主心臓1つは全身担当",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.048,
+          "start_sec": 8.8,
+          "end_sec": 10.8
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "残り2つは何してるのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.6,
+          "start_sec": 11.1,
+          "end_sec": 12.7
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "左右の鰓に1つずつ専用ポンプよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 13,
+          "end_sec": 15
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "鰓に直行便、贅沢タクシーなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.570667,
+          "start_sec": 15.3,
+          "end_sec": 17.9
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 24.7
+    },
+    {
+      "id": "s03",
+      "title_text": "なぜ普通の1個じゃダメなのか",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s03_main.png",
+        "caption": "鍵はヘモシアニン",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n左に赤い丸（鉄の血を象徴、ヘモグロビン）、右に青い丸（銅の血、ヘモシアニン）。\n中央に大きな疑問符、両者を比較する矢印。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、化学式の文字、人物は禁止。\n",
+          "style": "フラット比較図",
+          "aspect": "16:9",
+          "negative": "文字、化学式、ロゴ、人物、リアル写真"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "なんで1個じゃダメなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.365333,
+          "start_sec": 0.2,
+          "end_sec": 1.6
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "ここから仮説の話に入るわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.568,
+          "start_sec": 1.9,
+          "end_sec": 3.5
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "仮説、ぼく好きなやつ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.578667,
+          "start_sec": 3.8,
+          "end_sec": 5.3
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "鍵は血の正体、ヘモシアニンよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.930667,
+          "start_sec": 5.6,
+          "end_sec": 7.6
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "なんかコシヒカリみたいだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.504,
+          "start_sec": 7.9,
+          "end_sec": 9.4
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "米じゃないわ、銅を使う色素よ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.856,
+          "start_sec": 9.7,
+          "end_sec": 11.5
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "銅が酸素運ぶ？10円玉でなのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.613333,
+          "start_sec": 11.8,
+          "end_sec": 14.4
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "例えはアレだけど考えは合ってる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.664,
+          "start_sec": 14.7,
+          "end_sec": 16.4
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "ヘモグロビンは鉄、こっちは銅か",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.165333,
+          "start_sec": 16.7,
+          "end_sec": 18.9
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "その違いが効いてくるのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.269333,
+          "start_sec": 19.2,
+          "end_sec": 20.4
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 27.2
+    },
+    {
+      "id": "s04",
+      "title_text": "冷たく酸素少ない海で強い血",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s04_main.png",
+        "caption": "仮説 低温低酸素で有利",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n深い青の海中、上部に薄い水面の波線、底に岩を抽象化した三角形。\n中央に銅色の小さな粒子が漂う表現、薄い気泡数個。\n色は深青、水色、銅色の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル深海写真は禁止。\n",
+          "style": "フラット深海アイコン",
+          "aspect": "16:9",
+          "negative": "リアル写真、文字、ロゴ、人物、グロ"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "ヘモシアニンは冷たい海で強い",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.578667,
+          "start_sec": 0.2,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "鉄の血より冷えに強いのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.653333,
+          "start_sec": 2.1,
+          "end_sec": 3.8
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "低温・低酸素の深海で性能を出す",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.485333,
+          "start_sec": 4.1,
+          "end_sec": 6.5
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "なるほど、深海ガチ勢の装備",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.133333,
+          "start_sec": 6.8,
+          "end_sec": 9
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "でも欠点が1つあるのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.365333,
+          "start_sec": 9.3,
+          "end_sec": 10.6
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "なんか嫌な予感がする…",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.408,
+          "start_sec": 10.9,
+          "end_sec": 12.3
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "酸素を運ぶ効率は鉄より弱いの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 12.6,
+          "end_sec": 14.6
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "えっ、それじゃ酸欠じゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.653333,
+          "start_sec": 14.9,
+          "end_sec": 16.5
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 23.3
+    },
+    {
+      "id": "s05",
+      "title_text": "弱点を心臓の数で補う作戦",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s05_main.png",
+        "caption": "心臓3段ロケット",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n縦に3段のハート型タンクが繋がるロケット風シルエット。\n下から上へ青い気泡が流れる表現、各段の間に細い管。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、リアル機械、人物は禁止。\n",
+          "style": "フラット概念アイコン",
+          "aspect": "16:9",
+          "negative": "文字、リアル機械、ロゴ、人物、写真"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "そこで心臓の数で殴るのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.578667,
+          "start_sec": 0.2,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "力技なのだ、結構好き",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 2.1,
+          "end_sec": 4
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "鰓専用ポンプ2つで圧を上げる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.717333,
+          "start_sec": 4.3,
+          "end_sec": 6.1
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "酸素を効率よく取るためだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.792,
+          "start_sec": 6.4,
+          "end_sec": 8.1
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "取り込んだ後、主心臓で全身へ送る",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.250667,
+          "start_sec": 8.4,
+          "end_sec": 10.7
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "工場の三段ロケットみたいだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.834667,
+          "start_sec": 11,
+          "end_sec": 12.8
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "例えとしては割と正しいわよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.621333,
+          "start_sec": 13.1,
+          "end_sec": 14.8
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "進化、努力で補うスタイルだね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.282667,
+          "start_sec": 15.1,
+          "end_sec": 17.3
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 24.1
+    },
+    {
+      "id": "s06",
+      "title_text": "泳ぐと主心臓が止まる弱点",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s06_main.png",
+        "caption": "歩く方が燃費がいい",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n左に泳ぐタコ（流線型）と止まったハートのアイコン、右に海底を歩くタコと動くハートのアイコン。\n矢印で左から右へ「歩く方がいい」を示す流れ。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル動物は禁止。\n",
+          "style": "フラット比較イラスト",
+          "aspect": "16:9",
+          "negative": "文字、リアル動物、ロゴ、人物、写真"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "ただ、この設計には弱点もある",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.92,
+          "start_sec": 0.2,
+          "end_sec": 2.1
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "えっ、まだ落ちあるの！？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.642667,
+          "start_sec": 2.4,
+          "end_sec": 4.1
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "タコは泳ぐと主心臓が止まる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.632,
+          "start_sec": 4.4,
+          "end_sec": 6
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "止まる！？普通に詰みじゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.717333,
+          "start_sec": 6.3,
+          "end_sec": 8
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "だから歩く方が燃費がいいのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.6,
+          "start_sec": 8.3,
+          "end_sec": 9.9
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "タコが歩く理由、ガチで切実",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.304,
+          "start_sec": 10.2,
+          "end_sec": 12.5
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "寒い海と低酸素から生まれた工夫",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.813333,
+          "start_sec": 12.8,
+          "end_sec": 14.6
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "弱点だらけでも生き残ってる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.706667,
+          "start_sec": 14.9,
+          "end_sec": 16.7
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "進化って妥協と工夫の塊なのよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.92,
+          "start_sec": 17,
+          "end_sec": 18.9
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "タコさん、リスペクトしかないのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.037333,
+          "start_sec": 19.2,
+          "end_sec": 21.2
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 28
+    },
+    {
+      "id": "s07",
+      "title_text": "図鑑を開いて推しを1匹決める",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s07_main.png",
+        "caption": "行動2ステップ",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n左に開いた本のアイコン（ページの中に小さな魚やタコのシルエット）、右にハートマーク付きのチェックボックス。\n中央に右向き矢印で2ステップを表現。\n色は青緑とオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在UI、人物は禁止。\n",
+          "style": "フラットUI風アイコン",
+          "aspect": "16:9",
+          "negative": "文字、ロゴ、実在UI、人物、写真"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "今日のまとめを1分で行くわ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.397333,
+          "start_sec": 0.2,
+          "end_sec": 1.6
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "心臓3個、主1鰓2の役割分担なのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 3.189333,
+          "start_sec": 1.9,
+          "end_sec": 5.1
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "血が青いのは銅ベースだから",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.376,
+          "start_sec": 5.4,
+          "end_sec": 6.8
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "寒くて酸素少ない海で進化したんだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.250667,
+          "start_sec": 7.1,
+          "end_sec": 9.3
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "1つ目の宿題、生物図鑑を開く",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.24,
+          "start_sec": 9.6,
+          "end_sec": 11.9
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "今日は心臓の数だけ見るのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.834667,
+          "start_sec": 12.2,
+          "end_sec": 14
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "2つ目、推し生物を1匹だけ決める",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.048,
+          "start_sec": 14.3,
+          "end_sec": 16.4
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "ぼくは絶対タコ推し決定！",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.706667,
+          "start_sec": 16.7,
+          "end_sec": 18.4
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "その推しを今夜のメモに保存ね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.621333,
+          "start_sec": 18.7,
+          "end_sec": 20.3
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "高評価とコメで推し生物おしえてほしいのだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.709333,
+          "start_sec": 20.6,
+          "end_sec": 23.3
+        }
+      ],
+      "tail_pad_sec": 6.4,
+      "duration_sec": 30.1
+    }
+  ],
+  "total_duration_sec": 180,
+  "public_dir": "episodes/ep008-zundamon-octopus-hearts",
+  "base_layout_width": 1920,
+  "base_layout_height": 1080
+}

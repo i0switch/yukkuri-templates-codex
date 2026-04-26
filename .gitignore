@@ -2,16 +2,13 @@ node_modules/
 out/
 docs/
 .cache/
-.remotion-public/
-.analysis/
 *.log
-notebookLM/.tmp/
-notebookLM/workspace/projects/
-notebookLM/**/__pycache__/
+
+# BGM pool cache (auto-downloaded, do not commit)
+bgm-pool/
+
+# Claude Code temporary worktrees
+.claude/worktrees/
+
+# Generated episode assets (PNG/WAV, large binaries)
 public/episodes/
-script/**/audio/
-script/**/bgm/
-script/**/assets/
-script/**/line-durations.json
-script/**/meta.json
-script/**/script.render.json

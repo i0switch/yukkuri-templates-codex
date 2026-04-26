@@ -1,0 +1,95 @@
+project:
+  slug: sleep-phone-habit
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "ツカミ"
+    insert_timing: "0:00–0:35"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：寝る前スマホは危険なのだ。 **めたん**：本当に怖いのは、ブルーライトだけじゃないのよ。 **ずんだもん**：え、スマホの光が悪い話じゃないのだ？ **めたん**：光も関係あるけど、もっと大きいのは習慣の罠ね。 [FI"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "ツカミ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "02"
+    scene_title: "眠気は簡単に途切れる"
+    insert_timing: "0:35–1:10"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：眠気は、電気みたいにスイッチで入るものじゃないの。 **ずんだもん**：待っていれば自然に眠くなると思ってたのだ。 **めたん**：実際は、刺激が少ない状態で少しずつ強くなる流れなのよ。 [INFO:1] 眠気の流れとスマホ"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "眠気は簡単に途切れる"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "03"
+    scene_title: "主犯は通知とスクロール"
+    insert_timing: "1:10–1:50"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：一番やっかいなのは、通知とスクロールよ。 **ずんだもん**：ピコンって鳴るだけなのだ。 **めたん**：その一回で、脳は「確認しなきゃ」に戻るの。 [INFO:2] 通知から確認へ進む習慣ループ **ずんだもん**：見る、"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "主犯は通知とスクロール"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "04"
+    scene_title: "意思より置き場所を変える"
+    insert_timing: "1:50–2:35"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：じゃあ根性で見なければいいのだ？ **めたん**：残念だけど、根性だけだとかなり弱いわ。 **ずんだもん**：ボク、もう負ける気がしてきたのだ。 **めたん**：だから戦う場所を変えるの。枕元に置かないのが第一歩ね。 ["
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "意思より置き場所を変える"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "05"
+    scene_title: "まとめ"
+    insert_timing: "2:35–3:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：まとめると、寝る前スマホの問題は光だけじゃないの。 **ずんだもん**：通知、スクロール、習慣が眠気を消すのだ。 **めたん**：完璧にやめるより、枕元から離す方が続きやすいわ。 [SLIDE:1] 光より習慣、意思より設計"
+    asset_type:
+      - slide_deck
+    notebooklm_candidate:
+      primary: slide_deck
+      secondary: report
+    must_include:
+      - "まとめ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"

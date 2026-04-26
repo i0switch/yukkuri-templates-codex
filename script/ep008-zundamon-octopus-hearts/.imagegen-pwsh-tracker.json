@@ -1,0 +1,112 @@
+{
+  "episodeId": "ep008-zundamon-octopus-hearts",
+  "startedAt": "2026-04-26T01:39:38.025Z",
+  "entries": [
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s01_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n中央に紫色の抽象的なタコのシルエット、頭部に3つのハートマーク（赤、青、青）が並ぶ。\n周囲に薄い青の波線で水中表現。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物の顔、リアル写真は禁止。\n",
+        "style": "フラット・かわいい生物アイコン",
+        "aspect": "16:9",
+        "negative": "写真風、グロ、文字、ロゴ、リアル動物"
+      },
+      "status": "copied",
+      "elapsed": "98.9",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc771-3d09-7f51-bbfa-1de26b863a94\\ig_0890a80cd0f740080169ed6cfa7e888191b20982b6f40725c8.png"
+    },
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s02_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n中央に大きなハート、左右に少し小さめのハートが2つ。\n中央のハートから全身を表す矢印が放射状に伸び、左右のハートからは鰓を表すシダ状の形へ短い矢印。\n色は赤と青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、解剖図のリアル表現は禁止。\n",
+        "style": "フラット解剖アイコン",
+        "aspect": "16:9",
+        "negative": "グロ、リアル解剖、文字、ロゴ、人物"
+      },
+      "status": "copied",
+      "elapsed": "113.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc772-bf70-74f0-a655-a0bee8fc57c8\\ig_092200c1f37e59440169ed6d6323b88191b0ec8dcd31514b42.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s03_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n左に赤い丸（鉄の血を象徴、ヘモグロビン）、右に青い丸（銅の血、ヘモシアニン）。\n中央に大きな疑問符、両者を比較する矢印。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、化学式の文字、人物は禁止。\n",
+        "style": "フラット比較図",
+        "aspect": "16:9",
+        "negative": "文字、化学式、ロゴ、人物、リアル写真"
+      },
+      "status": "copied",
+      "elapsed": "87.5",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc774-7b9d-7690-b4cb-7afb4c38fe8a\\ig_0af6a7b49c1defa40169ed6dd33030819185ebd08d0ba72c32.png"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s04_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n深い青の海中、上部に薄い水面の波線、底に岩を抽象化した三角形。\n中央に銅色の小さな粒子が漂う表現、薄い気泡数個。\n色は深青、水色、銅色の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル深海写真は禁止。\n",
+        "style": "フラット深海アイコン",
+        "aspect": "16:9",
+        "negative": "リアル写真、文字、ロゴ、人物、グロ"
+      },
+      "status": "copied",
+      "elapsed": "100.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc775-d0f7-7b13-b867-ba4a8b9fbf7f\\ig_0f202194e0b544160169ed6e3308788191be236d4ba44a5c09.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s05_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n縦に3段のハート型タンクが繋がるロケット風シルエット。\n下から上へ青い気泡が流れる表現、各段の間に細い管。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、リアル機械、人物は禁止。\n",
+        "style": "フラット概念アイコン",
+        "aspect": "16:9",
+        "negative": "文字、リアル機械、ロゴ、人物、写真"
+      },
+      "status": "copied",
+      "elapsed": "100.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc777-5813-7331-9fa6-8e1346a18397\\ig_03756ed5be5fec920169ed6e8f09dc819199ce19e1863c9661.png"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s06_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n左に泳ぐタコ（流線型）と止まったハートのアイコン、右に海底を歩くタコと動くハートのアイコン。\n矢印で左から右へ「歩く方がいい」を示す流れ。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル動物は禁止。\n",
+        "style": "フラット比較イラスト",
+        "aspect": "16:9",
+        "negative": "文字、リアル動物、ロゴ、人物、写真"
+      },
+      "status": "copied",
+      "elapsed": "88.8",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc778-dfec-75a3-a1d5-637e98ebe65b\\ig_04513da6bf9fee4f0169ed6eed640881918d63b916403f9d2b.png"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep008-zundamon-octopus-hearts\\assets\\s07_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n左に開いた本のアイコン（ページの中に小さな魚やタコのシルエット）、右にハートマーク付きのチェックボックス。\n中央に右向き矢印で2ステップを表現。\n色は青緑とオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在UI、人物は禁止。\n",
+        "style": "フラットUI風アイコン",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、実在UI、人物、写真"
+      },
+      "status": "copied",
+      "elapsed": "144.3",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc77a-3aaf-7132-975e-b30f3d34491a\\ig_00ccd8ab4819a2ca0169ed6f743b808191a3f3024f135cf0da.png"
+    }
+  ],
+  "finishedAt": "2026-04-26T01:51:51.560Z"
+}

@@ -1,6 +1,5 @@
 import {Config} from '@remotion/cli/config';
 
-Config.setVideoImageFormat('jpeg');
-Config.setJpegQuality(85);
+Config.setVideoImageFormat('png');
 Config.setOverwriteOutput(true);
-Config.setConcurrency(2);
+Config.setConcurrency(1);

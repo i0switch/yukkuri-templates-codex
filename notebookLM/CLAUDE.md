@@ -2,6 +2,10 @@
 
 この repo で Claude Code が最初に読む運用指示。
 
+このサブワークスペースは、上位リポジトリの **Image Engine Workflow** における `notebooklm` フォールバック engine として位置づけられる。
+通常は上位リポジトリの `codex-imagegen` で素材生成し、imagegen が失敗または未対応の場合のみこのフローへ降格する。
+engine の解決手順とフォールバックチェーンは上位リポジトリの `CLAUDE.md#Image Engine Workflow` を参照。
+
 ## Goal
 
 `workspace/projects/<slug>/` 配下で、次を style ごとに管理する。

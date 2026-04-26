@@ -1,0 +1,78 @@
+{
+  "episode_id": "ep008-zundamon-octopus-hearts",
+  "title": "なぜタコは3つの心臓を持つのか",
+  "layout_template": "Scene07",
+  "image_engine": "codex-imagegen",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n中央に紫色の抽象的なタコのシルエット、頭部に3つのハートマーク（赤、青、青）が並ぶ。\n周囲に薄い青の波線で水中表現。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物の顔、リアル写真は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n中央に大きなハート、左右に少し小さめのハートが2つ。\n中央のハートから全身を表す矢印が放射状に伸び、左右のハートからは鰓を表すシダ状の形へ短い矢印。\n色は赤と青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、解剖図のリアル表現は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n左に赤い丸（鉄の血を象徴、ヘモグロビン）、右に青い丸（銅の血、ヘモシアニン）。\n中央に大きな疑問符、両者を比較する矢印。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、化学式の文字、人物は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n深い青の海中、上部に薄い水面の波線、底に岩を抽象化した三角形。\n中央に銅色の小さな粒子が漂う表現、薄い気泡数個。\n色は深青、水色、銅色の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル深海写真は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n縦に3段のハート型タンクが繋がるロケット風シルエット。\n下から上へ青い気泡が流れる表現、各段の間に細い管。\n色は赤、青、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、リアル機械、人物は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n左に泳ぐタコ（流線型）と止まったハートのアイコン、右に海底を歩くタコと動くハートのアイコン。\n矢印で左から右へ「歩く方がいい」を示す流れ。\n色は紫、赤、青の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル動物は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n左に開いた本のアイコン（ページの中に小さな魚やタコのシルエット）、右にハートマーク付きのチェックボックス。\n中央に右向き矢印で2ステップを表現。\n色は青緑とオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在UI、人物は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "bgm/track.mp3",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "credit_required": false
+    }
+  ]
+}

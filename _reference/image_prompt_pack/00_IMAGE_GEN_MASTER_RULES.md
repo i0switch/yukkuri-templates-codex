@@ -1,58 +1,29 @@
-# 00_IMAGE_GEN_MASTER_RULES
+# Image Generation Master Rules
 
-## 目的
+このパック全フェーズで参照する正本ルール。台本生成における `00_MASTER_SCRIPT_RULES.md` と同等の役割を持つ。
+画像生成タスクを開始する前に必ずこの全文を読み、各セクションの規約に従うこと。
 
-GPT-Image-2で作る画像を、単なる説明アイコンではなく、ゆっくり解説 / ずんだもん解説の会話を補強する視聴維持用ビジュアルとして設計する。
+## 1. 最重要方針
 
-画像生成では、台本から直接 `imagegen_prompt` を作らない。必ず先に `image_direction` を作り、どのセリフ、どのボケ、どのツッコミ、どの誤解訂正、どの行動提示を補強するかを決める。
+GPT-Image-2 で作る画像は単なるアイコン素材ではなく、ゆっくり解説 / ずんだもん解説の会話を補強する「視聴維持用ビジュアル」として設計する。
 
-## 生成単位の絶対ルール
+画像の役割は以下のどれかに分類する。役割が決まらないシーンには画像を入れない（text / bullets で代替）。
 
-- image gen は必ず1画像につき1回呼ぶ。
-- 8枚グリッド、複数枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成は禁止。
-- 1枚の生成結果から複数素材を切り出す、cropする、source_rectで採用することは禁止。
-- 各画像は固有の `image_direction`、固有の `imagegen_prompt`、固有の `generation_id` または `source_url` を持つ。
-- `imagegen_prompt` には「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の生成単位を明記する。
-- `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような低品質プロンプトで生成しない。
+1. 冒頭フック画像
+2. ボケ補強画像
+3. ツッコミ補強画像
+4. 誤解訂正画像
+5. 危険・損失の可視化画像
+6. Before/After 比較画像
+7. 手順・チェックリスト画像
+8. 中盤再フック画像
+9. まとめ・CTA 画像
 
-## 画像の役割
+各シーンの画像は、台本の dialogue のどの行を補強するかを明確にしてから設計する。役割と補強対象セリフの対応がない画像は不合格扱い。
 
-各画像は次のどれかを担当する。
+## 2. ゆっくり系画像の基本ルール
 
-- 冒頭フック画像
-- ボケ補強画像
-- ツッコミ補強画像
-- 誤解訂正画像
-- 危険・損失の可視化画像
-- Before/After比較画像
-- 手順・チェックリスト画像
-- 中盤再フック画像
-- まとめ・CTA画像
-
-## visual_type
-
-`visual_asset_plan[].visual_type` は次から選ぶ。
-
-```yaml
-visual_type_options:
-  - hook_poster
-  - boke_visual
-  - tsukkomi_visual
-  - myth_vs_fact
-  - danger_simulation
-  - before_after
-  - three_step_board
-  - checklist_panel
-  - ranking_board
-  - ui_mockup_safe
-  - flowchart_scene
-  - contrast_card
-  - meme_like_diagram
-  - mini_story_scene
-  - final_action_card
-```
-
-## 禁止
+### 禁止
 
 - 白背景に中央アイコンだけ
 - 無意味な人物シルエット
@@ -67,23 +38,308 @@ visual_type_options:
 - 字幕帯やキャラ位置に重要要素を置くこと
 - 長文日本語を画像内に生成させること
 
-## 必須
+### 必須
 
-- シーン固有の状況がある
-- 台本のボケ、誤解、ツッコミ、結論のどれを補強するか明確
-- 1枚で何の話か分かる
-- main枠とsub枠の役割が被らない
+- シーン固有の「状況」がある
+- 台本のボケ・誤解・ツッコミ・結論のどれを補強するか明確
+- 1枚で「何の話か」が分かる
+- main 枠と sub 枠の役割が被らない
 - 下部20%は字幕とキャラのために空ける
-- 重要テキストはRemotion側で重ねる
+- 重要テキストは Remotion 側で重ねる
 - 画像内文字は短語だけにする
 - 各シーンで構図を変える
 - 画面の情報密度はあるが、ごちゃつかせない
 
-## Scene02 main/sub 役割
+## 3. visual_type 15 種定義
 
-Scene02では、mainとsubの役割を分ける。
+各シーンには必ず 1 つの `visual_type` を割り当てる。同じ visual_type を 1 動画内で 2 回以上使う場合は、構図 / 色 / 主題を必ず差別化する。
 
-main:
+### hook_poster
+
+- 用途: 冒頭で「何がヤバいか」を一発で見せる
+- 典型: s01
+- 構図ヒント: 強い損失型・危険喚起・意外性。当選DMなら「通知＋赤いSTOP」、容量不足なら「赤ゲージスマホ」
+- 禁止: 単独のシンプルアイコン
+- ep904 など事件解説型での例: 詐欺DM画面に赤い禁止マークが大きく重なる縦型ポスター風構図
+
+### boke_visual
+
+- 用途: ずんだもん / 魔理沙のボケを画として見せる
+- 典型: s03 など中盤前半
+- 構図ヒント: 「やっちまった構図」「期待と現実のズレ」を 1 カットで描く。誇張アリ
+- 禁止: 真顔の説明図
+- ep904 など事件解説型での例: 「当選おめでとう」DMにガッツポーズで突撃しようとする俯瞰構図（人物は影 / シルエット）
+
+### tsukkomi_visual
+
+- 用途: 霊夢 / めたんのツッコミを画として強調する
+- 典型: ボケ visual の直後シーン
+- 構図ヒント: 「待った」「STOP」を象徴する手・標識・一時停止UIを大胆配置
+- 禁止: ボケ visual と同構図
+- ep904 など事件解説型での例: 当選DM 画面に大きな手のひらと赤い一時停止ライン
+
+### myth_vs_fact
+
+- 用途: 視聴者の誤解を 1 枚で訂正する
+- 典型: s02
+- 構図ヒント: 左右 2 分割。左に誤解（×）、右に事実（◯）。色で区別、文字は短語のみ
+- 禁止: 中央に文字長文タイトル
+- ep904 など事件解説型での例: 左「公式が個別DMで当選通知」×、右「公式は個別DMしない」◯
+
+### danger_simulation
+
+- 用途: 「このまま行くとこうなる」を可視化する
+- 典型: s02 / s04
+- 構図ヒント: ユーザーの行動 → 損失 / 被害が一直線に進む流れ図的シーン
+- 禁止: 抽象的な不安アイコン
+- ep904 など事件解説型での例: タップ → 偽サイト遷移 → カード情報入力 → 引き落としの 4 段階流れ
+
+### before_after
+
+- 用途: 行動前後の差を見せる
+- 典型: s05 など
+- 構図ヒント: 上下 / 左右 2 分割。before は混乱 / 危険、after は整理 / 安全
+- 禁止: 同じ構図を色だけ変えたもの
+- ep904 など事件解説型での例: before「DM に飛びつく」 / after「URL を一時保存して翌日確認」
+
+### three_step_board
+
+- 用途: 「3 ステップでこうする」を見せる
+- 典型: s08（3 分動画の最終）/ s09（5 分動画）
+- 構図ヒント: 横 3 分割 or 縦 3 段。各段にアイコン＋短語
+- 禁止: 4 ステップ以上を詰める
+- ep904 など事件解説型での例: 「①開かない / ②公式アプリで確認 / ③ブロック」
+
+### checklist_panel
+
+- 用途: 「確認すべき 3 項目」を見せる
+- 典型: sub 枠 / s06 など
+- 構図ヒント: 縦リスト＋チェックボックス。3 項目以内
+- 禁止: 5 項目以上、チェック ON / OFF が混ざる
+- ep904 など事件解説型での例: 「□送信元ドメイン □本文の不自然さ □URL 末尾」
+
+### ranking_board
+
+- 用途: ランキング型台本のビジュアル
+- 典型: リスト型動画の各位
+- 構図ヒント: 表彰台 / カード型。順位は数字、内容は短語
+- 禁止: 同位の項目を並列に置く
+- ep904 など事件解説型での例: 「詐欺 DM ワード TOP3」（当選 / 至急 / 限定）
+
+### ui_mockup_safe
+
+- 用途: スマホ / SNS 風の UI を「実在ブランドに見えない範囲で」再現する
+- 典型: s02 / s04 など
+- 構図ヒント: 角丸スマホ枠＋抽象的な通知バー。色味だけで「あの SNS 風」を匂わせる
+- 禁止: X / Instagram / LINE などの公式ロゴ・正確 UI 模写
+- ep904 など事件解説型での例: 名称なしの「SNS 風 DM 通知」が画面中央に降ってくるモック
+
+### flowchart_scene
+
+- 用途: 判断フローを画像化する
+- 典型: s06 / s07 など
+- 構図ヒント: 開始 → 分岐 → 終端。矢印は太く、分岐は 2 〜 3
+- 禁止: ノードを 8 個以上詰める
+- ep904 など事件解説型での例: 「DM 来た → 公式アプリで確認 → 見つからなければ無視」
+
+### contrast_card
+
+- 用途: 2 つの選択肢を並べて差を見せる
+- 典型: s05 / s06 など
+- 構図ヒント: カード 2 枚を斜めに重ね、片方を強調
+- 禁止: myth_vs_fact と同構図
+- ep904 など事件解説型での例: 「タップする / URL コピーして翌日確認」のカード対比
+
+### meme_like_diagram
+
+- 用途: ボケや誇張をミーム風図解で見せる
+- 典型: s03 など
+- 構図ヒント: 矢印・吹き出し・誇張アイコンで構成。シンメトリーは避ける
+- 禁止: 真面目な学術図解の見た目
+- ep904 など事件解説型での例: 「当選通知 → 脳が報酬モード → 警戒消える」の誇張矢印図
+
+### mini_story_scene
+
+- 用途: 短いストーリーの 1 場面を切り取る
+- 典型: s07 / s08 など
+- 構図ヒント: 1 シチュエーション、人物はシルエット / 後ろ姿。感情が読める構図
+- 禁止: 顔の表情を細かく描く（既存キャラ似を避けるため）
+- ep904 など事件解説型での例: 深夜にスマホを見て固まっているシルエット＋赤い通知
+
+### final_action_card
+
+- 用途: 「最終行動 2 アクション」を 1 枚にまとめる
+- 典型: s08 / s10
+- 構図ヒント: 上下 2 段 or 左右 2 段。アクション＋短語＋アイコン
+- 禁止: 「見るだけ / 考えるだけ」で終わる行動を載せる
+- ep904 など事件解説型での例: 「① ブロック ② 公式アプリで再確認」の 2 アクション提示
+
+## 4. composition_type 15 種
+
+各シーンの imagegen_prompt には visual_type と並んで composition_type を 1 つ指定する。前景 / 中景 / 背景の役割と、Remotion overlay 余白の取り方を以下に定義する。
+
+### smartphone_closeup
+
+- 前景: 角丸スマホ画面（実ブランドなし）
+- 中景: 通知バー / アプリ風 UI（抽象化）
+- 背景: 単色 or グラデ。下部 20% は無地
+- Remotion 余白: 下部 20% を無地に保ち、字幕帯と被らせない
+
+### diagonal_flow
+
+- 前景: 矢印 / アイコンの斜め流れ
+- 中景: 行動ステップを示す簡易図形
+- 背景: ライト系単色。上 80% に流れを集約
+- Remotion 余白: 下部 20% は無地、左右 8% は overlay 用に空ける
+
+### product_shot
+
+- 前景: 主役オブジェクト（スマホ / カード / 通知 etc.）
+- 中景: 軽いシャドウ / リフレクション
+- 背景: 単色 or 軽グラデ
+- Remotion 余白: 下部 20% を完全空白、上部にタイトル overlay 領域
+
+### three_cards
+
+- 前景: カード 3 枚を横並びまたは扇形配置
+- 中景: 各カード内に短語＋アイコン
+- 背景: 中間明度の単色
+- Remotion 余白: カードは画面中央 60% に収める。下部 20% / 左右 10% は無地
+
+### split_danger_safe
+
+- 前景: 画面 2 分割（左：危険赤系 / 右：安全青緑系）
+- 中景: 各サイドにシンボルアイコン
+- 背景: それぞれのトーンで塗り分け
+- Remotion 余白: 下部 20% は両サイドとも無地に統一
+
+### security_visual
+
+- 前景: 鍵 / 盾 / チェックマークなど安全シンボル
+- 中景: 守られている対象（スマホ / データ）
+- 背景: 落ち着いた青緑系
+- Remotion 余白: 下部 20% を空け、シンボルは中央上寄せ
+
+### consultation_flow
+
+- 前景: 人物シルエット 2 つ（相談者 / 助言者）
+- 中景: 吹き出し or 矢印
+- 背景: 室内系単色
+- Remotion 余白: 下部 20% を空け、左右どちらかにキャラ overlay 領域
+
+### before_after_split
+
+- 前景: 上下 or 左右 2 分割
+- 中景: before（混乱）と after（整理）の 2 状態
+- 背景: それぞれ赤系 / 緑系
+- Remotion 余白: 下部 20% を共通の無地ベルトにする
+
+### ranking_podium
+
+- 前景: 1 / 2 / 3 位の表彰台 or カード階段
+- 中景: 各順位アイコン＋短語
+- 背景: スポット光風
+- Remotion 余白: 下部 20% は無地、上部にランキングタイトル overlay 領域
+
+### flow_chart_horizontal
+
+- 前景: 左から右への矢印フロー
+- 中景: 3 〜 4 ノード＋矢印
+- 背景: 薄色
+- Remotion 余白: 下部 20% を空け、左右端からノードを 5% 内側に置く
+
+### flow_chart_vertical
+
+- 前景: 上から下へのフロー
+- 中景: 3 〜 4 ノード
+- 背景: 薄色
+- Remotion 余白: 下部 20% は最終ノードを置かない
+
+### isometric_scene
+
+- 前景: アイソメ視点のミニシーン
+- 中景: 関連オブジェクトを 2 〜 3 個配置
+- 背景: 単色 or 薄グラデ
+- Remotion 余白: 下部 20% を空け、シーンは画面中央上寄せ
+
+### desk_top_down
+
+- 前景: 真上から見たデスク
+- 中景: スマホ / メモ / カードなど
+- 背景: デスク表面の単色
+- Remotion 余白: 下部 20% を空デスク領域として確保
+
+### character_silhouette_avoid
+
+- 前景: 人物を入れない（既存キャラ衝突回避）
+- 中景: オブジェクトと環境のみで状況を示す
+- 背景: シーンに合わせた単色
+- Remotion 余白: 下部 20% / 左右 15% を空け、Remotion 側のキャラ overlay 用に確保
+
+## 5. text_strategy ルール
+
+```yaml
+text_strategy:
+  image_text_allowed: true        # 画像内に短語を入れてよい
+  image_text_max_words: 3          # 最大 3 語まで
+  image_text_examples: ["当選", "確認", "STOP"]   # このような短語のみ
+  remotion_overlay_text:           # 正確な日本語タイトルは Remotion で重ねる
+    - "当選DM、開く前に止まれ"
+```
+
+- `image_text_allowed: false` の場合は画像内に一切文字を入れない（GPT-Image-2 が崩しやすいシーンで使う）
+- `image_text_max_words` の上限は 3 語。4 語以上は許容しない
+- `image_text_examples` は実際にプロンプトへ含める短語の候補。視聴者がパッと意味を取れる単語に限る
+- `remotion_overlay_text` は Remotion 側でテキスト合成する正確な日本語タイトル / セリフ。これを画像内に焼き込まない
+
+画像内に長文日本語タイトルを焼き込まない理由: GPT-Image-2 でも崩れやすく、修正不能なため。タイトル / 字幕は必ず Remotion で重ねる。
+
+## 6. layout_safety ルール
+
+```yaml
+layout_safety:
+  keep_bottom_20_percent_empty: true   # 字幕・キャラ用、必須
+  avoid_character_area: true            # 左右どちらかにキャラ立ちがあるテンプレで必須
+  avoid_sub_area_overlap: true          # sub 枠を持つテンプレで main が侵入しない
+```
+
+- `keep_bottom_20_percent_empty: true` は全テンプレで必須。下部 20% に重要要素を置かない
+- `avoid_character_area: true` はキャラ立ち絵がある Scene01 / Scene02 系テンプレで必須。左右どちらかの 25% を空ける
+- `avoid_sub_area_overlap: true` は sub 枠を持つテンプレで必須。main 画像が sub 領域へ侵入しない
+
+これらを 1 つでも破ると、Remotion 合成時に字幕 / キャラ / sub 枠と衝突して PASS にならない。
+
+## 7. シーン配分ルール
+
+シーン全体で同じ visual_type が連続しないように配分する。下記は標準配分。台本の構成に応じて 1 シーンずらす程度は許容する。
+
+### 3 分動画 (8 シーン構成)
+
+- s01: hook_poster
+- s02: myth_vs_fact or danger_simulation
+- s03: boke_visual or meme_like_diagram
+- s04: danger_simulation
+- s05: split_danger_safe or mid_hook
+- s06: checklist_panel or security_visual
+- s07: mini_story_scene or consultation_flow
+- s08: final_action_card or three_step_board
+
+### 5 分動画 (10 シーン構成)
+
+- s01: hook_poster
+- s02: myth_vs_fact
+- s03: boke_visual
+- s04: danger_simulation
+- s05: mid_hook / before_after
+- s06: flowchart_scene
+- s07: checklist_panel
+- s08: mini_story_scene
+- s09: three_step_board
+- s10: final_action_card
+
+## 8. main / sub 役割分担
+
+main 担当:
 
 - 状況
 - 感情
@@ -93,97 +349,31 @@ main:
 - 危険導線
 - Before/After
 
-sub:
+sub 担当:
 
-- 3項目チェック
-- NGワード
+- 3 項目チェック
+- NG ワード
 - 行動リスト
 - 注意点
 - まとめ
 
 禁止:
 
-- mainとsubが同じ情報を繰り返す
-- mainに細かいチェックリストを入れる
-- subに複雑な図解を入れる
+- main と sub が同じ情報を繰り返す
+- main にチェックリスト
+- sub に複雑図解
 
-## シーン配分
+main は「動かない 1 シーンを切り取る」、sub は「短いリスト型補助」と覚える。両者の役割が被ったら sub を text / bullets に降格する。
 
-3分動画の目安:
+## 9. 必須禁止事項（再掲・最終ガード）
 
-```yaml
-three_minute_visual_mix:
-  s01: hook_poster
-  s02: myth_vs_fact or danger_simulation
-  s03: boke_visual or meme_like_diagram
-  s04: danger_simulation
-  s05: before_after or contrast_card
-  s06: checklist_panel
-  s07: mini_story_scene
-  s08: final_action_card or three_step_board
-```
+- 実在ブランドロゴ
+- 実在 SNS / アプリ UI の模写
+- 既存キャラ（霊夢/魔理沙/ずんだもん/めたん 等）の生成
+- 写真写実
+- 同一プロンプトで生成した画像を 2 シーン以上で使い回す
+- imagegen_prompt を meta.json に書かないまま次フェーズへ進む
 
-5分動画の目安:
+これらは 1 つでも該当した時点で生成画像は不合格。03_IMAGE_PROMPT_AUDIT.md / 05_IMAGE_RESULT_AUDIT.md でも最終チェック対象。
 
-```yaml
-five_minute_visual_mix:
-  s01: hook_poster
-  s02: myth_vs_fact
-  s03: boke_visual
-  s04: danger_simulation
-  s05: before_after
-  s06: flowchart_scene
-  s07: checklist_panel
-  s08: mini_story_scene
-  s09: three_step_board
-  s10: final_action_card
-```
-
-## visual_asset_plan 必須構造
-
-```yaml
-visual_asset_plan:
-  - slot: main
-    supports_dialogue:
-      - s01_l01
-      - s01_l02
-    supports_moment: "霊夢が当選DMに食いつき、魔理沙が止める瞬間"
-    visual_type: hook_poster
-    composition_type: smartphone_closeup
-    purpose: "冒頭フック"
-    image_direction:
-      scene_id: s01
-      dialogue_role: "冒頭フック / ボケ補強 / 誤解訂正 / 手順提示"
-      scene_emotion: "焦り / 驚き / 納得 / 危険 / 安心"
-      visual_type: hook_poster
-      composition_type: smartphone_closeup
-      image_should_support: "どの掛け合いを補強するか"
-      key_visual_sentence: "1枚で伝える状況"
-      main_subject: "主役"
-      secondary_subjects:
-        - "補助要素"
-      foreground: "前景"
-      midground: "中景"
-      background: "背景"
-      color_palette: "色"
-      text_strategy:
-        image_text_allowed: true
-        image_text_max_words: 3
-        image_text_examples:
-          - STOP
-        remotion_overlay_text:
-          - "Remotionで重ねる文"
-      layout_safety:
-        keep_bottom_20_percent_empty: true
-        avoid_character_area: true
-        avoid_sub_area_overlap: true
-      must_not_include:
-        - "実在アプリUI"
-        - "ブランドロゴ"
-        - "既存キャラクター"
-        - "写真風人物"
-        - "長文日本語"
-      quality_bar: "YouTube解説動画の高品質サムネ内スライドとして成立すること"
-    imagegen_prompt: |
-      ...
-```
+最終更新: 2026-04-26

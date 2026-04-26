@@ -1,0 +1,853 @@
+{
+  "meta": {
+    "id": "ep007-yukkuri-mystery-places",
+    "episode_id": "ep007-yukkuri-mystery-places",
+    "layout_template": "Scene09",
+    "character_pair": "RM",
+    "pair": "RM",
+    "title": "地球で科学が説明できない場所Top5",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "audience": "初心者向け",
+    "tone": "軽快なミステリー雑学",
+    "voice_engine": "voicevox",
+    "target_duration_sec": 180
+  },
+  "characters": {
+    "left": {
+      "character": "reimu",
+      "voicevox_speaker_id": 3
+    },
+    "right": {
+      "character": "marisa",
+      "voicevox_speaker_id": 2
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title_text": "地球はまだ謎だらけだぜ",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s01_main.png",
+        "caption": "世界に散る5つの謎",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、暗い紺色の世界地図シルエット、白背景。\n地図上に5つの大きめの星マーク（黄色とオレンジ）が散らばる。\n各星から薄い光のリングがふわっと広がる構図。\n余白多め、シンプル。16:9 アスペクト比。\n文字、ロゴ、実在ブランド、人物の顔は禁止。\n",
+          "style": "フラット・ミステリー雑学",
+          "aspect": "16:9",
+          "negative": "写真風、リアル調、文字、ロゴ、実在ブランド、人物の顔"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "地球の謎ってもう全部解けたよね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.005333,
+          "start_sec": 0.2,
+          "end_sec": 2.2
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "いや、解けてない場所が普通にあるぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.016,
+          "start_sec": 2.5,
+          "end_sec": 4.5
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "え、検索すれば全部出てくるじゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.56,
+          "start_sec": 4.8,
+          "end_sec": 7.4
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "検索しても理由不明な場所、5つ並べる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.442667,
+          "start_sec": 7.7,
+          "end_sec": 10.1
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "5個もあるの？全部UFO案件？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.730667,
+          "start_sec": 10.4,
+          "end_sec": 13.2
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "真面目な科学未解決だけ選んだんだぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.952,
+          "start_sec": 13.5,
+          "end_sec": 15.4
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "怖いやつから来そうで震えるんだけど",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.048,
+          "start_sec": 15.7,
+          "end_sec": 17.8
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "5位から行くぞ、最後が一番ヤバい",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.090667,
+          "start_sec": 18.1,
+          "end_sec": 20.2
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 23.1
+    },
+    {
+      "id": "s02",
+      "title_text": "シベリアの巨大円形クレーター",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s02_main.png",
+        "caption": "第5位 パトムスキー",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n森林の中央にぽっかり開いた円形の盛り上がり、上空から見た俯瞰図。\nクレーターは茶色とベージュ、周囲は緑の針葉樹を抽象化した三角形。\nクレーター中央にうっすら光のリング。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在地形写真、人物は禁止。\n",
+          "style": "フラット俯瞰図",
+          "aspect": "16:9",
+          "negative": "写真風、リアル衛星画像、文字、ロゴ、人物"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "left",
+          "text": "シベリアの穴ってメタンガスでしょ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.813333,
+          "start_sec": 0.2,
+          "end_sec": 2
+        },
+        {
+          "id": "l02",
+          "speaker": "right",
+          "text": "それは別物、今回はパトムスキーだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.144,
+          "start_sec": 2.3,
+          "end_sec": 4.5
+        },
+        {
+          "id": "l03",
+          "speaker": "left",
+          "text": "何それ、聞いたことないやつ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.802667,
+          "start_sec": 4.8,
+          "end_sec": 6.6
+        },
+        {
+          "id": "l04",
+          "speaker": "right",
+          "text": "直径80mの巨大な円形クレーター",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.272,
+          "start_sec": 6.9,
+          "end_sec": 9.2
+        },
+        {
+          "id": "l05",
+          "speaker": "left",
+          "text": "隕石でいいじゃん、はい次",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.792,
+          "start_sec": 9.5,
+          "end_sec": 11.2
+        },
+        {
+          "id": "l06",
+          "speaker": "right",
+          "text": "でも周りに衝突跡が無いんだぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.728,
+          "start_sec": 11.5,
+          "end_sec": 13.3
+        },
+        {
+          "id": "l07",
+          "speaker": "left",
+          "text": "えっ、隕石なら絶対跡あるよね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.549333,
+          "start_sec": 13.6,
+          "end_sec": 16.1
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "だから今も正体は不明のままだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.728,
+          "start_sec": 16.4,
+          "end_sec": 18.1
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "地下から押し上げた説もあるの？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.824,
+          "start_sec": 18.4,
+          "end_sec": 20.3
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "水蒸気爆発説や地下核反応説まである",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.389333,
+          "start_sec": 20.6,
+          "end_sec": 23
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 25.9
+    },
+    {
+      "id": "s03",
+      "title_text": "鳥が石になる赤い湖",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s03_main.png",
+        "caption": "第4位 ナトロン湖",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n中央に鮮やかなピンク赤の湖を上空から俯瞰、湖の縁は塩の白い結晶帯。\n湖畔に石化した鳥のシルエットが2羽、薄いグレーで配置。\n色は赤ピンクと白、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\nリアル動物写真、文字、ロゴ、流血表現は禁止。\n",
+          "style": "フラット俯瞰図",
+          "aspect": "16:9",
+          "negative": "写真風、リアル動物、流血、文字、ロゴ"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "お次はタンザニアのナトロン湖だぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.909333,
+          "start_sec": 0.2,
+          "end_sec": 2.1
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "動物が石化するって都市伝説でしょ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.165333,
+          "start_sec": 2.4,
+          "end_sec": 4.6
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "実際の写真が現実に存在してるぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.08,
+          "start_sec": 4.9,
+          "end_sec": 7
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "マジで？完全に呪い案件じゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.282667,
+          "start_sec": 7.3,
+          "end_sec": 9.6
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "pH10超え、強アルカリの湖なんだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.410667,
+          "start_sec": 9.9,
+          "end_sec": 12.3
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "ザリガニのお風呂にも厳しそう",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.717333,
+          "start_sec": 12.6,
+          "end_sec": 14.3
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "落ちた鳥が炭酸カルシウムで包まれる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 14.6,
+          "end_sec": 16.5
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "ミイラじゃなく石化、上位互換の呪い",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.346667,
+          "start_sec": 16.8,
+          "end_sec": 19.2
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "なぜ生物が落ちるかは未解明なんだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.898667,
+          "start_sec": 19.5,
+          "end_sec": 21.4
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "鳥も困惑する湖、地球やばすぎ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.656,
+          "start_sec": 21.7,
+          "end_sec": 24.3
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 27.2
+    },
+    {
+      "id": "s04",
+      "title_text": "草原に並ぶ謎の丸い禿げ",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s04_main.png",
+        "caption": "第3位 妖精の輪",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n黄緑の草原を上空から俯瞰、規則正しく並んだ円形の禿げ地（茶色）が10個ほど整列。\nサイズは大小ばらつき、整然としたパターン。\n色は黄緑と土色の2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、実在写真は禁止。\n",
+          "style": "フラット俯瞰図",
+          "aspect": "16:9",
+          "negative": "写真風、文字、ロゴ、人物、実在地形"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "ここで一回ペースを整理するぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.621333,
+          "start_sec": 0.2,
+          "end_sec": 1.8
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "もう3つ目、私の脳がバグった",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.218667,
+          "start_sec": 2.1,
+          "end_sec": 4.4
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "残り3つ、変なやつしか来ないぞ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.909333,
+          "start_sec": 4.7,
+          "end_sec": 6.6
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "来い、心の準備はもう終わった",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.229333,
+          "start_sec": 6.9,
+          "end_sec": 9.1
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "ナミブ砂漠の妖精の輪、知ってるか",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 9.4,
+          "end_sec": 11.3
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "草原に丸い禿げが並ぶやつ？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.133333,
+          "start_sec": 11.6,
+          "end_sec": 13.8
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "直径2〜10m、不気味なほど整列",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.624,
+          "start_sec": 14.1,
+          "end_sec": 16.7
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "誰かが芝刈り機で遊んだだけでは",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.973333,
+          "start_sec": 17,
+          "end_sec": 19
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "白アリ説と植物競合説で学者対立中",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.496,
+          "start_sec": 19.3,
+          "end_sec": 21.8
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "え、学者がガチで揉めてるの？",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.314667,
+          "start_sec": 22.1,
+          "end_sec": 24.4
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 27.3
+    },
+    {
+      "id": "s05",
+      "title_text": "200万年雨が降らない南極の谷",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s05_main.png",
+        "caption": "第2位 ドライバレー",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n中央に乾いた茶色の谷、両脇に切り立った白い雪山。\n谷の奥に、赤い水が氷から滴る「血の滝」を抽象化したアイコン。\n色は茶色、白、赤の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、リアル写真、流血表現は禁止。\n",
+          "style": "フラット俯瞰図",
+          "aspect": "16:9",
+          "negative": "写真風、流血、文字、ロゴ、人物"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "第2位、南極のドライバレーだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.845333,
+          "start_sec": 0.2,
+          "end_sec": 2.1
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "南極なら全部凍ってんじゃないの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 2.4,
+          "end_sec": 4.3
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "ここは200万年雨も雪も降らないぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.962667,
+          "start_sec": 4.6,
+          "end_sec": 6.6
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "えっ、南極で雨降らないとか嘘でしょ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.613333,
+          "start_sec": 6.9,
+          "end_sec": 9.5
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "山脈が湿った空気を全部はじいてる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.973333,
+          "start_sec": 9.8,
+          "end_sec": 11.8
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "でも血みたいな滝あるって聞いたよ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.877333,
+          "start_sec": 12.1,
+          "end_sec": 13.9
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "鉄分で赤い水が垂れる血の滝だぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.973333,
+          "start_sec": 14.2,
+          "end_sec": 16.2
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "名前のセンスがホラー映画じゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.738667,
+          "start_sec": 16.5,
+          "end_sec": 18.2
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "内部の塩水と微生物の一部は未解明",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.250667,
+          "start_sec": 18.5,
+          "end_sec": 20.8
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "火星みたいなのが地球にもあるんだ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.952,
+          "start_sec": 21.1,
+          "end_sec": 23
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 25.9
+    },
+    {
+      "id": "s06",
+      "title_text": "4kmまるごと熱湯の川",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s06_main.png",
+        "caption": "第1位 沸騰川",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\nジャングルの中を蛇行して流れる青い川、川面から白い湯気がもくもく立ち上る。\n周囲は緑の三角形で抽象化された熱帯雨林。\n色は青、白、緑の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル写真は禁止。\n",
+          "style": "フラットイラスト",
+          "aspect": "16:9",
+          "negative": "写真風、文字、ロゴ、人物、リアル背景"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "ラスト、ペルー奥地の沸騰川だぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.037333,
+          "start_sec": 0.2,
+          "end_sec": 2.3
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "沸騰川って、比喩ですよね",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.930667,
+          "start_sec": 2.6,
+          "end_sec": 4.5
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "比喩じゃない、4kmが90℃超え",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.581333,
+          "start_sec": 4.8,
+          "end_sec": 7.4
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "落ちたら3秒で終了の川じゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.941333,
+          "start_sec": 7.7,
+          "end_sec": 9.6
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "動物が落ちて茹で上がる事故もある",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.674667,
+          "start_sec": 9.9,
+          "end_sec": 11.6
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "もう湯沸かし器のお化けじゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.450667,
+          "start_sec": 11.9,
+          "end_sec": 13.3
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "地熱だけじゃ流量を説明できないぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.866667,
+          "start_sec": 13.6,
+          "end_sec": 15.5
+        },
+        {
+          "id": "l08",
+          "speaker": "left",
+          "text": "えっ、まだ原因分かってないの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.101333,
+          "start_sec": 15.8,
+          "end_sec": 17.9
+        },
+        {
+          "id": "l09",
+          "speaker": "right",
+          "text": "火山活動から離れすぎてるんだぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.770667,
+          "start_sec": 18.2,
+          "end_sec": 20
+        },
+        {
+          "id": "l10",
+          "speaker": "left",
+          "text": "自然は完全にホラー作家じゃん",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.866667,
+          "start_sec": 20.3,
+          "end_sec": 22.1
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 25
+    },
+    {
+      "id": "s07",
+      "title_text": "今日選ぶ1つと、月1で見る予定",
+      "main": {
+        "kind": "image",
+        "asset": "assets/s07_main.png",
+        "caption": "行動チェックリスト",
+        "asset_requirements": {
+          "imagegen_prompt": "フラットイラスト、白背景。\n縦に並んだ3つのチェックボックス（未チェット状態）。\n各ボックスの右に短い線（中身の文字は描かない）。\n一番上のボックスにだけ青緑のチェックマーク。\n色は青緑とグレーの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在UIの模写は禁止。\n",
+          "style": "フラットUI風アイコン",
+          "aspect": "16:9",
+          "negative": "文字、ロゴ、実在UI、人物"
+        }
+      },
+      "sub": null,
+      "dialogue": [
+        {
+          "id": "l01",
+          "speaker": "right",
+          "text": "今日のTop5、覚えてるか霊夢",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.76,
+          "start_sec": 0.2,
+          "end_sec": 2
+        },
+        {
+          "id": "l02",
+          "speaker": "left",
+          "text": "ナトロン湖と沸騰川、脳に焼けた",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.538667,
+          "start_sec": 2.3,
+          "end_sec": 4.8
+        },
+        {
+          "id": "l03",
+          "speaker": "right",
+          "text": "地球はまだ未解決だらけなんだぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.696,
+          "start_sec": 5.1,
+          "end_sec": 6.8
+        },
+        {
+          "id": "l04",
+          "speaker": "left",
+          "text": "で、私たちは何をすればいいの",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.293333,
+          "start_sec": 7.1,
+          "end_sec": 9.4
+        },
+        {
+          "id": "l05",
+          "speaker": "right",
+          "text": "まず気になる1ヶ所を決めるぜ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.450667,
+          "start_sec": 9.7,
+          "end_sec": 11.2
+        },
+        {
+          "id": "l06",
+          "speaker": "left",
+          "text": "私はナミブ妖精の輪、整列フェチ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.538667,
+          "start_sec": 11.5,
+          "end_sec": 14
+        },
+        {
+          "id": "l07",
+          "speaker": "right",
+          "text": "次に保存先のメモに名前を書く",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.749333,
+          "start_sec": 14.3,
+          "end_sec": 16
+        },
+        {
+          "id": "l08",
+          "speaker": "right",
+          "text": "月末に新説出てないかチェック予定",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 1.909333,
+          "start_sec": 16.3,
+          "end_sec": 18.3
+        },
+        {
+          "id": "l09",
+          "speaker": "left",
+          "text": "地球のニュースが毎月楽しみになる",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.101333,
+          "start_sec": 18.6,
+          "end_sec": 20.7
+        },
+        {
+          "id": "l10",
+          "speaker": "right",
+          "text": "高評価とコメントで君の1位も教えろ",
+          "pre_pause_sec": 0.08,
+          "post_pause_sec": 0.22,
+          "wav_sec": 2.048,
+          "start_sec": 21,
+          "end_sec": 23
+        }
+      ],
+      "tail_pad_sec": 2.5,
+      "duration_sec": 25.9
+    }
+  ],
+  "total_duration_sec": 180.3,
+  "public_dir": "episodes/ep007-yukkuri-mystery-places",
+  "base_layout_width": 1920,
+  "base_layout_height": 1080
+}

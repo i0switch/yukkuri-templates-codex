@@ -1,0 +1,105 @@
+{
+  "episode_id": "ep001-yukkuri-cognitive-illusions",
+  "title": "冷静と思った時点で詰んでる、認知バグ7選",
+  "layout_template": "Scene04",
+  "image_engine": "codex-imagegen",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットデザインのイラスト、白背景。\n中央に正面向きの脳のシルエット、青緑系のパステルカラー。\n脳の周囲に小さなエラー記号（!マーク、×マーク）が3〜4個、控えめに配置。\n柔らかいタッチ、シンプル。16:9 アスペクト比。\nテキスト・文字・人物の顔・ロゴ・実在ブランドは入れない。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットデザイン、白背景。\n中央に正面向きの抽象的な人物（顔は省略、頭部シルエットのみ）。\n頭の周りに同じ色の矢印が4〜5本集まる構図。色は青緑系、矢印は同色で統一。\nシンプル、視線が頭部に集まるレイアウト。16:9 アスペクト比。\nテキスト・文字・ロゴ・実在ブランドは禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n中央に抽象人物（顔は省略、シルエットのみ）。\n頭上に薄い黄色の光輪、足元に★マークが3つ並ぶ。\n色はパステル系、青緑とイエロー。シンプル、余白多め。\n16:9 アスペクト比。\n文字・ロゴ・実在人物・表情は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットアイコン、白背景。\n中央に大きな値札イラスト。上に「定価」位置（数値はぼかすか抽象記号 ●●●● で）、下に「割引後」位置（同様に抽象記号）。\n矢印で「上→下」を示す。\n色は青緑とオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n実在通貨記号・具体的な数字・読める文字は描かない、抽象記号のみ。ロゴ・実在ブランド禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットインフォグラフィック、白背景。\n横長の7マスメーター（横並びの長方形7個）。\n左から4マス目までを青緑で点灯（塗りつぶし）、5〜7マスは薄いグレー。\nシンプル、余白多め、視線が左から右へ流れる構図。\n16:9 アスペクト比。\n数字・文字・ロゴは入れない。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラット折れ線グラフ、白背景。\n横軸は時間（左→右の流れ）、縦軸は楽しさのイメージ。\n山と谷のある曲線が中央に大きく描かれ、最高点（山頂）と最右端（終点）に★マーク。\n色は青緑と濃いオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n数値ラベル・文字・軸名は入れない。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラット2コマ並列イラスト、白背景。\n左と右にほぼ同じ室内風景（机、椅子、窓、シンプルな家具）を描く。\n1箇所だけ色か位置が違う（例：左の壁飾りが右では消えている）。違いの位置に小さな赤い○。\n色はパステル、シンプル、余白多め。\n16:9 アスペクト比。\n文字・人物・ロゴ・実在ブランド・複雑な装飾は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n左に「結果」を象徴するチェックマークの大きなアイコン、右に空の吹き出し（中身は記号のみ、文字なし、●や★で抽象表現）。\n矢印で右から左に逆流する流れを示す（時間が遡るイメージ）。\n色は青緑と薄いグレーの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字・実在人物・ロゴは禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s09_main.png",
+      "scene_id": "s09",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n3コマ横並び構成。\n左コマ：ラーメン丼のシンプルなアイコン、湯気あり。\n中央コマ：脳のシルエット、青緑系。\n右コマ：シンプルな食卓アイコン（皿とフォーク程度）。\n各コマ間に右向き矢印で連結。色は青緑とオレンジ。\nシンプル、余白多め。16:9 アスペクト比。\n文字・実在ブランド・ロゴは禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s10_main.png",
+      "scene_id": "s10",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットチェックリスト、白背景。\n縦に3つのチェックボックスが並ぶ、各横に細い横線（中身は描かない、文字なし）。\n各ボックスはシンプルな四角、未チェック状態。\n色は青緑のアクセントのみ、余白多め。\n16:9 アスペクト比。\n文字・ロゴ・実在UIの模写は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "bgm/track.mp3",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "credit_required": false
+    }
+  ]
+}

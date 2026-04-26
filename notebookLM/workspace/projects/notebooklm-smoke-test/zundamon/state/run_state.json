@@ -1,0 +1,68 @@
+{
+  "slug": "notebooklm-smoke-test",
+  "style": "zundamon",
+  "script_path": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\ゆっくり＆ずんだもん\\workspace\\projects\\notebooklm-smoke-test\\zundamon\\script\\script_v1.md",
+  "notebook": {
+    "id": "5f93d72c-a2df-44c8-b72c-81d9636b8323",
+    "title": "notebooklm-smoke-test-zundamon",
+    "status": "ready"
+  },
+  "stages": {
+    "script_generation": {
+      "status": "done"
+    },
+    "asset_planning": {
+      "status": "done"
+    },
+    "notebooklm_upload": {
+      "status": "done"
+    },
+    "asset_generation": {
+      "status": "partial"
+    },
+    "asset_download": {
+      "status": "partial"
+    },
+    "audit": {
+      "status": "pending"
+    }
+  },
+  "markers": [
+    {
+      "id": "FIG:1",
+      "type": "FIG",
+      "seq": 1,
+      "desc": "カフェインがアデノシン受容体をふさぐ全体像",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "fig_1.png",
+      "status": "downloaded",
+      "artifact_id": "acb72b3b-5b87-4f20-94a8-d93b9b3593f8",
+      "local_path": "../materials/generated/fig_1.png"
+    },
+    {
+      "id": "INFO:1",
+      "type": "INFO",
+      "seq": 1,
+      "desc": "アデノシンとカフェインが受容体を取り合う図",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_1.png",
+      "status": "pending",
+      "artifact_id": null,
+      "local_path": null
+    },
+    {
+      "id": "SLIDE:1",
+      "type": "SLIDE",
+      "seq": 1,
+      "desc": "カフェインで目が覚める仕組みの3ポイント",
+      "kind": "slide_deck",
+      "extension": "pdf",
+      "output_name": "slide_1.pdf",
+      "status": "pending",
+      "artifact_id": null,
+      "local_path": null
+    }
+  ]
+}

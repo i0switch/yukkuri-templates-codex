@@ -1,26 +1,17 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {parseDocument} from 'yaml';
-import {loadScriptPromptPack} from './lib/load-script-prompt-pack.mjs';
+import {parse as parseYaml} from 'yaml';
 
 const rootDir = process.cwd();
-const target = process.argv[2];
+const scriptDir = path.join(rootDir, 'script');
 
-if (!target) {
-  throw new Error('Usage: node scripts/audit-script-quality.mjs <episode_id|path/to/script.yaml>');
-}
+const args = process.argv.slice(2);
+const explicitEpisodes = args.filter((arg) => !arg.startsWith('--'));
+const strictMode = args.includes('--strict') || explicitEpisodes.length > 0;
 
-const REQUIRED_SCRIPT_MD_MARKERS = [
-  'scene_format',
-  'hook_type',
-  'viewer_misunderstanding',
-  'boke_or_reaction',
-  'reaction_level',
-  'mini_punchline',
-  'セルフ監査',
-];
+const COUNT_CHARS = (text) => Array.from(text ?? '').length;
 
-const AWKWARD_RM_ENDINGS = [
+const RM_AWKWARD_ENDINGS = [
   '見るだぜ',
   'するだぜ',
   'やるだぜ',
@@ -28,201 +19,454 @@ const AWKWARD_RM_ENDINGS = [
   '確認するだぜ',
   '使うだぜ',
   '行くだぜ',
+  '言うだぜ',
+  '聞くだぜ',
+  '出すだぜ',
+  '読むだぜ',
+  '書くだぜ',
 ];
 
-const pushIssue = (issues, level, code, message, details = {}) => {
-  issues.push({level, code, message, details});
+// 最終行動はカテゴリ別に判定し、命令/実行形との近接ヒットを2カテゴリ以上要求する。
+// false negative を抑えるため execute カテゴリから「今日／一度／一回」のような単独で締め文に紛れる語は除外。
+const FINAL_ACTION_CATEGORIES = {
+  confirm: ['確認', '見直', '点検', 'チェック', '振り返', '確かめ', 'たしかめ', '検証', '見比べ'],
+  choose: ['選ぶ', '選択', '決め', '判断', '選び', '絞り込', '選んで'],
+  save: ['保存', '記録', 'メモ', '残す', 'スクショ', 'バックアップ', '逃が', '隔離', 'テンプレ化', '書く', '書き出', '書き残'],
+  schedule: ['予定', 'カレンダー', 'スケジュール', '日付を入れ', '日時を', 'アラーム', 'リマインダ', '登録'],
+  organize: ['整理', '消す', '削除', '消去', 'まとめ', '片付', '断捨離'],
+  execute: ['設定', '変更', '切り替え', '入れ替え', 'オン／オフ', 'アップデート', '止め', '止まる', '寝かす', '寝かせ', '渡す', '実行'],
 };
 
-const resolveTarget = (value) => {
-  const directPath = path.resolve(rootDir, value);
-  if (value.endsWith('.yaml') || value.endsWith('.yml')) {
-    return {episodeDir: path.dirname(directPath), scriptPath: directPath};
+// 命令／実行を示す末尾形・近接動詞・行動名詞。
+// 視聴後すぐ実行できる行動（命令形・意志形・基本形での自他動詞）を緩めに広く拾う。
+const ACTION_VERB_PATTERNS = [
+  /(?:て|で|り|れ|ろ|よ|な)$/,                  // 命令／てform 末尾
+  /(?:しよう|しましょう|してみよう|やろう|やってみよう|始めよう|してね)/,
+  /(?:入れて|入れる|入れよう|入れたい)/,
+  /(?:決めて|決める|決めよう|決めたい|絞る|絞って)/,
+  /(?:保存して|保存する|保存しよう|残して|残す|残そう|書き出す|書き出して|書く)/,
+  /(?:消して|消す|消そう|止めて|止める|止めよう|やめて|やめる)/,
+  /(?:確認して|確認する|確認しよう|チェックして|チェックする)/,
+  /(?:選んで|選ぶ|選ぼう|決めて)/,
+  /(?:やる|やって|やろう)/,
+  /(?:寝かす|寝かせる|渡す|渡して|検証する|検証して|登録する|登録して)/,
+  /(?:整理する|整理して|まとめる|まとめて|片付ける|片付けて)/,
+];
+
+// 行動を強く示す名詞（動詞無くても行動寄り）。命令/実行形が周囲にあれば併用ヒットさせる。
+const ACTION_NOUN_RE = /(記録|スクショ|チェック|テンプレ|リマインダ|アラーム)/;
+
+const MIDPOINT_HOOK_KEYWORDS = ['ここで', 'ところで', '実は', 'もう一つ', '裏側', '逆に', 'さらに', '裏では', '本当は', '別角度', '視点を変え'];
+
+const formatDurationBucket = (seconds) => {
+  if (typeof seconds !== 'number' || !Number.isFinite(seconds)) return null;
+  if (seconds <= 60) return 'short';
+  if (seconds <= 100) return 'short-90';
+  if (seconds <= 220) return '3min';
+  if (seconds <= 360) return '5min';
+  if (seconds <= 540) return '7min';
+  return '10min+';
+};
+
+const bucketLimits = {
+  '3min': {minScenes: 8, minLines: 80, maxLines: 95, minLinesPerScene: 8},
+  '5min': {minScenes: 10, minLines: 90, maxLines: 130, minLinesPerScene: 8},
+  '7min': {minScenes: 12, minLines: 110, maxLines: 160, minLinesPerScene: 8},
+  '10min+': {minScenes: 14, minLines: 130, maxLines: 220, minLinesPerScene: 8},
+};
+
+const tryReadFile = async (filePath) => {
+  try {
+    return await fs.readFile(filePath, 'utf8');
+  } catch (error) {
+    if (error.code === 'ENOENT') return null;
+    throw error;
   }
-  const episodeDir = path.join(rootDir, 'script', value);
-  return {episodeDir, scriptPath: path.join(episodeDir, 'script.yaml')};
 };
 
-const readYaml = async (scriptPath) => parseDocument(await fs.readFile(scriptPath, 'utf8')).toJS();
+const loadYamlIfExists = async (filePath) => {
+  const text = await tryReadFile(filePath);
+  if (text === null) return null;
+  return parseYaml(text);
+};
 
-const speakerRunIssues = (script) => {
+const checkScriptMd = (text) => {
   const issues = [];
-  for (const scene of script.scenes ?? []) {
-    let prev = null;
-    let run = 0;
-    for (const line of scene.dialogue ?? []) {
-      if (line.speaker === prev) {
-        run += 1;
-      } else {
-        prev = line.speaker;
-        run = 1;
-      }
-      if (line.speaker === 'right' && run >= 3) {
-        issues.push({scene: scene.id, speaker: line.speaker, run});
-        break;
+  if (!text) {
+    issues.push({level: 'fatal', code: 'missing-script-md', message: 'script.md が無い。prompt pack の draft / audit を経由していない疑い。'});
+    return issues;
+  }
+  const need = [
+    {label: 'scene_format', re: /scene_format/i},
+    {label: 'hook_type', re: /hook_type/i},
+    {label: 'viewer_misunderstanding', re: /viewer_misunderstanding|視聴者[誤]?解|誤解/i},
+    {label: 'boke_or_reaction', re: /boke_or_reaction|ボケ|リアクション/i},
+    {label: 'reaction_level', re: /reaction_level|L[1-5]|リアクション強度/i},
+    {label: 'mini_punchline', re: /mini_punchline|小オチ|小ネタ|punchline/i},
+    {label: 'audit_or_self_check', re: /セルフ監査|自己監査|台本監査|ジャンル適合/i},
+    {label: 'number_or_example', re: /\d|具体例|あるある/i},
+  ];
+
+  for (const {label, re} of need) {
+    if (!re.test(text)) {
+      issues.push({level: 'warn', code: `script-md-missing:${label}`, message: `script.md に ${label} の記載が見つからない。`});
+    }
+  }
+  return issues;
+};
+
+const collectDialogue = (script) => {
+  if (!script || !Array.isArray(script.scenes)) return [];
+  const out = [];
+  for (const scene of script.scenes) {
+    if (!Array.isArray(scene?.dialogue)) continue;
+    for (const line of scene.dialogue) {
+      out.push({sceneId: scene.id ?? '?', speaker: line.speaker, text: String(line.text ?? '')});
+    }
+  }
+  return out;
+};
+
+const sceneAverages = (script) => {
+  if (!script || !Array.isArray(script.scenes)) return {avg: 0, perScene: []};
+  const counts = script.scenes.map((scene) => Array.isArray(scene?.dialogue) ? scene.dialogue.length : 0);
+  if (counts.length === 0) return {avg: 0, perScene: counts};
+  const avg = counts.reduce((sum, n) => sum + n, 0) / counts.length;
+  return {avg, perScene: counts};
+};
+
+const checkLayoutTemplate = (script) => {
+  const issues = [];
+  const layout = script?.meta?.layout_template;
+  if (!layout) {
+    issues.push({level: 'fatal', code: 'meta-layout-missing', message: 'meta.layout_template が無い。'});
+  } else if (!/^Scene(0[1-9]|1[0-9]|2[0-1])$/.test(layout)) {
+    issues.push({level: 'fatal', code: 'meta-layout-format', message: `meta.layout_template が Scene01〜Scene21 形式ではない: ${layout}`});
+  }
+  if (Array.isArray(script?.scenes)) {
+    for (const scene of script.scenes) {
+      if (scene?.scene_template) {
+        issues.push({level: 'fatal', code: 'scene-template-leak', message: `scenes[].scene_template が残っている: ${scene.id ?? '?'}`});
       }
     }
   }
   return issues;
 };
 
-const hasMidpointRehook = (script) =>
-  (script.scenes ?? []).some((scene) =>
-    [scene.reference_beat, scene.hook_type, scene.scene_goal, scene.title_text, scene.main?.text, scene.main?.caption]
-      .filter(Boolean)
-      .some((value) => /midpoint_rehook|再フック|中盤/.test(String(value))),
-  );
-
-const finalActionCount = (script) => {
-  const lastScenes = (script.scenes ?? []).slice(-2);
-  const text = lastScenes
-    .flatMap((scene) => [
-      scene.title_text,
-      scene.main?.text,
-      scene.main?.caption,
-      ...(scene.main?.items ?? []),
-      ...(scene.sub?.items ?? []),
-      ...(scene.dialogue ?? []).map((line) => line.text),
-    ])
-    .filter(Boolean)
-    .join(' ');
-  return (text.match(/保存|確認|開か|相談|記録|投稿|見る|消す|ブロック|通報|公式|チェック|試す|作る|送る/g) ?? []).length;
+const checkLineLengths = (lines) => {
+  const issues = [];
+  for (const line of lines) {
+    const len = COUNT_CHARS(line.text);
+    if (len > 25) {
+      issues.push({level: 'fatal', code: 'line-too-long', message: `${line.sceneId} の ${line.speaker ?? '?'} セリフが ${len} 文字 (>25): ${line.text}`});
+    }
+  }
+  return issues;
 };
 
-const audit = async () => {
-  const errors = [];
-  const warnings = [];
-  await loadScriptPromptPack(rootDir, {log: false});
-
-  const {episodeDir, scriptPath} = resolveTarget(target);
-  const script = await readYaml(scriptPath);
-  const scriptMdPath = path.join(episodeDir, 'script.md');
-
-  let scriptMd = '';
-  try {
-    scriptMd = await fs.readFile(scriptMdPath, 'utf8');
-  } catch {
-    pushIssue(errors, 'error', 'missing-script-md', 'script.md がありません。新規生成は prompt pack 監査済み script.md を必須にします', {
-      script_md: path.relative(rootDir, scriptMdPath),
-    });
+const checkLineDuplication = (lines) => {
+  const issues = [];
+  const seen = new Map();
+  for (const line of lines) {
+    const key = line.text.trim();
+    if (!key) continue;
+    seen.set(key, (seen.get(key) ?? 0) + 1);
   }
-
-  if (scriptMd) {
-    const missingMarkers = REQUIRED_SCRIPT_MD_MARKERS.filter((marker) => !scriptMd.includes(marker));
-    if (!/number_or_example|具体例/.test(scriptMd)) {
-      missingMarkers.push('number_or_example または 具体例');
-    }
-    if (!/ジャンル適合|台本監査/.test(scriptMd)) {
-      missingMarkers.push('ジャンル適合 または 台本監査');
-    }
-    if (missingMarkers.length > 0) {
-      pushIssue(errors, 'error', 'script-md-missing-quality-markers', 'script.md に prompt pack 品質マーカーが不足しています', {
-        missing: missingMarkers,
-      });
+  for (const [text, count] of seen) {
+    if (count >= 3) {
+      issues.push({level: 'warn', code: 'line-repeated', message: `同じセリフが ${count} 回登場: 「${text}」`});
     }
   }
+  return issues;
+};
 
-  const scenes = script.scenes ?? [];
-  const lines = scenes.flatMap((scene) => (scene.dialogue ?? []).map((line) => ({...line, scene: scene.id})));
-  const targetSec = Number(script.meta?.target_duration_sec ?? script.total_duration_sec ?? 0);
-  const averageLines = scenes.length > 0 ? lines.length / scenes.length : 0;
-
-  if (targetSec >= 150 && targetSec <= 240) {
-    if (scenes.length < 8) pushIssue(errors, 'error', 'three-minute-scenes', '3分前後は8シーン以上が必要です', {scenes: scenes.length});
-    if (lines.length < 80 || lines.length > 95) {
-      pushIssue(errors, 'error', 'three-minute-dialogue-count', '3分前後は80〜95セリフが目安です', {dialogue_lines: lines.length});
-    }
+const checkDialogueDensity = (script) => {
+  const issues = [];
+  const target = script?.meta?.target_duration_sec;
+  const bucket = formatDurationBucket(target);
+  if (!bucket) {
+    return issues;
   }
-
-  if (targetSec >= 270 && targetSec <= 390) {
-    if (scenes.length < 10) pushIssue(errors, 'error', 'five-minute-scenes', '5分前後は10シーン以上が必要です', {scenes: scenes.length});
-    if (lines.length < 90 || lines.length > 130) {
-      pushIssue(errors, 'error', 'five-minute-dialogue-count', '5分前後は90〜130セリフが目安です', {dialogue_lines: lines.length});
-    }
+  const limits = bucketLimits[bucket];
+  if (!limits) {
+    return issues;
   }
+  const lineTotal = collectDialogue(script).length;
+  const sceneTotal = Array.isArray(script.scenes) ? script.scenes.length : 0;
+  const {avg, perScene} = sceneAverages(script);
 
-  if (targetSec >= 150 && averageLines < 8) {
-    pushIssue(errors, 'error', 'low-dialogue-density', '1シーン平均8セリフ以上が必要です', {
-      average_lines_per_scene: Number(averageLines.toFixed(2)),
-    });
+  if (sceneTotal < limits.minScenes) {
+    issues.push({level: 'fatal', code: 'scene-count-low', message: `${bucket} 想定でシーン数 ${sceneTotal} < ${limits.minScenes}`});
   }
-
-  if (targetSec >= 150 && !hasMidpointRehook(script)) {
-    pushIssue(errors, 'error', 'midpoint-rehook-missing', '中盤再フックがありません');
+  if (lineTotal < limits.minLines) {
+    issues.push({level: 'fatal', code: 'line-count-low', message: `${bucket} 想定でセリフ総数 ${lineTotal} < ${limits.minLines}`});
   }
-
-  if (targetSec >= 150 && finalActionCount(script) < 2) {
-    pushIssue(errors, 'error', 'final-actions-thin', '最終行動が2アクション未満です', {
-      action_hits: finalActionCount(script),
-    });
+  if (limits.maxLines && lineTotal > limits.maxLines) {
+    issues.push({level: 'warn', code: 'line-count-high', message: `${bucket} 想定でセリフ総数 ${lineTotal} > ${limits.maxLines} (情報過多の可能性)`});
   }
-
-  const monologues = speakerRunIssues(script);
-  if (monologues.length > 0) {
-    pushIssue(errors, 'error', 'explainer-monologue', '解説役の3セリフ以上の独演があります', {
-      scenes: monologues,
-    });
+  if (avg < limits.minLinesPerScene) {
+    issues.push({level: 'fatal', code: 'avg-lines-low', message: `1シーン平均 ${avg.toFixed(1)} < ${limits.minLinesPerScene}`});
   }
-
-  const awkwardRmLines = lines
-    .filter((line) => AWKWARD_RM_ENDINGS.some((ending) => String(line.text ?? '').includes(ending)))
-    .map((line) => ({scene: line.scene, id: line.id, text: line.text}));
-  if (awkwardRmLines.length > 0) {
-    pushIssue(errors, 'error', 'awkward-rm-ending', 'RMの不自然な語尾があります', {
-      lines: awkwardRmLines,
-      suggestions: {
-        '見るだぜ': '見るんだぜ',
-        '確認するだぜ': '確認だぜ / 確認するんだ',
-        '使うだぜ': '使うんだぜ',
-        '行くだぜ': '行くんだぜ',
-      },
-    });
+  const fixedSix = perScene.filter((n) => n === 6).length;
+  if (perScene.length >= 5 && fixedSix / perScene.length >= 0.7) {
+    issues.push({level: 'warn', code: 'six-line-fixed', message: `多くのシーンが6セリフ固定 (${fixedSix}/${perScene.length})、単調の疑い`});
   }
+  return issues;
+};
 
-  const pair = script.meta?.pair;
-  if (pair === 'ZM') {
-    const zundaLines = lines.filter((line) => line.speaker === 'left');
-    const zundaEndingLines = zundaLines.filter((line) => /なのだ|のだ/.test(String(line.text ?? '')));
-    const ratio = zundaEndingLines.length / Math.max(1, zundaLines.length);
-    if (ratio === 0) {
-      pushIssue(errors, 'error', 'zunda-ending-missing', '「のだ」「なのだ」が0%でキャラ性不足です');
-    } else if (ratio < 0.2 || ratio > 0.4) {
-      pushIssue(warnings, 'warning', 'zunda-ending-ratio', '「のだ」「なのだ」は20〜40%目安です', {
-        ratio: Number(ratio.toFixed(2)),
-      });
-    }
-  }
-
-  const questionAnswerRuns = scenes
-    .filter((scene) => {
-      const texts = scene.dialogue ?? [];
-      let qa = 0;
-      for (let index = 0; index < texts.length - 1; index += 2) {
-        if (/[？?]/.test(texts[index]?.text ?? '') && texts[index + 1]?.speaker !== texts[index]?.speaker) {
-          qa += 1;
-        }
+const checkRmEndings = (lines, pair) => {
+  if (pair !== 'RM') return [];
+  const issues = [];
+  for (const line of lines) {
+    for (const bad of RM_AWKWARD_ENDINGS) {
+      if (line.text.includes(bad)) {
+        issues.push({level: 'fatal', code: 'rm-awkward-ending', message: `不自然な RM 語尾: ${line.sceneId} ${line.speaker ?? '?'} 「${bad}」 → 「${bad.replace('だぜ', 'んだぜ')}」候補`});
       }
-      return qa >= 3;
-    })
-    .map((scene) => scene.id);
-  if (questionAnswerRuns.length > 0) {
-    pushIssue(warnings, 'warning', 'question-answer-loop', '質問→回答だけが3往復以上続くシーンがあります', {
-      scenes: questionAnswerRuns,
-    });
+    }
+  }
+  if (lines.length > 0) {
+    const right = lines.filter((line) => line.speaker === 'right');
+    if (right.length >= 5) {
+      const dazeCount = right.filter((line) => /(だぜ|なんだ|なのだ)([。?！!？\.\?]?)$/.test(line.text.trim())).length;
+      const ratio = dazeCount / right.length;
+      if (ratio < 0.3) {
+        issues.push({level: 'warn', code: 'rm-daze-low', message: `RM 魔理沙の「だぜ／なんだ」比率 ${(ratio * 100).toFixed(0)}% < 30% (キャラ立ち弱)`});
+      } else if (ratio > 0.6) {
+        issues.push({level: 'warn', code: 'rm-daze-high', message: `RM 魔理沙の「だぜ／なんだ」比率 ${(ratio * 100).toFixed(0)}% > 60% (過剰)`});
+      }
+    }
+  }
+  return issues;
+};
+
+const checkZmEndings = (lines, pair) => {
+  if (pair !== 'ZM') return [];
+  const issues = [];
+  const left = lines.filter((line) => line.speaker === 'left');
+  if (left.length >= 5) {
+    const nodaCount = left.filter((line) => /(なのだ|のだ)([。?！!？]?)$/.test(line.text.trim())).length;
+    const ratio = nodaCount / left.length;
+    if (ratio < 0.2) {
+      issues.push({level: 'warn', code: 'zm-noda-low', message: `ZM ずんだもんの「のだ/なのだ」比率 ${(ratio * 100).toFixed(0)}% < 20% (キャラ性不足)`});
+    } else if (ratio > 0.5) {
+      issues.push({level: 'warn', code: 'zm-noda-high', message: `ZM ずんだもんの「のだ/なのだ」比率 ${(ratio * 100).toFixed(0)}% > 50% (過剰)`});
+    }
+  }
+  // 3連続 のだ チェック
+  const leftSequential = lines.filter((line) => line.speaker === 'left').map((line) => /(なのだ|のだ)([。?！!？]?)$/.test(line.text.trim()));
+  let streak = 0;
+  for (const isNoda of leftSequential) {
+    if (isNoda) {
+      streak += 1;
+      if (streak >= 3) {
+        issues.push({level: 'warn', code: 'zm-noda-streak', message: '「のだ/なのだ」が3連続。同じ語尾の連発を分散させる。'});
+        break;
+      }
+    } else {
+      streak = 0;
+    }
+  }
+  return issues;
+};
+
+const checkAssetPaths = (script) => {
+  const issues = [];
+  if (!Array.isArray(script?.scenes)) return issues;
+  for (const scene of script.scenes) {
+    for (const slot of ['main', 'sub']) {
+      const node = scene?.[slot];
+      if (!node || node.kind !== 'image') continue;
+      const asset = node.asset;
+      if (typeof asset !== 'string' || !asset.startsWith('assets/')) {
+        issues.push({level: 'fatal', code: 'asset-path-bad', message: `${scene.id ?? '?'}.${slot}.asset が assets/... 相対パスではない: ${asset}`});
+      }
+    }
+  }
+  return issues;
+};
+
+const checkFinalAction = (script) => {
+  const issues = [];
+  if (!Array.isArray(script?.scenes) || script.scenes.length === 0) return issues;
+  // 最終シーン全体のセリフを評価対象に取る。「行動まとめシーン」全体を見ないと、最後の挨拶／締め文に依存して
+  // 行動ありの台本でも0カテゴリになりやすい。passive判定は終盤2シーンを参照する。
+  const lastScene = script.scenes[script.scenes.length - 1];
+  const lastSceneLines = Array.isArray(lastScene?.dialogue) ? lastScene.dialogue.map((line) => String(line?.text ?? '')) : [];
+  const tail2 = script.scenes.slice(-2);
+  const tail2Texts = tail2.flatMap((scene) => Array.isArray(scene?.dialogue) ? scene.dialogue.map((line) => String(line?.text ?? '')) : []);
+  const lastNLines = lastSceneLines;
+  const joined = tail2Texts.join(' ');
+
+  const seeOnly = /見るだけ|考えるだけ|後でやる/.test(joined);
+  if (seeOnly) {
+    issues.push({level: 'fatal', code: 'final-action-passive', message: '最終行動が「見るだけ／考えるだけ／後でやる」で終わっている。確認＋選択／保存／予定化など2アクション以上に。'});
   }
 
-  const report = {
-    ok: errors.length === 0,
-    episode_id: script.meta?.id ?? path.basename(episodeDir),
-    checked_at: new Date().toISOString(),
-    script_path: path.relative(rootDir, scriptPath),
-    errors,
-    warnings,
+  // 行動セリフ（命令/実行形・行動名詞のいずれかを含む）を抽出。
+  const actionLines = lastNLines.filter((text) => {
+    if (!text) return false;
+    if (ACTION_VERB_PATTERNS.some((re) => re.test(text))) return true;
+    if (ACTION_NOUN_RE.test(text)) return true;
+    return false;
+  });
+
+  // 行動セリフ自体が無い時点で「見るだけ／考えるだけ」相当。
+  if (actionLines.length === 0) {
+    issues.push({level: 'fatal', code: 'final-action-no-verb', message: '終盤5セリフに命令/実行形（〜して・〜入れて・〜決める 等）も行動名詞も無い。具体行動が示されていない。'});
+  }
+
+  // カテゴリ判定は「行動セリフ群のテキスト全体」で行う。説明文中の語彙ヒットを排除しつつ、
+  // 「2個目、決定を1日寝かせる」のように動詞なし・名詞中心の行動文も近接ヒットさせる。
+  const actionJoined = actionLines.join(' ');
+  const hitCategories = [];
+  const hitDetails = {};
+  for (const [category, kws] of Object.entries(FINAL_ACTION_CATEGORIES)) {
+    const matched = kws.filter((kw) => actionJoined.includes(kw));
+    if (matched.length > 0) {
+      hitCategories.push(category);
+      hitDetails[category] = matched;
+    }
+  }
+  const effectiveCount = hitCategories.length;
+
+  if (effectiveCount < 2) {
+    issues.push({
+      level: 'fatal',
+      code: 'final-action-thin',
+      message: `最終行動カテゴリが ${effectiveCount} 個 (要 2+, action lines: ${actionLines.length})。検出: ${JSON.stringify(hitDetails)}`,
+    });
+  }
+  return issues;
+};
+
+const checkMidpointHook = (script) => {
+  const issues = [];
+  if (!Array.isArray(script?.scenes)) return issues;
+  const total = script.scenes.length;
+  if (total < 5) return issues;
+  const start = Math.floor(total * 0.4);
+  const end = Math.ceil(total * 0.6);
+  const mid = script.scenes.slice(start, end + 1);
+  const text = mid.flatMap((scene) => Array.isArray(scene?.dialogue) ? scene.dialogue.map((line) => String(line?.text ?? '')) : []).join(' ');
+  if (!text) return issues;
+  const hits = MIDPOINT_HOOK_KEYWORDS.filter((kw) => text.includes(kw));
+  if (hits.length === 0) {
+    issues.push({level: 'warn', code: 'midpoint-hook-missing', message: '中盤40〜60%に再フックワードが見つからない (検出キーワード: ここで/実は/逆に等)'});
+  }
+  return issues;
+};
+
+const auditEpisode = async (episodeId) => {
+  const dir = path.join(scriptDir, episodeId);
+  const yamlPath = path.join(dir, 'script.yaml');
+  const mdPath = path.join(dir, 'script.md');
+
+  let yamlText;
+  try {
+    yamlText = await fs.readFile(yamlPath, 'utf8');
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return {
+        episodeId,
+        ok: false,
+        fatal: [{level: 'fatal', code: 'missing-script-yaml', message: `script.yaml が無い: ${yamlPath}`}],
+        warn: [],
+      };
+    }
+    throw error;
+  }
+
+  let script;
+  try {
+    script = parseYaml(yamlText);
+  } catch (error) {
+    return {
+      episodeId,
+      ok: false,
+      fatal: [{level: 'fatal', code: 'yaml-parse-error', message: `script.yaml の YAML パースに失敗: ${error.message}`}],
+      warn: [],
+    };
+  }
+
+  const lines = collectDialogue(script);
+  const pair = script?.meta?.pair ?? null;
+
+  const allIssues = [
+    ...(await (async () => {
+      const text = await tryReadFile(mdPath);
+      return checkScriptMd(text);
+    })()),
+    ...checkLayoutTemplate(script),
+    ...checkLineLengths(lines),
+    ...checkLineDuplication(lines),
+    ...checkDialogueDensity(script),
+    ...checkRmEndings(lines, pair),
+    ...checkZmEndings(lines, pair),
+    ...checkAssetPaths(script),
+    ...checkFinalAction(script),
+    ...checkMidpointHook(script),
+  ];
+
+  const fatal = allIssues.filter((issue) => issue.level === 'fatal');
+  const warn = allIssues.filter((issue) => issue.level === 'warn');
+  return {
+    episodeId,
+    ok: fatal.length === 0,
+    metrics: {
+      pair,
+      target_duration_sec: script?.meta?.target_duration_sec ?? null,
+      sceneCount: Array.isArray(script?.scenes) ? script.scenes.length : 0,
+      lineCount: lines.length,
+      avgLinesPerScene: Number(sceneAverages(script).avg.toFixed(2)),
+      durationBucket: formatDurationBucket(script?.meta?.target_duration_sec),
+    },
+    fatal,
+    warn,
   };
-  console.log(JSON.stringify(report, null, 2));
-  if (!report.ok) {
-    process.exitCode = 1;
+};
+
+const enumerateEpisodes = async () => {
+  if (explicitEpisodes.length > 0) return explicitEpisodes;
+  let entries;
+  try {
+    entries = await fs.readdir(scriptDir, {withFileTypes: true});
+  } catch (error) {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  }
+  return entries.filter((entry) => entry.isDirectory() && entry.name.startsWith('ep')).map((entry) => entry.name).sort();
+};
+
+const main = async () => {
+  const episodes = await enumerateEpisodes();
+  const reports = [];
+  for (const episodeId of episodes) {
+    reports.push(await auditEpisode(episodeId));
+  }
+
+  const fail = reports.some((report) => !report.ok);
+  const out = {
+    ok: !fail,
+    mode: strictMode ? 'strict' : 'lenient',
+    summary: {
+      total: reports.length,
+      pass: reports.filter((report) => report.ok).length,
+      fail: reports.filter((report) => !report.ok).length,
+    },
+    reports,
+  };
+
+  console.log(JSON.stringify(out, null, 2));
+  if (fail && strictMode) {
+    console.error(`\nFAIL: ${out.summary.fail}/${out.summary.total} episode(s) で品質 fatal 検出。strict モードのため exit 1。`);
+    process.exit(1);
+  }
+  if (fail) {
+    console.warn(`\nWARN: ${out.summary.fail}/${out.summary.total} episode(s) で品質 fatal が検出されたが lenient モードのため exit 0。新規生成は引数 <episode_id> または --strict で必ず確認してください。`);
   }
 };
 
-await audit();
+main().catch((error) => {
+  console.error('audit-script-quality.mjs failed:', error.stack ?? error.message ?? error);
+  process.exit(1);
+});

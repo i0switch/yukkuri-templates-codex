@@ -1,0 +1,188 @@
+{
+  "slug": "ep004-everyday-physics-retry",
+  "style": "zundamon",
+  "script_path": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\notebookLM\\workspace\\projects\\ep004-everyday-physics-retry\\zundamon\\script\\script_v1.md",
+  "notebook": {
+    "id": "a85a21ca-1f98-4842-9f0c-d29d9b8d4412",
+    "title": "ep004-everyday-physics-retry-zundamon",
+    "status": "ready",
+    "checked_at": "2026-04-25T18:39:11Z"
+  },
+  "stages": {
+    "script_generation": {
+      "status": "done",
+      "started_at": "2026-04-25T18:38:48Z",
+      "finished_at": "2026-04-25T18:38:48Z",
+      "last_error": null,
+      "next_action": "/prepare-assets の検証を通過"
+    },
+    "asset_planning": {
+      "status": "done",
+      "started_at": "2026-04-25T18:38:48Z",
+      "finished_at": "2026-04-25T18:38:48Z",
+      "last_error": null,
+      "next_action": "/fetch-assets に進んでよい状態です。"
+    },
+    "notebooklm_upload": {
+      "status": "done",
+      "started_at": "2026-04-25T18:38:48Z",
+      "finished_at": "2026-04-25T18:39:11Z",
+      "last_error": null,
+      "next_action": "/fetch-assets を実行して素材生成に進む。補足: Codex CLI 側の MCP 設定は確認できていません。必要なら Codex 側で `mcp.json` を参照して手動設定してください。"
+    },
+    "asset_generation": {
+      "status": "partial",
+      "started_at": "2026-04-25T18:39:22Z",
+      "finished_at": "2026-04-25T18:39:39Z",
+      "last_error": null,
+      "next_action": "生成失敗マーカーを含むため、ダウンロード後に監査で確認",
+      "total": 8,
+      "completed": 0,
+      "failed": 8
+    },
+    "asset_download": {
+      "status": "done",
+      "started_at": "2026-04-25T18:39:39Z",
+      "finished_at": "2026-04-25T18:39:39Z",
+      "last_error": null,
+      "next_action": "/audit を実行して最終監査に進む"
+    },
+    "audit": {
+      "status": "pending",
+      "started_at": null,
+      "finished_at": null,
+      "last_error": null,
+      "next_action": null
+    }
+  },
+  "markers": [
+    {
+      "id": "FIG:1",
+      "type": "FIG",
+      "seq": 1,
+      "desc": "白背景に小さな物理アイコンを中央へ置き、周囲に6つの丸い点を並べたフラット図。青緑系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "fig_1.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation landscape --language ja --confirm --focus 白背景に小さな物理アイコンを中央へ置き、周囲に6つの丸い点を並べたフラット図。青緑系で文字なし。 (code=1)\nstdout:\n⠏ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:5",
+      "type": "INFO",
+      "seq": 5,
+      "desc": "細い線の束と上向きの青い流れを示す白背景フラット図。緑と青で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_5.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus 細い線の束と上向きの青い流れを示す白背景フラット図。緑と青で文字なし。 (code=1)\nstdout:\n⠏ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:6",
+      "type": "INFO",
+      "seq": 6,
+      "desc": "コップと細い棒、下向き矢印と上向きの液体を示す白背景フラット図。青系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_6.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus コップと細い棒、下向き矢印と上向きの液体を示す白背景フラット図。青系で文字なし。 (code=1)\nstdout:\n⠋ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:7",
+      "type": "INFO",
+      "seq": 7,
+      "desc": "細くなる管と伸びる青い流れを示す白背景フラット図。青系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_7.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus 細くなる管と伸びる青い流れを示す白背景フラット図。青系で文字なし。 (code=1)\nstdout:\n⠏ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:8",
+      "type": "INFO",
+      "seq": 8,
+      "desc": "小さなノズルと青い霧、吸い上がる液体を示す白背景フラット図。青系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_8.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus 小さなノズルと青い霧、吸い上がる液体を示す白背景フラット図。青系で文字なし。 (code=1)\nstdout:\n⠋ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:9",
+      "type": "INFO",
+      "seq": 9,
+      "desc": "回転する羽根の周囲に小さな泡を置いた白背景フラット図。青系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_9.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus 回転する羽根の周囲に小さな泡を置いた白背景フラット図。青系で文字なし。 (code=1)\nstdout:\n⠇ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:10",
+      "type": "INFO",
+      "seq": 10,
+      "desc": "夜空と地面、上向きの熱の流れを示す白背景フラット図。紺系で文字なし。",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_10.png",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm infographic create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --orientation portrait --language ja --confirm --focus 夜空と地面、上向きの熱の流れを示す白背景フラット図。紺系で文字なし。 (code=1)\nstdout:\n⠇ Creating infographic...\nError: NotebookLM rejected infographic creation. Try again later or create from\nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    },
+    {
+      "id": "SLIDE:1",
+      "type": "SLIDE",
+      "seq": 1,
+      "desc": "6つの丸いアイコンを横並びにし、すべてに小さなチェック印を置いた白背景フラット図。緑強調で文字なし。",
+      "kind": "slide_deck",
+      "extension": "pdf",
+      "output_name": "slide_1.pdf",
+      "status": "failed_permanent",
+      "artifact_id": null,
+      "artifact_kind": null,
+      "local_path": null,
+      "derived_local_paths": [],
+      "reason": "NotebookLM command failed: nlm slides create a85a21ca-1f98-4842-9f0c-d29d9b8d4412 --language ja --confirm --focus 6つの丸いアイコンを横並びにし、すべてに小さなチェック印を置いた白背景フラット図。緑強調で文字なし。 (code=1)\nstdout:\n⠋ Creating slide deck...\nError: NotebookLM rejected slide deck creation. Try again later or create from \nNotebookLM UI for diagnosis.\nTry again later or create from NotebookLM UI for diagnosis.\n\nstderr:\n",
+      "retry_count": 0
+    }
+  ]
+}

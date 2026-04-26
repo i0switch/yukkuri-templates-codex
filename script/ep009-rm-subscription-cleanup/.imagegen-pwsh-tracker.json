@@ -1,0 +1,135 @@
+{
+  "episodeId": "ep009-rm-subscription-cleanup",
+  "startedAt": "2026-04-26T07:26:28.140Z",
+  "entries": [
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s02_main.png",
+      "req": {
+        "description": "無料体験の解約忘れを防ぐカレンダー図",
+        "imagegen_prompt": "【用途】s02 main、誤解訂正。無料体験が安全ではなく、出口を忘れると課金になる流れを見せる。前景に7日分のカレンダーカードを斜めに並べる。中景に翌日へ向かう太い矢印と赤い課金ベルを置く。背景は薄いクリームの予定表風。下部20%はRemotion字幕とキャラ用に空ける。Scene19の白板main枠内で、左右下のキャラ位置に重要物を置かない。色は青緑、クリーム、グレー、警告赤。画像内文字なし。禁止: 実在サービス名、ロゴ、実在UI、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット図解",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "113.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8ae-c846-7f71-b7c9-0dfa49ef1146\\ig_0c3a4e268d2a42c40169edbe43a9688191a60f9e63002f73a5.png"
+    },
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s01_main.png",
+      "req": {
+        "description": "月500円のサブスクが年額へ膨らむ危険喚起",
+        "imagegen_prompt": "【用途】s01 main、冒頭フック。月500円の軽い支払いが年6000円へ膨らむ損失を一瞬で見せる。前景に500円コインを複数枚、奥へ流れるように配置。中景に赤い年間請求ゲージと小さな請求カードを置く。背景は淡い青緑の白板風で、下部20%はRemotion字幕とキャラ用に空白を残す。Scene19の白板main枠に収め、左右下のキャラ領域を避ける。色は青緑、白、黄色、警告赤。画像内文字は入れない。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい文字。\n",
+        "style": "太線フラット図解",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "132.9",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8ae-c875-7913-a4e4-53369e55cf4f\\ig_0ad935d612286fd70169edbe4d8abc8191b4f455d08d091ce3.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s03_main.png",
+      "req": {
+        "description": "記憶と明細の信頼性を比較する図",
+        "imagegen_prompt": "【用途】s03 main、比較提示。使った記憶ではなく明細3か月で判断する重要性を見せる。前景の左にぼんやりした記憶の雲、右に整ったカード明細を置く。中景に右側だけチェックマークを重ね、左側は揺れた線で曖昧さを示す。背景は左を薄赤、右を青緑で分ける。下部20%はRemotion字幕とキャラ用に空白。Scene19の白板main枠内に収める。画像内文字なし。禁止: 実在カード会社ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい明細文字。\n",
+        "style": "太線フラット比較図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "133.1",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b0-83ad-7ae2-b7c5-817231bc5652\\ig_01105076a6a795220169edbec4f344819184238d4a74266f6b.png"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s04_main.png",
+      "req": {
+        "description": "残す、保留、消すの3分類ボード",
+        "imagegen_prompt": "【用途】s04 main、手順提示。全解約ではなく残す・保留・消すの3分類で判断を軽くする場面。前景にサブスクを表す抽象カードを複数置く。中景に3つの箱を横並びで配置し、カードが矢印で分かれていく。背景は淡い白板グレー。下部20%はRemotion字幕とキャラ用に空ける。Scene19の白板main枠に収め、左右下のキャラ領域を避ける。画像内文字は入れない。禁止: 実在サービスロゴ、実在UI、既存キャラ、写真風人物、長文日本語、密な表。\n",
+        "style": "太線フラット手順図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "126.0",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b0-cec8-70e3-998c-3e0a52aceda3\\ig_059189ca1261acfe0169edbec80d4081918a618f5170ef763c.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s05_main.png",
+      "req": {
+        "description": "家族内のサブスク二重払いを示す図",
+        "imagegen_prompt": "【用途】s05 main、危険喚起。家族内で同じ用途に別々の契約が走る二重払いを見せる。前景に2枚の請求カードを少し重ねる。中景に同じ抽象サービスアイコンへ向かう2本の矢印を置き、赤い注意ラインで重複を示す。背景は薄い青緑の白板風。下部20%はRemotion字幕とキャラ用に空ける。Scene19のmain枠で左右下のキャラ領域を避ける。画像内文字なし。禁止: 実在音楽サービスロゴ、実在UI、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット危険図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "91.4",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b2-91d4-7e43-8fac-b2974fd0c20e\\ig_0ba9e4303a88c1190169edbf3d60008191a2604465bf3a68ba.png"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s06_main.png",
+      "req": {
+        "description": "年払い割引と大型固定費の対比",
+        "imagegen_prompt": "【用途】s06 main、比較提示。年払い割引が常に得ではなく、使わないと大型固定費になる罠を見せる。前景に明るい割引札風の抽象カードを置く。中景にその背後から大きな請求箱が出てくる構図。背景は左右分割で、左は安心の黄色、右は薄い警告赤。下部20%はRemotion字幕とキャラ用に空白。Scene19の白板main枠内で左右下を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい金額表。\n",
+        "style": "太線フラット比較図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "117.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b2-c075-7800-b99e-a6d298db41cd\\ig_01534f1137a6701e0169edbf45be688191ab0a74eda6132f36.png"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s07_main.png",
+      "req": {
+        "description": "財布を止める中盤再フック画像",
+        "imagegen_prompt": "【用途】s07 main、中盤再フック。サブスク整理で一度財布を止め、明細、仕分け、予定化へ戻す場面。前景に財布から漏れそうな小銭を置く。中景に大きな赤い一時停止サインと青緑の安全ガードを配置。背景は白板に合う淡い青緑。下部20%はRemotion字幕とキャラ用に空白を保つ。Scene19のmain枠に収め、左右下のキャラ領域を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい表。\n",
+        "style": "太線フラット再フック図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "117.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b3-f735-72e0-a810-b5ccd7b84689\\ig_0f2043b528609a070169edbfbcd7548191b347d03dea57233d.png"
+    },
+    {
+      "sceneId": "s08",
+      "slot": "main",
+      "targetRel": "assets/s08_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep009-rm-subscription-cleanup\\assets\\s08_main.png",
+      "req": {
+        "description": "確認、選択、保存、予定化の最終行動カード",
+        "imagegen_prompt": "【用途】s08 main、最終行動。契約一覧を確認し、使っていない1個を選び、解約日を保存して予定化する流れを見せる。前景に強調されたチェックカードを置く。中景に保存カードと予定カードを横並びで配置し、流れを矢印でつなぐ。背景は明るい青緑の白板風。下部20%はRemotion字幕とキャラ用に空ける。Scene19のmain枠で左右下を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい表。\n",
+        "style": "太線フラット行動カード",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "129.3",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b4-90e0-7613-86a3-15f4611a75f3\\ig_0b560846afa4e8ee0169edbfbb02c08191a9156331493d6907.png"
+    }
+  ],
+  "finishedAt": "2026-04-26T07:34:54.151Z"
+}

@@ -1,0 +1,77 @@
+project:
+  slug: smoke-zundamon-caffeine-rerun
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "ツカミ"
+    insert_timing: "0:00–0:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、コーヒーを飲むと急に目が覚めた感じになるのが不思議なのだ。眠気そのものが消えるわけじゃないのに、なんで動ける感じになるのだ？ **めたん**：そこが今日のポイントですわ。カフェインは元気を生み出すというより、眠気の"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "ツカミ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "02"
+    scene_title: "アデノシン受容体"
+    insert_timing: "0:30–2:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、まず眠気の信号ってどこから来るのだ？寝不足でぼんやりするのは、体の中で何かが増えているってことなのだ？ **めたん**：その理解でいいですわ。起きている時間が長くなるとアデノシンという物質が働きやすくなって、脳に休"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "アデノシン受容体"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "03"
+    scene_title: "覚醒感と限界"
+    insert_timing: "2:30–5:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、眠気の信号が弱くなるだけなのに、なんで集中したり元気になった気がするのだ？気分まで変わるのはどうしてなのだ？ **めたん**：眠気が前に出にくくなると、もともと働いていた覚醒系の活動が目立ちやすくなるからですわ。結"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "覚醒感と限界"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "04"
+    scene_title: "まとめ"
+    insert_timing: "5:30–7:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、今日の話をまとめると、カフェインは眠気を生み出す原因を消すんじゃなくて、眠気の信号を受け取りにくくしているのだ！ **めたん**：その通りですわ。全体像、受容体、限界の三点で見ると理解しやすいですし、上手に使うなら"
+    asset_type:
+      - slide_deck
+    notebooklm_candidate:
+      primary: slide_deck
+      secondary: report
+    must_include:
+      - "まとめ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"

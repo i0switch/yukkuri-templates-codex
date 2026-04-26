@@ -1,0 +1,78 @@
+{
+  "episode_id": "ep007-yukkuri-mystery-places",
+  "title": "地球で科学が説明できない場所Top5",
+  "layout_template": "Scene09",
+  "image_engine": "codex-imagegen",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、暗い紺色の世界地図シルエット、白背景。\n地図上に5つの大きめの星マーク（黄色とオレンジ）が散らばる。\n各星から薄い光のリングがふわっと広がる構図。\n余白多め、シンプル。16:9 アスペクト比。\n文字、ロゴ、実在ブランド、人物の顔は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n森林の中央にぽっかり開いた円形の盛り上がり、上空から見た俯瞰図。\nクレーターは茶色とベージュ、周囲は緑の針葉樹を抽象化した三角形。\nクレーター中央にうっすら光のリング。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在地形写真、人物は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n中央に鮮やかなピンク赤の湖を上空から俯瞰、湖の縁は塩の白い結晶帯。\n湖畔に石化した鳥のシルエットが2羽、薄いグレーで配置。\n色は赤ピンクと白、グレーの3色。シンプル、余白多め。\n16:9 アスペクト比。\nリアル動物写真、文字、ロゴ、流血表現は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n黄緑の草原を上空から俯瞰、規則正しく並んだ円形の禿げ地（茶色）が10個ほど整列。\nサイズは大小ばらつき、整然としたパターン。\n色は黄緑と土色の2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、実在写真は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n中央に乾いた茶色の谷、両脇に切り立った白い雪山。\n谷の奥に、赤い水が氷から滴る「血の滝」を抽象化したアイコン。\n色は茶色、白、赤の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、リアル写真、流血表現は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\nジャングルの中を蛇行して流れる青い川、川面から白い湯気がもくもく立ち上る。\n周囲は緑の三角形で抽象化された熱帯雨林。\n色は青、白、緑の3色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、人物、リアル写真は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "フラットイラスト、白背景。\n縦に並んだ3つのチェックボックス（未チェック状態）。\n各ボックスの右に短い線（中身の文字は描かない）。\n一番上のボックスにだけ青緑のチェックマーク。\n色は青緑とグレーの2色。シンプル、余白多め。\n16:9 アスペクト比。\n文字、ロゴ、実在UIの模写は禁止。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "bgm/track.mp3",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "credit_required": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+project:
+  slug: caffeine-mechanism
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "ツカミ"
+    insert_timing: "auto"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "0:00–0:30 **ずんだもん**：なんでコーヒーで目が覚めるのだ？ [FIG:1] カフェインの全体像"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "ツカミ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "02"
+    scene_title: "受容体"
+    insert_timing: "auto"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "0:30–2:00 **めたん**：アデノシン受容体を先取りするのですわ。 [INFO:1] 受容体と競合阻害"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "受容体"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"

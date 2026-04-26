@@ -1,0 +1,158 @@
+{
+  "episode_id": "ep003-yukkuri-cognitive-traps",
+  "generated_at": "2026-04-25T18:03:09.993551Z",
+  "generator": "NotebookLM",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "b9b6af6c-2f01-49dc-a464-4d6bc8af5df0",
+      "artifact_kind": "infographic",
+      "marker_id": "[FIG:1]",
+      "marker_desc": "5つの認知の罠の全体像。中央に脳のシルエット、周囲に5つのドットマーカーで「確証バイアス／ゲシュタルト崩壊／カクテルパーティ効果／フォアラー効果／プライミング」を象徴的に配置した白背景フラットイラスト。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s02_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "55432a4d-f30b-4e7b-a3ba-87360a25d3fe",
+      "artifact_kind": "slide_deck",
+      "marker_id": "[SLIDE:1]",
+      "marker_desc": "5つの認知の罠まとめスライド。横並びの5つの円形アイコン（確証バイアス／ゲシュタルト崩壊／カクテルパーティ効果／フォアラー効果／プライミング）と、1つに緑の丸印で囲った「今日選ぶ罠」の表現。最終行動として「1つ確認」「1つ選ぶ」「保存」「翌日見直す」の4ステップを下部に小さく示す。緑強調・白背景。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s03_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "d423e10a-8d9b-4689-91d2-cad1c23d47f8",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:1]",
+      "marker_desc": "確証バイアスの比喩図。手に持ったふるいから青い玉だけが下に落ち、赤い玉は弾かれる構図。白背景・フラット・青系。文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s04_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "196a8e27-2382-4194-a4bc-8eb481ab859f",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:2]",
+      "marker_desc": "確証バイアス対策の手順視覚化。左右に向かい合う吹き出しアイコン、片方の中に小さな逆三角アイコン1つ（反対意見1個ルール）。緑強調、白背景。文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s05_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "f958cc4f-c893-4d93-a958-6f9d57e36366",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:3]",
+      "marker_desc": "ゲシュタルト崩壊の抽象視覚化。中央に文字風の幾何学図形（実在の漢字ではなく抽象的な四角と縦横線の組み合わせ）が分解する様子、周辺に分解線。灰青系・白背景。実在文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s06_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "46910f21-2d1b-47dc-8fe8-76a01a9e6501",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:4]",
+      "marker_desc": "慣れによる見落としの視覚化。3列のチェック欄アイコン、3列目だけに1つ空白マーク（3周目で抜ける現象）。緑とグレー・白背景。文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s07_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "b3948850-4b58-477b-ba89-804ab7415516",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:5]",
+      "marker_desc": "カクテルパーティ効果の視覚化。複数の人影シルエットが点在し、中央から黄色の波紋が広がる構図。青背景に黄アクセント。実在カフェロゴなし、文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s08_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "0f7b5e2c-b9b7-400c-89db-ce99052c68a2",
+      "artifact_kind": "infographic",
+      "marker_id": "[INFO:6]",
+      "marker_desc": "気づきの偏りの視覚化。机と椅子のアイコン、人影シルエット2、片方にだけ電球アイコン1（一方だけが気づく非対称）。グレーに黄アクセント。文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s09_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "13163a54-dc50-420f-adca-f6176c3cd4a6",
+      "artifact_kind": "slide_deck",
+      "marker_id": "[INFO:7]",
+      "marker_desc": "鏡の前の人影と星印で、自分に当てはまる感覚を示す白背景フラット図。紫青系で文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s10_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "afcd1e40-2b23-48cd-ae06-b62893e0418d",
+      "artifact_kind": "slide_deck",
+      "marker_id": "[INFO:8]",
+      "marker_desc": "三つの書類アイコンと空白枠で、あいまいな評価コメントを示す白背景フラット図。灰色基調で文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s11_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "d92554be-a074-4922-be96-812a26c0d079",
+      "artifact_kind": "slide_deck",
+      "marker_id": "[INFO:9]",
+      "marker_desc": "小さな図形から買い物かごへ矢印が向かう白背景フラット図。青系で文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "assets/s12_main.png",
+      "license": "NotebookLM生成素材。公開前に利用条件を再確認",
+      "generator": "NotebookLM",
+      "source_type": "notebooklm",
+      "notebook_id": "e8b06dbf-6474-4eb5-af10-b319ce8960dd",
+      "artifact_id": "6bf4e0a7-6772-4684-a6c4-148160be7d13",
+      "artifact_kind": "slide_deck",
+      "marker_id": "[INFO:10]",
+      "marker_desc": "メモ帳アイコンと翌日カレンダーを矢印でつなぐ白背景フラット図。緑と灰色で文字なし。",
+      "credit_required": false
+    },
+    {
+      "file": "bgm/track.mp3",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "title": "upbeat step",
+      "credit_required": false
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "caffeine-mechanism",
+  "style": "yukkuri",
+  "script_path": null,
+  "notebook": {
+    "id": null,
+    "title": null,
+    "status": "pending"
+  },
+  "stages": {
+    "script_generation": {
+      "status": "pending"
+    },
+    "asset_planning": {
+      "status": "pending"
+    },
+    "notebooklm_upload": {
+      "status": "pending"
+    },
+    "asset_generation": {
+      "status": "pending"
+    },
+    "asset_download": {
+      "status": "pending"
+    },
+    "audit": {
+      "status": "pending"
+    }
+  },
+  "markers": []
+}

@@ -1,0 +1,113 @@
+project:
+  slug: long-zundamon-sleep-debt-dense
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "ツカミ"
+    insert_timing: "0:00–1:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、寝不足の日って、簡単な連絡でも変な返し方をしたり、見積もりを雑に出したりしやすいのだ。あとから見ると、なんであんな判断をしたのかわからなくなるのだ？ **めたん**：そこが今日の本題ですわ。睡眠不足は集中力が落ちる"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "ツカミ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "02"
+    scene_title: "眠気の圧力はどこから来るのか"
+    insert_timing: "1:30–5:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、そもそも眠気って気分の問題なのだ？それとも体の中で本当に何かが積み上がっているのだ？ **めたん**：かなり後者ですわ。起きている時間が長くなるほど、睡眠圧が高まり、脳は休ませたい方向へ傾いていくのですわ。 **ず"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "眠気の圧力はどこから来るのか"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "03"
+    scene_title: "前頭前野が鈍ると何が起きるのか"
+    insert_timing: "5:00–8:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、寝不足で判断が雑になるのはわかったのだ。でも、脳のどこが鈍るとそんなことになるのだ？ **めたん**：ここでよく出てくるのが前頭前野ですわ。計画、比較、衝動の抑制、優先順位づけを担う司令塔に近い場所ですのよ。 **"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "前頭前野が鈍ると何が起きるのか"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "04"
+    scene_title: "感情と報酬のバランスはどう崩れるのか"
+    insert_timing: "8:30–11:30"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、寝不足だとイライラしやすい日もあれば、逆に変に楽観的な日もあるのだ。同じ寝不足なのに反応がぶれるのはなんでなのだ？ **めたん**：感情を整える力と、目先の報酬に引っぱられる力のバランスが崩れやすいからですわ。不快"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "感情と報酬のバランスはどう崩れるのか"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "05"
+    scene_title: "いちばん危ないのは自覚のズレ"
+    insert_timing: "11:30–14:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、ここまで聞くとかなり危ないのだ。でも本人が眠いなら、さすがに途中で気づけそうな気もするのだ？ **めたん**：そこが落とし穴ですわ。寝不足では、自分の精度低下を見積もる力まで落ちやすいので、「まだ平気」と思いやすい"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    must_include:
+      - "いちばん危ないのは自覚のズレ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"
+  - scene_id: "06"
+    scene_title: "まとめ"
+    insert_timing: "14:00–15:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ボク、今日の話をまとめると、寝不足で判断が落ちるのは、眠気の圧力、前頭前野の鈍り、感情の偏り、自覚のズレが重なるからなのだ！ **めたん**：その理解で大丈夫ですわ。睡眠不足の日は自分を責めるより、判断環境が悪い日だと理"
+    asset_type:
+      - slide_deck
+    notebooklm_candidate:
+      primary: slide_deck
+      secondary: report
+    must_include:
+      - "まとめ"
+    avoid:
+      - "台本の主張とズレる図解"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"

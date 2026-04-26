@@ -1,0 +1,135 @@
+{
+  "episodeId": "ep010-zm-sleep-smartphone",
+  "startedAt": "2026-04-26T07:34:54.599Z",
+  "entries": [
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s02_main.png",
+      "req": {
+        "description": "光と通知刺激を比較する誤解訂正図",
+        "imagegen_prompt": "【用途】s02 main、誤解訂正。寝る前スマホの原因が光だけでなく通知刺激にもあることを見せる。前景は左に青い光の波、右に赤い通知ベル。中景に右側だけ起き上がる脳アイコンを配置。背景は左右分割で、左は静かな青、右は薄い警告赤。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット比較図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "138.5",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b6-88ef-7081-a818-f6734229d86e\\ig_0dec13aed19419120169edc05b4c708191807b94ea02bbbfe8.png"
+    },
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s01_main.png",
+      "req": {
+        "description": "寝る前5分スマホが30分化する危険喚起",
+        "imagegen_prompt": "【用途】s01 main、冒頭フック。寝る前5分だけのスマホが30分へ伸びて睡眠を削る危険を見せる。前景に枕元の抽象スマホを置く。中景に5分から長く伸びる赤い時間ゲージと眠そうな月アイコンを配置。背景は夜の紺色グラデーション。下部20%はRemotion字幕とキャラ用に空ける。Scene02の左main枠内で右sub枠と左右下キャラ領域を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット夜スマホ図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "139.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b6-88f5-7f22-ab5c-3c22cc8501eb\\ig_008c7b152fed83c00169edc04523008191a02a01cec521c0e3.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s03_main.png",
+      "req": {
+        "description": "ショート動画が連鎖して時間を失う図",
+        "imagegen_prompt": "【用途】s03 main、ボケ補強。ショート動画1本だけのつもりが20本へ増える沼を見せる。前景に1枚目の抽象動画カードを置く。中景にカードが階段状に奥へ増え、斜め矢印で連続再生を表現する。背景は夜の紺色で、赤い注意線を薄く入れる。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在SNS UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かいサムネ文字。\n",
+        "style": "太線フラットミーム風図解",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "84.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b8-a7c8-7143-95ac-733a766f1615\\ig_00a8ebfb9642cdfe0169edc0c36078819188d616cde3673562.png"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s04_main.png",
+      "req": {
+        "description": "枕元スマホを1m離す行動図",
+        "imagegen_prompt": "【用途】s04 main、手順提示。ベッドを充電所にせず、スマホを枕元から1m離す対策を見せる。前景に枕元のスマホ、少し離れた机を中景に置き、太い矢印で移動を示す。背景は夜の部屋を抽象化し、暗くしすぎない。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在端末ロゴ、実在UI、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット室内図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "141.9",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b8-aa66-7592-9b48-cc0feee15510\\ig_0c8ab4746822f13e0169edc0e67dcc81918b57b41fa81f7d37.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s05_main.png",
+      "req": {
+        "description": "アラーム言い訳を分解する図",
+        "imagegen_prompt": "【用途】s05 main、誤解訂正。アラームが必要だから枕元にスマホを置くという言い訳を分解する。前景にアラーム時計アイコン、横に閲覧カードを置く。中景で赤い分離線を引き、アラームだけを青緑の安全側へ残す。背景は夜の紺色。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠内で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在時計UI、実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語。\n",
+        "style": "太線フラット分解図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "115.6",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8b9-f0ef-79f3-bb49-5a2e36ee7d80\\ig_07dc368f81248ea70169edc12832b88191802fc7a78a59883e.png"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s06_main.png",
+      "req": {
+        "description": "通知オフと置き場所変更の二段ガード",
+        "imagegen_prompt": "【用途】s06 main、中盤再フック。根性で見ないのではなく、通知オフと置き場所変更で寝る準備へ戻す場面。前景に通知ベルオフのシンボルを置く。中景にスマホを机へ置くガード線を配置し、二段の守りを示す。背景は落ち着いた青緑の夜背景。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠と下字幕帯を避ける。画像内文字なし。禁止: 実在アプリUI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。\n",
+        "style": "太線フラット安全図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "95.5",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8ba-cba0-72f0-b8b1-8bba0ad31fea\\ig_01af4e6b1188cf770169edc15a1a288191b26aaba496f55b73.png"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s07_main.png",
+      "req": {
+        "description": "寝る30分前の夜モード手順",
+        "imagegen_prompt": "【用途】s07 main、手順提示。寝る何時間も前ではなく、30分前だけ別モードにする現実的な手順を見せる。前景に時計アイコンを置く。中景に通知オフ、充電場所、明日の準備の3ノードを横方向に並べ、矢印でつなぐ。背景は紺と青緑の落ち着いた夜。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。\n",
+        "style": "太線フラット手順図",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "122.4",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8bb-ace3-7860-9506-6058ec6734e8\\ig_0ce8f3dfdcd255db0169edc190fa50819198ca9402006dbfb8.png"
+    },
+    {
+      "sceneId": "s08",
+      "slot": "main",
+      "targetRel": "assets/s08_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\Desktop\\yukkuri-templates Codex - コピー\\script\\ep010-zm-sleep-smartphone\\assets\\s08_main.png",
+      "req": {
+        "description": "就寝時刻確認、通知オフ選択、充電場所保存の最終行動",
+        "imagegen_prompt": "【用途】s08 main、最終行動。今夜やることを置き場所変更に絞り、就寝時刻確認、通知オフ選択、充電場所保存、予定化へつなぐ。前景に置き場所変更カードを大きく配置。中景に通知オフ選択カードと予定カードを並べ、矢印で流れを示す。背景は明るい青緑の夜明け風。下部20%はRemotion字幕とキャラ用に空白。Scene02のmain枠で右sub枠、下字幕帯、左右キャラ領域を避ける。画像内文字なし。禁止: 実在UI、ロゴ、既存キャラ、写真風人物、長文日本語、細かい設定画面。\n",
+        "style": "太線フラット行動カード",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "120.8",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc8bc-3fe4-7f42-bd06-0504c5e33283\\ig_033ef1d9604f4e8e0169edc1b5fc6481919913fa6e79e0d7e7.png"
+    }
+  ],
+  "finishedAt": "2026-04-26T07:43:12.079Z"
+}

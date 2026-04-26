@@ -37,10 +37,7 @@ episode_id：
 - 章タイトルのフック性を失わせない。
 - タイトル枠がないテンプレートでは、`title_text` に頼らず `main.text` を使う。
 - BGM、SE、確定演出はこの YAML に無理に入れない。
-- `visual_asset_plan` はレンダー用表示には使わないが、pre-render gate の監査メタとして `script.yaml` の各 scene に残す。
-- `visual_asset_plan` には `image_direction`、`visual_type`、`supports_dialogue`、`supports_moment`、`imagegen_prompt` を残す。
-- 生成済み画像の出所と採用理由は、`script.yaml` だけでなく `meta.json` にも同じ画像単位で記録する。
-- 生成前監査結果と生成後監査結果は `audits/` に記録する。
+- `visual_asset_plan` 自体を YAML に無理に残さないが、そこで決めた素材は `main.asset` / `sub.asset` へ反映する。
 
 ## YAML化前の差し戻し条件
 
@@ -53,9 +50,6 @@ episode_id：
 - 章タイトルにテーマ外の単語が混ざっている。
 - 不自然な日本語、助詞抜け、誤字っぽい語尾が残っている。
 - `visual_asset_plan` の素材が `main.asset` / `sub.asset` に反映できない。
-- `image_direction`、`visual_type`、`supports_dialogue`、`supports_moment` が未作成。
-- 生成前画像プロンプト監査が未PASS。
-- 生成後画像監査が未PASS。
 - YAML化でセリフ数、シーン数、中盤再フック、ボケ→ツッコミが減る可能性がある。
 
 差し戻し例:
@@ -85,35 +79,6 @@ scenes:
       asset: assets/s01_main.png
       caption: ""
     sub: null
-    visual_asset_plan:
-      - slot: main
-        purpose: ""
-        supports_dialogue:
-          - s01_l01
-        supports_moment: ""
-        visual_type: hook_poster
-        composition_type: ""
-        image_direction:
-          dialogue_role: ""
-          scene_emotion: ""
-          image_should_support: ""
-          key_visual_sentence: ""
-          main_subject: ""
-          foreground: ""
-          midground: ""
-          background: ""
-          color_palette: ""
-          text_strategy:
-            image_text_allowed: true
-            image_text_max_words: 3
-            remotion_overlay_text: []
-          layout_safety:
-            keep_bottom_20_percent_empty: true
-            avoid_character_area: true
-            avoid_sub_area_overlap: true
-          must_not_include: []
-          quality_bar: ""
-        imagegen_prompt: ""
     dialogue:
       - id: l01
         speaker: left
@@ -138,6 +103,4 @@ scenes:
 - 不自然な日本語が残っていない。
 - キャラ語尾比率がYAML化で崩れていない。
 - サブ枠なしテンプレートで `sub: null`。
-- 各 scene に監査用 `visual_asset_plan` が残っている。
-- `visual_asset_plan` に `image_direction`、`visual_type`、`supports_dialogue`、`supports_moment` がある。
 - YAMLとして壊れていない。

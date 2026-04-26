@@ -1,0 +1,161 @@
+project:
+  slug: ep004-everyday-physics
+  style: zundamon
+
+assets:
+  - scene_id: "01"
+    scene_title: "毎日の動きに物理の名前がある"
+    insert_timing: "0:00–0:40"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**ずんだもん**：ずんだもんなのだ。 **めたん**：わたくしが四国めたんですわ。 **ずんだもん**：シャワーの水って、手にまとわりつくね。 [FIG:1] シャワーヘッドから水流が手のシルエットへ巻き付く白背景フラット図。水色中心で文"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: FIG
+      orientation: landscape
+      detail_level: standard
+      text_density: low
+    must_include:
+      - "毎日の動きに物理の名前がある"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "02"
+    scene_title: "水が面に沿うコアンダ効果"
+    insert_timing: "0:40–1:25"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：1つ目はコアンダ効果よ。水は壁に沿って流れたがるの。 **ずんだもん**：スプーン裏で水が逃げないやつ？ [INFO:2] スプーンの裏側に水流が沿って流れる白背景フラット図。水色と銀色で文字なし。 **めたん**：そう、蛇"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "水が面に沿うコアンダ効果"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "03"
+    scene_title: "細い隙間が水を上げる毛細管現象"
+    insert_timing: "1:25–2:10"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：2つ目は毛細管現象よ。細い隙間があると水が登るの。 **ずんだもん**：タオル、宇宙のもの吸ってるのだ。 [INFO:4] タオルが水を吸い上げ、上向き矢印で水の移動を示す白背景フラット図。青系で文字なし。 **めたん**："
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "細い隙間が水を上げる毛細管現象"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "04"
+    scene_title: "ストローは吸うより押されている"
+    insert_timing: "2:10–2:55"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：ここまで2つ。3つ目は飲み物のストローよ。 **ずんだもん**：ストロー！？毎日吸ってる。 **めたん**：実は吸ってるんじゃなく、周りの大気圧が水面を押し上げてるの。 **ずんだもん**：吸ってるんじゃなく押されてるのだ？"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "ストローは吸うより押されている"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "05"
+    scene_title: "細いところで速く流れるベンチュリ効果"
+    insert_timing: "2:55–3:55"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：4つ目はベンチュリ効果よ。細い場所では流れが速くなるの。 **ずんだもん**：狭いと詰まるはずなのだ。 [INFO:7] ホースの口が細く絞られ、水流が長く伸びる白背景フラット図。青系で文字なし。 **めたん**：霧吹きも応"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "細いところで速く流れるベンチュリ効果"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"
+  - scene_id: "06"
+    scene_title: "晴れた夜に冷える放射冷却と行動"
+    insert_timing: "3:55–5:00"
+    intent: "このシーンで視聴者に理解させたい要点"
+    narration_summary: "**めたん**：5つ目は放射冷却よ。地面の熱が宇宙へ逃げる現象ね。 **ずんだもん**：雲は寒さのバリアじゃないのだ？ [INFO:10] 夜空と地面、地面から宇宙へ熱が逃げる上向き矢印を置いた白背景フラット図。紺系で文字なし。 **めたん"
+    asset_type:
+      - infographic
+    notebooklm_candidate:
+      primary: infographic
+      secondary: report
+    visual_parameters:
+      marker_type: INFO
+      orientation: portrait
+      detail_level: standard
+      text_density: medium
+    must_include:
+      - "晴れた夜に冷える放射冷却と行動"
+    avoid:
+      - "台本の主張とズレる図解"
+      - "英語見出しや英語ラベル"
+      - "キャラ立ち位置に重なる構図"
+    audit_points:
+      - "Scene の主張と一致しているか"
+      - "一目で理解できるか"
+      - "図内テキストが日本語か"
+    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"

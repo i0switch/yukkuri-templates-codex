@@ -1,0 +1,157 @@
+{
+  "episodeId": "ep005-yukkuri-decision-traps",
+  "startedAt": "2026-04-25T17:15:41.341Z",
+  "entries": [
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s01_main.png",
+      "req": {
+        "imagegen_prompt": "フラットデザイン、白背景。中央に迷路と分岐矢印、右上に小さな警告アイコン。色は青緑とオレンジ、余白多めのシンプルな図解。16:9。文字、数字、ロゴ、人物の顔は入れない。\n",
+        "style": "フラット・図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物の顔、写真風"
+      },
+      "status": "copied",
+      "elapsed": "136.5",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5a3-e5b3-7c83-8879-3f967098144c\\ig_0e6ca3696e5299860169ecf6e52ac88191966b1b6b6a21825a.png"
+    },
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s02_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。値札アイコンと買い物かご、横に大きな分岐矢印。色は青緑と黄色。数字や文字は描かない。16:9。ロゴ、ブランド、人物は禁止。\n",
+        "style": "フラット・買い物図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、ブランド、人物"
+      },
+      "status": "copied",
+      "elapsed": "109.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5a5-fb20-73f3-8cbe-aebce19dbef5\\ig_0dcb14f239d92a3d0169ecf770a554819186e5e65acba8ccf7.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s03_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラットイラスト。砂時計、ベル、押されるボタンを三角配置。赤は控えめ、青緑主体。文字なし。16:9。ロゴ、実在UIは禁止。\n",
+        "style": "フラット・警告アイコン",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "109.6",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5a7-acb9-7d02-81d6-d5506b8f1276\\ig_08ca14238a52b19b0169ecf7de0550819180a08048c36f0db1.png"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s04_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。多数の丸い人型アイコンが右へ進み、1つだけ立ち止まる。顔は描かない。青緑とグレーで整理。16:9。文字、ロゴ、表情なし。\n",
+        "style": "フラット・集団図解",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、表情、写真風"
+      },
+      "status": "copied",
+      "elapsed": "124.6",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5a9-50ac-7c00-9517-0637b1b4f21e\\ig_0ff6c9cf189b39330169ecf8526d8081919561b4255692edab.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s05_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。途中まで積まれたコインと、戻る矢印と進む矢印。コインは抽象形状で文字なし。青緑と金色。16:9。通貨記号、数字、ロゴは禁止。\n",
+        "style": "フラット・意思決定図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、通貨記号、ロゴ"
+      },
+      "status": "copied",
+      "elapsed": "121.4",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5ab-3709-7cb0-885a-92ff647a2be0\\ig_06d25b47c4169bf80169ecf8bda74881919f1b627114a5167d.png"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s06_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。大きな錨アイコンが紙のリストを固定している構図。リストの中身は横線だけで文字なし。青緑、紺、薄いオレンジ。16:9。\n",
+        "style": "フラット・ビジネス図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、実在資料"
+      },
+      "status": "copied",
+      "elapsed": "99.5",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5ad-1439-7613-b55e-70bca761b8d9\\ig_0b465f66c166be9d0169ecf945afb48191b4086cee1204047a.png"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s07_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラットイラスト。低くなったバッテリーと分岐路、ぼんやりした脳アイコン。色は青緑と薄い赤。文字、数字なし。16:9。人物の顔、ロゴなし。\n",
+        "style": "フラット・健康図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物の顔"
+      },
+      "status": "copied",
+      "elapsed": "114.0",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5ae-9aae-7aa2-92f9-505abbb8f987\\ig_0742dfaf351af5630169ecf9a4e11c81918d17bf9cb264ba33.png"
+    },
+    {
+      "sceneId": "s08",
+      "slot": "main",
+      "targetRel": "assets/s08_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s08_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。天秤の片側に暗い雲、片側に小さな太陽。雲側が重く下がっている。青緑とグレー主体。16:9。文字、ロゴ、顔なし。\n",
+        "style": "フラット・心理図解",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、顔、写真風"
+      },
+      "status": "copied",
+      "elapsed": "112.3",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5b0-5cb2-7812-beb7-9bb1e44ee5f6\\ig_00119dc000cbc3680169ecfa1974088191b17342c2386f0268.png"
+    },
+    {
+      "sceneId": "s09",
+      "slot": "main",
+      "targetRel": "assets/s09_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s09_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラット図解。電球、歯車、空白の説明カードを並べる。カードは横線だけで文字なし。青緑と黄色。16:9。人物、ロゴ、文字は禁止。\n",
+        "style": "フラット・学習図解",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、人物、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "132.6",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5b2-0df9-79b3-b852-880405ca0bce\\ig_03f6f057ba6574910169ecfa8fad7081919ef78d6a108e041e.png"
+    },
+    {
+      "sceneId": "s10",
+      "slot": "main",
+      "targetRel": "assets/s10_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep005-yukkuri-decision-traps\\assets\\s10_main.png",
+      "req": {
+        "imagegen_prompt": "白背景のフラットチェックリスト。3つの大きなチェックボックスと、停止、ペン、月のアイコン。文字は入れない。青緑とオレンジで明るく。16:9。ロゴ、実在UIは禁止。\n",
+        "style": "フラット・チェックリスト",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、実在UI、人物"
+      },
+      "status": "copied",
+      "elapsed": "99.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5b4-1467-7c11-b0ec-d9d689535ac4\\ig_00924ab43d0782510169ecfb108f68819182c393947bd4e1f9.png"
+    }
+  ],
+  "finishedAt": "2026-04-25T17:35:00.922Z"
+}

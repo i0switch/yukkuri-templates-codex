@@ -1,0 +1,22 @@
+{
+  "episodeId": "ep002-zundamon-end-of-universe",
+  "startedAt": "2026-04-25T17:19:57.638Z",
+  "entries": [
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep002-zundamon-end-of-universe\\assets\\s02_main.png",
+      "req": {
+        "imagegen_prompt": "フラットSFインフォグラフィック、暗い宇宙背景。\n横長の時間スケール棒2本。\n上：短い棒（太陽寿命を表現、薄い黄色とオレンジ）。\n下：圧倒的に長い棒（宇宙寿命、青〜紫のグラデーション）。\n長さの差が極端に視覚化される構図。シンプル、SF風枠線。\n16:9 アスペクト比。\n文字・数値ラベルは入れない、抽象記号のみ。\n",
+        "style": "フラット・SF・インフォグラフィック",
+        "aspect": "16:9",
+        "negative": "数値、文字、ロゴ、人物"
+      },
+      "status": "copied",
+      "elapsed": "139.1",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5a7-cdd6-7623-9b8c-c1e3a5cc0b1c\\ig_0a10fcaa5c28f68f0169ecf7df19c48191a9ca130d058a1073.png"
+    }
+  ],
+  "finishedAt": "2026-04-25T17:22:16.766Z"
+}

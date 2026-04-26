@@ -22,17 +22,27 @@ def _split_scenes(text: str) -> list[tuple[str, str, str, str]]:
     return scenes
 
 
-def _primary_candidate(scene_body: str) -> str:
+def _primary_marker(scene_body: str) -> tuple[str, str]:
     marker_match = MARKER_RE.search(scene_body)
     if not marker_match:
-        return "infographic"
+        return "INFO", "infographic"
     marker_type = marker_match.group(1)
-    return {
+    return marker_type, {
         "FIG": "infographic",
         "INFO": "infographic",
         "MAP": "mind_map",
         "SLIDE": "slide_deck",
         "VIDEO": "video",
+    }[marker_type]
+
+
+def _visual_parameters(marker_type: str) -> dict[str, str]:
+    return {
+        "FIG": {"orientation": "landscape", "detail_level": "standard", "text_density": "low"},
+        "INFO": {"orientation": "portrait", "detail_level": "standard", "text_density": "medium"},
+        "MAP": {"orientation": "auto", "detail_level": "standard", "text_density": "medium"},
+        "SLIDE": {"orientation": "portrait", "detail_level": "concise", "text_density": "low"},
+        "VIDEO": {"orientation": "landscape", "detail_level": "standard", "text_density": "low"},
     }[marker_type]
 
 
@@ -53,7 +63,8 @@ def build_manifest(script_path: Path) -> Path:
 
     for scene_id, scene_title, scene_timing, scene_body in scenes:
         summary = " ".join(line.strip() for line in scene_body.splitlines() if line.strip())[:120].replace('"', "'")
-        primary = _primary_candidate(scene_body)
+        marker_type, primary = _primary_marker(scene_body)
+        visual = _visual_parameters(marker_type)
         lines.extend([
             f'  - scene_id: "{scene_id}"',
             f'    scene_title: "{scene_title}"',
@@ -65,14 +76,22 @@ def build_manifest(script_path: Path) -> Path:
             '    notebooklm_candidate:',
             f'      primary: {primary}',
             '      secondary: report',
+            '    visual_parameters:',
+            f'      marker_type: {marker_type}',
+            f'      orientation: {visual["orientation"]}',
+            f'      detail_level: {visual["detail_level"]}',
+            f'      text_density: {visual["text_density"]}',
             '    must_include:',
             f'      - "{scene_title}"',
             '    avoid:',
             '      - "台本の主張とズレる図解"',
+            '      - "英語見出しや英語ラベル"',
+            '      - "キャラ立ち位置に重なる構図"',
             '    audit_points:',
             '      - "Scene の主張と一致しているか"',
             '      - "一目で理解できるか"',
-            '    retry_prompt_seed: "この Scene の要点が一目で伝わる構造に修正する"',
+            '      - "図内テキストが日本語か"',
+            '    retry_prompt_seed: "この Scene の要点が一目で伝わる日本語の単純構造に修正する"',
         ])
 
     manifest_path.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,52 @@
+{
+  "episode_id": "ep009-yukkuri-wifi-ng",
+  "generated_at": "2026-04-26T00:00:00.000Z",
+  "generator": "Claude Code + Codex (imagegen)",
+  "image_engine": "codex-imagegen",
+  "assets": [
+    {
+      "file": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "ゆっくり解説のScene01メイン枠で使う hook_poster 型ビジュアル。構図は、前景に読み込み中のスマホと弱い電波を示す抽象アイコン、中景に棚の奥で本や箱に囲まれた家庭用ルーター、背景に青緑の室内グリッドと薄い電波の波紋を置く。視線はスマホからルーターへ流す。clean flat vector illustration, bold geometric shapes, cool blue-teal palette (#00BCD4 #1976D2), laboratory/data aesthetic, top-left rim light, soft ambient fill。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な日本語タイトルを重ねる余白を上部左に残す。文字方針：画像内文字は入れない。禁止：単体アイコンだけの無背景素材、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表、watermark。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "ゆっくり解説のScene03メイン枠で使う danger_simulation 型ビジュアル。構図は左右分割で、前景に赤橙で乱れた電波波形、中景に抽象化した電子レンジとルーター、背景に安全側へ流れる青緑の整った波を配置する。右側はルーターを離して整った通信波にする。clean flat vector illustration, bold outlines 3px, geometric shapes, cool blue-teal palette with orange warning accents, top-left rim light, soft ambient fill。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion 用の余白を上部に確保。文字方針：画像内文字は入れない。禁止：実在ロゴ、実在UI、写真風、人物の顔、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "ゆっくり解説のScene05メイン枠で使う before_after 型ビジュアル。構図は左右比較で、前景にスマホの抽象メーターとピン留めアイコン、中景に部屋の簡略マップと同じ測定位置、背景に左は散らばった点、右は整列した比較グリッドを描く。実在アプリ画面ではなく safe mockup。clean flat vector illustration, bold geometric shapes, cool blue-teal palette (#00BCD4 #1976D2), yellow accent, soft ambient fill。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な説明文字を重ねる余白を残す。文字方針：画像内文字は入れない。禁止：実在UI、実在ロゴ、写真風、人物の顔、長文テキスト、単体アイコンだけの無背景素材、細かい数値表、watermark。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "generator": "Codex (imagegen)",
+      "imagegen_prompt": "ゆっくり解説のScene08メイン枠で使う final_action_card 型ビジュアル。構図は横並び3カードで、前景に大きなチェックマークとカード枠、中景にルーター移動、スマホ測定、カレンダー登録を示す抽象アイコン、背景に明るい青緑のグラデーションと広い余白を置く。clean flat vector illustration, bold outlines 3px, cool blue-teal palette (#00BCD4 #1976D2), bright highlights, soft ambient fill, flat matte。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な3手順テキストを重ねる余白を確保。文字方針：画像内文字は入れない。禁止：実在UI、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+      "imagegen_model": "gpt-image-2",
+      "license": "AI生成素材。公開前に利用条件を再確認"
+    },
+    {
+      "file": "bgm/track.mp3",
+      "kind": "bgm",
+      "title": "upbeat step",
+      "source_url": "https://dova-s.jp/en/bgm/detail/16211",
+      "license": "DOVA-SYNDROME 標準利用規約",
+      "credit_required": false
+    }
+  ]
+}

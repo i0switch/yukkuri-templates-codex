@@ -1,0 +1,104 @@
+{
+  "episodeId": "ep001-yukkuri-cognitive-illusions",
+  "startedAt": "2026-04-25T15:55:54.419Z",
+  "entries": [
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s01_main.png",
+      "req": {
+        "imagegen_prompt": "フラットデザインのイラスト、白背景。\n中央に正面向きの脳のシルエット、青緑系のパステルカラー。\n脳の周囲に小さなエラー記号（!マーク、×マーク）が3〜4個、控えめに配置。\n柔らかいタッチ、シンプル。16:9 アスペクト比。\nテキスト・文字・人物の顔・ロゴ・実在ブランドは入れない。\n",
+        "style": "フラット・アイコン系",
+        "aspect": "16:9",
+        "negative": "写真風、リアル調、文字、ロゴ、人物の顔、実在ブランド"
+      },
+      "taskId": "task-moeiu9lk-hxy4ef",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s02_main.png",
+      "req": {
+        "imagegen_prompt": "フラットデザイン、白背景。\n中央に正面向きの抽象的な人物（顔は省略、頭部シルエットのみ）。\n頭の周りに同じ色の矢印が4〜5本集まる構図。色は青緑系、矢印は同色で統一。\nシンプル、視線が頭部に集まるレイアウト。16:9 アスペクト比。\nテキスト・文字・ロゴ・実在ブランドは禁止。\n",
+        "style": "フラット・アイコン系",
+        "aspect": "16:9",
+        "negative": "写真風、文字、ロゴ、表情、実在ブランド"
+      },
+      "taskId": "task-moeiudvq-pc4kwz",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s03_main.png",
+      "req": {
+        "imagegen_prompt": "フラットイラスト、白背景。\n中央に抽象人物（顔は省略、シルエットのみ）。\n頭上に薄い黄色の光輪、足元に★マークが3つ並ぶ。\n色はパステル系、青緑とイエロー。シンプル、余白多め。\n16:9 アスペクト比。\n文字・ロゴ・実在人物・表情は禁止。\n",
+        "style": "フラット・アイコン系",
+        "aspect": "16:9",
+        "negative": "写真風、文字、ロゴ、表情、実在人物"
+      },
+      "taskId": "task-moeiujqh-ro493u",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s04_main.png",
+      "req": {
+        "imagegen_prompt": "フラットアイコン、白背景。\n中央に大きな値札イラスト。上に「定価」位置（数値はぼかすか抽象記号 ●●●● で）、下に「割引後」位置（同様に抽象記号）。\n矢印で「上→下」を示す。\n色は青緑とオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n実在通貨記号・具体的な数字・読める文字は描かない、抽象記号のみ。ロゴ・実在ブランド禁止。\n",
+        "style": "フラット・アイコン系",
+        "aspect": "16:9",
+        "negative": "実在通貨、具体数字、読める文字、ロゴ、ブランド"
+      },
+      "taskId": "task-moeiuq4h-qkzd6k",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s05_main.png",
+      "req": {
+        "imagegen_prompt": "フラットインフォグラフィック、白背景。\n横長の7マスメーター（横並びの長方形7個）。\n左から4マス目までを青緑で点灯（塗りつぶし）、5〜7マスは薄いグレー。\nシンプル、余白多め、視線が左から右へ流れる構図。\n16:9 アスペクト比。\n数字・文字・ロゴは入れない。\n",
+        "style": "フラット・インフォグラフィック",
+        "aspect": "16:9",
+        "negative": "数字、文字、ロゴ、実在UI"
+      },
+      "taskId": "task-moeiv1cr-nzz9t7",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s06_main.png",
+      "req": {
+        "imagegen_prompt": "フラット折れ線グラフ、白背景。\n横軸は時間（左→右の流れ）、縦軸は楽しさのイメージ。\n山と谷のある曲線が中央に大きく描かれ、最高点（山頂）と最右端（終点）に★マーク。\n色は青緑と濃いオレンジの2色。シンプル、余白多め。\n16:9 アスペクト比。\n数値ラベル・文字・軸名は入れない。\n",
+        "style": "フラット・インフォグラフィック",
+        "aspect": "16:9",
+        "negative": "数字、文字、ラベル、ロゴ"
+      },
+      "taskId": "task-moeivfa8-8ewkec",
+      "status": "queued"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep001-yukkuri-cognitive-illusions\\assets\\s07_main.png",
+      "req": {
+        "imagegen_prompt": "フラット2コマ並列イラスト、白背景。\n左と右にほぼ同じ室内風景（机、椅子、窓、シンプルな家具）を描く。\n1箇所だけ色か位置が違う（例：左の壁飾りが右では消えている）。違いの位置に小さな赤い○。\n色はパステル、シンプル、余白多め。\n16:9 アスペクト比。\n文字・人物・ロゴ・実在ブランド・複雑な装飾は禁止。\n",
+        "style": "フラット・アイコン系",
+        "aspect": "16:9",
+        "negative": "文字、人物、ロゴ、実在ブランド、複雑装飾"
+      },
+      "taskId": "task-moeivqtq-az7pz7",
+      "status": "queued"
+    }
+  ]
+}

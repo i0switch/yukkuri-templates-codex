@@ -1,0 +1,157 @@
+{
+  "episodeId": "ep006-zundamon-sleep-brain",
+  "startedAt": "2026-04-25T17:35:01.042Z",
+  "entries": [
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s01_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラットイラスト。中央に眠る脳のアイコン、周囲に星と小さな掃除ロボ風アイコン。青紫とミント色、発光感。16:9。文字、数字、ロゴ、人物の顔は入れない。\n",
+        "style": "フラット・SF・睡眠",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物の顔、写真風"
+      },
+      "status": "copied",
+      "elapsed": "300.4",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5b5-9929-7381-a39f-78af1cc2fe9b\\ig_0c4e18d25f0cc3a30169ecfbfe950c81919238bcd79ba455e4.png"
+    },
+    {
+      "sceneId": "s02",
+      "slot": "main",
+      "targetRel": "assets/s02_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s02_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。左に散らばる小さなカード、中央に眠る脳、右に整列したカード。青紫背景、カードは淡いミント。16:9。文字、数字、ロゴは禁止。\n",
+        "style": "フラット・SF・記憶図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物"
+      },
+      "status": "copied",
+      "elapsed": "305.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5ba-3ede-7793-b14a-42f75135b3fe\\ig_050a28d01cdd18020169ecfd1f2b4c8191b9b975a53e46c5a6.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s03_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。脳の中を青い流れが通り、小さな粒子を外へ運ぶ構図。医療っぽく清潔、青と紫の発光。16:9。文字、ロゴ、リアルな臓器表現は禁止。\n",
+        "style": "フラット・医療SF図解",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、リアル臓器、グロテスク"
+      },
+      "status": "copied",
+      "elapsed": "164.8",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5bf-01e8-7243-96ed-56b6dd9bd9da\\ig_09d2331ca6020d6d0169ecfdd4a46c8191b2f07228593f0b53.png"
+    },
+    {
+      "sceneId": "s04",
+      "slot": "main",
+      "targetRel": "assets/s04_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s04_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラットイラスト。眠る脳から半透明の吹き出しが伸び、迷路、雨雲、星の抽象アイコンが浮かぶ。青紫と淡い黄色。16:9。文字なし。ロゴ、人物の顔、写真風は禁止。\n",
+        "style": "フラット・夢・SF",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、人物の顔、写真風"
+      },
+      "status": "copied",
+      "elapsed": "154.2",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5c1-7087-7c72-aedb-a2b8add3772b\\ig_0e7468209980731d0169ecfe97e0b88191af9adbd4bfe72d24.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s05_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。小さな月、時計アイコン、充電される脳バッテリー。文字や数字は描かず、短時間を抽象的に示す。青紫背景、ミントの発光。16:9。\n",
+        "style": "フラット・睡眠インフォグラフィック",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物"
+      },
+      "status": "copied",
+      "elapsed": "175.0",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5c3-c7ad-75a2-bea9-0a434432dedc\\ig_02348c5eeee5c8210169ecff1a5d6c8191a8bec92cac5efd05.png"
+    },
+    {
+      "sceneId": "s06",
+      "slot": "main",
+      "targetRel": "assets/s06_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s06_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。脳アイコンと感情メーター、ブレーキのアイコン。メーターは抽象バーで文字なし。赤は控えめ。青紫背景、発光線。16:9。\n",
+        "style": "フラット・脳科学図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、ロゴ、人物の顔"
+      },
+      "status": "copied",
+      "elapsed": "175.8",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5c6-7424-7fe2-9f20-91081cfeba79\\ig_08ed6e68fd30f8a80169ecffe4b0e88191a28853298f0d8913.png"
+    },
+    {
+      "sceneId": "s07",
+      "slot": "main",
+      "targetRel": "assets/s07_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s07_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。ベッド横のスマホから青い光、脳の覚醒スイッチが点く構図。文字なし、人物の顔なし。青紫とシアン。16:9。ロゴ、実在端末デザインは禁止。\n",
+        "style": "フラット・夜スマホ図解",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、実在端末、人物の顔"
+      },
+      "status": "copied",
+      "elapsed": "159.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5c9-21d0-7ee3-b930-112ebc1fc5e2\\ig_087b3c5bd82f72020169ed007ecd288191ac2b1f128706bcb5.png"
+    },
+    {
+      "sceneId": "s08",
+      "slot": "main",
+      "targetRel": "assets/s08_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s08_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラット図解。積み上がる月形コインと、低下する脳バッテリー。文字、数字なし。青紫、ミント、薄い黄色。16:9。通貨記号、ロゴは禁止。\n",
+        "style": "フラット・睡眠負債図解",
+        "aspect": "16:9",
+        "negative": "文字、数字、通貨記号、ロゴ"
+      },
+      "status": "copied",
+      "elapsed": "153.1",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5cb-8d86-7a20-b612-52eb7b9835ab\\ig_0ef44d285cf65e820169ed0120d2788191a6154ee4aa4ef15a.png"
+    },
+    {
+      "sceneId": "s09",
+      "slot": "main",
+      "targetRel": "assets/s09_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s09_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラットチェックリスト。3つのアイコンを横並び、スマホを遠ざける、照明を落とす、起床時刻を固定。文字なし。青紫背景、ミントの線。16:9。ロゴ、実在UI、人物は禁止。\n",
+        "style": "フラット・睡眠チェックリスト",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、実在UI、人物"
+      },
+      "status": "copied",
+      "elapsed": "184.9",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5cd-de42-7cc1-b85b-e53c7fae4f85\\ig_0420ee0f916474020169ed01c9998c81919df7f97dfc4366af.png"
+    },
+    {
+      "sceneId": "s10",
+      "slot": "main",
+      "targetRel": "assets/s10_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep006-zundamon-sleep-brain\\assets\\s10_main.png",
+      "req": {
+        "imagegen_prompt": "ダークSF風フラットイラスト。月、ペン、カレンダー、チェックマークをシンプルに配置。今夜の行動を促す明るい構図。文字なし。青紫とミント、16:9。ロゴ、人物は禁止。\n",
+        "style": "フラット・CTA・睡眠",
+        "aspect": "16:9",
+        "negative": "文字、ロゴ、人物、実在UI"
+      },
+      "status": "copied",
+      "elapsed": "111.8",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc5d0-a3b1-7b41-bd6b-dab51f78b6fd\\ig_0ec5a04d4dbeb19e0169ed025af5cc8191af575382ab83d91c.png"
+    }
+  ],
+  "finishedAt": "2026-04-25T18:06:26.131Z"
+}

@@ -1,10 +1,6 @@
-﻿import fs from 'node:fs/promises';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
-
-import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
-
-blockLegacyEpisodeGenerator('generate-single-template-episodes.mjs');
 
 const rootDir = process.cwd();
 const scriptDir = path.join(rootDir, 'script');
@@ -401,12 +397,15 @@ const ensureDir = async (dirPath) => {
   await fs.mkdir(dirPath, {recursive: true});
 };
 
-const makeScene = ({id, role, title, main, sub, lines}) => ({
+const subCapableTemplates = new Set(['Scene02', 'Scene03', 'Scene10', 'Scene13', 'Scene14']);
+const titleCapableTemplates = new Set(['Scene04', 'Scene08', 'Scene12', 'Scene15', 'Scene16', 'Scene17', 'Scene19']);
+
+const makeScene = ({id, role, title, main, sub, lines, template}) => ({
   id,
   role,
-  title_text: title,
+  ...(titleCapableTemplates.has(template) ? {title_text: title} : {}),
   main,
-  sub,
+  sub: subCapableTemplates.has(template) ? sub : null,
   dialogue: lines.map((text, index) => ({
     id: `l0${index + 1}`,
     speaker: index % 2 === 0 ? 'left' : 'right',
@@ -433,8 +432,8 @@ const buildEpisodeScript = (topic) => {
     meta: {
       id: pairPreset.toEpisodeId(topic.episodeId),
       title: topic.title,
-      scene_template: topic.template,
       pair: pairPreset.id,
+      layout_template: topic.template,
       ...commonMeta,
     },
     characters: pairPreset.characters,
@@ -444,6 +443,7 @@ const buildEpisodeScript = (topic) => {
         id: 's01',
         role: 'intro',
         title: topic.title,
+        template: topic.template,
         main: {kind: 'text', text: topic.hookMain},
         sub: null,
         lines: scene1,
@@ -452,6 +452,7 @@ const buildEpisodeScript = (topic) => {
         id: 's02',
         role: 'body',
         title: '仕組み',
+        template: topic.template,
         main: {kind: 'bullets', items: topic.points},
         sub: null,
         lines: scene2,
@@ -460,8 +461,9 @@ const buildEpisodeScript = (topic) => {
         id: 's03',
         role: 'outro',
         title: '覚え方',
+        template: topic.template,
         main: {kind: 'text', text: topic.takeaway},
-        sub: null,
+        sub: {kind: 'bullets', items: ['1本1テンプレート動画', `template: ${topic.template}`]},
         lines: scene3,
       }),
     ],
@@ -538,7 +540,7 @@ const buildMeta = (topic) => ({
       credit_required: false,
     },
   ],
-  template: topic.template,
+  layout_template: topic.template,
   theme: topic.title,
 });
 
@@ -582,14 +584,3 @@ const manifest = {
 
 await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 console.log(JSON.stringify({manifestPath, count: topics.length}, null, 2));
-
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,67 @@
+{
+  "episodeId": "ep010-zundamon-morning-focus",
+  "startedAt": "2026-04-26T06:49:13.168Z",
+  "entries": [
+    {
+      "sceneId": "s01",
+      "slot": "main",
+      "targetRel": "assets/s01_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep010-zundamon-morning-focus\\assets\\s01_main.png",
+      "req": {
+        "imagegen_prompt": "ずんだもん解説のScene01メイン枠で使う hook_poster 型ビジュアル。構図は机の上を見下ろす desk top down で、前景に通知が光るスマホと小さな集中スイッチ、中景に開いたノート、ペン、湯気のあるマグ、背景に柔らかい朝日と薄い教室風の壁を置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, top-left morning light。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な日本語タイトルを重ねる余白を上部に残す。文字方針：画像内文字は入れない。禁止：実在アプリ、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+        "style": "soft flat illustration, warm coral-pink explanatory diagram",
+        "aspect": "16:9",
+        "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+      },
+      "status": "copied",
+      "elapsed": "83.6",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc88c-ac26-7bb3-ab05-4b1fc62df023\\ig_0f8d9a78908f2cae0169edb58390108191bab2800bef0f1207.png"
+    },
+    {
+      "sceneId": "s03",
+      "slot": "main",
+      "targetRel": "assets/s03_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep010-zundamon-morning-focus\\assets\\s03_main.png",
+      "req": {
+        "imagegen_prompt": "ずんだもん解説のScene03メイン枠で使う myth_vs_fact 型ビジュアル。構図は左右分割で、前景に急上昇して落ちる抽象エネルギー波、中景に甘いパン、卵、ヨーグルト風の抽象皿、背景にやさしい比較パネルを置く。左は不安定な波、右はなだらかで安定した波にする。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), cream and mint accents, soft shadows, light bg。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion 用の文字余白を上部に確保。文字方針：画像内文字は入れない。禁止：実在食品ブランド、実在ロゴ、既存キャラクター、写真風、人物の顔、長文テキスト、単体アイコンだけの無背景素材、細かい栄養表、watermark。\n",
+        "style": "soft flat illustration, warm nutrition comparison",
+        "aspect": "16:9",
+        "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+      },
+      "status": "copied",
+      "elapsed": "121.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc88d-f33e-73a2-a496-fab11c7042e3\\ig_0614b6d8bf84649e0169edb5f8d0948191b14028554fab8d1c.png"
+    },
+    {
+      "sceneId": "s05",
+      "slot": "main",
+      "targetRel": "assets/s05_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep010-zundamon-morning-focus\\assets\\s05_main.png",
+      "req": {
+        "imagegen_prompt": "ずんだもん解説のScene05メイン枠で使う three_step_board 型ビジュアル。構図は横並び3カードで、前景に丸いステップカード、中景に机を整える、タイマー、ノート一行を示す抽象アイコン、背景に淡い朝色のグラデーションと教室風の丸い飾りを置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, top-left morning light。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な手順テキストを重ねる余白を残す。文字方針：画像内文字は入れない。禁止：実在アプリ、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+        "style": "soft flat illustration, three step morning board",
+        "aspect": "16:9",
+        "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+      },
+      "status": "copied",
+      "elapsed": "119.7",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc88f-cdc9-79c1-aa93-f55a90109c74\\ig_05ec8e62592ef08f0169edb6573c8481919c993fbf5df7e34a.png"
+    },
+    {
+      "sceneId": "s08",
+      "slot": "main",
+      "targetRel": "assets/s08_main.png",
+      "targetAbs": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex - コピー\\script\\ep010-zundamon-morning-focus\\assets\\s08_main.png",
+      "req": {
+        "imagegen_prompt": "ずんだもん解説のScene08メイン枠で使う final_action_card 型ビジュアル。構図は横並び3カードで、前景に大きな丸角カードとチェックマーク、中景にスマホオフ、ノート一行、タイマー休憩の抽象アイコン、背景に明るいコーラルとミントの柔らかいグラデーションを置く。soft flat illustration, gentle rounded shapes, warm coral-pink palette (#FF7043 #EC407A), mint accents, soft shadows, light bg。16:9、designed for 1920x1080 display, clean edges for video rendering。下部20%は字幕とキャラ用に空け、Remotion で正確な3アクション文字を重ねる余白を確保。文字方針：画像内文字は入れない。禁止：実在UI、実在ロゴ、既存キャラクター、写真風人物、長文テキスト、単体アイコンだけの無背景素材、細かい表、watermark。\n",
+        "style": "soft flat illustration, final morning action cards",
+        "aspect": "16:9",
+        "negative": "写真風, リアル調, 文字, ロゴ, 人物の顔, photorealistic, 3D render, photograph, camera shot, stock photo, generic clipart, busy background, cluttered composition, text overlay, watermark, signature, border frame, vignette"
+      },
+      "status": "copied",
+      "elapsed": "102.9",
+      "sourcePath": "C:\\Users\\i0swi\\.codex\\generated_images\\019dc891-a1f6-7263-a58e-8e54f4a5f613\\ig_0725b4d7671920df0169edb6d8ba7c8191879ab03836117a95.png"
+    }
+  ],
+  "finishedAt": "2026-04-26T06:56:21.053Z"
+}

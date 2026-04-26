@@ -1,0 +1,164 @@
+{
+  "slug": "long-zundamon-sleep-debt",
+  "style": "zundamon",
+  "script_path": "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\ゆっくり＆ずんだもん Codex\\workspace\\projects\\long-zundamon-sleep-debt\\zundamon\\script\\script_v1.md",
+  "notebook": {
+    "id": "352d7f41-007d-41d9-81a0-724f27385ac3",
+    "title": "long-zundamon-sleep-debt-zundamon",
+    "status": "ready",
+    "checked_at": "2026-04-24T07:44:49Z"
+  },
+  "stages": {
+    "script_generation": {
+      "status": "done",
+      "started_at": "2026-04-24T07:43:41Z",
+      "finished_at": "2026-04-24T07:43:41Z",
+      "last_error": null,
+      "next_action": "/prepare-assets の検証を通過"
+    },
+    "asset_planning": {
+      "status": "done",
+      "started_at": "2026-04-24T07:43:41Z",
+      "finished_at": "2026-04-24T07:43:41Z",
+      "last_error": null,
+      "next_action": "/fetch-assets に進んでよい状態です。"
+    },
+    "notebooklm_upload": {
+      "status": "done",
+      "started_at": "2026-04-24T07:43:41Z",
+      "finished_at": "2026-04-24T07:44:49Z",
+      "last_error": null,
+      "next_action": "/fetch-assets を実行して素材生成に進む。補足: Codex CLI 側の MCP 設定は確認できていません。必要なら Codex 側で `mcp.json` を参照して手動設定してください。"
+    },
+    "asset_generation": {
+      "status": "done",
+      "started_at": "2026-04-24T07:44:56Z",
+      "finished_at": "2026-04-24T08:13:36Z",
+      "last_error": null,
+      "next_action": "ダウンロード処理へ進む",
+      "total": 6,
+      "completed": 6,
+      "failed": 0
+    },
+    "asset_download": {
+      "status": "done",
+      "started_at": "2026-04-24T07:55:30Z",
+      "finished_at": "2026-04-24T08:14:12Z",
+      "last_error": null,
+      "next_action": "/audit ????????????",
+      "total": 6,
+      "completed": 6,
+      "failed": 0
+    },
+    "audit": {
+      "status": "done",
+      "started_at": "2026-04-24T07:56:17Z",
+      "finished_at": "2026-04-24T08:14:12Z",
+      "last_error": null,
+      "next_action": "????"
+    }
+  },
+  "markers": [
+    {
+      "id": "FIG:1",
+      "type": "FIG",
+      "seq": 1,
+      "desc": "寝不足で判断が崩れる全体像",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "fig_1.png",
+      "status": "downloaded",
+      "artifact_id": "3db88dcd-7075-4963-b210-35b63f81e064",
+      "local_path": "../materials/generated/fig_1.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:1",
+      "type": "INFO",
+      "seq": 1,
+      "desc": "睡眠圧とアデノシンの流れ",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_1.png",
+      "status": "downloaded",
+      "artifact_id": "a71be05f-09a1-4568-bdf6-803642188dcb",
+      "local_path": "../materials/generated/info_1.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:2",
+      "type": "INFO",
+      "seq": 2,
+      "desc": "前頭前野と判断力低下",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_2.png",
+      "status": "downloaded",
+      "artifact_id": "a90771f7-f866-4400-a88e-0e571ab7cf43",
+      "local_path": "../materials/generated/info_2.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:3",
+      "type": "INFO",
+      "seq": 3,
+      "desc": "感情制御と報酬バイアス",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_3.png",
+      "status": "downloaded",
+      "artifact_id": "db0badac-7f86-4f7c-84f8-e2e131c011b0",
+      "local_path": "../materials/generated/info_3.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "INFO:4",
+      "type": "INFO",
+      "seq": 4,
+      "desc": "マイクロスリープと自覚のズレ",
+      "kind": "infographic",
+      "extension": "png",
+      "output_name": "info_4.png",
+      "status": "downloaded",
+      "artifact_id": "b14cdad7-bb09-4cbd-9872-c53518c800e8",
+      "local_path": "../materials/generated/info_4.png",
+      "reason": null,
+      "retry_count": 0
+    },
+    {
+      "id": "SLIDE:1",
+      "type": "SLIDE",
+      "seq": 1,
+      "desc": "寝不足で判断が崩れる3要点",
+      "kind": "slide_deck",
+      "extension": "pdf",
+      "output_name": "slide_1.pdf",
+      "status": "downloaded",
+      "artifact_id": "6d5a7d78-1cf2-4eff-bc69-9ce6db17d500",
+      "local_path": "../materials/generated/slide_1_p01.png",
+      "reason": null,
+      "retry_count": 2,
+      "derived_local_paths": [
+        "../materials/generated/slide_1_p01.png",
+        "../materials/generated/slide_1_p02.png",
+        "../materials/generated/slide_1_p03.png",
+        "../materials/generated/slide_1_p04.png",
+        "../materials/generated/slide_1_p05.png",
+        "../materials/generated/slide_1_p06.png",
+        "../materials/generated/slide_1_p07.png",
+        "../materials/generated/slide_1_p08.png",
+        "../materials/generated/slide_1_p09.png",
+        "../materials/generated/slide_1_p10.png",
+        "../materials/generated/slide_1_p11.png",
+        "../materials/generated/slide_1_p12.png",
+        "../materials/generated/slide_1_p13.png",
+        "../materials/generated/slide_1_p14.png",
+        "../materials/generated/slide_1_p15.png"
+      ]
+    }
+  ]
+}

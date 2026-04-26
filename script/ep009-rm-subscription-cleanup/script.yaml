@@ -1,0 +1,666 @@
+meta:
+  id: ep009-rm-subscription-cleanup
+  episode_id: ep009-rm-subscription-cleanup
+  layout_template: Scene19
+  character_pair: RM
+  pair: RM
+  title: 毎月お金が消える人のサブスク整理術
+  fps: 30
+  width: 1280
+  height: 720
+  audience: 初心者向け
+  tone: 軽快な失敗回避
+  bgm_mood: 明るめで焦らせすぎない
+  voice_engine: aquestalk
+  target_duration_sec: 180
+  image_style: 太線フラット図解、青緑ベース、危険部だけ赤
+bgm:
+  title: upbeat step
+  source_url: https://dova-s.jp/en/bgm/detail/16211
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 標準利用規約
+  volume: 0.09
+  fade_in_sec: 1.0
+  fade_out_sec: 1.5
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: "AquesTalk10 F1"
+    speaking_style: 視聴者代表。雑な理解、怖がり、極端な整理案を出す。
+  right:
+    character: marisa
+    aquestalk_preset: "AquesTalk10 F2"
+    speaking_style: 解説役。短く訂正し、具体行動へ落とす。
+scenes:
+  - id: s01
+    role: hook
+    title_text: その500円、年6000円だぜ
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 少額放置の年額化
+      image_direction:
+        scene_id: s01
+        dialogue_role: 冒頭フック
+        scene_emotion: 焦り
+        visual_type: hook_poster
+        composition_type: product_shot
+        image_should_support: 年6000円だぜ
+        key_visual_sentence: 月500円が12か月で赤い年間請求へ膨らむ
+        main_subject: 500円コインと年間請求ゲージ
+        foreground: 500円コインが手前から奥へ連なる
+        midground: 赤い年間合計ゲージと請求カード
+        background: 淡い青緑の白板風背景
+        color_palette:
+          - 青緑
+          - 白
+          - 黄色
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - その500円、年6000円
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 少額が年間損失へ変わる流れが一瞬で分かる
+      asset_requirements:
+        description: 月500円のサブスクが年額へ膨らむ危険喚起
+        imagegen_prompt: |
+          【用途】s01 main、冒頭フック。月500円の軽い支払いが年6000円へ膨らむ損失を一瞬で見せる。前景に500円コインを複数枚、奥へ流れるように配置。中景に赤い年間請求ゲージと小さな請求カードを置く。背景は淡い青緑の白板風で、下部20%はRemotion字幕とキャラ用に空白を残す。Scene19の白板main枠に収め、左右下のキャラ領域を避ける。色は青緑、白、黄色、警告赤。画像内文字は入れない。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい文字。
+        style: 太線フラット図解
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 月500円なら誤差でしょ
+      - id: l02
+        speaker: right
+        text: 年6000円だぜ
+      - id: l03
+        speaker: left
+        text: え、急に重い数字になった
+      - id: l04
+        speaker: right
+        text: 12か月で顔が変わる
+      - id: l05
+        speaker: left
+        text: 小銭が家賃みたいな顔する
+      - id: l06
+        speaker: right
+        text: しかも1個でそれだ
+      - id: l07
+        speaker: left
+        text: 3個あったら年18000円？
+      - id: l08
+        speaker: right
+        text: そう、放置は地味に刺すぜ
+      - id: l09
+        speaker: left
+        text: 怖い、財布から砂漏れてる
+      - id: l10
+        speaker: right
+        text: 今日はその穴をふさぐ
+  - id: s02
+    role: body
+    title_text: 無料体験は出口が本番
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 無料体験の出口
+      image_direction:
+        scene_id: s02
+        dialogue_role: 誤解訂正
+        scene_emotion: 危険
+        visual_type: myth_vs_fact
+        composition_type: flow_chart_horizontal
+        image_should_support: 7日無料の翌日が本番だ
+        key_visual_sentence: 無料体験の開始日から課金日に進む出口を示す
+        main_subject: 7日カレンダーと赤い課金ベル
+        foreground: 7日目に近づくカレンダー
+        midground: 翌日の赤い課金ベルと矢印
+        background: 薄いクリーム色の予定表背景
+        color_palette:
+          - クリーム
+          - 青緑
+          - グレー
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 無料体験は出口が本番
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 無料から有料へ変わるタイミングが矢印で分かる
+      asset_requirements:
+        description: 無料体験の解約忘れを防ぐカレンダー図
+        imagegen_prompt: |
+          【用途】s02 main、誤解訂正。無料体験が安全ではなく、出口を忘れると課金になる流れを見せる。前景に7日分のカレンダーカードを斜めに並べる。中景に翌日へ向かう太い矢印と赤い課金ベルを置く。背景は薄いクリームの予定表風。下部20%はRemotion字幕とキャラ用に空ける。Scene19の白板main枠内で、左右下のキャラ位置に重要物を置かない。色は青緑、クリーム、グレー、警告赤。画像内文字なし。禁止: 実在サービス名、ロゴ、実在UI、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット図解
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 無料体験ならノーダメじゃん
+      - id: l02
+        speaker: right
+        text: 出口を忘れると有料だぜ
+      - id: l03
+        speaker: left
+        text: 出口？入った記憶も薄い
+      - id: l04
+        speaker: right
+        text: 7日無料の翌日が本番だ
+      - id: l05
+        speaker: left
+        text: 無料の皮を着た有料だ
+      - id: l06
+        speaker: right
+        text: 開始日に解約予定を入れる
+      - id: l07
+        speaker: left
+        text: 使ってから決めたいのに
+      - id: l08
+        speaker: right
+        text: 予定だけ先に置けばいい
+      - id: l09
+        speaker: left
+        text: 未来の私への置き手紙か
+      - id: l10
+        speaker: right
+        text: 忘れる前提で組むんだぜ
+  - id: s03
+    role: body
+    title_text: 使った記憶より明細を見ろ
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 記憶より明細
+      image_direction:
+        scene_id: s03
+        dialogue_role: 比較提示
+        scene_emotion: 皮肉
+        visual_type: contrast_card
+        composition_type: split_danger_safe
+        image_should_support: 明細3か月を見た方が早い
+        key_visual_sentence: ぼんやりした記憶より明細リストが強い
+        main_subject: 記憶の雲とカード明細の対比
+        foreground: ぼんやりした雲のアイコン
+        midground: 3か月分の明細カードとチェック
+        background: 左を薄赤、右を青緑で分割
+        color_palette:
+          - 薄赤
+          - 青緑
+          - 白
+          - グレー
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 記憶より明細
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 記憶が曖昧で明細が正確という対比が見える
+      asset_requirements:
+        description: 記憶と明細の信頼性を比較する図
+        imagegen_prompt: |
+          【用途】s03 main、比較提示。使った記憶ではなく明細3か月で判断する重要性を見せる。前景の左にぼんやりした記憶の雲、右に整ったカード明細を置く。中景に右側だけチェックマークを重ね、左側は揺れた線で曖昧さを示す。背景は左を薄赤、右を青緑で分ける。下部20%はRemotion字幕とキャラ用に空白。Scene19の白板main枠内に収める。画像内文字なし。禁止: 実在カード会社ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい明細文字。
+        style: 太線フラット比較図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 使ってるかは記憶でわかるよ
+      - id: l02
+        speaker: right
+        text: その記憶、だいたい負ける
+      - id: l03
+        speaker: left
+        text: 私の脳を信用してないな
+      - id: l04
+        speaker: right
+        text: 明細3か月を見た方が早い
+      - id: l05
+        speaker: left
+        text: 3か月も見たら現実が来る
+      - id: l06
+        speaker: right
+        text: 現実を見ないと減らないぜ
+      - id: l07
+        speaker: left
+        text: ログインしてないやつ多そう
+      - id: l08
+        speaker: right
+        text: それが解約候補だ
+      - id: l09
+        speaker: left
+        text: 記憶はレシート以下か
+      - id: l10
+        speaker: right
+        text: 明細が一番正直なんだぜ
+  - id: s04
+    role: body
+    title_text: 解約より先に仕分けろ
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 3分類で軽くする
+      image_direction:
+        scene_id: s04
+        dialogue_role: 手順提示
+        scene_emotion: 納得
+        visual_type: three_step_board
+        composition_type: three_cards
+        image_should_support: 残す、保留、消すに分ける
+        key_visual_sentence: サブスクカードを3つの箱へ軽く仕分ける
+        main_subject: 3つの仕分け箱とサブスクカード
+        foreground: 小さなカードが箱へ入る動き
+        midground: 3つの箱を横並びで配置
+        background: 淡い白板グレー
+        color_palette:
+          - 青緑
+          - グレー
+          - 黄色
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 残す・保留・消す
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 全解約ではなく3分類する手順が分かる
+      asset_requirements:
+        description: 残す、保留、消すの3分類ボード
+        imagegen_prompt: |
+          【用途】s04 main、手順提示。全解約ではなく残す・保留・消すの3分類で判断を軽くする場面。前景にサブスクを表す抽象カードを複数置く。中景に3つの箱を横並びで配置し、カードが矢印で分かれていく。背景は淡い白板グレー。下部20%はRemotion字幕とキャラ用に空ける。Scene19の白板main枠に収め、左右下のキャラ領域を避ける。画像内文字は入れない。禁止: 実在サービスロゴ、実在UI、既存キャラ、写真風人物、長文日本語、密な表。
+        style: 太線フラット手順図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: もう全部解約すれば勝ち？
+      - id: l02
+        speaker: right
+        text: 雑すぎるぜ
+      - id: l03
+        speaker: left
+        text: 断捨離ハンマーで粉砕だ
+      - id: l04
+        speaker: right
+        text: 残す、保留、消すに分ける
+      - id: l05
+        speaker: left
+        text: 3箱に投げるだけ？
+      - id: l06
+        speaker: right
+        text: まずは判断を軽くする
+      - id: l07
+        speaker: left
+        text: 保留箱、甘えの匂いがする
+      - id: l08
+        speaker: right
+        text: 期限付きなら甘えじゃない
+      - id: l09
+        speaker: left
+        text: 保留は1週間だけにするか
+      - id: l10
+        speaker: right
+        text: それなら次に進めるぜ
+  - id: s05
+    role: body
+    title_text: 家族プランは二重払いを生む
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 同じ用途に二重払い
+      image_direction:
+        scene_id: s05
+        dialogue_role: 危険喚起
+        scene_emotion: 驚き
+        visual_type: danger_simulation
+        composition_type: diagonal_flow
+        image_should_support: 音楽契約が2人で別々とかある
+        key_visual_sentence: 同じ用途へ2枚の請求カードが重なって流れる
+        main_subject: 二重の請求カード
+        foreground: 2枚の請求カードが重なる
+        midground: 同じ抽象サービスアイコンへ向かう矢印
+        background: 薄い青緑に赤い注意ライン
+        color_palette:
+          - 青緑
+          - 白
+          - グレー
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 二重払いを確認
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 家族内で同じ用途に二重払いしている危険が見える
+      asset_requirements:
+        description: 家族内のサブスク二重払いを示す図
+        imagegen_prompt: |
+          【用途】s05 main、危険喚起。家族内で同じ用途に別々の契約が走る二重払いを見せる。前景に2枚の請求カードを少し重ねる。中景に同じ抽象サービスアイコンへ向かう2本の矢印を置き、赤い注意ラインで重複を示す。背景は薄い青緑の白板風。下部20%はRemotion字幕とキャラ用に空ける。Scene19のmain枠で左右下のキャラ領域を避ける。画像内文字なし。禁止: 実在音楽サービスロゴ、実在UI、既存キャラ、写真風人物、長文日本語。
+        style: 太線フラット危険図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 家族分はさすがに把握してる
+      - id: l02
+        speaker: right
+        text: ここで一回疑うんだぜ
+      - id: l03
+        speaker: left
+        text: 急に家庭内監査が始まった
+      - id: l04
+        speaker: right
+        text: 音楽契約が2人で別々とかある
+      - id: l05
+        speaker: left
+        text: 同じ曲に二重課金は泣ける
+      - id: l06
+        speaker: right
+        text: 家族プランで安くなる時もある
+      - id: l07
+        speaker: left
+        text: 聞くの面倒なんだよね
+      - id: l08
+        speaker: right
+        text: 月1回だけで十分だぜ
+      - id: l09
+        speaker: left
+        text: 財布会議、議題はサブスク
+      - id: l10
+        speaker: right
+        text: 重複を見つけたら勝ちだ
+  - id: s06
+    role: body
+    title_text: 年払いは安く見える罠
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 割引より利用回数
+      image_direction:
+        scene_id: s06
+        dialogue_role: 比較提示
+        scene_emotion: 皮肉
+        visual_type: before_after
+        composition_type: before_after_split
+        image_should_support: ただの大型固定費だ
+        key_visual_sentence: 割引札の裏に大きな年払い請求が隠れている
+        main_subject: 割引札と大型請求箱
+        foreground: 安く見える割引札
+        midground: 背後に大きな年払い請求箱
+        background: 左は明るく右は警告赤を薄く入れる
+        color_palette:
+          - 黄色
+          - 青緑
+          - 白
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 年払いは使うなら得
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 安く見える年払いが固定費化する対比が伝わる
+      asset_requirements:
+        description: 年払い割引と大型固定費の対比
+        imagegen_prompt: |
+          【用途】s06 main、比較提示。年払い割引が常に得ではなく、使わないと大型固定費になる罠を見せる。前景に明るい割引札風の抽象カードを置く。中景にその背後から大きな請求箱が出てくる構図。背景は左右分割で、左は安心の黄色、右は薄い警告赤。下部20%はRemotion字幕とキャラ用に空白。Scene19の白板main枠内で左右下を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい金額表。
+        style: 太線フラット比較図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 年払いは安いから正義でしょ
+      - id: l02
+        speaker: right
+        text: 使うなら正義だぜ
+      - id: l03
+        speaker: left
+        text: 使わないなら？
+      - id: l04
+        speaker: right
+        text: ただの大型固定費だ
+      - id: l05
+        speaker: left
+        text: 安い顔して殴ってくる
+      - id: l06
+        speaker: right
+        text: 年1回だと痛みに気づきにくい
+      - id: l07
+        speaker: left
+        text: 請求日に思い出して倒れる
+      - id: l08
+        speaker: right
+        text: 更新月をメモしておく
+      - id: l09
+        speaker: left
+        text: 割引より利用回数を見るのか
+      - id: l10
+        speaker: right
+        text: 使わない割引は損なんだぜ
+  - id: s07
+    role: body
+    title_text: ここで一回、財布を止めろ
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 財布を一時停止
+      image_direction:
+        scene_id: s07
+        dialogue_role: 中盤再フック
+        scene_emotion: 焦り
+        visual_type: flowchart_scene
+        composition_type: security_visual
+        image_should_support: 明細を見る、仕分ける、予定を書く
+        key_visual_sentence: 赤い一時停止サインで財布から漏れる小銭を止める
+        main_subject: 財布と一時停止サイン
+        foreground: 財布から漏れそうな小銭
+        midground: 大きな赤い一時停止サイン
+        background: 青緑の安全ガード風背景
+        color_palette:
+          - 青緑
+          - 白
+          - 黄色
+          - 赤
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 財布を止める3手順
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: ここで行動を止める再フックとして機能する
+      asset_requirements:
+        description: 財布を止める中盤再フック画像
+        imagegen_prompt: |
+          【用途】s07 main、中盤再フック。サブスク整理で一度財布を止め、明細、仕分け、予定化へ戻す場面。前景に財布から漏れそうな小銭を置く。中景に大きな赤い一時停止サインと青緑の安全ガードを配置。背景は白板に合う淡い青緑。下部20%はRemotion字幕とキャラ用に空白を保つ。Scene19のmain枠に収め、左右下のキャラ領域を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい表。
+        style: 太線フラット再フック図
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: ここで一回、財布を止めるぜ
+      - id: l02
+        speaker: left
+        text: もう脳が課金で渋滞してる
+      - id: l03
+        speaker: right
+        text: やることは3つだけだ
+      - id: l04
+        speaker: left
+        text: 3つならギリ人間に戻れる
+      - id: l05
+        speaker: right
+        text: 明細を見る、仕分ける、予定を書く
+      - id: l06
+        speaker: left
+        text: 予定までがセットなんだね
+      - id: l07
+        speaker: right
+        text: 先送りは基本忘れる
+      - id: l08
+        speaker: left
+        text: 明日の私は他人だからな
+      - id: l09
+        speaker: right
+        text: だから今日、出口を作る
+      - id: l10
+        speaker: left
+        text: 未来の私を信用しない作戦
+  - id: s08
+    role: cta
+    title_text: 今日やるのは1個だけ
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 1個だけ倒す
+      image_direction:
+        scene_id: s08
+        dialogue_role: 最終行動
+        scene_emotion: 希望
+        visual_type: final_action_card
+        composition_type: three_cards
+        image_should_support: まず契約一覧を確認して
+        key_visual_sentence: 確認、1個選ぶ、保存と予定化を3カードで示す
+        main_subject: 最終行動の3カード
+        foreground: 1枚目が強調されたチェックカード
+        midground: 保存カードと予定カードが並ぶ
+        background: 明るい青緑の白板風背景
+        color_palette:
+          - 青緑
+          - 白
+          - 黄色
+          - グレー
+        text_strategy:
+          image_text_allowed: false
+          image_text_max_words: 0
+          image_text_examples: []
+          remotion_overlay_text:
+            - 今日やるのは1個だけ
+        layout_safety:
+          keep_bottom_20_percent_empty: true
+          avoid_character_area: true
+          avoid_sub_area_overlap: true
+        must_not_include:
+          - 実在ロゴ
+          - 既存キャラ
+          - 写真風人物
+          - 長文日本語
+        quality_bar: 視聴後すぐ動ける行動が3カードで分かる
+      asset_requirements:
+        description: 確認、選択、保存、予定化の最終行動カード
+        imagegen_prompt: |
+          【用途】s08 main、最終行動。契約一覧を確認し、使っていない1個を選び、解約日を保存して予定化する流れを見せる。前景に強調されたチェックカードを置く。中景に保存カードと予定カードを横並びで配置し、流れを矢印でつなぐ。背景は明るい青緑の白板風。下部20%はRemotion字幕とキャラ用に空ける。Scene19のmain枠で左右下を避ける。画像内文字なし。禁止: 実在ロゴ、実在UI、既存キャラ、写真風人物、長文日本語、細かい表。
+        style: 太線フラット行動カード
+        aspect: 16:9
+        negative: 写真風、リアル調、文字、ロゴ、人物の顔、既存キャラ、実在UI
+    sub: null
+    dialogue:
+      - id: l01
+        speaker: right
+        text: 今日やるのは1個だけだ
+      - id: l02
+        speaker: left
+        text: 全部じゃなくていいの？
+      - id: l03
+        speaker: right
+        text: まず契約一覧を確認して
+      - id: l04
+        speaker: left
+        text: 見たくない現実リストだ
+      - id: l05
+        speaker: right
+        text: 使ってない1個を選ぶ
+      - id: l06
+        speaker: left
+        text: 1個なら心が折れない
+      - id: l07
+        speaker: right
+        text: 解約日をメモに保存する
+      - id: l08
+        speaker: left
+        text: 月初に予定を入れておく
+      - id: l09
+        speaker: right
+        text: それで放置課金は減るぜ
+      - id: l10
+        speaker: left
+        text: よし、まず1個だけ倒す
