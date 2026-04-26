@@ -30,7 +30,7 @@ ZMペア、ずんだもん・四国めたんの高品質な解説台本を作る
 - reaction_level:
 - number_or_example:
 - main_content:
-- sub_content:
+- sub_content:  # テキストまたは箇条書きで書いてよい（sub 枠ありテンプレ Scene02/03/10/13/14 の場合）
 - image_insert_point:
 - mini_punchline:
 
@@ -64,3 +64,9 @@ visual_asset_plan:
 - 長い説明は、意味や掛け合いの切れ目で自然に言い換える。
 - ずんだもん40、めたん60目安。
 - 「なのだ」「のだ」は20〜40%目安。
+
+## 参考
+
+会話品質の悪い例と良い例の対比は `examples/example_bad_vs_good_dialogue.md` を参照。
+構成・密度の悪い例と良い例の対比は `examples/example_bad_vs_good_structure.md` を参照。
+draft 出力後、この2ファイルと自分の出力を照合してから次工程へ進む。

@@ -34,23 +34,30 @@ docs/architecture_v2.md
 CLAUDE.md
 AGENTS.md
 prompts/00_core_principles.md
+_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md
+_reference/script_prompt_pack/README.md
 ```
 
 台本生成時:
 
 ```text
-prompts/01_planning_prompt.md
-prompts/02_yukkuri_script_draft_prompt.md または prompts/03_zundamon_script_draft_prompt.md
-prompts/06_yaml_conversion_prompt.md
+_reference/script_prompt_pack/01_input_normalize_prompt.md
+_reference/script_prompt_pack/02_template_analysis_prompt.md
+_reference/script_prompt_pack/03_plan_prompt.md
+_reference/script_prompt_pack/04_draft_prompt_yukkuri.md または 05_draft_prompt_zundamon.md
+_reference/script_prompt_pack/07_rewrite_prompt.md（必要な場合のみ）
+_reference/script_prompt_pack/10_yaml_prompt.md
+_reference/script_prompt_pack/11_final_episode_audit.md
 ```
 
 画像/素材設計時:
 
 ```text
-prompts/07_visual_plan_prompt.md
-prompts/08_image_generation_v2.md
-prompts/09_visual_audit_prompt.md
+_reference/script_prompt_pack/08_image_prompt_prompt.md
+_reference/script_prompt_pack/09_image_prompt_audit.md（任意）
 ```
+
+旧 `prompts/01-10` は `legacy/prompts/` に退避済み。新規生成・監査ではこちらを使わない。
 
 ## Critical Script Quality Rule
 

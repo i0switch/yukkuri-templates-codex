@@ -1,3 +1,27 @@
+---
+template_id: Scene12
+sub: no
+title: yes
+subtitle:
+  kind: overlay_dark
+  position: bottom
+character_layout: layout
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - body
+  - chapter
+fits_content_types:
+  - title_with_main
+  - main_image_with_supplement
+sub_recommended_kind:
+  - null
+notes:
+  - キャラは下部左寄りに2体並べるパターンC（characterPlacement: layout）
+  - 字幕は背景の右下吹き出し内に overlay_dark で表示
+  - 教室/会話/掛け合いを強調したい場面に向く
+---
+
 # Scene 12: Classroom Speech Bubbles（教室＋吹き出し×2）
 
 ## 背景

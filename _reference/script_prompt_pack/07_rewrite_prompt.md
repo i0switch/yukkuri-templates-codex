@@ -24,6 +24,10 @@
 - 画像プロンプトを直す場合は、先に `script_final.md` の対象シーン本文と作風キーワード（数語）を直す。中間ファイル `image_direction` には依存しない。
 - 抽象プロンプトへ戻さない。`hook_type` / `visual_type` / `composition_type` / `supports_*` を `imagegen_prompt` 本文に混ぜない。
 
+## 参考
+
+修正後、`examples/example_bad_vs_good_dialogue.md` と `examples/example_bad_vs_good_structure.md` の anti-pattern と照合し、引っかからないことを確認する。引っかかった場合は再修正する。
+
 ## 出力形式
 
 ```md

@@ -1,3 +1,29 @@
+---
+template_id: Scene03
+sub: yes
+title: no
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - comparison
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - 3panel_explanation
+sub_recommended_kind:
+  - text
+  - bullets
+  - image
+notes:
+  - 黒地＋白ラインの3枠構造。theme は light で AreaLabel を白系に
+  - 字幕は背景下部の枠の中に bar（透明背景＋白文字）
+  - サブ枠は右側の縦長領域
+---
+
 # Scene 03: Black 3 Panel（黒ライン3エリア）
 
 ## 背景

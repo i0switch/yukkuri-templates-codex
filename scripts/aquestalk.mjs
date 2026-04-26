@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {setTimeout} from 'node:timers/promises';
 import {spawnSync, execFileSync} from 'node:child_process';
 
 const DEFAULT_AQUESTALK_PATH =
@@ -41,9 +42,7 @@ const ensureExecutable = async () => {
   }
 };
 
-const synthAquesTalk = async ({text, preset, outFile}) => {
-  await ensureExecutable();
-  await fs.mkdir(path.dirname(outFile), {recursive: true});
+const synthAquesTalkOnce = async ({text, preset, outFile}) => {
   const tempOutFile = path.join(
     process.env.TEMP || 'C:\\Users\\i0swi\\AppData\\Local\\Temp',
     `aquestalk_${Date.now()}_${Math.random().toString(16).slice(2)}.wav`,
@@ -64,12 +63,30 @@ const synthAquesTalk = async ({text, preset, outFile}) => {
 
   try {
     await fs.access(tempOutFile);
-  } catch {
-    throw new Error(`AquesTalk did not create WAV: ${tempOutFile}`);
+    await fs.copyFile(tempOutFile, outFile);
+  } finally {
+    await fs.rm(tempOutFile, {force: true});
+  }
+};
+
+const synthAquesTalk = async ({text, preset, outFile}) => {
+  await ensureExecutable();
+  await fs.mkdir(path.dirname(outFile), {recursive: true});
+
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      await synthAquesTalkOnce({text, preset, outFile});
+      return;
+    } catch (error) {
+      lastError = error;
+      if (attempt < 3) {
+        await setTimeout(250 * attempt);
+      }
+    }
   }
 
-  await fs.copyFile(tempOutFile, outFile);
-  await fs.rm(tempOutFile, {force: true});
+  throw lastError;
 };
 
 export const buildAudioForEpisodeAquesTalk = async (episodeDir, script) => {

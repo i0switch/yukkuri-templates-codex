@@ -1,3 +1,26 @@
+---
+template_id: Scene07
+sub: no
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - メインは中央ガラス板の内側のみに収める
+  - 右側に顕微鏡/モニターの装飾があるので右キャラの位置が被らないよう注意
+  - 研究/解説/分析系の話題に向く
+---
+
 # Scene 07: Laboratory Glass（研究室＋ガラス板）
 
 ## 背景

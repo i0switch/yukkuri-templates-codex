@@ -46,10 +46,16 @@ ${verdict}
 .analysis の一時スクリプトやセリフ配列直書きではなく、prompt pack の段階出力を保存する。
 `;
 
-const writeEvidence = async ({episodeId, reviewer = 'script-prompt-pack-audit', includeEvidence = true}) => {
+const writeEvidence = async ({episodeId, includeEvidence = true}) => {
   const dir = path.join(fixtureRoot, episodeId, 'audits');
   await fs.rm(path.join(fixtureRoot, episodeId), {recursive: true, force: true});
   await fs.mkdir(dir, {recursive: true});
+
+  await fs.writeFile(
+    path.join(fixtureRoot, episodeId, 'script_final.md'),
+    '# script_final\n\n' + '霊夢「自然な発話単位で進む最終台本です」\n魔理沙「Codexレビュー対象はこのファイルだけです」\n'.repeat(40),
+    'utf8',
+  );
 
   if (includeEvidence) {
     await fs.writeFile(
@@ -115,35 +121,7 @@ const writeEvidence = async ({episodeId, reviewer = 'script-prompt-pack-audit', 
       }),
       'utf8',
     );
-    await fs.writeFile(
-      path.join(fixtureRoot, episodeId, 'script_final.md'),
-      '# script_final\n\n' + '霊夢「自然な発話単位で進む最終台本です」\n魔理沙「Codexレビュー対象はこのファイルだけです」\n'.repeat(40),
-      'utf8',
-    );
   }
-
-  await fs.writeFile(
-    path.join(dir, 'script_generation_audit.json'),
-    `${JSON.stringify(
-      {
-        step: 'script_generation',
-        verdict: 'PASS',
-        reviewer,
-        prompt_pack_evidence: {
-          input_normalize: `script/${episodeId}/audits/script_prompt_pack_input_normalize.md`,
-          template_analysis: `script/${episodeId}/audits/script_prompt_pack_template_analysis.md`,
-          plan: `script/${episodeId}/audits/script_prompt_pack_plan.md`,
-          draft: `script/${episodeId}/audits/script_prompt_pack_draft.md`,
-          image_prompts: `script/${episodeId}/audits/script_prompt_pack_image_prompts.md`,
-          yaml: `script/${episodeId}/audits/script_prompt_pack_yaml.md`,
-          final_episode_audit: `script/${episodeId}/audits/script_prompt_pack_final_episode_audit.md`,
-        },
-      },
-      null,
-      2,
-    )}\n`,
-    'utf8',
-  );
 };
 
 for (const id of fixtureIds) {

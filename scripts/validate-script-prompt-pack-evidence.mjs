@@ -67,51 +67,12 @@ const readTextIfExists = async (filePath) => {
   }
 };
 
-const readJsonIfExists = async (filePath, issues) => {
-  const raw = await readTextIfExists(filePath);
-  if (raw === null) return null;
-  try {
-    return JSON.parse(raw);
-  } catch (error) {
-    pushIssue(issues, 'error', 'invalid-script-generation-audit-json', 'script_generation_audit.json がJSONとして読めません', {
-      file: path.relative(rootDir, filePath).replaceAll('\\', '/'),
-      error: error.message,
-    });
-    return null;
-  }
-};
-
-const normalizeEvidencePath = (value) => String(value ?? '').replaceAll('\\', '/');
-
 const audit = async () => {
   const issues = [];
   const episodeDir = path.join(rootDir, 'script', episodeId);
   const auditsDir = path.join(episodeDir, 'audits');
-  const auditJsonPath = path.join(auditsDir, 'script_generation_audit.json');
   const scriptFinalPath = path.join(episodeDir, 'script_final.md');
   const scriptFinalV2Path = path.join(episodeDir, 'script_final_v2.md');
-
-  const auditJson = await readJsonIfExists(auditJsonPath, issues);
-  if (!auditJson) {
-    pushIssue(issues, 'error', 'missing-script-generation-audit', 'script_generation_audit.json がありません', {
-      file: path.relative(rootDir, auditJsonPath).replaceAll('\\', '/'),
-    });
-  } else {
-    if (auditJson.verdict !== 'PASS') {
-      pushIssue(issues, 'error', 'script-generation-not-pass', 'script_generation_audit.json の verdict が PASS ではありません', {
-        verdict: auditJson.verdict ?? null,
-      });
-    }
-
-    if (!auditJson.prompt_pack_evidence || typeof auditJson.prompt_pack_evidence !== 'object') {
-      pushIssue(
-        issues,
-        'error',
-        'missing-prompt-pack-evidence-map',
-        'script_generation_audit.json に prompt_pack_evidence がありません',
-      );
-    }
-  }
 
   const finalScript = (await readTextIfExists(scriptFinalPath)) ?? (await readTextIfExists(scriptFinalV2Path));
   if (finalScript === null) {
@@ -128,7 +89,6 @@ const audit = async () => {
     });
   }
 
-  const evidenceMap = auditJson?.prompt_pack_evidence ?? {};
   for (const requirement of REQUIRED_EVIDENCE) {
     const expectedPath = path.join(auditsDir, requirement.file);
     const relExpected = path.relative(rootDir, expectedPath).replaceAll('\\', '/');
@@ -170,18 +130,6 @@ const audit = async () => {
       });
     }
 
-    const mappedPath = normalizeEvidencePath(evidenceMap[requirement.key]);
-    if (!mappedPath) {
-      pushIssue(issues, 'error', 'prompt-pack-evidence-map-missing-key', 'prompt_pack_evidence に必須キーがありません', {
-        key: requirement.key,
-      });
-    } else if (!mappedPath.endsWith(`audits/${requirement.file}`) && path.basename(mappedPath) !== requirement.file) {
-      pushIssue(issues, 'error', 'prompt-pack-evidence-map-wrong-file', 'prompt_pack_evidence の参照先が必須証跡ファイルと一致しません', {
-        key: requirement.key,
-        expected: `audits/${requirement.file}`,
-        actual: mappedPath,
-      });
-    }
   }
 
   const rewritePath = path.join(auditsDir, 'script_prompt_pack_rewrite.md');

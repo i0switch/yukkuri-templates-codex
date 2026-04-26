@@ -1,3 +1,26 @@
+---
+template_id: Scene05
+sub: no
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - body
+  - cta
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - 背景の幾何分割に対し、メインは上半分の広い領域、字幕は下部の白枠に overlay
+  - 装飾性が高いのでテキスト過多を避け、ビジュアル中心の場面に向く
+---
+
 # Scene 05: Geometric Subtitle（幾何斜め＋下部字幕）
 
 ## 背景

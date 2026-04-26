@@ -1,3 +1,26 @@
+---
+template_id: Scene06
+sub: no
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - メインは中央メカ板の内側のみ（外側のパネル装飾を覆わない）
+  - 字幕は下部金属帯に overlay として重ねる
+  - スチームパンク/SF系のテーマに合わせやすい
+---
+
 # Scene 06: Mech Panel（メカ世界＋中央板）
 
 ## 背景

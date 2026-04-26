@@ -7,8 +7,10 @@
 ## 必ず読む
 
 - 選択された `templates/scene-XX_*.md`
-- `06_scene-layout-guide.md`
-- 必要に応じて `00_START_HERE.md`
+- `AI_VIDEO_GENERATION_GUIDE.md`
+- `docs/architecture_v2.md`
+
+`06_scene-layout-guide.md` / `00_START_HERE.md` は v1 退避資料なので、新規生成・監査では正準入力にしない。
 
 ## 出力
 

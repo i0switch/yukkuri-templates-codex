@@ -1,3 +1,26 @@
+---
+template_id: Scene11
+sub: no
+title: no
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - メインは白ボード内。右上UIアイコン領域を避けて幅をやや狭めに取る
+  - サブ枠なし（右上UIが背景描画されているため）
+  - 字幕は透明背景バーで黒机の上に白文字
+---
+
 # Scene 11: Whiteboard with UI Icons（白ボード＋右上UI）
 
 ## 背景

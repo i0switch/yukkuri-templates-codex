@@ -1,6 +1,6 @@
 import {loadEpisodeRenderData} from '../lib/load-script';
-import ep915ZmDefaultAppChaos from '../../script/ep915-zm-default-app-chaos/script.render.json';
+import ep920RmSmartphonePhotoSearch from '../../script/ep920-rm-smartphone-photo-search/script.render.json';
 
 export const episodeCompositions = [
-  loadEpisodeRenderData(ep915ZmDefaultAppChaos),
+  loadEpisodeRenderData(ep920RmSmartphonePhotoSearch),
 ];

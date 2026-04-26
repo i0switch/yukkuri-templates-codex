@@ -126,7 +126,6 @@ export interface DialogueLine {
 
 export interface EpisodeScene {
   id: string;
-  scene_template?: string;
   role: SceneRole;
   scene_goal?: string;
   viewer_question?: string;
@@ -145,7 +144,6 @@ export interface EpisodeMeta {
   id: string;
   title: string;
   layout_template: string;
-  scene_template?: string;
   pair: string;
   fps: number;
   width: number;

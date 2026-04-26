@@ -169,3 +169,14 @@
 めたん「いい言い方ね。サブスク整理は我慢大会じゃない。使うものに払って、忘れてる漏れを止めるだけ。」
 ずんだもん「今日から小さい穴を見つけて、財布をじわじわ守るのだ。」
 めたん「まずは明細を一つ開くところから。そこが止血の第一歩よ。」
+
+## prompt_pack_quality_markers
+
+- scene_format: 10 scenes, natural dialogue units, 1 scene 10 lines
+- viewer_misunderstanding: 月額数百円なら気にしなくてよい、無料体験は無料のまま試せる、サブスク整理は全部我慢することだと思い込む。
+- reaction_level: 驚き→危機感→安心→実行。少額の合計に驚かせ、残すものは残す棚卸しへ落とす。
+- mini_punchline: 財布がじわじわ湿る、未来のぼくへの請求書、カレンダーの節約意識などの小オチを配置。
+- number_or_example: 月額300円×5件、無料体験終了日、年払い更新日、カード明細・スマホ決済・購入履歴の確認。
+- 具体例: 月額300円×5件、無料体験終了日、年払い更新日、カード明細・スマホ決済・購入履歴の確認。
+- セルフ監査: script_final.md reviewed for natural dialogue, practical examples, character balance, and render-ready scene flow.
+

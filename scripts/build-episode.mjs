@@ -144,7 +144,7 @@ const buildRenderJson = async (script) => {
 
   const renderData = {
     ...script,
-    scenes: script.scenes.map(({scene_template: _sceneTemplate, ...scene}) => scene),
+    scenes: script.scenes,
     public_dir: `episodes/${episodeId}`,
     base_layout_width: 1920,
     base_layout_height: 1080,

@@ -10,10 +10,12 @@ if (!target) {
   throw new Error('Usage: node scripts/audit-script-quality.mjs <episode_id|path/to/script.yaml>');
 }
 
-const REQUIRED_SCRIPT_MD_MARKERS = [
+const REQUIRED_SCRIPT_FINAL_MARKERS = [
+  'scene_format',
   'viewer_misunderstanding',
   'reaction_level',
   'mini_punchline',
+  'セルフ監査',
 ];
 
 const AWKWARD_RM_ENDINGS = [
@@ -92,27 +94,24 @@ const audit = async () => {
 
   const {episodeDir, scriptPath} = resolveTarget(target);
   const script = await readYaml(scriptPath);
-  const scriptMdPath = path.join(episodeDir, 'script.md');
+  const scriptFinalPath = path.join(episodeDir, 'script_final.md');
 
-  let scriptMd = '';
+  let scriptFinal = '';
   try {
-    scriptMd = await fs.readFile(scriptMdPath, 'utf8');
+    scriptFinal = await fs.readFile(scriptFinalPath, 'utf8');
   } catch {
-    pushIssue(errors, 'error', 'missing-script-md', 'script.md がありません。新規生成は prompt pack 経由の script.md を必須にします', {
-      script_md: path.relative(rootDir, scriptMdPath),
+    pushIssue(errors, 'error', 'missing-script-final', 'script_final.md がありません。新規生成は prompt pack 経由の script_final.md を必須にします', {
+      script_final: path.relative(rootDir, scriptFinalPath),
     });
   }
 
-  if (scriptMd) {
-    const missingMarkers = REQUIRED_SCRIPT_MD_MARKERS.filter((marker) => !scriptMd.includes(marker));
-    if (!/number_or_example|具体例/.test(scriptMd)) {
+  if (scriptFinal) {
+    const missingMarkers = REQUIRED_SCRIPT_FINAL_MARKERS.filter((marker) => !scriptFinal.includes(marker));
+    if (!/number_or_example|具体例/.test(scriptFinal)) {
       missingMarkers.push('number_or_example または 具体例');
     }
-    if (!/ジャンル適合|Codexレビュー|script_final/.test(scriptMd)) {
-      missingMarkers.push('ジャンル適合 または Codexレビュー または script_final');
-    }
     if (missingMarkers.length > 0) {
-      pushIssue(errors, 'error', 'script-md-missing-quality-markers', 'script.md に prompt pack 品質マーカーが不足しています', {
+      pushIssue(errors, 'error', 'script-final-missing-quality-markers', 'script_final.md に prompt pack 品質マーカーが不足しています', {
         missing: missingMarkers,
       });
     }

@@ -1,3 +1,29 @@
+---
+template_id: Scene13
+sub: yes
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - comparison
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - 3panel_explanation
+sub_recommended_kind:
+  - text
+  - bullets
+  - image
+notes:
+  - 黒地＋枠線のみの3エリア。theme は light
+  - 字幕は中央寄せの背景枠に overlay で重ねる
+  - シリアス/SFトーンの比較や章立てに向く
+---
+
 # Scene 13: Dark 3 Panel（黒3エリア）
 
 ## 背景

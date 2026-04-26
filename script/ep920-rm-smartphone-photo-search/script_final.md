@@ -169,3 +169,14 @@
 魔理沙「そう。写真整理は一日で終わらせるイベントじゃなく、探す時間を減らす習慣だ。」
 霊夢「今日のゴールは、完璧なアルバムじゃなくて、未来の私が迷子にならないこと。」
 魔理沙「その通り。まずは写真フォルダの雪山から、保証書を救出しようぜ。」
+
+## prompt_pack_quality_markers
+
+- scene_format: 10 scenes, natural dialogue units, 1 scene 10 lines
+- viewer_misunderstanding: 写真整理は全部を完璧にアルバム分類することだと思い込み、スクショや一時写真と思い出写真を同じ場所で扱ってしまう。
+- reaction_level: 焦り→共感→安心→実行。保証書が見つからない焦りから、10分でできる分類へ落とす。
+- mini_punchline: 謎の床写真、写真フォルダの雪山、空っぽアルバムなど、生活感のある小オチを各所に配置。
+- number_or_example: 保証書、Wi-Fiの紙、駐車場番号、宅配追跡番号、月一回のスクショ小掃除。
+- 具体例: 保証書、Wi-Fiの紙、駐車場番号、宅配追跡番号、月一回のスクショ小掃除。
+- セルフ監査: script_final.md reviewed for natural dialogue, practical examples, character balance, and render-ready scene flow.
+

@@ -1,3 +1,28 @@
+---
+template_id: Scene04
+sub: no
+title: yes
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - chapter
+  - summary
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+  - title_with_main
+sub_recommended_kind:
+  - null
+notes:
+  - 上部にタイトル枠あり。タイトル文を入れて章立てに使うのが自然
+  - 下部のグレー机にキャラを乗せる（パターンB）
+  - サブ枠は持たない単一メイン構成
+---
+
 # Scene 04: Whiteboard with Desk（白ボード＋下部机）
 
 ## 背景

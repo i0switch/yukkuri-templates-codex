@@ -43,3 +43,9 @@ visual_asset_plan:
 
 `image_direction`、`visual_type`、`supports_dialogue`、`supports_moment` はレンダー互換の外側メタデータとして残してもよい。
 ただし `imagegen_prompt` 本文には入れない。
+
+sub にテキスト/箇条書きを入れる場合、sub 用 imagegen_prompt は作らない。
+
+## 参考
+
+画像プロンプトの悪い例と良い例の対比は `examples/example_bad_vs_good_image_prompt.md` を参照。

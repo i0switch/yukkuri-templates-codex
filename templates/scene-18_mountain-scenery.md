@@ -1,3 +1,26 @@
+---
+template_id: Scene18
+sub: no
+title: no
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - summary
+  - cta
+fits_content_types:
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - ぼかし山海風景＋下部グレー机のシンプル構成
+  - メインは風景上半分。空領域にラベルが乗るよう位置調整
+  - 字幕は机領域に透明背景バーで白文字
+---
+
 # Scene 18: Mountain Scenery（山海ぼかし＋机）
 
 ## 背景

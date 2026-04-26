@@ -1,3 +1,26 @@
+---
+template_id: Scene09
+sub: no
+title: no
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - cta
+  - summary
+fits_content_types:
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - 上下黒帯＋中央ベージュ巻物風帯。シネマ感のある印象的な切り出しに向く
+  - メインはベージュ帯の内側のみ。上下黒帯にはキャラもラベルも置かない
+  - キャラはベージュ帯の左右端に大きめに配置
+---
+
 # Scene 09: Cinema Bar（シネマバー中央ベージュ）
 
 ## 背景

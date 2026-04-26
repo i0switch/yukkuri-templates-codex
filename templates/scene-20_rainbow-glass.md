@@ -1,3 +1,27 @@
+---
+template_id: Scene20
+sub: no
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - cta
+  - summary
+fits_content_types:
+  - single_main_image
+  - main_image_with_supplement
+sub_recommended_kind:
+  - null
+notes:
+  - メインは中央ガラス枠の内側のみに収める
+  - 字幕は下部の背景字幕枠に overlay
+  - 華やかな印象付けやエンディングに向く
+---
+
 # Scene 20: Rainbow Glass（虹色光線＋中央ガラス＋下字幕）
 
 ## 背景

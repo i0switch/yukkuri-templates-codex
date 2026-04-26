@@ -145,19 +145,137 @@ const renderImage = (
   </div>
 );
 
-const renderContent = (
+const renderMainContent = (
   content: SceneContent | null | undefined,
   publicDir: string,
-) => {
+): SlotRenderer | null => {
+  if (!content) {
+    return null;
+  }
+
+  // v2 rule: main slot is image-only. text / bullets are not rendered on main.
+  if (content.kind === 'image') {
+    return renderImage(content.asset, publicDir);
+  }
+  return null;
+};
+
+const renderSubText = (
+  text: string,
+  fontFamily: string,
+  contentStroke: TextStroke,
+): SlotRenderer => (rect: Rect) => (
+  <div
+    style={{
+      ...cardStyle,
+      padding: '20px 28px',
+      background: 'rgba(255,255,255,0.82)',
+    }}
+  >
+    <AutoFitText
+      text={text}
+      width={Math.max(1, rect.w - 56)}
+      height={Math.max(1, rect.h - 40)}
+      minFontSize={16}
+      maxFontSize={34}
+      lineHeight={1.4}
+      fontFamily={fontFamily}
+      fontWeight={600}
+      color="#1A1A1A"
+      textAlign="center"
+      textStrokeColor={contentStroke.color}
+      textStrokeWidth={contentStroke.width}
+    />
+  </div>
+);
+
+const renderSubBullets = (
+  items: string[],
+  fontFamily: string,
+  contentStroke: TextStroke,
+): SlotRenderer => (rect: Rect) => {
+  const innerWidth = Math.max(1, rect.w - 56);
+  const innerHeight = Math.max(1, rect.h - 40);
+  const itemHeight = Math.max(24, Math.floor(innerHeight / Math.max(1, items.length)) - 6);
+  return (
+    <div
+      style={{
+        ...cardStyle,
+        padding: '20px 28px',
+        background: 'rgba(255,255,255,0.82)',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+      }}
+    >
+      <ul
+        style={{
+          listStyle: 'none',
+          margin: 0,
+          padding: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 6,
+        }}
+      >
+        {items.map((item, index) => (
+          <li
+            key={`${index}-${item}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              minHeight: itemHeight,
+            }}
+          >
+            <AutoFitText
+              text={`・${item}`}
+              width={innerWidth}
+              height={itemHeight}
+              minFontSize={14}
+              maxFontSize={28}
+              lineHeight={1.3}
+              fontFamily={fontFamily}
+              fontWeight={600}
+              color="#1A1A1A"
+              textAlign="left"
+              textStrokeColor={contentStroke.color}
+              textStrokeWidth={contentStroke.width}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const renderSubContent = (
+  content: SceneContent | null | undefined,
+  publicDir: string,
+  fontFamily: string,
+  contentStroke: TextStroke,
+): SlotRenderer | null => {
   if (!content) {
     return null;
   }
 
   switch (content.kind) {
     case 'text':
-      return null;
-    case 'bullets':
-      return null;
+      if (typeof content.text !== 'string' || content.text.trim() === '') {
+        return null;
+      }
+      return renderSubText(content.text, fontFamily, contentStroke);
+    case 'bullets': {
+      const items = Array.isArray(content.items)
+        ? content.items.filter((item): item is string => typeof item === 'string' && item.trim() !== '')
+        : [];
+      if (items.length === 0) {
+        return null;
+      }
+      return renderSubBullets(items, fontFamily, contentStroke);
+    }
     case 'image':
       return renderImage(content.asset, publicDir);
     default:
@@ -255,13 +373,13 @@ const renderOverlaySubtitle = (template: string, text: string, fontFamily: strin
 };
 
 export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRenderData}> = ({scene, script}) => {
-  const sceneTemplate = scene.scene_template ?? script.meta.layout_template ?? script.meta.scene_template;
+  const sceneTemplate = script.meta.layout_template;
   if (!sceneTemplate) {
     throw new Error('Missing layout template. Use meta.layout_template.');
   }
   const SceneComponent = SCENE_COMPONENTS[sceneTemplate as keyof typeof SCENE_COMPONENTS];
   if (!SceneComponent) {
-    throw new Error(`Unknown scene_template "${sceneTemplate}". Use Scene01-Scene21.`);
+    throw new Error(`Unknown layout_template "${sceneTemplate}". Use Scene01-Scene21.`);
   }
 
   const frame = useCurrentFrame();
@@ -324,8 +442,8 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
               : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle, typography.subtitleStroke)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
-          mainContentSlot={renderContent(scene.main, script.public_dir)}
-          subContentSlot={renderContent(scene.sub ?? null, script.public_dir)}
+          mainContentSlot={renderMainContent(scene.main, script.public_dir)}
+          subContentSlot={renderSubContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
           showAreaLabels={false}
         />
       </div>

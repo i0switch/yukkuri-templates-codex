@@ -1,3 +1,27 @@
+---
+template_id: Scene01
+sub: no
+title: no
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - body
+  - summary
+fits_content_types:
+  - main_image_with_supplement
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - 水彩外枠の外側に要素を出さない（内枠 60,60〜1860,1020 内に収める）
+  - 字幕は内枠下部に白半透明バーで配置
+  - 落ち着いた雰囲気のイントロやまとめに向く
+---
+
 # Scene 01: Watercolor Frame（水彩外枠＋クリーム内側）
 
 ## 背景

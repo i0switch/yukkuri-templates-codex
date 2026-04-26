@@ -26,8 +26,8 @@ input_normalized:
   audience:
   tone:
   must_use_sources:
-    - C:\Users\i0swi\Desktop\ゆっくり台本プロンプト.md
-    - C:\Users\i0swi\Desktop\ずんだもん台本プロンプト.md
+    - _reference/script_prompt_pack/local_canonical/yukkuri_master.md
+    - _reference/script_prompt_pack/local_canonical/zundamon_master.md
   missing_items:
   assumptions:
   stop_reason:

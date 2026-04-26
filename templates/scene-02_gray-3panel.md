@@ -1,3 +1,29 @@
+---
+template_id: Scene02
+sub: yes
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - comparison
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - 3panel_explanation
+sub_recommended_kind:
+  - text
+  - bullets
+  - image
+notes:
+  - 背景にグレー3エリア枠が描かれているのでメイン/サブ/字幕は背景枠に位置を合わせる
+  - 字幕は背景の白帯に overlay として重ねる
+  - サブ枠は縦長なので画像なら縦長素材、テキストなら短文/箇条書きが収まりやすい
+---
+
 # Scene 02: Gray 3 Panel（グレー3分割）
 
 ## 背景

@@ -1,5 +1,9 @@
 # 00 Core Principles
 
+このファイルは v2 思想のサマリ（人間向け）。
+実行用プロンプト（AI が逐次読んで使うやつ）の正本は `_reference/script_prompt_pack/` を参照。
+旧 `prompts/01-10` は `legacy/prompts/` へ退避済み。
+
 ## 目的
 
 ゆっくり解説 / ずんだもん解説動画を、短文穴埋めではなく自然会話から作る。
@@ -44,8 +48,8 @@ visual_audit.md / image_audit.json   # 任意確認、非ブロッキング
 - 初稿やYAMLで表示都合の短文に切る
 - `script.yaml` を直接生成する
 - `hook_type`, `visual_type`, `myth_vs_fact`, `boke_or_reaction`, `composition_type`, `supports_dialogue`, `supports_moment` を画像生成プロンプトへ入れる
-- 画像内に会話全文を並べさせる
-- 本文枠の説明文、箇条書き、画像キャプション、Remotionカードを生成する
-- `remotion_card_plan.md` を新規成果物にする
+- 画像内に会話全文を並べさせる（main 画像）
+- main 枠に説明文・箇条書き・画像キャプションを入れる（sub 枠の text/bullets は許容）
+- `remotion_card_plan.md` を新規成果物にする（main の代替テキスト目的でも復活させない）
 - ファイル存在だけで画像監査PASSにする
 - `script_audit.json` / `audit_script_draft.json` を生成する

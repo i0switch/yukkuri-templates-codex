@@ -93,6 +93,10 @@ const promptLocationsFor = (scene, plan) => {
 
   const slot = plan?.slot;
   const content = slot === 'main' || slot === 'sub' ? scene[slot] : null;
+  // v2 rule: sub may render text or bullets (no image asset). Skip imagegen_prompt audit for non-image sub slots.
+  if (slot === 'sub' && content && content.kind !== 'image') {
+    return locations;
+  }
   const contentPrompt = content?.asset_requirements?.imagegen_prompt;
   if (typeof contentPrompt === 'string') {
     locations.push({name: `${scene.id}.${slot}.asset_requirements.imagegen_prompt`, prompt: contentPrompt});
@@ -212,9 +216,8 @@ const audit = async () => {
   };
 
   console.log(JSON.stringify(report, null, 2));
-  if (!report.ok) {
-    process.exitCode = 1;
-  }
+  // v2: image prompt 監査は任意・非ブロッキング。CLAUDE.md「画像監査は任意」方針に揃え、exit code は常に 0。
+  // issues は report に残るが、pre-render-gate / build-episode の停止条件にはしない。
 };
 
 await audit();

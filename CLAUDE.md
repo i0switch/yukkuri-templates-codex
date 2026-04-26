@@ -7,10 +7,12 @@
 1. `AI_VIDEO_GENERATION_GUIDE.md`
 2. `docs/architecture_v2.md`
 3. `AGENTS.md`
-4. `prompts/00_core_principles.md`
-5. 必要な `prompts/` ファイル
+4. `prompts/00_core_principles.md`（v2 思想サマリ）
+5. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（実行用プロンプト正本）
+6. 必要な `_reference/script_prompt_pack/*.md`（00〜11）
 
-旧版の詳細は `legacy/CLAUDE.md.v1` に退避済み。矛盾する場合は v2 方針を優先する。
+旧 `prompts/01-10` は `legacy/prompts/` に退避済み。新規生成・監査では `_reference/script_prompt_pack/` を使う。
+旧版 docs の詳細は `legacy/CLAUDE.md.v1` / `legacy/AGENTS.md.v1` 等に退避済み。矛盾する場合は v2 方針を優先する。
 
 ## Critical Script Quality Rule
 

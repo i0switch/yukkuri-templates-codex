@@ -1,3 +1,27 @@
+---
+template_id: Scene16
+sub: no
+title: yes
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - chapter
+  - body
+  - summary
+fits_content_types:
+  - title_with_main
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - 上下に黒系のタイトル/字幕帯、中央に大きなメインパネル
+  - 全体 theme: light（黒背景）
+  - キャラは画面端ギリギリに配置するためサイドの装飾と被らないよう注意
+---
+
 # Scene 16: SF 3-Stack Dark（SF3段パネル暗）
 
 ## 背景

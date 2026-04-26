@@ -1,3 +1,27 @@
+---
+template_id: Scene17
+sub: no
+title: yes
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - chapter
+  - body
+  - summary
+fits_content_types:
+  - title_with_main
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - Scene16 と類似だが中央メインパネルだけ明るめグレー
+  - main の AreaLabel は theme=dark、title/subtitle は theme=light を使い分ける
+  - 視認性のため中央に大きめのビジュアルを置く章立てに向く
+---
+
 # Scene 17: SF 3-Stack Mid（SF3段パネル中央明）
 
 ## 背景

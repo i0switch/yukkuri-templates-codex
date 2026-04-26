@@ -1,3 +1,29 @@
+---
+template_id: Scene14
+sub: yes
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - comparison
+  - summary
+fits_content_types:
+  - main_image_with_supplement
+  - 3panel_explanation
+sub_recommended_kind:
+  - text
+  - bullets
+  - image
+notes:
+  - 5エリア構成（main/sub/subtitle/左キャラ枠/右キャラ枠）の最多レイアウト
+  - キャラは左右の小スロットに収めるため scale 0.45 と小さめ
+  - 情報密度を高めたい場面、ダッシュボード的な見せ方に向く
+---
+
 # Scene 14: Multilayer Glass UI（多層ガラスUI・最多5エリア）
 
 ## 背景

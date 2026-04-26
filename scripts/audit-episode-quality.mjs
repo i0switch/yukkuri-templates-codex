@@ -60,34 +60,7 @@ const QUALITY_PROFILE = {
   minImageHeight: 360,
 };
 
-const VISUAL_TYPES = new Set([
-  'hook_poster',
-  'boke_visual',
-  'tsukkomi_visual',
-  'myth_vs_fact',
-  'danger_simulation',
-  'before_after',
-  'three_step_board',
-  'checklist_panel',
-  'ranking_board',
-  'ui_mockup_safe',
-  'flowchart_scene',
-  'contrast_card',
-  'meme_like_diagram',
-  'mini_story_scene',
-  'final_action_card',
-]);
-
-const REQUIRED_IMAGE_LEDGER_FIELDS = [
-  'scene_id',
-  'slot',
-  'purpose',
-  'adoption_reason',
-  'imagegen_prompt',
-  'imagegen_model',
-  'visual_type',
-  'supports_moment',
-];
+const REQUIRED_IMAGE_LEDGER_FIELDS = ['license'];
 const BANNED_IMAGE_ASSET_METADATA_KEYS = [
   'generated_asset_sheet',
   'asset_sheet',
@@ -302,10 +275,30 @@ const readImageInfo = async (filePath) => {
   return {type: 'unknown', bytes: buffer.length, width: 0, height: 0};
 };
 
-const imagePromptFor = (content, metaEntries) => {
+const visualAssetPlanFor = (scene, slot, asset) => {
+  if (!Array.isArray(scene?.visual_asset_plan)) {
+    return null;
+  }
+
+  const normalizedAsset = String(asset ?? '').replaceAll('\\', '/');
+  return (
+    scene.visual_asset_plan.find((plan) => {
+      if (!isPlainObject(plan)) {
+        return false;
+      }
+      const sameSlot = plan.slot === slot;
+      const planAsset = typeof plan.asset === 'string' ? plan.asset.replaceAll('\\', '/') : '';
+      return sameSlot && (!planAsset || planAsset === normalizedAsset);
+    }) ?? null
+  );
+};
+
+const imagePromptFor = (scene, slot, content, metaEntries) => {
   const asset = content?.asset?.replaceAll('\\', '/');
   const meta = asset ? metaEntries.get(asset) : null;
+  const plan = visualAssetPlanFor(scene, slot, asset);
   return [
+    plan?.imagegen_prompt,
     content?.asset_requirements?.imagegen_prompt,
     content?.asset_requirements?.generation_plan,
     content?.asset_requirements?.generation_method,
@@ -406,31 +399,21 @@ const hasSceneMetadata = (scene) =>
   typeof scene.visual_role === 'string' &&
   scene.visual_role.trim() !== '';
 
-const hasVisualAssetPlan = (scene) =>
-  Array.isArray(scene.visual_asset_plan) &&
-  scene.visual_asset_plan.length > 0 &&
-  scene.visual_asset_plan.every(
-    (plan) =>
-      isPlainObject(plan) &&
-      typeof plan.slot === 'string' &&
-      plan.slot.trim() !== '' &&
-      typeof plan.purpose === 'string' &&
-      plan.purpose.trim() !== '' &&
-      Array.isArray(plan.supports_dialogue) &&
-      plan.supports_dialogue.length > 0 &&
-      typeof plan.supports_moment === 'string' &&
-      plan.supports_moment.trim() !== '' &&
-      VISUAL_TYPES.has(plan.visual_type) &&
-      typeof plan.composition_type === 'string' &&
-      plan.composition_type.trim() !== '' &&
-      isPlainObject(plan.image_direction) &&
-      typeof plan.image_direction.foreground === 'string' &&
-      plan.image_direction.foreground.trim() !== '' &&
-      typeof plan.image_direction.midground === 'string' &&
-      plan.image_direction.midground.trim() !== '' &&
-      typeof plan.image_direction.background === 'string' &&
-      plan.image_direction.background.trim() !== '',
-  );
+const hasVisualAssetPlanForImages = (scene) =>
+  ['main', 'sub']
+    .filter((slot) => scene?.[slot]?.kind === 'image')
+    .every((slot) => {
+      const plan = visualAssetPlanFor(scene, slot, scene[slot].asset);
+      return (
+        isPlainObject(plan) &&
+        typeof plan.slot === 'string' &&
+        plan.slot.trim() !== '' &&
+        typeof plan.purpose === 'string' &&
+        plan.purpose.trim() !== '' &&
+        typeof plan.imagegen_prompt === 'string' &&
+        plan.imagegen_prompt.trim() !== ''
+      );
+    });
 
 const hasReferenceMetadata = (scene) =>
   typeof scene.reference_style === 'string' &&
@@ -455,8 +438,7 @@ const hasAnyReferenceMetadata = (script) =>
     ),
   );
 
-const resolvedTemplateForScript = (script) =>
-  script.meta?.layout_template ?? script.meta?.scene_template ?? script.scenes?.find((scene) => scene?.scene_template)?.scene_template;
+const resolvedTemplateForScript = (script) => script.meta?.layout_template;
 
 const assertRoleFlow = (script, errors) => {
   const roles = script.scenes.map((scene) => scene.role);
@@ -465,9 +447,6 @@ const assertRoleFlow = (script, errors) => {
   }
   if (!roles.includes('body')) {
     pushIssue(errors, 'error', 'role-flow', 'At least one body scene is required');
-  }
-  if (!roles.includes('outro')) {
-    pushIssue(errors, 'error', 'role-flow', 'At least one outro scene is required');
   }
   if (!roles.includes('cta')) {
     pushIssue(errors, 'error', 'role-flow', 'At least one cta scene is required');
@@ -712,18 +691,34 @@ const audit = async () => {
       pushIssue(errors, 'error', 'repeated-sub-content', 'sub content is reused across too many scenes', {repeated: subRepeats});
     }
 
-    const textContentSlots = script.scenes.flatMap((scene) =>
-      ['main', 'sub']
-        .map((slot) => ({scene: scene.id, slot, content: scene[slot]}))
-        .filter(({content}) => content && (content.kind !== 'image' || typeof content.caption === 'string')),
-    );
-    if (textContentSlots.length > 0) {
-      pushIssue(errors, 'error', 'content-slot-text-disabled', 'rendered content slots must be image-only; use image assets without captions or set sub: null', {
-        slots: textContentSlots.map(({scene, slot, content}) => ({
+    // v2 rule:
+    // - main is image-only and must not have a caption.
+    // - sub may be image / text / bullets / null.
+    // - sub.image with caption is a warning (caption is not rendered).
+    const mainSlotIssues = script.scenes
+      .map((scene) => ({scene: scene.id, content: scene.main}))
+      .filter(({content}) => content && (content.kind !== 'image' || typeof content.caption === 'string'));
+    if (mainSlotIssues.length > 0) {
+      pushIssue(errors, 'error', 'main-slot-image-only', 'main content slot must be image-only without caption', {
+        slots: mainSlotIssues.map(({scene, content}) => ({
           scene,
-          slot,
+          slot: 'main',
           kind: content.kind,
           has_caption: typeof content.caption === 'string',
+        })),
+      });
+    }
+
+    const subImageCaptionSlots = script.scenes
+      .map((scene) => ({scene: scene.id, content: scene.sub}))
+      .filter(({content}) => content?.kind === 'image' && typeof content.caption === 'string' && content.caption.trim() !== '');
+    if (subImageCaptionSlots.length > 0) {
+      pushIssue(warnings, 'warning', 'sub-image-caption-ignored', 'sub.image.caption is not rendered; remove it or switch sub kind to text/bullets', {
+        slots: subImageCaptionSlots.map(({scene, content}) => ({
+          scene,
+          slot: 'sub',
+          kind: content.kind,
+          caption: content.caption,
         })),
       });
     }
@@ -786,7 +781,7 @@ const audit = async () => {
         if (content?.kind !== 'image') {
           continue;
         }
-        const prompt = imagePromptFor(content, metaEntries);
+        const prompt = imagePromptFor(scene, key, content, metaEntries);
         if (hasBatchGenerationPlan(prompt)) {
           batchGenerationPrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
         }
@@ -836,50 +831,27 @@ const audit = async () => {
       });
     }
 
-    const scenesWithoutVisualAssetPlan = script.scenes.filter((scene) => !hasVisualAssetPlan(scene)).map((scene) => scene.id);
+    const scenesWithoutVisualAssetPlan = script.scenes.filter((scene) => !hasVisualAssetPlanForImages(scene)).map((scene) => scene.id);
     if (scenesWithoutVisualAssetPlan.length > 0) {
-      pushIssue(errors, 'error', 'missing-visual-asset-plan', 'each scene needs visual_asset_plan with image_direction, visual_type, supports_dialogue, and supports_moment for asset density and audit handoff', {
+      pushIssue(errors, 'error', 'missing-visual-asset-plan', 'each image scene needs visual_asset_plan[].imagegen_prompt as the v2 source of truth', {
         scenes: scenesWithoutVisualAssetPlan,
       });
     }
 
-    const planVisualTypes = script.scenes
-      .flatMap((scene) => (Array.isArray(scene.visual_asset_plan) ? scene.visual_asset_plan : []))
-      .map((plan) => plan.visual_type)
-      .filter(Boolean);
-    if (planVisualTypes.length >= 4 && new Set(planVisualTypes).size < 3) {
-      pushIssue(errors, 'error', 'low-visual-type-variety', 'visual_type must vary across scenes so GPT-Image-2 does not produce samey generic diagrams', {
-        visual_types: planVisualTypes,
-        unique_visual_types: [...new Set(planVisualTypes)],
-      });
-    }
-
-    const vagueMetaAssets = [];
     const incompleteLedgerAssets = [];
     const disallowedAssetSources = [];
     const unapprovedAssetSources = [];
     const bannedImageAssetMetadata = [];
     const duplicateImagegenSources = [];
     const weakImageFiles = [];
-    const invalidDialogueSupportLedger = [];
     const imageSourceOwners = new Map();
     for (const [file, asset] of metaEntries.entries()) {
       if (!file.startsWith('assets/')) {
         continue;
       }
-      const description = [asset.description, asset.imagegen_prompt, asset.title].filter(Boolean).join(' / ');
-      if (!isSpecificAssetPrompt(description)) {
-        vagueMetaAssets.push({file, description});
-      }
       const missingLedgerFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter(
         (field) => typeof asset[field] !== 'string' || asset[field].trim() === '',
       );
-      if (!isPlainObject(asset.image_direction)) {
-        missingLedgerFields.push('image_direction');
-      }
-      if (!Array.isArray(asset.supports_dialogue) || asset.supports_dialogue.length === 0) {
-        missingLedgerFields.push('supports_dialogue');
-      }
       if (imageGenerationIdentifiers(asset).length === 0) {
         missingLedgerFields.push('source_url or generation_id');
       }
@@ -903,23 +875,6 @@ const audit = async () => {
         disallowedAssetSources.push({file, source: imageSourceText(asset)});
       } else if (!isApprovedImageSource(asset)) {
         unapprovedAssetSources.push({file, source: imageSourceText(asset)});
-      }
-      if (!VISUAL_TYPES.has(asset.visual_type)) {
-        invalidDialogueSupportLedger.push({file, field: 'visual_type', value: asset.visual_type, allowed: [...VISUAL_TYPES]});
-      }
-      if (Array.isArray(asset.supports_dialogue) && asset.supports_dialogue.some((id) => typeof id !== 'string' || !/^s\d+_l\d+/i.test(id))) {
-        invalidDialogueSupportLedger.push({file, field: 'supports_dialogue', value: asset.supports_dialogue});
-      }
-      if (isPlainObject(asset.image_direction)) {
-        const safety = asset.image_direction.layout_safety;
-        if (safety?.keep_bottom_20_percent_empty !== true || safety?.avoid_character_area !== true) {
-          invalidDialogueSupportLedger.push({
-            file,
-            field: 'image_direction.layout_safety',
-            value: safety,
-            expected: 'keep_bottom_20_percent_empty and avoid_character_area must be true',
-          });
-        }
       }
 
       try {
@@ -945,19 +900,9 @@ const audit = async () => {
         weakImageFiles.push({file, error: error.message});
       }
     }
-    if (vagueMetaAssets.length > 0) {
-      pushIssue(errors, 'error', 'vague-asset-ledger', 'meta.json image entries need concrete visual descriptions or prompts', {
-        assets: vagueMetaAssets.slice(0, 12),
-      });
-    }
     if (incompleteLedgerAssets.length > 0) {
-      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need scene_id, slot, purpose, adoption_reason, imagegen_prompt, imagegen_model, image_direction, visual_type, supports_dialogue, supports_moment, and source_url or generation_id', {
+      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need license and source_url or generation_id', {
         assets: incompleteLedgerAssets.slice(0, 12),
-      });
-    }
-    if (invalidDialogueSupportLedger.length > 0) {
-      pushIssue(errors, 'error', 'invalid-dialogue-support-ledger', 'meta.json image entries must use supported visual_type values and safe dialogue-linked image_direction metadata', {
-        assets: invalidDialogueSupportLedger.slice(0, 20),
       });
     }
     if (bannedImageAssetMetadata.length > 0) {

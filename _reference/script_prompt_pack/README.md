@@ -6,8 +6,8 @@
 
 台本品質の最重要ソースは、ローカル正本の次2ファイル。
 
-- `C:\Users\i0swi\Desktop\ゆっくり台本プロンプト.md`
-- `C:\Users\i0swi\Desktop\ずんだもん台本プロンプト.md`
+- `_reference/script_prompt_pack/local_canonical/yukkuri_master.md`
+- `_reference/script_prompt_pack/local_canonical/zundamon_master.md`
 
 このPrompt Packは、上記2ファイルのキャラ設計と掛け合い品質を、既存レンダーシステムの `meta.layout_template` / `visual_asset_plan` / `script/{episode_id}/audits/` 契約へ落とし込む。
 

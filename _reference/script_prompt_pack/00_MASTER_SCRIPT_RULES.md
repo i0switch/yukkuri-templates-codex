@@ -4,8 +4,8 @@
 
 台本品質は次のローカル正本を最上位にする。
 
-- `C:\Users\i0swi\Desktop\ゆっくり台本プロンプト.md`
-- `C:\Users\i0swi\Desktop\ずんだもん台本プロンプト.md`
+- `_reference/script_prompt_pack/local_canonical/yukkuri_master.md`
+- `_reference/script_prompt_pack/local_canonical/zundamon_master.md`
 
 どちらかが読めない場合は推測で進めず、読めなかったファイル名と必要な対応を報告して停止する。
 
@@ -182,9 +182,11 @@ ChatGPT Images 2.0を前提にする。
 - 字幕: `dialogue[].text`
 - `script_final.md` の自然な発話単位を維持
 - 表示都合の機械分割は禁止
-- `main.kind` は原則 `image`、`sub` は `null` または `image`
-- `main.caption` / `sub.caption` / `main.text` / `sub.text` / `bullets` は使わない
+- `main.kind` は `image` のみ。`sub.kind` は `image` / `text` / `bullets` / `null` のいずれか
+- `main.caption` / `main.text` / `main.items` は使わない。`sub` はテキスト・箇条書きを使ってよい
 - 字幕の折り返し・収まりはRemotion側で吸収する
+- `bgm:` ブロックは必須
+- `meta.width × meta.height` のデフォルトは FullHD（1920×1080）。レイアウトは 1920×1080 base から自動スケール
 
 ## 監査
 

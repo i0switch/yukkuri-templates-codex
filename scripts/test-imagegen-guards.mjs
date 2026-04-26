@@ -14,11 +14,30 @@ const pngBytes = () => {
   return buffer;
 };
 
-const run = (args, {expectFailure = false} = {}) => {
+const run = (args, {expectFailure = false, expectReportIssues = false} = {}) => {
   const result = spawnSync(process.execPath, args, {cwd: rootDir, encoding: 'utf8', windowsHide: true});
+  if (expectReportIssues) {
+    // v2: image audit は非ブロッキング (exit code 0)。report の ok: false / errors を verify する。
+    // loader logs は stdout 先頭に混ざるので、最初の `{` から末尾までを JSON として抽出する。
+    const jsonStart = result.stdout.indexOf('{');
+    if (jsonStart === -1) {
+      throw new Error(`Expected JSON report in stdout: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
+    }
+    let report;
+    try {
+      report = JSON.parse(result.stdout.slice(jsonStart));
+    } catch {
+      throw new Error(`Expected JSON report but could not parse: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
+    }
+    const errorIssues = (report.issues ?? []).filter((issue) => issue.level === 'error');
+    if (report.ok !== false || errorIssues.length === 0) {
+      throw new Error(`Expected report.ok=false with error issues, got ok=${report.ok} errors=${errorIssues.length}: node ${args.join(' ')}`);
+    }
+    return;
+  }
   if (expectFailure) {
     if (result.status === 0) {
-      throw new Error(`Expected failure but passed: node ${args.join(' ')}`);
+      throw new Error(`Expected failure but passed: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
     }
     return;
   }
@@ -165,7 +184,8 @@ const weakPath = await writeFixture({name: 'weak-prompt', badPrompt: weakPrompt}
 const sheetPath = await writeFixture({name: 'grid-sheet', sheetMeta: true});
 const passPath = await writeFixture({name: 'pass'});
 
-run(['scripts/audit-image-prompts.mjs', weakPath], {expectFailure: true});
+// audit-image-prompts.mjs is non-blocking in v2 (exit 0); verify the report flags issues instead.
+run(['scripts/audit-image-prompts.mjs', weakPath], {expectReportIssues: true});
 run(['scripts/validate-episode-script.mjs', sheetPath]);
 run(['scripts/audit-episode-quality.mjs', sheetPath], {expectFailure: true});
 run(['scripts/audit-image-prompts.mjs', passPath]);

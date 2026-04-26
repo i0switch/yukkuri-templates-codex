@@ -1,3 +1,29 @@
+---
+template_id: Scene10
+sub: yes
+title: no
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - body
+  - comparison
+  - chapter
+fits_content_types:
+  - main_image_with_supplement
+  - 3panel_explanation
+sub_recommended_kind:
+  - text
+  - bullets
+  - image
+notes:
+  - 背景画像が 1376x768 で寸法違い。cover でフィットするため座標目安はそのまま使える
+  - サブ枠は右側縦長
+  - モノクロ感を活かしたシリアス/比較話題に向く
+---
+
 # Scene 10: Monochrome 3 Panel（モノクロ3エリア）
 
 ## 背景

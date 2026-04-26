@@ -1,3 +1,27 @@
+---
+template_id: Scene15
+sub: no
+title: yes
+subtitle:
+  kind: overlay
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - intro
+  - chapter
+  - summary
+fits_content_types:
+  - title_with_main
+  - single_main_image
+sub_recommended_kind:
+  - null
+notes:
+  - 左上の金枠にタイトル、下部の金枠紺帯に字幕を overlay で配置
+  - メインは桜装飾の少ない中央夜空領域に収める
+  - theme は light（紺背景）
+---
+
 # Scene 15: Sakura Night（和風夜桜＋左上タイトル＋下字幕）
 
 ## 背景

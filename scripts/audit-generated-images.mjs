@@ -85,9 +85,9 @@ const audit = async () => {
   try {
     resultAudit = JSON.parse(await fs.readFile(resultAuditPath, 'utf8'));
   } catch (error) {
-    pushIssue(issues, 'error', 'missing-image-result-audit', 'generated images must have script/{episode_id}/audits/image_result_audit.json before render', {
+    // image_result_audit.json は任意。CLAUDE.md「画像監査は任意・非ブロッキング」方針に揃える。
+    pushIssue(issues, 'warning', 'missing-image-result-audit', 'image_result_audit.json は任意。あれば検査する', {
       path: path.relative(rootDir, resultAuditPath).replaceAll('\\', '/'),
-      error: error.message,
     });
   }
 
@@ -124,38 +124,35 @@ const audit = async () => {
       continue;
     }
 
-    for (const field of ['image_direction', 'visual_type', 'supports_dialogue', 'supports_moment', 'imagegen_prompt']) {
-      if (asset[field] === undefined || asset[field] === null || asset[field] === '') {
-        pushIssue(issues, 'error', 'incomplete-generated-image-ledger', `${image.asset}: meta.json asset is missing ${field}`);
-      }
+    // v2: imagegen_prompt のみ必須。image_direction / visual_type / supports_dialogue / supports_moment は v2 では使用しない。
+    if (asset.imagegen_prompt === undefined || asset.imagegen_prompt === null || asset.imagegen_prompt === '') {
+      pushIssue(issues, 'error', 'incomplete-generated-image-ledger', `${image.asset}: meta.json asset is missing imagegen_prompt`);
     }
 
-    if (!auditRow) {
-      pushIssue(issues, 'error', 'missing-image-result-row', `${image.asset}: generated image result audit row is required`);
-    } else {
+    if (auditRow) {
       if (auditRow.scene_id !== image.scene_id) {
-        pushIssue(issues, 'error', 'image-result-scene-mismatch', `${image.asset}: generated image audit scene_id must match the referenced scene`, {
+        pushIssue(issues, 'warning', 'image-result-scene-mismatch', `${image.asset}: generated image audit scene_id should match the referenced scene`, {
           expected: image.scene_id,
           actual: auditRow.scene_id,
         });
       }
       if (auditRow.slot !== image.slot) {
-        pushIssue(issues, 'error', 'image-result-slot-mismatch', `${image.asset}: generated image audit slot must match the referenced slot`, {
+        pushIssue(issues, 'warning', 'image-result-slot-mismatch', `${image.asset}: generated image audit slot should match the referenced slot`, {
           expected: image.slot,
           actual: auditRow.slot,
         });
       }
       const verdict = String(auditRow.verdict ?? auditRow.判定 ?? '').toUpperCase();
-      if (verdict !== 'PASS') {
-        pushIssue(issues, 'error', 'failed-image-result-audit', `${image.asset}: generated image audit must be PASS`, {
+      if (verdict && verdict !== 'PASS') {
+        pushIssue(issues, 'warning', 'failed-image-result-audit', `${image.asset}: generated image audit verdict is not PASS`, {
           verdict,
           regeneration_plan: auditRow.regeneration_plan ?? auditRow.再生成方針,
         });
       }
       for (const field of ['script_match', 'dialogue_support', 'visibility', 'screen_appeal', 'low_generic_feel', 'scene_fit']) {
         const value = scoreValue(auditRow, field);
-        if (typeof value !== 'number' || value < 7) {
-          pushIssue(issues, 'error', 'weak-generated-image-score', `${image.asset}: ${field} must be a score of 7 or higher`, {
+        if (typeof value === 'number' && value < 7) {
+          pushIssue(issues, 'warning', 'weak-generated-image-score', `${image.asset}: ${field} score is below 7`, {
             value,
           });
         }
@@ -184,9 +181,8 @@ const audit = async () => {
   };
 
   console.log(JSON.stringify(report, null, 2));
-  if (!report.ok) {
-    process.exitCode = 1;
-  }
+  // v2: image audit は任意・非ブロッキング。CLAUDE.md「画像監査は任意」方針に揃え、exit code は常に 0。
+  // issues は report に残るが、レンダー進行を止めない。
 };
 
 await audit();

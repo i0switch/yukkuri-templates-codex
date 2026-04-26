@@ -286,7 +286,10 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
   }
 };
 
-const validateContent = async ({content, sceneId, contentPath, episodeDir, errors, promptOnly = false}) => {
+const SUB_TEXT_WARN_THRESHOLD = 80;
+const SUB_BULLETS_WARN_THRESHOLD = 5;
+
+const validateContent = async ({content, sceneId, contentPath, episodeDir, errors, warnings, slot, promptOnly = false}) => {
   if (content === null || content === undefined) {
     return;
   }
@@ -301,17 +304,28 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
     return;
   }
 
-  if (content.kind !== 'image') {
+  // v2 rule: main is image-only; sub may be image / text / bullets / null.
+  if (slot === 'main' && content.kind !== 'image') {
     pushIssue(
       errors,
       'error',
       `${contentPath}.kind`,
-      `${sceneId}: rendered content slots are image-only; use kind: image or set sub: null instead of Remotion-rendered text`,
+      `${sceneId}: main content slot is image-only; use kind: image (text/bullets are allowed only on sub)`,
     );
+    return;
   }
 
-  if (content.kind === 'text' && (typeof content.text !== 'string' || content.text.trim() === '')) {
-    pushIssue(errors, 'error', `${contentPath}.text`, `${sceneId}: text content requires non-empty text`);
+  if (content.kind === 'text') {
+    if (typeof content.text !== 'string' || content.text.trim() === '') {
+      pushIssue(errors, 'error', `${contentPath}.text`, `${sceneId}: text content requires non-empty text`);
+    } else if (warnings && content.text.length > SUB_TEXT_WARN_THRESHOLD) {
+      pushIssue(
+        warnings,
+        'warning',
+        `${contentPath}.text`,
+        `${sceneId}: sub text length ${content.text.length} exceeds ${SUB_TEXT_WARN_THRESHOLD} chars; consider trimming for readability`,
+      );
+    }
   }
 
   if (content.kind === 'bullets') {
@@ -323,12 +337,20 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
           pushIssue(errors, 'error', `${contentPath}.items[${index}]`, `${sceneId}: bullet item must be non-empty text`);
         }
       });
+      if (warnings && content.items.length > SUB_BULLETS_WARN_THRESHOLD) {
+        pushIssue(
+          warnings,
+          'warning',
+          `${contentPath}.items`,
+          `${sceneId}: sub bullets has ${content.items.length} items, more than ${SUB_BULLETS_WARN_THRESHOLD}; consider trimming for readability`,
+        );
+      }
     }
   }
 
   if (content.kind === 'image') {
     if (typeof content.caption === 'string' && content.caption.trim() !== '') {
-      pushIssue(errors, 'error', `${contentPath}.caption`, `${sceneId}: image.caption is disabled because content slots must render image-only`);
+      pushIssue(errors, 'error', `${contentPath}.caption`, `${sceneId}: image.caption is disabled because image content slots must render image-only`);
     }
     await assertAssetPath({assetPath: content.asset, episodeDir, sceneId, contentPath, errors, promptOnly});
   }
@@ -402,24 +424,15 @@ const validateTiming = ({script, errors}) => {
   }
 };
 
-const uniqueValues = (values) => [...new Set(values.filter((value) => typeof value === 'string' && value.trim() !== ''))];
-
 const resolveSceneTemplate = ({script, errors, warnings}) => {
   if (script.meta?.allow_duplicate_templates === true) {
     pushIssue(warnings, 'warning', 'meta.allow_duplicate_templates', 'allow_duplicate_templates is deprecated; use meta.layout_template for the single video template');
   }
 
-  const sceneTemplates = uniqueValues(script.scenes.map((scene) => scene?.scene_template));
-  let sceneTemplate = typeof script.meta?.layout_template === 'string' ? script.meta.layout_template : undefined;
-  const legacyMetaTemplate = typeof script.meta?.scene_template === 'string' ? script.meta.scene_template : undefined;
+  const sceneTemplate = typeof script.meta?.layout_template === 'string' ? script.meta.layout_template : undefined;
 
-  if (legacyMetaTemplate !== undefined) {
-    if (sceneTemplate === undefined) {
-      sceneTemplate = legacyMetaTemplate;
-      pushIssue(warnings, 'warning', 'meta.scene_template', 'meta.scene_template is accepted as a legacy alias; prefer meta.layout_template');
-    } else if (sceneTemplate !== legacyMetaTemplate) {
-      pushIssue(errors, 'error', 'meta.scene_template', `meta.scene_template must match meta.layout_template (${sceneTemplate}), got ${legacyMetaTemplate}`);
-    }
+  if (typeof script.meta?.scene_template === 'string') {
+    pushIssue(errors, 'error', 'meta.scene_template', 'meta.scene_template is not supported. Use meta.layout_template only.');
   }
 
   if (sceneTemplate !== undefined && !SCENE_TEMPLATE_ID_SET.has(sceneTemplate)) {
@@ -427,22 +440,13 @@ const resolveSceneTemplate = ({script, errors, warnings}) => {
   }
 
   if (!sceneTemplate) {
-    if (sceneTemplates.length === 1) {
-      sceneTemplate = sceneTemplates[0];
-      pushIssue(warnings, 'warning', 'meta.layout_template', `legacy script: move shared scenes[].scene_template (${sceneTemplate}) to meta.layout_template`);
-    } else {
-      pushIssue(errors, 'error', 'meta.layout_template', 'meta.layout_template is required as the single template for the whole video');
-    }
-  }
-
-  if (sceneTemplates.length > 1) {
-    pushIssue(errors, 'error', 'scenes', `Only one scene_template is allowed per video; found ${sceneTemplates.join(', ')}`);
+    pushIssue(errors, 'error', 'meta.layout_template', 'meta.layout_template is required as the single template for the whole video');
   }
 
   script.scenes.forEach((scene, sceneIndex) => {
-    if (typeof scene?.scene_template === 'string' && scene.scene_template !== sceneTemplate) {
+    if (scene && Object.prototype.hasOwnProperty.call(scene, 'scene_template')) {
       const sceneId = scene.id ?? `scenes[${sceneIndex}]`;
-      pushIssue(errors, 'error', `scenes[${sceneIndex}].scene_template`, `${sceneId}: scene_template must match meta.layout_template (${sceneTemplate}), got ${scene.scene_template}`);
+      pushIssue(errors, 'error', `scenes[${sceneIndex}].scene_template`, `${sceneId}: scenes[].scene_template is not supported. Use meta.layout_template only.`);
     }
   });
 
@@ -512,13 +516,13 @@ export const validateEpisodeScript = async (script, options = {}) => {
     }
 
     const sceneId = typeof scene.id === 'string' && scene.id.trim() ? scene.id : scenePath;
-    const resolvedTemplate = scene.scene_template ?? canonicalTemplate;
+    const resolvedTemplate = canonicalTemplate;
     if (!SCENE_TEMPLATE_ID_SET.has(resolvedTemplate)) {
       pushIssue(
         errors,
         'error',
-        scene.scene_template === undefined ? 'meta.layout_template' : `${scenePath}.scene_template`,
-        `${sceneId}: scene_template must be Scene01-Scene21: ${resolvedTemplate ?? '<missing>'}`,
+        'meta.layout_template',
+        `${sceneId}: layout_template must be Scene01-Scene21: ${resolvedTemplate ?? '<missing>'}`,
       );
     }
 
@@ -541,8 +545,8 @@ export const validateEpisodeScript = async (script, options = {}) => {
     if (!scene.main) {
       pushIssue(errors, 'error', `${scenePath}.main`, `${sceneId}: main content is required`);
     }
-    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors, promptOnly: options.promptOnly});
-    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors, promptOnly: options.promptOnly});
+    await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors, warnings, slot: 'main', promptOnly: options.promptOnly});
+    await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors, warnings, slot: 'sub', promptOnly: options.promptOnly});
 
     if (!Array.isArray(scene.dialogue)) {
       pushIssue(errors, 'error', `${scenePath}.dialogue`, `${sceneId}: dialogue must be an array`);

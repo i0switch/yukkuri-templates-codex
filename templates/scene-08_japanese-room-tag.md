@@ -1,3 +1,27 @@
+---
+template_id: Scene08
+sub: no
+title: yes
+subtitle:
+  kind: bar
+  position: bottom
+character_layout: edge
+coordinate_base: 1920x1080
+intended_uses:
+  - chapter
+  - body
+  - summary
+fits_content_types:
+  - title_with_main
+  - main_image_with_supplement
+sub_recommended_kind:
+  - null
+notes:
+  - タイトル枠は和風の札サイズに合わせ小さめ
+  - 字幕は透明背景バーで机の上に白文字で重ねる
+  - 和テーマ/季節感の強い章立てに向く
+---
+
 # Scene 08: Japanese Room with Tag（和室＋タイトル札＋白板）
 
 ## 背景
