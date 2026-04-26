@@ -66,7 +66,9 @@
     "audit:generated-images": "node scripts/audit-generated-images.mjs",
     "audit:video": "node scripts/audit-video.mjs",
     "audit:episode-quality": "node scripts/audit-episode-quality.mjs",
-    "audit:second-codex": "node scripts/verify-second-codex-audits.mjs"
+    "audit:second-codex": "node scripts/verify-second-codex-audits.mjs",
+    "test:imagegen-guards": "node scripts/test-imagegen-guards.mjs",
+    "test:script-prompt-pack-evidence": "node scripts/test-script-prompt-pack-evidence.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.365",

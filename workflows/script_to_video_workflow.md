@@ -326,6 +326,15 @@ Codexでは、台本から画像生成プロンプトを作り、挿入画像を
 Codex動画生成では NotebookLM、フリー素材、licensed download、local card、fallback、placeholder を挿入画像の代替手段や合格ルートとして使わない。
 image gen スキルが使えない場合は、動画生成完了ではなく「素材生成未完了」として停止する。
 
+ImageGen生成単位の絶対ルール:
+
+- image gen は必ず1画像につき1回呼ぶ
+- 8枚グリッド、複数枚グリッド、sprite sheet、asset sheet、一括生成、まとめ生成は禁止
+- 1枚の生成結果から複数素材を切り出す、cropする、source_rectで採用することは禁止
+- 各画像は固有の `image_direction`、固有の `imagegen_prompt`、固有の `generation_id` または `source_url` を持つ
+- `imagegen_prompt` には「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の文を必ず入れる
+- `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような低品質プロンプトで生成しない
+
 素材生成前に、必ず生成前画像プロンプト監査を実行する。
 
 ```powershell

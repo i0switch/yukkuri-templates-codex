@@ -2,6 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {parse, stringify} from 'yaml';
 
+import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
+
+blockLegacyEpisodeGenerator('create-requested-rm-zm-five-minute-episodes.mjs');
+
 const rootDir = process.cwd();
 
 const sourceBgm = path.join(rootDir, 'script', 'ep000-test-all-21-scenes', 'bgm', 'track.mp3');

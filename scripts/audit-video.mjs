@@ -18,9 +18,7 @@ const videoPath = explicitVideoPath
   ? path.resolve(rootDir, explicitVideoPath)
   : path.resolve(rootDir, 'out', 'videos', `${episodeId}.mp4`);
 
-const DELIVERY_PROFILE = {
-  width: 1920,
-  height: 1080,
+const BASE_DELIVERY_PROFILE = {
   fps: 30,
   max_silence_sec: 0.5,
   duration_tolerance_sec: 1,
@@ -121,6 +119,13 @@ const audit = async () => {
   const errors = [];
   const warnings = [];
   const {path: scriptPath, script} = await readScript();
+  const deliveryProfile = {
+    width: script.meta?.width ?? 1920,
+    height: script.meta?.height ?? 1080,
+    fps: script.meta?.fps ?? BASE_DELIVERY_PROFILE.fps,
+    max_silence_sec: BASE_DELIVERY_PROFILE.max_silence_sec,
+    duration_tolerance_sec: BASE_DELIVERY_PROFILE.duration_tolerance_sec,
+  };
 
   const validation = await validateEpisodeScript(script, {episodeDir});
   for (const error of validation.errors) {
@@ -143,20 +148,20 @@ const audit = async () => {
   }
 
   if (
-    script.meta?.width !== DELIVERY_PROFILE.width ||
-    script.meta?.height !== DELIVERY_PROFILE.height ||
-    script.meta?.fps !== DELIVERY_PROFILE.fps
+    script.meta?.width !== deliveryProfile.width ||
+    script.meta?.height !== deliveryProfile.height ||
+    script.meta?.fps !== deliveryProfile.fps
   ) {
     pushIssue(
       errors,
       'error',
       'delivery-profile-mismatch',
-      `script.meta must target ${DELIVERY_PROFILE.width}x${DELIVERY_PROFILE.height} @ ${DELIVERY_PROFILE.fps}fps`,
+      `script.meta must target ${deliveryProfile.width}x${deliveryProfile.height} @ ${deliveryProfile.fps}fps`,
       {
         expected: {
-          width: DELIVERY_PROFILE.width,
-          height: DELIVERY_PROFILE.height,
-          fps: DELIVERY_PROFILE.fps,
+          width: deliveryProfile.width,
+          height: deliveryProfile.height,
+          fps: deliveryProfile.fps,
         },
         actual: {
           width: script.meta?.width,
@@ -179,18 +184,18 @@ const audit = async () => {
     if (!videoStream) {
       pushIssue(errors, 'error', 'video-stream-missing', 'MP4 has no video stream');
     } else {
-      if (videoStream.width !== DELIVERY_PROFILE.width || videoStream.height !== DELIVERY_PROFILE.height) {
+      if (videoStream.width !== deliveryProfile.width || videoStream.height !== deliveryProfile.height) {
         pushIssue(
           errors,
           'error',
           'resolution-mismatch',
-          `Expected ${DELIVERY_PROFILE.width}x${DELIVERY_PROFILE.height}, got ${videoStream.width}x${videoStream.height}`,
+          `Expected ${deliveryProfile.width}x${deliveryProfile.height}, got ${videoStream.width}x${videoStream.height}`,
         );
       }
 
       const fps = parseFps(videoStream.avg_frame_rate) ?? parseFps(videoStream.r_frame_rate);
-      if (Math.abs(fps - DELIVERY_PROFILE.fps) > 0.01) {
-        pushIssue(errors, 'error', 'fps-mismatch', `Expected ${DELIVERY_PROFILE.fps}fps, got ${fps}`);
+      if (Math.abs(fps - deliveryProfile.fps) > 0.01) {
+        pushIssue(errors, 'error', 'fps-mismatch', `Expected ${deliveryProfile.fps}fps, got ${fps}`);
       }
     }
 
@@ -201,14 +206,14 @@ const audit = async () => {
     if (
       typeof expectedDuration === 'number' &&
       Number.isFinite(durationSec) &&
-      Math.abs(durationSec - expectedDuration) > DELIVERY_PROFILE.duration_tolerance_sec
+      Math.abs(durationSec - expectedDuration) > deliveryProfile.duration_tolerance_sec
     ) {
       pushIssue(errors, 'error', 'duration-mismatch', `Expected ${expectedDuration}s ±1s, got ${Math.round(durationSec * 100) / 100}s`);
     }
 
     if (audioStream) {
       silenceDurations = detectSilence(videoPath);
-      const longSilences = silenceDurations.filter((duration) => duration >= DELIVERY_PROFILE.max_silence_sec);
+      const longSilences = silenceDurations.filter((duration) => duration >= deliveryProfile.max_silence_sec);
       if (longSilences.length > 0) {
         pushIssue(
           errors,
@@ -225,7 +230,7 @@ const audit = async () => {
     ok: errors.length === 0,
     episode_id: episodeId,
     checked_at: new Date().toISOString(),
-    delivery_profile: DELIVERY_PROFILE,
+    delivery_profile: deliveryProfile,
     script_path: path.relative(rootDir, scriptPath),
     video_path: path.relative(rootDir, videoPath),
     errors,

@@ -2,6 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
 
+import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
+
+blockLegacyEpisodeGenerator('create-three-minute-rm-zm-episodes-20260426.mjs');
+
 const rootDir = process.cwd();
 
 const episodes = [

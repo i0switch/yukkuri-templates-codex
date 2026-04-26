@@ -59,6 +59,26 @@ const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
   /smoke/i,
   /card/i,
 ];
+const BATCH_GENERATION_PATTERNS = [
+  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
+  /グリッド/,
+  /8枚/,
+  /八枚/,
+  /複数枚/,
+  /一気に生成/,
+  /一括生成/,
+  /まとめて生成/,
+  /同時生成(?:する|して|で|を)/,
+  /batch/i,
+  /sheet/i,
+  /sprite/i,
+  /asset[_ -]?sheet/i,
+  /sprite[_ -]?sheet/i,
+  /crop/i,
+  /cut\s*out/i,
+  /切り出し/,
+  /切り抜き/,
+];
 
 const isSafeEpisodeRelativePath = (filePath) => {
   if (typeof filePath !== 'string' || filePath.trim() === '') {
@@ -230,6 +250,45 @@ const imageSourceText = (asset) =>
 
 const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
 
+const imageGenerationPlanText = (asset) =>
+  [
+    asset?.imagegen_prompt,
+    asset?.generation_plan,
+    asset?.generation_method,
+    asset?.source_site,
+    asset?.source_type,
+    asset?.source_url,
+    asset?.title,
+    asset?.generator,
+    asset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string')
+    .join(' ');
+
+const stripNegativeConstraintLines = (value) =>
+  String(value ?? '')
+    .split(/\r?\n/)
+    .reduce(
+      (state, line) => {
+        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
+          state.skipping = true;
+          return state;
+        }
+        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
+          state.skipping = false;
+        }
+        if (!state.skipping) {
+          state.lines.push(line);
+        }
+        return state;
+      },
+      {lines: [], skipping: false},
+    )
+    .lines.join('\n');
+
+const hasBatchGenerationPlan = (asset) =>
+  BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(imageGenerationPlanText(asset))));
+
 const imageGenerationIdentifiers = (asset) =>
   ['source_url', 'generation_id']
     .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
@@ -300,7 +359,16 @@ const validateMetaLedger = ({script, meta, errors}) => {
         errors,
         'error',
         `meta.json.assets[${index}]`,
-        `${asset.file}: image assets must not use sheet/crop metadata: ${bannedKeys.join(', ')}`,
+        `${asset.file}: image assets must not use sheet/crop metadata: ${bannedKeys.join(', ')}; batch/grid/sheet generation and crop/cut-out adoption are forbidden`,
+      );
+    }
+
+    if (hasBatchGenerationPlan(asset)) {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}]`,
+        `${asset.file}: image assets must be generated one image per image gen call; grid/sheet/batch/crop generation plans are forbidden`,
       );
     }
 
@@ -335,7 +403,7 @@ const validateMetaLedger = ({script, meta, errors}) => {
       errors,
       'error',
       'meta.json.generated_asset_sheet',
-      'generated_asset_sheet is not allowed when image assets are present; generate each image as an individual asset',
+      'generated_asset_sheet is not allowed when image assets are present; batch/grid/sheet generation and crop/cut-out adoption are forbidden; generate each image as an individual asset',
     );
   }
 

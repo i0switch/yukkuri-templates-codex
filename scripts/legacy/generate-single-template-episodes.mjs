@@ -2,6 +2,10 @@
 import path from 'node:path';
 import {stringify} from 'yaml';
 
+import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
+
+blockLegacyEpisodeGenerator('generate-single-template-episodes.mjs');
+
 const rootDir = process.cwd();
 const scriptDir = path.join(rootDir, 'script');
 const sourceBgmPath = path.join(rootDir, 'script', 'ep000-test-all-21-scenes', 'bgm', 'track.mp3');

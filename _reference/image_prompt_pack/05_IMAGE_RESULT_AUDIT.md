@@ -20,6 +20,9 @@ FAIL時は同じプロンプトで再生成しない。
 - 画像内文字が崩れている
 - 他シーンと似すぎ
 - 見ても感情が動かない
+- 8枚グリッド、sprite sheet、asset sheet、一括生成から切り出した画像に見える
+- 複数画像が同じ `generation_id` または `source_url` を共有している
+- meta.json に `generated_asset_sheet`、`crop_from`、`source_rect`、`parent_image` などの一括生成・切り出しメタデータがある
 
 ## 記録場所
 

@@ -1,0 +1,1754 @@
+﻿meta:
+  id: ep912-rm-notification-focus-loss
+  title: 通知を放置すると集中力が削られる理由
+  layout_template: Scene02
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: スマホ通知で作業が途切れる人
+  tone: 短く刺して、今日1つ切る行動へ落とす
+  bgm_mood: 軽い緊張感と実務的な解説
+  voice_engine: aquestalk
+  target_duration_sec: 180
+  image_style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+  typography:
+    subtitle_family: gothic
+    content_family: gothic
+    title_family: gothic
+    subtitle_stroke_color: "#000000"
+    subtitle_stroke_width: 6
+  reference_style: single_big_question_mystery
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: AquesTalk10 F1
+    aquestalk_voice:
+      x: 1
+      r: 100
+      s: 150
+      v: 100
+    speaking_style: 視聴者代表。雑な理解、疑い、怖がりを担当。
+  right:
+    character: marisa
+    aquestalk_preset: AquesTalk10 F2
+    aquestalk_voice:
+      x: 0
+      r: 110
+      s: 120
+      v: 100
+    speaking_style: 解説役。短く整理し、だぜを自然に使う。
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 通知は小さな割り込みだぜ
+    scene_format: 誤解訂正型
+    hook_type: loss_or_warning
+    viewer_question: 通知はあとで見ればいいと思う
+    viewer_misunderstanding: 通知はあとで見ればいいと思う
+    boke_or_reaction: 通知は小さな割り込みだぜ
+    reaction_level: L3
+    number_or_example: 通知1回で戻るまで数十秒かかることがある
+    mini_punchline: 通知は小さな割り込みだぜ
+    visual_role: 霊夢が通知を軽く見て、魔理沙が今日の集中が削れると止める瞬間
+    main:
+      kind: image
+      asset: assets/s01_main.png
+      caption: 通知で今日が消える
+      asset_requirements:
+        description: 通知まみれの机とスマホ
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が通知を軽く見て、魔理沙が今日の集中が削れると止める瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「phone_alarm_overload」。
+
+          画面構図：
+          主役は赤い通知バッジが積み上がったスマホ。
+          前景には赤い通知バッジが積み上がったスマホ。
+          中景には途中で止まったノートとタイマー。
+          背景には薄い作業机、下部20%は空白。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「通知で今日が消える」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a1
+        - 通知
+        - 中断
+        - 戻れない
+    visual_asset_plan:
+      - slot: main
+        purpose: 通知は小さな割り込みだぜ
+        supports_dialogue:
+          - s01_l01
+          - s01_l02
+        supports_moment: 霊夢が通知を軽く見て、魔理沙が今日の集中が削れると止める瞬間
+        visual_type: hook_poster
+        composition_type: phone_alarm_overload
+        insert_timing: s01 の l01 直前から表示
+        asset: assets/s01_main.png
+        image_direction:
+          scene_id: s01
+          dialogue_role: 冒頭フック
+          scene_emotion: L3
+          visual_type: hook_poster
+          composition_type: phone_alarm_overload
+          image_should_support: 霊夢が通知を軽く見て、魔理沙が今日の集中が削れると止める瞬間
+          key_visual_sentence: 通知まみれの机とスマホ
+          main_subject: 通知まみれの机とスマホ
+          secondary_subjects: *a1
+          foreground: 赤い通知バッジが積み上がったスマホ
+          midground: 途中で止まったノートとタイマー
+          background: 薄い作業机、下部20%は空白
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 通知で今日が消える
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が通知を軽く見て、魔理沙が今日の集中が削れると止める瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「hook_poster」、composition_typeは「phone_alarm_overload」。
+
+          画面構図：
+          主役は赤い通知バッジが積み上がったスマホ。
+          前景には赤い通知バッジが積み上がったスマホ。
+          中景には途中で止まったノートとタイマー。
+          背景には薄い作業机、下部20%は空白。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「通知で今日が消える」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 通知って放置でよくない？
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 今日の集中が削れるぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: え、音が鳴るだけで？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 戻るまでが高いんだぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 一回見て戻ればいいじゃん
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 数十秒ずれることもある
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 地味に痛いやつだ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 積もると一日が薄くなる
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: もう通知税じゃん
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: まず入口を減らすぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: op_hook
+    curiosity_gap: なぜ保存や通知があるのに作業が止まるのか
+    evidence_role: claim
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s02
+    role: body
+    scene_goal: 一瞬が寄り道になる
+    scene_format: あるある型
+    hook_type: counterintuitive
+    viewer_question: 一瞬なら作業に影響しないと思う
+    viewer_misunderstanding: 一瞬なら作業に影響しないと思う
+    boke_or_reaction: 一瞬が寄り道になる
+    reaction_level: L2
+    number_or_example: 返信を見たついでに別アプリへ行く
+    mini_punchline: 一瞬が寄り道になる
+    visual_role: 霊夢が一瞬見るだけと言い、魔理沙が寄り道化を指摘する瞬間
+    main:
+      kind: image
+      asset: assets/s02_main.png
+      caption: 一瞬が脱線になる
+      asset_requirements:
+        description: 一瞬確認から寄り道する導線
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が一瞬見るだけと言い、魔理沙が寄り道化を指摘する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「attention_detour_map」。
+
+          画面構図：
+          主役は通知から矢印が分岐するスマホ画面風の抽象図。
+          前景には通知から矢印が分岐するスマホ画面風の抽象図。
+          中景には作業ノートから離れる足跡アイコン。
+          背景には淡いグレーの導線マップ。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「一瞬が脱線になる」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a2
+        - 見る
+        - 返信
+        - 脱線
+    visual_asset_plan:
+      - slot: main
+        purpose: 一瞬が寄り道になる
+        supports_dialogue:
+          - s02_l01
+          - s02_l02
+        supports_moment: 霊夢が一瞬見るだけと言い、魔理沙が寄り道化を指摘する瞬間
+        visual_type: danger_simulation
+        composition_type: attention_detour_map
+        insert_timing: s02 の l01 直前から表示
+        asset: assets/s02_main.png
+        image_direction:
+          scene_id: s02
+          dialogue_role: あるある型
+          scene_emotion: L2
+          visual_type: danger_simulation
+          composition_type: attention_detour_map
+          image_should_support: 霊夢が一瞬見るだけと言い、魔理沙が寄り道化を指摘する瞬間
+          key_visual_sentence: 一瞬確認から寄り道する導線
+          main_subject: 一瞬確認から寄り道する導線
+          secondary_subjects: *a2
+          foreground: 通知から矢印が分岐するスマホ画面風の抽象図
+          midground: 作業ノートから離れる足跡アイコン
+          background: 淡いグレーの導線マップ
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 一瞬が脱線になる
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が一瞬見るだけと言い、魔理沙が寄り道化を指摘する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「danger_simulation」、composition_typeは「attention_detour_map」。
+
+          画面構図：
+          主役は通知から矢印が分岐するスマホ画面風の抽象図。
+          前景には通知から矢印が分岐するスマホ画面風の抽象図。
+          中景には作業ノートから離れる足跡アイコン。
+          背景には淡いグレーの導線マップ。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「一瞬が脱線になる」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 一瞬見るだけなら平気でしょ
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: その一瞬が曲者だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 返信だけして戻るよ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 別件まで目に入るんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: あー広告とかも見る
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 脳が次の餌を探すぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 作業の道を外れる感じ？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: そう、横道に入るんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 一瞬が散歩になるの怖い
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: だから通知を束ねるんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: topic_setup
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: background
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s03
+    role: body
+    scene_goal: 全部オンは全部薄くする
+    scene_format: 反証型
+    hook_type: counterintuitive
+    viewer_question: 全部オンなら大事な連絡を逃さないと思う
+    viewer_misunderstanding: 全部オンなら大事な連絡を逃さないと思う
+    boke_or_reaction: 全部オンは全部薄くする
+    reaction_level: L2
+    number_or_example: 本当に即見るのは家族・仕事・決済だけ
+    mini_punchline: 全部オンは全部薄くする
+    visual_role: 霊夢が全部オンを安心と言い、魔理沙が重要通知だけ残すと訂正する瞬間
+    main:
+      kind: image
+      asset: assets/s03_main.png
+      caption: 重要だけ残す
+      asset_requirements:
+        description: 重要と雑音を分けるフィルター
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が全部オンを安心と言い、魔理沙が重要通知だけ残すと訂正する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「myth_vs_fact」、composition_typeは「priority_filter_board」。
+
+          画面構図：
+          主役は三段の通知フィルター板。
+          前景には三段の通知フィルター板。
+          中景には家族、仕事、決済の抽象アイコン。
+          背景には余白の多い整理ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「重要だけ残す」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a3
+        - 即見る
+        - 後で見る
+        - 切る
+    visual_asset_plan:
+      - slot: main
+        purpose: 全部オンは全部薄くする
+        supports_dialogue:
+          - s03_l01
+          - s03_l02
+        supports_moment: 霊夢が全部オンを安心と言い、魔理沙が重要通知だけ残すと訂正する瞬間
+        visual_type: myth_vs_fact
+        composition_type: priority_filter_board
+        insert_timing: s03 の l01 直前から表示
+        asset: assets/s03_main.png
+        image_direction:
+          scene_id: s03
+          dialogue_role: 反証型
+          scene_emotion: L2
+          visual_type: myth_vs_fact
+          composition_type: priority_filter_board
+          image_should_support: 霊夢が全部オンを安心と言い、魔理沙が重要通知だけ残すと訂正する瞬間
+          key_visual_sentence: 重要と雑音を分けるフィルター
+          main_subject: 重要と雑音を分けるフィルター
+          secondary_subjects: *a3
+          foreground: 三段の通知フィルター板
+          midground: 家族、仕事、決済の抽象アイコン
+          background: 余白の多い整理ボード
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 重要だけ残す
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が全部オンを安心と言い、魔理沙が重要通知だけ残すと訂正する瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「myth_vs_fact」、composition_typeは「priority_filter_board」。
+
+          画面構図：
+          主役は三段の通知フィルター板。
+          前景には三段の通知フィルター板。
+          中景には家族、仕事、決済の抽象アイコン。
+          背景には余白の多い整理ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「重要だけ残す」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 全部オンなら安心じゃん
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 逆に全部が薄くなるぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 大事な通知もあるよ？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: だから残す通知を選ぶんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 選ぶって何を？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 家族、仕事、決済だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: セール通知は？
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 急がないなら後でいい
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 安売りに弱いんだよね
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: そこが集中の穴だぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: background
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: evidence
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s04
+    role: body
+    scene_goal: 通知は時間で箱に入れる
+    scene_format: 手順型
+    hook_type: counterintuitive
+    viewer_question: 通知は全部消すしかないと思う
+    viewer_misunderstanding: 通知は全部消すしかないと思う
+    boke_or_reaction: 通知は時間で箱に入れる
+    reaction_level: L3
+    number_or_example: 午前と夕方の2回だけ見る
+    mini_punchline: 通知は時間で箱に入れる
+    visual_role: 霊夢が全部オフにしようとして、魔理沙が時間で束ねる手順を出す瞬間
+    main:
+      kind: image
+      asset: assets/s04_main.png
+      caption: 消すより束ねろ
+      asset_requirements:
+        description: 通知を見る時間を箱に入れる手順
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が全部オフにしようとして、魔理沙が時間で束ねる手順を出す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「time_boxing_steps」。
+
+          画面構図：
+          主役は時計と箱に入った通知カード。
+          前景には時計と箱に入った通知カード。
+          中景には午前と夕方の2つの確認窓。
+          背景には柔らかい青の予定表風背景。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「消すより束ねろ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a4
+        - 昼前
+        - 夕方
+        - 緊急だけ
+    visual_asset_plan:
+      - slot: main
+        purpose: 通知は時間で箱に入れる
+        supports_dialogue:
+          - s04_l01
+          - s04_l02
+        supports_moment: 霊夢が全部オフにしようとして、魔理沙が時間で束ねる手順を出す瞬間
+        visual_type: three_step_board
+        composition_type: time_boxing_steps
+        insert_timing: s04 の l01 直前から表示
+        asset: assets/s04_main.png
+        image_direction:
+          scene_id: s04
+          dialogue_role: 手順型
+          scene_emotion: L3
+          visual_type: three_step_board
+          composition_type: time_boxing_steps
+          image_should_support: 霊夢が全部オフにしようとして、魔理沙が時間で束ねる手順を出す瞬間
+          key_visual_sentence: 通知を見る時間を箱に入れる手順
+          main_subject: 通知を見る時間を箱に入れる手順
+          secondary_subjects: *a4
+          foreground: 時計と箱に入った通知カード
+          midground: 午前と夕方の2つの確認窓
+          background: 柔らかい青の予定表風背景
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 消すより束ねろ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が全部オフにしようとして、魔理沙が時間で束ねる手順を出す瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「three_step_board」、composition_typeは「time_boxing_steps」。
+
+          画面構図：
+          主役は時計と箱に入った通知カード。
+          前景には時計と箱に入った通知カード。
+          中景には午前と夕方の2つの確認窓。
+          背景には柔らかい青の予定表風背景。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「消すより束ねろ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: もう全部オフでいい？
+        expression: surprise
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 極端すぎるぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: じゃあどうするの？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 見る時間を決めるんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 時間で囲う感じ？
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 午前と夕方で十分だ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 緊急はどうすんの？
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 人だけ例外にするぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 通知を箱に入れるのか
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 中盤の結論はそれだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: midpoint_rehook
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: interpretation
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s05
+    role: body
+    scene_goal: 数字に操作されるな
+    scene_format: 失敗エピソード型
+    hook_type: loss_or_warning
+    viewer_question: バッジは便利な未読メモだと思う
+    viewer_misunderstanding: バッジは便利な未読メモだと思う
+    boke_or_reaction: 数字に操作されるな
+    reaction_level: L4
+    number_or_example: 赤丸を消すだけでアプリを開く
+    mini_punchline: 数字に操作されるな
+    visual_role: 霊夢が赤丸を消したくなり、魔理沙が数字の罠だと突っ込む瞬間
+    main:
+      kind: image
+      asset: assets/s05_main.png
+      caption: 赤丸は罠
+      asset_requirements:
+        description: 赤い数字に引っ張られる手元
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が赤丸を消したくなり、魔理沙が数字の罠だと突っ込む瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「boke_visual」、composition_typeは「red_badge_trap」。
+
+          画面構図：
+          主役は巨大な赤い通知数字に引かれる指。
+          前景には巨大な赤い通知数字に引かれる指。
+          中景には開きかけの抽象アプリカード。
+          背景には暗めの余白と警告線。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「赤丸は罠」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a5
+        - 赤丸
+        - 未読
+        - 誘惑
+    visual_asset_plan:
+      - slot: main
+        purpose: 数字に操作されるな
+        supports_dialogue:
+          - s05_l01
+          - s05_l02
+        supports_moment: 霊夢が赤丸を消したくなり、魔理沙が数字の罠だと突っ込む瞬間
+        visual_type: boke_visual
+        composition_type: red_badge_trap
+        insert_timing: s05 の l01 直前から表示
+        asset: assets/s05_main.png
+        image_direction:
+          scene_id: s05
+          dialogue_role: 失敗エピソード型
+          scene_emotion: L4
+          visual_type: boke_visual
+          composition_type: red_badge_trap
+          image_should_support: 霊夢が赤丸を消したくなり、魔理沙が数字の罠だと突っ込む瞬間
+          key_visual_sentence: 赤い数字に引っ張られる手元
+          main_subject: 赤い数字に引っ張られる手元
+          secondary_subjects: *a5
+          foreground: 巨大な赤い通知数字に引かれる指
+          midground: 開きかけの抽象アプリカード
+          background: 暗めの余白と警告線
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 赤丸は罠
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が赤丸を消したくなり、魔理沙が数字の罠だと突っ込む瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「boke_visual」、composition_typeは「red_badge_trap」。
+
+          画面構図：
+          主役は巨大な赤い通知数字に引かれる指。
+          前景には巨大な赤い通知数字に引かれる指。
+          中景には開きかけの抽象アプリカード。
+          背景には暗めの余白と警告線。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「赤丸は罠」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 赤い数字って気になる
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: あれは強い釣り針だぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 釣り針！？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 消したくて開くんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 確かに押しちゃう
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 未読ゼロが目的になるぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 作業じゃなく掃除してる
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: それが罠なんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 赤丸に働かされてた
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: バッジは切る候補だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: evidence
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: evidence
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s06
+    role: body
+    scene_goal: 静かな画面ほど戻りやすい
+    scene_format: Before / After型
+    hook_type: counterintuitive
+    viewer_question: 通知を減らすと全部逃すと思う
+    viewer_misunderstanding: 通知を減らすと全部逃すと思う
+    boke_or_reaction: 静かな画面ほど戻りやすい
+    reaction_level: L2
+    number_or_example: 重要3カテゴリだけ即時にする
+    mini_punchline: 静かな画面ほど戻りやすい
+    visual_role: 霊夢が逃し不安を出し、魔理沙が例外だけ残す比較を見せる瞬間
+    main:
+      kind: image
+      asset: assets/s06_main.png
+      caption: 残す通知を決める
+      asset_requirements:
+        description: 通知だらけと静かな画面の比較
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が逃し不安を出し、魔理沙が例外だけ残す比較を見せる瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「quiet_screen_comparison」。
+
+          画面構図：
+          主役は左右比較のスマホ2台。
+          前景には左右比較のスマホ2台。
+          中景には左は通知過多、右は重要3つだけ。
+          背景には整理された比較ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「残す通知を決める」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a6
+        - 残す3つ
+        - 切る多数
+        - 後で確認
+    visual_asset_plan:
+      - slot: main
+        purpose: 静かな画面ほど戻りやすい
+        supports_dialogue:
+          - s06_l01
+          - s06_l02
+        supports_moment: 霊夢が逃し不安を出し、魔理沙が例外だけ残す比較を見せる瞬間
+        visual_type: before_after
+        composition_type: quiet_screen_comparison
+        insert_timing: s06 の l01 直前から表示
+        asset: assets/s06_main.png
+        image_direction:
+          scene_id: s06
+          dialogue_role: Before / After型
+          scene_emotion: L2
+          visual_type: before_after
+          composition_type: quiet_screen_comparison
+          image_should_support: 霊夢が逃し不安を出し、魔理沙が例外だけ残す比較を見せる瞬間
+          key_visual_sentence: 通知だらけと静かな画面の比較
+          main_subject: 通知だらけと静かな画面の比較
+          secondary_subjects: *a6
+          foreground: 左右比較のスマホ2台
+          midground: 左は通知過多、右は重要3つだけ
+          background: 整理された比較ボード
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 残す通知を決める
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が逃し不安を出し、魔理沙が例外だけ残す比較を見せる瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「before_after」、composition_typeは「quiet_screen_comparison」。
+
+          画面構図：
+          主役は左右比較のスマホ2台。
+          前景には左右比較のスマホ2台。
+          中景には左は通知過多、右は重要3つだけ。
+          背景には整理された比較ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「残す通知を決める」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 減らすと逃しそうで怖い
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: ゼロを目指さなくていい
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: じゃあ何を残す？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 人、予定、お金だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 三つなら覚えられる
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 他は後で見る箱だ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 静かな画面って強いね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 戻る力が残るんだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 通知ゼロ教じゃないのか
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 例外管理が現実的だぜ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: counterpoint
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: counterpoint
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s07
+    role: outro
+    scene_goal: 全部直さないから続く
+    scene_format: 手順型
+    hook_type: counterintuitive
+    viewer_question: 設定が多すぎて後回しになると思う
+    viewer_misunderstanding: 設定が多すぎて後回しになると思う
+    boke_or_reaction: 全部直さないから続く
+    reaction_level: L3
+    number_or_example: 5分でバッジ・音・まとめを触る
+    mini_punchline: 全部直さないから続く
+    visual_role: 霊夢が面倒がり、魔理沙が3つだけ設定すると絞る瞬間
+    main:
+      kind: image
+      asset: assets/s07_main.png
+      caption: 今日やる3つ
+      asset_requirements:
+        description: 5分で触る通知設定チェック
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が面倒がり、魔理沙が3つだけ設定すると絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_settings_checklist」。
+
+          画面構図：
+          主役は3項目だけの大きなチェックリスト。
+          前景には3項目だけの大きなチェックリスト。
+          中景には音量、赤丸、通知まとめの抽象アイコン。
+          背景には明るい作業ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「今日やる3つ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a7
+        - 音
+        - バッジ
+        - まとめ
+    visual_asset_plan:
+      - slot: main
+        purpose: 全部直さないから続く
+        supports_dialogue:
+          - s07_l01
+          - s07_l02
+        supports_moment: 霊夢が面倒がり、魔理沙が3つだけ設定すると絞る瞬間
+        visual_type: checklist_panel
+        composition_type: three_settings_checklist
+        insert_timing: s07 の l01 直前から表示
+        asset: assets/s07_main.png
+        image_direction:
+          scene_id: s07
+          dialogue_role: 手順型
+          scene_emotion: L3
+          visual_type: checklist_panel
+          composition_type: three_settings_checklist
+          image_should_support: 霊夢が面倒がり、魔理沙が3つだけ設定すると絞る瞬間
+          key_visual_sentence: 5分で触る通知設定チェック
+          main_subject: 5分で触る通知設定チェック
+          secondary_subjects: *a7
+          foreground: 3項目だけの大きなチェックリスト
+          midground: 音量、赤丸、通知まとめの抽象アイコン
+          background: 明るい作業ボード
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 今日やる3つ
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が面倒がり、魔理沙が3つだけ設定すると絞る瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「checklist_panel」、composition_typeは「three_settings_checklist」。
+
+          画面構図：
+          主役は3項目だけの大きなチェックリスト。
+          前景には3項目だけの大きなチェックリスト。
+          中景には音量、赤丸、通知まとめの抽象アイコン。
+          背景には明るい作業ボード。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「今日やる3つ」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 設定って深そうで無理
+        expression: worry
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: 今日は三つだけだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 三つなら聞ける
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 音、バッジ、まとめだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: それ五分でいける？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: アプリ一つならいけるぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 全部やらないの大事だね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: 最初は一番うるさい奴だ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 通知の親玉を倒す
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: その表現で合ってるぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: summary
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: summary
+    next_reason: 次の場面で別の落とし穴を見る
+  - id: s08
+    role: cta
+    scene_goal: 一つ切れば明日が軽い
+    scene_format: まとめ再フック型
+    hook_type: loss_or_warning
+    viewer_question: 後で全部まとめてやろうと思う
+    viewer_misunderstanding: 後で全部まとめてやろうと思う
+    boke_or_reaction: 一つ切れば明日が軽い
+    reaction_level: L2
+    number_or_example: 今いちばん鳴るアプリを1つ選ぶ
+    mini_punchline: 一つ切れば明日が軽い
+    visual_role: 霊夢が後回しにしそうになり、魔理沙が今1つ切る行動へ落とす瞬間
+    main:
+      kind: image
+      asset: assets/s08_main.png
+      caption: 今1つだけ切る
+      asset_requirements:
+        description: 一番うるさいアプリを1つ選ぶ行動カード
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が後回しにしそうになり、魔理沙が今1つ切る行動へ落とす瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「one_app_action_card」。
+
+          画面構図：
+          主役は大きな1の数字と静かなスマホ。
+          前景には大きな1の数字と静かなスマホ。
+          中景には音を切るチェック、明日確認のカレンダー。
+          背景には淡い安心感のある背景。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「今1つだけ切る」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        style: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+        aspect: 16:9
+    sub:
+      kind: bullets
+      items: &a8
+        - 選ぶ
+        - 音を切る
+        - 明日見る
+    visual_asset_plan:
+      - slot: main
+        purpose: 一つ切れば明日が軽い
+        supports_dialogue:
+          - s08_l01
+          - s08_l02
+        supports_moment: 霊夢が後回しにしそうになり、魔理沙が今1つ切る行動へ落とす瞬間
+        visual_type: final_action_card
+        composition_type: one_app_action_card
+        insert_timing: s08 の l01 直前から表示
+        asset: assets/s08_main.png
+        image_direction:
+          scene_id: s08
+          dialogue_role: 最終行動
+          scene_emotion: L2
+          visual_type: final_action_card
+          composition_type: one_app_action_card
+          image_should_support: 霊夢が後回しにしそうになり、魔理沙が今1つ切る行動へ落とす瞬間
+          key_visual_sentence: 一番うるさいアプリを1つ選ぶ行動カード
+          main_subject: 一番うるさいアプリを1つ選ぶ行動カード
+          secondary_subjects: *a8
+          foreground: 大きな1の数字と静かなスマホ
+          midground: 音を切るチェック、明日確認のカレンダー
+          background: 淡い安心感のある背景
+          color_palette: 太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。
+          text_strategy:
+            image_text_allowed: true
+            image_text_max_words: 3
+            image_text_examples:
+              - "!"
+              - OK
+              - NG
+            remotion_overlay_text:
+              - 今1つだけ切る
+          layout_safety:
+            keep_bottom_20_percent_empty: true
+            avoid_character_area: true
+            avoid_sub_area_overlap: true
+          must_not_include:
+            - 実在アプリUI
+            - ブランドロゴ
+            - 既存キャラクター
+            - 写真風人物
+            - 長文日本語
+          quality_bar: YouTube解説動画の高品質スライドとして成立すること
+        imagegen_prompt: |-
+          使用目的：Scene02 main枠で使う高品質ビジュアル素材。
+          動画ジャンル：ゆっくり解説 / ずんだもん解説。
+          Sceneテンプレート：Scene02。
+          この画像は、台本内の「霊夢が後回しにしそうになり、魔理沙が今1つ切る行動へ落とす瞬間」という会話・掛け合いを視覚的に補強する。
+          visual_typeは「final_action_card」、composition_typeは「one_app_action_card」。
+
+          画面構図：
+          主役は大きな1の数字と静かなスマホ。
+          前景には大きな1の数字と静かなスマホ。
+          中景には音を切るチェック、明日確認のカレンダー。
+          背景には淡い安心感のある背景。
+          視線は左上から中央の要点へ流れる。
+
+          デザイン：
+          品質基準はYouTube解説動画内スライドとして使える高品質、完成度、視認性を満たすこと。
+          実在ブランドや実在UIは模写しない。
+          色は太線フラット図解。グレー背景でも読める白、青、黄色アクセント。警告だけ赤。。
+          光は柔らかく、影は薄く、輪郭は太め。
+          画面下部20%は字幕とキャラ表示用に空ける。
+          Remotionで重ねる文字のため、中央上部に余白を残す。
+
+          文字方針：
+          画像内の文字は最大3語まで。
+          正確な日本語タイトルや説明はRemotionで重ねるため、長文は入れない。
+          入れてよい短語は「!」「OK」「NG」程度。
+          Remotion重ね文字の候補は「今1つだけ切る」。
+          制約：細かい文字なし、ロゴなし、実在人物なし、既存キャラクターなし、ブランドロゴなし。
+
+          禁止：
+          白背景に中央アイコンだけ、実在ロゴ、実在UI、既存キャラクター、写真風人物、長文テキスト、細かい表。
+
+          生成単位：
+          この1枚専用のプロンプトとして、1枚ずつ生成する。他画像と同時生成しない。
+
+          追加禁止：人物、顔、手、実在キャラクター、既存キャラクター風、アニメキャラ、マスコットを一切描かない。スマホ、書類、矢印、箱、時計などの物だけで構成する。
+        audit_points:
+          - 1枚1メッセージ
+          - Scene02のmain枠に収まる
+          - 字幕帯とキャラ領域を空ける
+    dialogue:
+      - id: l01
+        speaker: left
+        text: あとで全部やればいい？
+        expression: smile
+        pre_pause_sec: 0.14
+        post_pause_sec: 0.22
+      - id: l02
+        speaker: right
+        text: それはやらないやつだぜ
+        expression: serious
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l03
+        speaker: left
+        text: 刺さること言うなあ
+        expression: worry
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l04
+        speaker: right
+        text: 今一つだけ選ぶんだ
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l05
+        speaker: left
+        text: 一番うるさいアプリね
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l06
+        speaker: right
+        text: 音かバッジを切るぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l07
+        speaker: left
+        text: 明日、困るか確認する？
+        expression: surprise
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l08
+        speaker: right
+        text: そう。困らなきゃ保存だ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l09
+        speaker: left
+        text: 切る予定も入れよう
+        expression: calm
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.22
+      - id: l10
+        speaker: right
+        text: 今日の行動はそれだぜ
+        expression: smile
+        pre_pause_sec: 0.08
+        post_pause_sec: 0.3
+    reference_style: single_big_question_mystery
+    reference_beat: cta
+    curiosity_gap: なぜ対処しないと同じ失敗が続くのか
+    evidence_role: summary
+    next_reason: 今すぐ1つだけ行動する
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5
+
+

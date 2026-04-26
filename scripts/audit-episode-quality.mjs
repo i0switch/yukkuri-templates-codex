@@ -52,7 +52,7 @@ const QUALITY_PROFILE = {
   maxRepeatedMainContentCount: 4,
   maxRepeatedSubContentCount: 4,
   minUniqueImageRatio: 0.5,
-  minImageCountForLongEpisode: 4,
+  minImageCountForLongEpisode: 8,
   longEpisodeSceneThreshold: 4,
   minImagePromptChars: 120,
   minSceneMetadataScenesRatio: 0.8,
@@ -155,6 +155,28 @@ const REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS = [
   {key: 'dialogue_support', patterns: [/会話|掛け合い|セリフ|ボケ|ツッコミ|誤解|訂正|補強|supports_moment/i]},
   {key: 'remotion_overlay', patterns: [/Remotion|重ねる|画像内の文字|長文は入れない/]},
   {key: 'bottom_safety', patterns: [/下部20%|字幕とキャラ|キャラ表示用|左右キャラ/]},
+  {key: 'single_image_generation', patterns: [/1枚ずつ生成|一枚ずつ生成|この1枚専用|この一枚専用|他画像と同時生成しない|同時生成しない|個別生成|1画像につき1回|一画像につき一回/]},
+];
+
+const BATCH_GENERATION_PATTERNS = [
+  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
+  /グリッド/,
+  /8枚/,
+  /八枚/,
+  /複数枚/,
+  /一気に生成/,
+  /一括生成/,
+  /まとめて生成/,
+  /同時生成(?:する|して|で|を)/,
+  /batch/i,
+  /sheet/i,
+  /sprite/i,
+  /asset[_ -]?sheet/i,
+  /sprite[_ -]?sheet/i,
+  /crop/i,
+  /cut\s*out/i,
+  /切り出し/,
+  /切り抜き/,
 ];
 
 const normalizeText = (value) =>
@@ -288,9 +310,13 @@ const imagePromptFor = (content, metaEntries) => {
   const meta = asset ? metaEntries.get(asset) : null;
   return [
     content?.asset_requirements?.imagegen_prompt,
+    content?.asset_requirements?.generation_plan,
+    content?.asset_requirements?.generation_method,
     content?.asset_requirements?.description,
     content?.asset_requirements?.style,
     meta?.imagegen_prompt,
+    meta?.generation_plan,
+    meta?.generation_method,
     meta?.description,
     meta?.title,
   ]
@@ -319,6 +345,29 @@ const missingDialogueSupportPromptTerms = (prompt) => {
     (requirement) => requirement.key,
   );
 };
+
+const stripNegativeConstraintLines = (value) =>
+  String(value ?? '')
+    .split(/\r?\n/)
+    .reduce(
+      (state, line) => {
+        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
+          state.skipping = true;
+          return state;
+        }
+        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
+          state.skipping = false;
+        }
+        if (!state.skipping) {
+          state.lines.push(line);
+        }
+        return state;
+      },
+      {lines: [], skipping: false},
+    )
+    .lines.join('\n');
+
+const hasBatchGenerationPlan = (value) => BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(value)));
 
 const imageSourceText = (asset) =>
   [
@@ -687,7 +736,7 @@ const audit = async () => {
         .filter(Boolean),
     );
     if (uniqueImageAssets.size > 0 && hasOwn(meta ?? {}, 'generated_asset_sheet')) {
-      pushIssue(errors, 'error', 'generated-asset-sheet', 'generated_asset_sheet is not allowed when image assets are present; generate each image separately', {
+      pushIssue(errors, 'error', 'generated-asset-sheet', 'generated_asset_sheet is not allowed when image assets are present; batch/grid/sheet generation and crop/cut-out adoption are forbidden; generate each image with a separate image gen call', {
         generated_asset_sheet: meta.generated_asset_sheet,
         unique_image_assets: uniqueImageAssets.size,
       });
@@ -727,6 +776,7 @@ const audit = async () => {
     const weakImagePrompts = [];
     const incompleteImagePrompts = [];
     const incompleteDialogueSupportPrompts = [];
+    const batchGenerationPrompts = [];
     for (const scene of script.scenes) {
       for (const key of ['main', 'sub']) {
         const content = scene[key];
@@ -734,6 +784,9 @@ const audit = async () => {
           continue;
         }
         const prompt = imagePromptFor(content, metaEntries);
+        if (hasBatchGenerationPlan(prompt)) {
+          batchGenerationPrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
+        }
         if (!isSpecificAssetPrompt(prompt)) {
           weakImagePrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
         }
@@ -762,6 +815,11 @@ const audit = async () => {
       pushIssue(errors, 'error', 'incomplete-dialogue-support-imagegen-prompt', 'imagegen prompts must support concrete yukkuri/zundamon dialogue moments, not generic icon cards', {
         assets: incompleteDialogueSupportPrompts.slice(0, 12),
         required_prompt_terms: REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS.map((requirement) => requirement.key),
+      });
+    }
+    if (batchGenerationPrompts.length > 0) {
+      pushIssue(errors, 'error', 'batch-or-grid-imagegen-plan', 'imagegen prompts must request one image per image gen call; grid/sheet/batch/crop generation is forbidden', {
+        assets: batchGenerationPrompts.slice(0, 12),
       });
     }
 
@@ -827,7 +885,7 @@ const audit = async () => {
       }
       const bannedKeys = BANNED_IMAGE_ASSET_METADATA_KEYS.filter((key) => hasOwn(asset, key));
       if (bannedKeys.length > 0) {
-        bannedImageAssetMetadata.push({file, banned_keys: bannedKeys});
+        bannedImageAssetMetadata.push({file, banned_keys: bannedKeys, reason: 'batch/grid/sheet generation and crop/cut-out adoption are forbidden'});
       }
       for (const {field, value} of imageGenerationIdentifiers(asset)) {
         const key = `${field}:${value}`;
@@ -900,7 +958,7 @@ const audit = async () => {
       });
     }
     if (bannedImageAssetMetadata.length > 0) {
-      pushIssue(errors, 'error', 'banned-image-asset-metadata', 'image entries must not contain sheet/crop provenance metadata', {
+      pushIssue(errors, 'error', 'banned-image-asset-metadata', 'image entries must not contain sheet/crop provenance metadata; batch/grid/sheet generation and crop/cut-out adoption are forbidden', {
         assets: bannedImageAssetMetadata.slice(0, 20),
         banned_keys: BANNED_IMAGE_ASSET_METADATA_KEYS,
       });

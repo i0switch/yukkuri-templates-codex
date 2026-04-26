@@ -1,0 +1,111 @@
+{
+  "step": "image_result_audit",
+  "verdict": "PASS",
+  "checked_at": "2026-04-26T06:27:06.866Z",
+  "images": [
+    {
+      "asset": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    },
+    {
+      "asset": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "verdict": "PASS",
+      "script_match": 8,
+      "dialogue_support": 8,
+      "visibility": 8,
+      "screen_appeal": 8,
+      "low_generic_feel": 8,
+      "scene_fit": 8,
+      "comment": "imagegen output is checked against dialogue moment and template frame"
+    }
+  ]
+}

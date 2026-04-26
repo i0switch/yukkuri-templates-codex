@@ -1,6 +1,6 @@
 import {loadEpisodeRenderData} from '../lib/load-script';
-import ep906RmSubscriptionLeak from '../../script/ep906-rm-subscription-leak/script.render.json';
+import ep913ZmNotificationOverload from '../../script/ep913-zm-notification-overload/script.render.json';
 
 export const episodeCompositions = [
-  loadEpisodeRenderData(ep906RmSubscriptionLeak),
+  loadEpisodeRenderData(ep913ZmNotificationOverload),
 ];

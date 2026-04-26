@@ -2,6 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
 
+import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
+
+blockLegacyEpisodeGenerator('generate-requested-five-minute-episodes.mjs');
+
 const rootDir = process.cwd();
 
 const imagePrompt = ({episodeTitle, sceneTitle, pair, slot = 'main'}) =>

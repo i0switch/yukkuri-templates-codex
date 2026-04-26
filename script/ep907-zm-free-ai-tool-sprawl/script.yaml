@@ -1540,6 +1540,10 @@ scenes:
         expression: smile
         pre_pause_sec: 0.08
         post_pause_sec: 0.3
-
-
-
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5

@@ -22,4 +22,6 @@ FAILした画像は生成しない。
 - main/subの役割が被っている
 - 文字をRemotionに分離していない
 - シーン固有の小物がない
-
+- `imagegen_prompt` に「1枚ずつ生成」「この1枚専用」「他画像と同時生成しない」相当の明示がない
+- `grid`、`グリッド`、`8枚`、`sheet`、`sprite`、`batch`、`crop`、`一括生成`、`切り出し` を含む
+- `中央に主題、余白多め`、`licensed photo style`、`clean explainer thumbnail` のような低品質・汎用プロンプトになっている

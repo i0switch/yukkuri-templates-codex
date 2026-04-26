@@ -40,14 +40,41 @@ const PROMPT_REQUIREMENTS = [
   {key: 'safe_space', patterns: [/下部20%|字幕|キャラ|余白|Remotion/]},
   {key: 'negative', patterns: [/禁止|実在ロゴ|実在UI|既存キャラクター|写真風人物|長文/]},
   {key: 'quality_bar', patterns: [/品質|完成度|高品質|YouTube/]},
+  {key: 'single_image_generation', patterns: [/1枚ずつ生成|一枚ずつ生成|この1枚専用|この一枚専用|他画像と同時生成しない|同時生成しない|個別生成|1画像につき1回|一画像につき一回/]},
 ];
 
 const GENERIC_PROMPT_PATTERNS = [
   /白背景.{0,12}中央.{0,12}アイコン/,
   /中央に.{0,10}(アイコン|シンプルな図解)/,
+  /中央に主題.{0,12}余白多め/,
+  /中央に.{0,8}主題.{0,20}余白/,
   /汎用(素材|アイコン|図解)/,
   /フラットな図解[。．\s]*$/,
   /わかりやすいカード[。．\s]*$/,
+  /licensed photo style/i,
+  /clean explainer thumbnail/i,
+  /high readability/i,
+];
+
+const BATCH_GENERATION_PATTERNS = [
+  /(?:^|[^a-z])grid(?:[^a-z]|$)/i,
+  /グリッド/,
+  /8枚/,
+  /八枚/,
+  /複数枚/,
+  /一気に生成/,
+  /一括生成/,
+  /まとめて生成/,
+  /同時生成(?:する|して|で|を)/,
+  /batch/i,
+  /sheet/i,
+  /sprite/i,
+  /asset[_ -]?sheet/i,
+  /sprite[_ -]?sheet/i,
+  /crop/i,
+  /cut\s*out/i,
+  /切り出し/,
+  /切り抜き/,
 ];
 
 const SCENE02_SUB_VISUAL_TYPES = new Set(['checklist_panel', 'three_step_board', 'ranking_board', 'contrast_card', 'final_action_card']);
@@ -108,8 +135,14 @@ const lineIdsForScene = (scene) => new Set((scene.dialogue ?? []).map((line) => 
 const promptForPlan = (plan, content, metaAsset) =>
   [
     plan?.imagegen_prompt,
+    plan?.generation_plan,
+    plan?.generation_method,
     content?.asset_requirements?.imagegen_prompt,
+    content?.asset_requirements?.generation_plan,
+    content?.asset_requirements?.generation_method,
     metaAsset?.imagegen_prompt,
+    metaAsset?.generation_plan,
+    metaAsset?.generation_method,
   ]
     .filter((value) => typeof value === 'string' && value.trim() !== '')
     .join('\n');
@@ -139,6 +172,45 @@ const planRoleSignature = (plan) =>
     .filter(Boolean)
     .join('|');
 
+const stripNegativeConstraintLines = (value) =>
+  String(value ?? '')
+    .split(/\r?\n/)
+    .reduce(
+      (state, line) => {
+        if (/(禁止|must_not_include|negative|入れない|含めない)/i.test(line)) {
+          state.skipping = true;
+          return state;
+        }
+        if (state.skipping && /(生成単位|画面構図|デザイン|文字方針|品質基準)/.test(line) && line.trim() !== '') {
+          state.skipping = false;
+        }
+        if (!state.skipping) {
+          state.lines.push(line);
+        }
+        return state;
+      },
+      {lines: [], skipping: false},
+    )
+    .lines.join('\n');
+
+const generationPlanTextFor = (plan, content, metaAsset, prompt) =>
+  [
+    prompt,
+    plan?.purpose,
+    plan?.insert_timing,
+    plan?.generation_plan,
+    plan?.generation_method,
+    content?.asset_requirements?.generation_plan,
+    content?.asset_requirements?.generation_method,
+    metaAsset?.generation_plan,
+    metaAsset?.generation_method,
+    metaAsset?.source_site,
+    metaAsset?.source_type,
+    metaAsset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string' && value.trim() !== '')
+    .join('\n');
+
 const auditPlan = ({script, metaEntries, scene, plan, index, issues}) => {
   const pathName = `${scene.id}.visual_asset_plan[${index}]`;
   const slot = plan?.slot;
@@ -149,6 +221,7 @@ const auditPlan = ({script, metaEntries, scene, plan, index, issues}) => {
   const supportsDialogue = plan?.supports_dialogue ?? metaAsset?.supports_dialogue;
   const supportsMoment = plan?.supports_moment ?? metaAsset?.supports_moment;
   const prompt = promptForPlan(plan, content, metaAsset);
+  const generationPlanText = generationPlanTextFor(plan, content, metaAsset, prompt);
 
   if (!VISUAL_TYPES.has(visualType)) {
     pushIssue(issues, 'error', 'invalid-visual-type', `${pathName}: visual_type must be a supported yukkuri/zundamon visual type`, {
@@ -214,8 +287,17 @@ const auditPlan = ({script, metaEntries, scene, plan, index, issues}) => {
         missing,
       });
     }
-    if (GENERIC_PROMPT_PATTERNS.some((pattern) => pattern.test(prompt))) {
+    const promptWithoutNegativeConstraints = stripNegativeConstraintLines(prompt);
+    if (GENERIC_PROMPT_PATTERNS.some((pattern) => pattern.test(promptWithoutNegativeConstraints))) {
       pushIssue(issues, 'error', 'generic-icon-imagegen-prompt', `${pathName}: imagegen_prompt still points toward a generic white-background icon/card`);
+    }
+    if (BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(generationPlanText)))) {
+      pushIssue(
+        issues,
+        'error',
+        'batch-or-grid-imagegen-plan',
+        `${pathName}: image generation must be one image per image gen call; grid/sheet/batch/crop generation is forbidden`,
+      );
     }
   }
 

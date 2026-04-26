@@ -27,6 +27,7 @@ const run = (args) => {
 };
 
 run(['scripts/validate-script-generation-route.mjs']);
+run(['scripts/validate-script-prompt-pack-evidence.mjs', episodeId]);
 run(['scripts/audit-script-quality.mjs', episodeId]);
 run(['scripts/audit-image-prompts.mjs', episodeId]);
 run(['scripts/validate-episode-script.mjs', episodeId]);
@@ -44,15 +45,20 @@ await fs.writeFile(
       checked_at: new Date().toISOString(),
       checks: [
         'validate-script-generation-route',
+        'validate-script-prompt-pack-evidence',
         'validate-episode-script',
         'audit-script-quality',
         'audit-image-prompts',
         'audit-episode-quality',
         'audit-generated-images',
         'script prompt pack presence',
+        'episode-level script prompt pack evidence files',
+        'script_generation_audit cannot be codex-self-only PASS',
         'image prompt pack presence',
         'image_direction and visual_type are present for every generated image',
         'image prompts support concrete dialogue moments instead of generic icons',
+        'image prompts explicitly require one image per image gen call',
+        'grid/sheet/batch/crop image generation plans are rejected',
         'generated image result audit PASS exists before render',
         'image provenance rejects fallback/local card assets',
         'image files must be inspectable raster assets above delivery thresholds',

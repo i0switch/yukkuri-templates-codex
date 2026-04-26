@@ -2,6 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
 
+import {blockLegacyEpisodeGenerator} from './legacy-generator-guard.mjs';
+
+blockLegacyEpisodeGenerator('create-ai-automation-episodes-20260425.mjs');
+
 const rootDir = process.cwd();
 const sourceBgm = path.join(rootDir, 'script', 'ep000-test-all-21-scenes', 'bgm', 'track.mp3');
 const notebookRoot = path.join(rootDir, 'notebookLM', 'workspace', 'projects', 'ai-automation-20260425');
