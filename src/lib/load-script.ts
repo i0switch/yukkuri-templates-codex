@@ -1,6 +1,13 @@
-export type DialogueSpeaker = 'left' | 'right';
+﻿export type DialogueSpeaker = 'left' | 'right';
 export type SceneRole = 'intro' | 'hook' | 'body' | 'cta' | 'outro';
 export type ContentKind = 'text' | 'bullets' | 'image';
+export type TypographyFamily = 'gothic' | 'mincho';
+
+export interface TypographyConfig {
+  subtitle_family?: TypographyFamily;
+  content_family?: TypographyFamily;
+  title_family?: TypographyFamily;
+}
 
 export interface ImageAssetRequirements {
   description?: string;
@@ -8,6 +15,21 @@ export interface ImageAssetRequirements {
   style?: string;
   aspect?: string;
   negative?: string;
+  scene_goal?: string;
+  template_slot?: 'main' | 'sub' | 'chapter' | 'comparison' | 'summary';
+  visual_tone?: string;
+  composition?: string;
+  spacing?: string;
+}
+
+export interface VisualAssetPlan {
+  required?: boolean;
+  slot: 'main' | 'sub' | 'chapter' | 'comparison' | 'summary';
+  purpose: string;
+  insert_timing?: string;
+  asset?: string;
+  imagegen_prompt?: string;
+  audit_points?: string[];
 }
 
 export interface SceneTextContent {
@@ -34,6 +56,7 @@ export interface DialogueLine {
   speaker: DialogueSpeaker;
   text: string;
   expression?: string;
+  typography?: Pick<TypographyConfig, 'subtitle_family'>;
   pre_pause_sec?: number;
   post_pause_sec?: number;
   wav_sec?: number;
@@ -43,8 +66,13 @@ export interface DialogueLine {
 
 export interface EpisodeScene {
   id: string;
-  scene_template: string;
+  scene_template?: string;
   role: SceneRole;
+  scene_goal?: string;
+  viewer_question?: string;
+  visual_role?: string;
+  visual_asset_plan?: VisualAssetPlan[];
+  typography?: TypographyConfig;
   title_text?: string;
   main: SceneContent;
   sub?: SceneContent | null;
@@ -56,6 +84,8 @@ export interface EpisodeScene {
 export interface EpisodeMeta {
   id: string;
   title: string;
+  layout_template: string;
+  scene_template?: string;
   pair: string;
   fps: number;
   width: number;
@@ -66,6 +96,7 @@ export interface EpisodeMeta {
   voice_engine: string;
   target_duration_sec: number;
   image_style?: string;
+  typography?: TypographyConfig;
 }
 
 export interface EpisodeCharacter {
@@ -97,3 +128,14 @@ export interface EpisodeRenderData {
 }
 
 export const loadEpisodeRenderData = (raw: unknown) => raw as EpisodeRenderData;
+
+
+
+
+
+
+
+
+
+
+

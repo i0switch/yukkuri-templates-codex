@@ -55,8 +55,12 @@
     "generate:single-template-series:rm": "node scripts/generate-single-template-episodes.mjs --pair RM",
     "render:single-template-series": "node scripts/render-single-template-series.mjs",
     "render:single-template-series:rm": "node scripts/render-single-template-series.mjs --pair RM",
+    "render:episode": "node scripts/render-episode.mjs",
+    "gate:episode": "node scripts/pre-render-gate.mjs",
     "render:test-stills": "node scripts/render-template-test-stills.mjs",
-    "audit:video": "node scripts/audit-video.mjs"
+    "audit:video": "node scripts/audit-video.mjs",
+    "audit:episode-quality": "node scripts/audit-episode-quality.mjs",
+    "audit:second-codex": "node scripts/verify-second-codex-audits.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.365",

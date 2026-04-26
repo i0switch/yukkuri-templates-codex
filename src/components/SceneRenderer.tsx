@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {Scene01} from '../compositions/Scene01';
 import {Scene02} from '../compositions/Scene02';
@@ -22,9 +22,10 @@ import {Scene19} from '../compositions/Scene19';
 import {Scene20} from '../compositions/Scene20';
 import {Scene21} from '../compositions/Scene21';
 import {findActiveLine, pickLipsyncExpression, type TimedDialogueLine} from './Lipsync';
-import type {EpisodeRenderData, EpisodeScene, SceneContent} from '../lib/load-script';
+import type {EpisodeRenderData, EpisodeScene, SceneContent, TypographyConfig, TypographyFamily} from '../lib/load-script';
 import {AutoFitText} from './AutoFitText';
-import {FONTS} from '../design-tokens';
+import {FONT_FAMILIES} from '../design-tokens';
+import {SubtitleBar} from './SubtitleBar';
 import type {Rect, SlotRenderer} from '../types';
 
 const SCENE_COMPONENTS = {
@@ -55,6 +56,24 @@ const BAR_TEMPLATES = new Set(['Scene01', 'Scene03', 'Scene04', 'Scene08', 'Scen
 const LIGHT_TITLE_TEMPLATES = new Set(['Scene15', 'Scene16', 'Scene17']);
 const DARK_OVERLAY_SUBTITLE_TEMPLATES = new Set(['Scene12']);
 
+type ResolvedTypography = {
+  subtitle: string;
+  content: string;
+  title: string;
+};
+
+const resolveFamily = (family: TypographyFamily | undefined) => FONT_FAMILIES[family ?? 'gothic'];
+
+const resolveTypography = (
+  metaTypography: TypographyConfig | undefined,
+  sceneTypography: TypographyConfig | undefined,
+  lineTypography: Pick<TypographyConfig, 'subtitle_family'> | undefined,
+): ResolvedTypography => ({
+  subtitle: resolveFamily(lineTypography?.subtitle_family ?? sceneTypography?.subtitle_family ?? metaTypography?.subtitle_family),
+  content: resolveFamily(sceneTypography?.content_family ?? metaTypography?.content_family),
+  title: resolveFamily(sceneTypography?.title_family ?? metaTypography?.title_family),
+});
+
 const cardStyle: React.CSSProperties = {
   width: '100%',
   height: '100%',
@@ -70,7 +89,7 @@ const cardStyle: React.CSSProperties = {
   boxShadow: '0 20px 48px rgba(8,58,78,0.12)',
 };
 
-const renderText = (text: string): SlotRenderer => (rect: Rect) => (
+const renderText = (text: string, fontFamily: string): SlotRenderer => (rect: Rect) => (
   <div style={cardStyle}>
     <AutoFitText
       text={text}
@@ -79,7 +98,7 @@ const renderText = (text: string): SlotRenderer => (rect: Rect) => (
       minFontSize={24}
       maxFontSize={54}
       lineHeight={1.32}
-      fontFamily={FONTS.subtitle}
+      fontFamily={fontFamily}
       fontWeight={800}
       color="#123646"
       textAlign="center"
@@ -87,7 +106,7 @@ const renderText = (text: string): SlotRenderer => (rect: Rect) => (
   </div>
 );
 
-const renderBullets = (items: string[]): SlotRenderer => (rect: Rect) => (
+const renderBullets = (items: string[], fontFamily: string): SlotRenderer => (rect: Rect) => (
   <div style={cardStyle}>
     <AutoFitText
       text={items.map((item) => `• ${item}`).join('\n')}
@@ -96,7 +115,7 @@ const renderBullets = (items: string[]): SlotRenderer => (rect: Rect) => (
       minFontSize={20}
       maxFontSize={42}
       lineHeight={1.3}
-      fontFamily={FONTS.subtitle}
+      fontFamily={fontFamily}
       fontWeight={700}
       color="#123646"
       textAlign="left"
@@ -104,7 +123,7 @@ const renderBullets = (items: string[]): SlotRenderer => (rect: Rect) => (
   </div>
 );
 
-const renderImage = (assetPath: string, publicDir: string, caption?: string): SlotRenderer => (rect: Rect) => (
+const renderImage = (assetPath: string, publicDir: string, fontFamily: string, caption?: string): SlotRenderer => (rect: Rect) => (
   <div
     style={{
       ...cardStyle,
@@ -131,7 +150,7 @@ const renderImage = (assetPath: string, publicDir: string, caption?: string): Sl
         minFontSize={16}
         maxFontSize={24}
         lineHeight={1.1}
-        fontFamily={FONTS.subtitle}
+        fontFamily={fontFamily}
         fontWeight={700}
         color="#0f3d4b"
         textAlign="center"
@@ -140,31 +159,31 @@ const renderImage = (assetPath: string, publicDir: string, caption?: string): Sl
   </div>
 );
 
-const renderContent = (content: SceneContent | null | undefined, publicDir: string) => {
+const renderContent = (content: SceneContent | null | undefined, publicDir: string, fontFamily: string) => {
   if (!content) {
     return null;
   }
 
   switch (content.kind) {
     case 'text':
-      return renderText(content.text);
+      return renderText(content.text, fontFamily);
     case 'bullets':
-      return renderBullets(content.items);
+      return renderBullets(content.items, fontFamily);
     case 'image':
-      return renderImage(content.asset, publicDir, content.caption);
+      return renderImage(content.asset, publicDir, fontFamily, content.caption);
     default:
       return null;
   }
 };
 
-const renderTitle = (scene: EpisodeScene): SlotRenderer | null => {
+const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string): SlotRenderer | null => {
   if (!scene.title_text) {
     return null;
   }
 
   const titleText = scene.title_text;
-  const textColor = LIGHT_TITLE_TEMPLATES.has(scene.scene_template) ? '#ffffff' : '#153947';
-  const shadow = LIGHT_TITLE_TEMPLATES.has(scene.scene_template)
+  const textColor = LIGHT_TITLE_TEMPLATES.has(template) ? '#ffffff' : '#153947';
+  const shadow = LIGHT_TITLE_TEMPLATES.has(template)
     ? '0 2px 10px rgba(0,0,0,0.45)'
     : '0 2px 8px rgba(255,255,255,0.55)';
 
@@ -176,7 +195,7 @@ const renderTitle = (scene: EpisodeScene): SlotRenderer | null => {
       minFontSize={20}
       maxFontSize={38}
       lineHeight={1.1}
-      fontFamily={FONTS.ui}
+      fontFamily={fontFamily}
       fontWeight={800}
       color={textColor}
       textAlign="center"
@@ -186,7 +205,41 @@ const renderTitle = (scene: EpisodeScene): SlotRenderer | null => {
   );
 };
 
-const renderOverlaySubtitle = (template: string, text: string): SlotRenderer => {
+const renderBarSubtitle = (text: string, fontFamily: string): SlotRenderer => (rect: Rect) => (
+  (() => {
+    const subtitleRect = rect as Rect & {
+      bg?: string;
+      borderColor?: string;
+      borderWidth?: number;
+      borderRadius?: number;
+      textColor?: string;
+      textAlign?: 'left' | 'center';
+      fontSize?: number;
+      fontWeight?: number | string;
+    };
+
+    return (
+      <SubtitleBar
+        text={text}
+        x={0}
+        y={0}
+        width={subtitleRect.w}
+        height={subtitleRect.h}
+        bg={subtitleRect.bg}
+        borderColor={subtitleRect.borderColor}
+        borderWidth={subtitleRect.borderWidth}
+        borderRadius={subtitleRect.borderRadius}
+        textColor={subtitleRect.textColor}
+        textAlign={subtitleRect.textAlign}
+        fontSize={subtitleRect.fontSize}
+        fontWeight={subtitleRect.fontWeight}
+        fontFamily={fontFamily}
+      />
+    );
+  })()
+);
+
+const renderOverlaySubtitle = (template: string, text: string, fontFamily: string): SlotRenderer => {
   const darkText = DARK_OVERLAY_SUBTITLE_TEMPLATES.has(template);
   return (rect: Rect) => (
     <AutoFitText
@@ -196,7 +249,7 @@ const renderOverlaySubtitle = (template: string, text: string): SlotRenderer => 
       minFontSize={18}
       maxFontSize={darkText ? 34 : 40}
       lineHeight={1.35}
-      fontFamily={FONTS.subtitle}
+      fontFamily={fontFamily}
       fontWeight={700}
       color={darkText ? '#1A1A1A' : '#FFFFFF'}
       textAlign="center"
@@ -207,9 +260,13 @@ const renderOverlaySubtitle = (template: string, text: string): SlotRenderer => 
 };
 
 export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRenderData}> = ({scene, script}) => {
-  const SceneComponent = SCENE_COMPONENTS[scene.scene_template as keyof typeof SCENE_COMPONENTS];
+  const sceneTemplate = scene.scene_template ?? script.meta.layout_template ?? script.meta.scene_template;
+  if (!sceneTemplate) {
+    throw new Error('Missing layout template. Use meta.layout_template.');
+  }
+  const SceneComponent = SCENE_COMPONENTS[sceneTemplate as keyof typeof SCENE_COMPONENTS];
   if (!SceneComponent) {
-    throw new Error(`Unknown scene_template "${scene.scene_template}". Use Scene01-Scene21.`);
+    throw new Error(`Unknown scene_template "${sceneTemplate}". Use Scene01-Scene21.`);
   }
 
   const frame = useCurrentFrame();
@@ -236,7 +293,8 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
   });
 
   const subtitleText = activeLine?.text ?? '';
-  const useBarSubtitle = BAR_TEMPLATES.has(scene.scene_template);
+  const useBarSubtitle = BAR_TEMPLATES.has(sceneTemplate);
+  const typography = resolveTypography(script.meta.typography, scene.typography, activeLine?.typography);
 
   return (
     <AbsoluteFill>
@@ -264,14 +322,27 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
         <SceneComponent
           leftCharacter={{character: script.characters.left.character as never, expression: leftExpression as never}}
           rightCharacter={{character: script.characters.right.character as never, expression: rightExpression as never}}
-          subtitleText={useBarSubtitle ? subtitleText : ''}
-          subtitleSlot={useBarSubtitle ? undefined : renderOverlaySubtitle(scene.scene_template, subtitleText)}
-          titleSlot={renderTitle(scene)}
-          mainContentSlot={renderContent(scene.main, script.public_dir)}
-          subContentSlot={renderContent(scene.sub ?? null, script.public_dir)}
+          subtitleText={subtitleText}
+          subtitleSlot={useBarSubtitle ? renderBarSubtitle(subtitleText, typography.subtitle) : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle)}
+          titleSlot={renderTitle(scene, sceneTemplate, typography.title)}
+          mainContentSlot={renderContent(scene.main, script.public_dir, typography.content)}
+          subContentSlot={renderContent(scene.sub ?? null, script.public_dir, typography.content)}
           showAreaLabels={false}
         />
       </div>
     </AbsoluteFill>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
 2. 使用テンプレートの画面構造を読む
 3. テンプレートに合う台本を生成する
 4. 素材生成のためのマーカーと挿入位置を作る
-5. NotebookLMで素材生成する
+5. Claude Codeでは image gen を使えない前提で、NotebookLMで素材生成する
 6. 最終台本へ素材パスを反映する
 7. `02_演出編集プロンプト.md` で演出加工する
 8. 指定テンプレートで動画生成へ進める
@@ -32,10 +32,12 @@
 台本生成時は、必ず次を追加で読む。
 
 - 選択された `templates/scene-XX_*.md`
-- `_reference/script_prompt_pack/01_台本生成プロンプト.md`
-- `RM` の場合: `_reference/script_prompt_pack/ゆっくり解説_霊夢魔理沙_台本生成プロンプト_改善版.md`
-- `ZM` の場合: `_reference/script_prompt_pack/ずんだもん解説_ずんだもんめたん_台本生成プロンプト_改善版.md`
-- `_reference/script_prompt_pack/台本監査_改善プロンプト.md`
+- `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`
+- `_reference/script_prompt_pack/01_plan_prompt.md`
+- `_reference/script_prompt_pack/02_draft_prompt.md`
+- `_reference/script_prompt_pack/03_audit_prompt.md`
+- 必要に応じて `_reference/script_prompt_pack/04_rewrite_prompt.md`
+- YAML変換時は `_reference/script_prompt_pack/05_yaml_prompt.md`
 
 ## Required Questions
 
@@ -111,7 +113,7 @@ sub:
 
 ## NotebookLM Asset Workflow
 
-Claude Codeでは image gen を前提にしない。
+Claude Codeでは image gen を使えない前提で進める。
 図解や素材が必要な場合は `notebookLM/` のフローを使う。
 
 参照する入口:
@@ -133,6 +135,10 @@ Claude Codeでは image gen を前提にしない。
 8. `script.yaml` では `assets/s01_main.png` のような相対パスに変換する
 9. 生成素材を確認する
 10. 画像パスと挿入ポイントを最終台本に反映する
+
+NotebookLMだけで必要素材が揃わない場合は、足りない素材だけをフリー素材サイトから取得する。
+取得素材はライセンス、出典URL、用途、保存先を記録し、NotebookLM素材と混在しても判別できるように整理する。
+既存キャラクター、ブランドロゴ、実在人物の権利侵害につながる素材は使わない。
 
 NotebookLM素材の成功を仮定しない。
 生成物が存在し、内容が台本の意図に合うことを確認してから反映する。

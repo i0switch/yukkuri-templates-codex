@@ -1,0 +1,772 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {parseDocument} from 'yaml';
+
+const rootDir = process.cwd();
+const target = process.argv[2];
+
+if (!target) {
+  throw new Error('Usage: node scripts/audit-episode-quality.mjs <episode_id|path/to/script.yaml|path/to/script.render.json>');
+}
+
+const SUB_CAPABLE_TEMPLATES = new Set(['Scene02', 'Scene03', 'Scene10', 'Scene13', 'Scene14']);
+const VISION_SHIFT_WINDOW = 5;
+const REFERENCE_METADATA_RATIO = 0.8;
+
+const GENRE_PROFILES = new Set([
+  'unsolved_mystery_list_6',
+  'dark_case_list_4',
+  'single_big_question_mystery',
+  'public_person_controversy_safe',
+]);
+const LEGACY_REFERENCE_STYLE_PROFILES = new Set(['listicle_mystery', 'scandal_case', 'crime_timeline', 'deep_mystery']);
+const REFERENCE_STYLE_PROFILES = new Set([...LEGACY_REFERENCE_STYLE_PROFILES, ...GENRE_PROFILES]);
+const REFERENCE_BEATS = new Set([
+  'op_hook',
+  'greeting',
+  'disclaimer',
+  'topic_setup',
+  'numbered_case',
+  'timeline',
+  'background',
+  'evidence',
+  'counterpoint',
+  'unresolved_point',
+  'midpoint_rehook',
+  'summary',
+  'cta',
+]);
+const STRONG_HOOK_TYPES = new Set([
+  'unresolved_question',
+  'strange_fact',
+  'rumor_or_suspicion',
+  'timeline_gap',
+  'counterintuitive',
+  'loss_or_warning',
+]);
+const HOOK_TYPES = new Set([...STRONG_HOOK_TYPES, 'none']);
+const EVIDENCE_ROLES = new Set(['claim', 'background', 'evidence', 'counterpoint', 'limit', 'interpretation', 'summary', 'none']);
+
+const QUALITY_PROFILE = {
+  maxDuplicateLineCount: 2,
+  maxRepeatedMainContentCount: 4,
+  maxRepeatedSubContentCount: 4,
+  minUniqueImageRatio: 0.5,
+  minImageCountForLongEpisode: 4,
+  longEpisodeSceneThreshold: 4,
+  minImagePromptChars: 120,
+  minSceneMetadataScenesRatio: 0.8,
+  minImageAssetBytes: 100_000,
+  minImageWidth: 640,
+  minImageHeight: 360,
+};
+
+const DISALLOWED_IMAGE_SOURCE_PATTERNS = [
+  /local[_ -]?project[_ -]?generated/i,
+  /local[_ -]?generated/i,
+  /fallback/i,
+  /placeholder/i,
+  /smoke/i,
+  /card/i,
+  /copy/i,
+];
+
+const APPROVED_IMAGE_SOURCE_PATTERNS = [
+  /openai.*image/i,
+  /image[_ -]?gen/i,
+];
+
+const AWKWARD_DIALOGUE_PATTERNS = [
+  /羽目ぜ/,
+  /コツぜ/,
+  /仕組みぜ/,
+  /得意ぜ/,
+  /必須ぜ/,
+  /必要ぜ/,
+  /大事な$/,
+  /十分な$/,
+];
+
+const ABSTRACT_ASSET_TERMS = [
+  '図解',
+  'カード',
+  'イラスト',
+  'シンプル',
+  'わかりやすい',
+  '動画用',
+  'フラット',
+  '日本語フラット図解カード',
+  '小さく検証する',
+];
+
+const REQUIRED_IMAGE_PROMPT_TERMS = [
+  {key: 'template', patterns: [/Scene\d{2}/i, /テンプレート/, /メイン枠/, /サブ枠/, /main枠/i, /sub枠/i]},
+  {key: 'tone', patterns: [/トーン/, /雰囲気/, /動画/, /解説動画/, /ゆっくり/, /ずんだもん/]},
+  {key: 'composition', patterns: [/中央/, /左/, /右/, /上部/, /下部/, /構図/, /配置/, /分割/]},
+  {key: 'spacing', patterns: [/余白/, /読みやす/, /見やす/, /シンプル/, /1枚1メッセージ/]},
+  {key: 'negative', patterns: [/文字なし/, /細かい文字なし/, /ロゴなし/, /実在人物なし/, /既存キャラクターなし/, /ブランドロゴなし/]},
+];
+
+const normalizeText = (value) =>
+  String(value ?? '')
+    .replace(/\s+/g, '')
+    .replace(/[。、！？!?「」『』（）()\[\]【】・:：,，.．]/g, '')
+    .trim();
+
+const normalizeList = (items) => items.map((item) => normalizeText(item)).filter(Boolean).join('|');
+
+const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
+
+const pushIssue = (issues, level, code, message, details = {}) => {
+  issues.push({level, code, message, details});
+};
+
+const resolveTarget = (value) => {
+  const directPath = path.resolve(rootDir, value);
+  if (value.endsWith('.yaml') || value.endsWith('.yml') || value.endsWith('.json')) {
+    return {scriptPath: directPath, episodeDir: path.dirname(directPath)};
+  }
+
+  const episodeDir = path.resolve(rootDir, 'script', value);
+  return {scriptPath: path.join(episodeDir, 'script.yaml'), episodeDir};
+};
+
+const readScript = async (scriptPath) => {
+  const raw = await fs.readFile(scriptPath, 'utf8');
+  if (scriptPath.endsWith('.json')) {
+    return JSON.parse(raw);
+  }
+  return parseDocument(raw).toJS();
+};
+
+const readMeta = async (episodeDir) => {
+  try {
+    return JSON.parse(await fs.readFile(path.join(episodeDir, 'meta.json'), 'utf8'));
+  } catch {
+    return null;
+  }
+};
+
+const contentSignature = (content) => {
+  if (!content) {
+    return 'null';
+  }
+  if (content.kind === 'image') {
+    return normalizeText(content.caption || content.asset);
+  }
+  if (content.kind === 'bullets') {
+    return normalizeList(content.items ?? []);
+  }
+  if (content.kind === 'text') {
+    return normalizeText(content.text);
+  }
+  return normalizeText(JSON.stringify(content));
+};
+
+const countBy = (values) => {
+  const counts = new Map();
+  for (const value of values) {
+    if (!value) {
+      continue;
+    }
+    counts.set(value, (counts.get(value) ?? 0) + 1);
+  }
+  return counts;
+};
+
+const entriesOver = (counts, limit) =>
+  [...counts.entries()]
+    .filter(([, count]) => count > limit)
+    .sort((a, b) => b[1] - a[1])
+    .map(([value, count]) => ({value, count}));
+
+const imageEntriesFromMeta = (meta) => {
+  const entries = new Map();
+  if (!Array.isArray(meta?.assets)) {
+    return entries;
+  }
+  for (const asset of meta.assets) {
+    if (isPlainObject(asset) && typeof asset.file === 'string') {
+      entries.set(asset.file.replaceAll('\\', '/'), asset);
+    }
+  }
+  return entries;
+};
+
+const assetFilePath = (episodeDir, assetPath) => path.resolve(episodeDir, assetPath.replaceAll('\\', '/'));
+
+const readImageInfo = async (filePath) => {
+  const buffer = await fs.readFile(filePath);
+  if (buffer.length >= 24 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) {
+    return {
+      type: 'png',
+      bytes: buffer.length,
+      width: buffer.readUInt32BE(16),
+      height: buffer.readUInt32BE(20),
+    };
+  }
+
+  if (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) {
+    let offset = 2;
+    while (offset + 9 < buffer.length) {
+      if (buffer[offset] !== 0xff) {
+        offset += 1;
+        continue;
+      }
+      const marker = buffer[offset + 1];
+      const length = buffer.readUInt16BE(offset + 2);
+      if (length < 2) {
+        break;
+      }
+      if (marker >= 0xc0 && marker <= 0xc3) {
+        return {
+          type: 'jpeg',
+          bytes: buffer.length,
+          width: buffer.readUInt16BE(offset + 7),
+          height: buffer.readUInt16BE(offset + 5),
+        };
+      }
+      offset += 2 + length;
+    }
+  }
+
+  return {type: 'unknown', bytes: buffer.length, width: 0, height: 0};
+};
+
+const imagePromptFor = (content, metaEntries) => {
+  const asset = content?.asset?.replaceAll('\\', '/');
+  const meta = asset ? metaEntries.get(asset) : null;
+  return [
+    content?.asset_requirements?.imagegen_prompt,
+    content?.asset_requirements?.description,
+    content?.asset_requirements?.style,
+    meta?.imagegen_prompt,
+    meta?.description,
+    meta?.title,
+  ]
+    .filter((value) => typeof value === 'string' && value.trim() !== '')
+    .join(' / ');
+};
+
+const isSpecificAssetPrompt = (prompt) => {
+  const normalized = normalizeText(prompt);
+  if (normalized.length < QUALITY_PROFILE.minImagePromptChars) {
+    return false;
+  }
+  return !ABSTRACT_ASSET_TERMS.some((term) => normalized === normalizeText(term));
+};
+
+const missingImagePromptTerms = (prompt) => {
+  const text = String(prompt ?? '');
+  return REQUIRED_IMAGE_PROMPT_TERMS.filter((requirement) => !requirement.patterns.some((pattern) => pattern.test(text))).map(
+    (requirement) => requirement.key,
+  );
+};
+
+const imageSourceText = (asset) =>
+  [
+    asset?.source_site,
+    asset?.source_type,
+    asset?.source_url,
+    asset?.title,
+    asset?.license,
+    asset?.generator,
+    asset?.provenance,
+  ]
+    .filter((value) => typeof value === 'string')
+    .join(' ');
+
+const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
+
+const isApprovedImageSource = (asset) => {
+  const text = imageSourceText(asset);
+  return APPROVED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(text));
+};
+
+const hasSceneMetadata = (scene) =>
+  typeof scene.scene_goal === 'string' &&
+  scene.scene_goal.trim() !== '' &&
+  typeof scene.viewer_question === 'string' &&
+  scene.viewer_question.trim() !== '' &&
+  typeof scene.visual_role === 'string' &&
+  scene.visual_role.trim() !== '';
+
+const hasVisualAssetPlan = (scene) =>
+  Array.isArray(scene.visual_asset_plan) &&
+  scene.visual_asset_plan.length > 0 &&
+  scene.visual_asset_plan.every(
+    (plan) =>
+      isPlainObject(plan) &&
+      typeof plan.slot === 'string' &&
+      plan.slot.trim() !== '' &&
+      typeof plan.purpose === 'string' &&
+      plan.purpose.trim() !== '',
+  );
+
+const hasReferenceMetadata = (scene) =>
+  typeof scene.reference_style === 'string' &&
+  scene.reference_style.trim() !== '' &&
+  typeof scene.reference_beat === 'string' &&
+  scene.reference_beat.trim() !== '' &&
+  typeof scene.hook_type === 'string' &&
+  scene.hook_type.trim() !== '' &&
+  typeof scene.curiosity_gap === 'string' &&
+  scene.curiosity_gap.trim() !== '' &&
+  typeof scene.evidence_role === 'string' &&
+  scene.evidence_role.trim() !== '' &&
+  typeof scene.next_reason === 'string' &&
+  scene.next_reason.trim() !== '';
+
+const hasAnyReferenceMetadata = (script) =>
+  REFERENCE_STYLE_PROFILES.has(script.meta?.reference_style) ||
+  GENRE_PROFILES.has(script.meta?.genre_profile) ||
+  script.scenes.some((scene) =>
+    ['reference_style', 'reference_beat', 'hook_type', 'curiosity_gap', 'evidence_role', 'next_reason'].some(
+      (key) => scene?.[key] !== undefined,
+    ),
+  );
+
+const resolvedTemplateForScript = (script) =>
+  script.meta?.layout_template ?? script.meta?.scene_template ?? script.scenes?.find((scene) => scene?.scene_template)?.scene_template;
+
+const assertRoleFlow = (script, errors) => {
+  const roles = script.scenes.map((scene) => scene.role);
+  if (!roles.includes('intro')) {
+    pushIssue(errors, 'error', 'role-flow', 'At least one intro scene is required');
+  }
+  if (!roles.includes('body')) {
+    pushIssue(errors, 'error', 'role-flow', 'At least one body scene is required');
+  }
+  if (!roles.includes('outro')) {
+    pushIssue(errors, 'error', 'role-flow', 'At least one outro scene is required');
+  }
+  if (!roles.includes('cta')) {
+    pushIssue(errors, 'error', 'role-flow', 'At least one cta scene is required');
+  }
+  if (roles[0] !== 'intro' && roles[0] !== 'hook') {
+    pushIssue(errors, 'error', 'role-flow', `First scene should be intro or hook, got ${roles[0] ?? '<missing>'}`);
+  }
+  if (roles.at(-1) !== 'cta') {
+    pushIssue(errors, 'error', 'role-flow', `Last scene should be cta, got ${roles.at(-1) ?? '<missing>'}`);
+  }
+};
+
+const assertVisionShifts = (script, warnings) => {
+  for (let start = 0; start < script.scenes.length; start += VISION_SHIFT_WINDOW) {
+    const scenes = script.scenes.slice(start, start + VISION_SHIFT_WINDOW);
+    if (scenes.length < VISION_SHIFT_WINDOW) {
+      continue;
+    }
+    const signatures = new Set(scenes.map((scene) => `${scene.role}:${contentSignature(scene.main)}:${contentSignature(scene.sub)}`));
+    if (signatures.size < 2) {
+      pushIssue(
+        warnings,
+        'warning',
+        'vision-shift',
+        `Scenes ${start + 1}-${start + scenes.length} repeat the same role/content shape; add a visual or argument shift`,
+      );
+    }
+  }
+};
+
+const assertReferenceStyleFit = (script, errors, warnings) => {
+  if (!hasAnyReferenceMetadata(script)) {
+    return;
+  }
+
+  const expectedStyle = script.meta?.genre_profile ?? script.meta?.reference_style;
+  if (!REFERENCE_STYLE_PROFILES.has(expectedStyle)) {
+    pushIssue(errors, 'error', 'reference-style', `meta.reference_style must be one of ${[...REFERENCE_STYLE_PROFILES].join(', ')}`);
+  }
+
+  const scenesWithReferenceMetadata = script.scenes.filter(hasReferenceMetadata).length;
+  const referenceMetadataRatio = scenesWithReferenceMetadata / script.scenes.length;
+  if (referenceMetadataRatio < REFERENCE_METADATA_RATIO) {
+    pushIssue(errors, 'error', 'missing-reference-metadata', 'most scenes need reference_style, reference_beat, hook_type, curiosity_gap, evidence_role, and next_reason', {
+      scenes: script.scenes.length,
+      scenes_with_reference_metadata: scenesWithReferenceMetadata,
+      minimum_ratio: REFERENCE_METADATA_RATIO,
+    });
+  }
+
+  const invalidReferenceFields = [];
+  for (const scene of script.scenes) {
+    if (scene.reference_style !== undefined && !REFERENCE_STYLE_PROFILES.has(scene.reference_style)) {
+      invalidReferenceFields.push({scene: scene.id, field: 'reference_style', value: scene.reference_style});
+    }
+    if (scene.reference_beat !== undefined && !REFERENCE_BEATS.has(scene.reference_beat)) {
+      invalidReferenceFields.push({scene: scene.id, field: 'reference_beat', value: scene.reference_beat});
+    }
+    if (scene.hook_type !== undefined && !HOOK_TYPES.has(scene.hook_type)) {
+      invalidReferenceFields.push({scene: scene.id, field: 'hook_type', value: scene.hook_type});
+    }
+    if (scene.evidence_role !== undefined && !EVIDENCE_ROLES.has(scene.evidence_role)) {
+      invalidReferenceFields.push({scene: scene.id, field: 'evidence_role', value: scene.evidence_role});
+    }
+    if (expectedStyle && scene.reference_style && scene.reference_style !== expectedStyle) {
+      invalidReferenceFields.push({scene: scene.id, field: 'reference_style', value: scene.reference_style, expected: expectedStyle});
+    }
+  }
+  if (invalidReferenceFields.length > 0) {
+    pushIssue(errors, 'error', 'invalid-reference-field', 'reference metadata contains unsupported values', {
+      fields: invalidReferenceFields,
+    });
+  }
+
+  const firstTwoScenes = script.scenes.slice(0, 2);
+  if (!firstTwoScenes.some((scene) => STRONG_HOOK_TYPES.has(scene.hook_type))) {
+    pushIssue(errors, 'error', 'reference-hook-missing', 'reference-style episodes need a strong hook_type in the first two scenes', {
+      allowed_hook_types: [...STRONG_HOOK_TYPES],
+    });
+  }
+
+  const referenceBeats = script.scenes.map((scene) => scene.reference_beat).filter(Boolean);
+  if (!referenceBeats.includes('midpoint_rehook')) {
+    pushIssue(errors, 'error', 'midpoint-rehook-missing', 'reference-style episodes need a midpoint_rehook beat');
+  }
+  if (!referenceBeats.includes('summary')) {
+    pushIssue(errors, 'error', 'summary-beat-missing', 'reference-style episodes need a summary beat that returns to the opening question');
+  }
+
+  const viewerReactionLines = script.scenes.flatMap((scene) =>
+    (scene.dialogue ?? []).filter((line) => line.speaker === 'left' && /[？?]|え、|なんで|つまり|怖|おかしく|マジ|どういう/.test(line.text ?? '')),
+  );
+  const totalDialogueLines = script.scenes.reduce((sum, scene) => sum + (scene.dialogue?.length ?? 0), 0);
+  const viewerReactionRatio = viewerReactionLines.length / Math.max(1, totalDialogueLines);
+  if (viewerReactionRatio < 0.2) {
+    pushIssue(warnings, 'warning', 'viewer-reaction-thin', 'viewer-side questions/reactions are thin for reference-style yukkuri videos', {
+      reaction_lines: viewerReactionLines.length,
+      total_dialogue_lines: totalDialogueLines,
+      minimum_ratio: 0.2,
+    });
+  }
+
+  if (expectedStyle === 'listicle_mystery' || expectedStyle === 'unsolved_mystery_list_6') {
+    const numberedCases = referenceBeats.filter((beat) => beat === 'numbered_case').length;
+    const minimumCases = expectedStyle === 'unsolved_mystery_list_6' ? 6 : 3;
+    if (numberedCases < minimumCases) {
+      pushIssue(errors, 'error', 'numbered-case-insufficient', `${expectedStyle} needs at least ${minimumCases} numbered_case beats`, {
+        numbered_cases: numberedCases,
+        minimum_cases: minimumCases,
+      });
+    }
+    if (!referenceBeats.includes('unresolved_point')) {
+      pushIssue(errors, 'error', 'unresolved-point-missing', 'listicle_mystery needs at least one unresolved_point beat');
+    }
+  }
+
+  if (expectedStyle === 'scandal_case' || expectedStyle === 'public_person_controversy_safe') {
+    if (!referenceBeats.includes('disclaimer')) {
+      pushIssue(errors, 'error', 'disclaimer-missing', `${expectedStyle} needs a disclaimer beat`);
+    }
+    const evidenceRoles = script.scenes.map((scene) => scene.evidence_role).filter(Boolean);
+    for (const requiredRole of ['counterpoint', 'limit']) {
+      if (!evidenceRoles.includes(requiredRole)) {
+        pushIssue(errors, 'error', 'scandal-evidence-role-missing', `${expectedStyle} needs evidence_role: ${requiredRole}`);
+      }
+    }
+  }
+
+  if (expectedStyle === 'dark_case_list_4') {
+    const numberedCases = referenceBeats.filter((beat) => beat === 'numbered_case').length;
+    if (numberedCases < 4) {
+      pushIssue(errors, 'error', 'numbered-case-insufficient', 'dark_case_list_4 needs at least four numbered_case beats', {
+        numbered_cases: numberedCases,
+      });
+    }
+    if (!referenceBeats.includes('disclaimer')) {
+      pushIssue(errors, 'error', 'disclaimer-missing', 'dark_case_list_4 needs a disclaimer or caution beat');
+    }
+  }
+
+  if (expectedStyle === 'crime_timeline') {
+    const timelineBeats = referenceBeats.filter((beat) => beat === 'timeline').length;
+    if (timelineBeats < 2) {
+      pushIssue(errors, 'error', 'timeline-insufficient', 'crime_timeline needs multiple timeline beats', {
+        timeline_beats: timelineBeats,
+      });
+    }
+    const purposeText = [script.meta?.goal, script.meta?.tone, script.meta?.audience, ...script.scenes.map((scene) => scene.scene_goal)]
+      .filter(Boolean)
+      .join(' ');
+    if (!/(注意喚起|再発防止|風化防止)/.test(purposeText)) {
+      pushIssue(errors, 'error', 'crime-purpose-missing', 'crime_timeline needs an explicit caution/prevention/anti-forgetting purpose');
+    }
+  }
+
+  if (expectedStyle === 'deep_mystery' || expectedStyle === 'single_big_question_mystery') {
+    const hasBigQuestion = script.scenes.slice(0, 2).some((scene) => /なぜ|どうして|謎|疑問/.test(scene.curiosity_gap ?? ''));
+    if (!hasBigQuestion) {
+      pushIssue(errors, 'error', 'deep-question-missing', `${expectedStyle} needs a clear big question in the opening curiosity_gap`);
+    }
+    if (!script.scenes.some((scene) => scene.evidence_role === 'counterpoint')) {
+      pushIssue(warnings, 'warning', 'deep-counterpoint-missing', `${expectedStyle} benefits from at least one counterpoint or alternate theory`);
+    }
+  }
+};
+
+const audit = async () => {
+  const errors = [];
+  const warnings = [];
+  const {scriptPath, episodeDir} = resolveTarget(target);
+  const script = await readScript(scriptPath);
+  const meta = await readMeta(episodeDir);
+  const metaEntries = imageEntriesFromMeta(meta);
+
+  if (!isPlainObject(script) || !Array.isArray(script.scenes) || script.scenes.length === 0) {
+    pushIssue(errors, 'error', 'script', 'script.scenes must be a non-empty array');
+  } else {
+    assertRoleFlow(script, errors);
+    assertVisionShifts(script, warnings);
+    assertReferenceStyleFit(script, errors, warnings);
+
+    const dialogue = script.scenes.flatMap((scene) =>
+      Array.isArray(scene.dialogue)
+        ? scene.dialogue.map((line) => ({
+            scene: scene.id,
+            id: line.id,
+            speaker: line.speaker,
+            text: line.text,
+            normalized: normalizeText(line.text),
+          }))
+        : [],
+    );
+
+    const repeatedLines = entriesOver(countBy(dialogue.map((line) => line.normalized)), QUALITY_PROFILE.maxDuplicateLineCount);
+    if (repeatedLines.length > 0) {
+      pushIssue(errors, 'error', 'repeated-dialogue', 'Dialogue lines are repeated too often', {
+        repeated: repeatedLines.slice(0, 10),
+      });
+    }
+
+    const awkwardDialogue = dialogue
+      .filter((line) => AWKWARD_DIALOGUE_PATTERNS.some((pattern) => pattern.test(line.text)))
+      .map((line) => ({scene: line.scene, id: line.id, speaker: line.speaker, text: line.text}));
+    if (awkwardDialogue.length > 0) {
+      pushIssue(errors, 'error', 'awkward-dialogue', 'Dialogue contains mechanical or unnatural wording that requires script review', {
+        lines: awkwardDialogue.slice(0, 20),
+      });
+    }
+
+    const rightRuns = [];
+    for (const scene of script.scenes) {
+      let run = 0;
+      for (const line of scene.dialogue ?? []) {
+        if (line.speaker === 'right') {
+          run += 1;
+          if (run >= 3) {
+            rightRuns.push(scene.id);
+            break;
+          }
+        } else {
+          run = 0;
+        }
+      }
+    }
+    if (rightRuns.length > 0) {
+      pushIssue(warnings, 'warning', 'explainer-monologue', 'Explainer speaks 3+ lines in a row; insert viewer reaction or question', {
+        scenes: rightRuns,
+      });
+    }
+
+    const mainRepeats = entriesOver(
+      countBy(script.scenes.map((scene) => contentSignature(scene.main))),
+      QUALITY_PROFILE.maxRepeatedMainContentCount,
+    );
+    if (mainRepeats.length > 0) {
+      pushIssue(errors, 'error', 'repeated-main-content', 'main content is reused across too many scenes', {repeated: mainRepeats});
+    }
+
+    const subScenes = script.scenes.filter((scene) => scene.sub);
+    const subRepeats = entriesOver(countBy(subScenes.map((scene) => contentSignature(scene.sub))), QUALITY_PROFILE.maxRepeatedSubContentCount);
+    if (subRepeats.length > 0) {
+      pushIssue(errors, 'error', 'repeated-sub-content', 'sub content is reused across too many scenes', {repeated: subRepeats});
+    }
+
+    const sceneTemplate = resolvedTemplateForScript(script);
+    const missingSubRole = SUB_CAPABLE_TEMPLATES.has(sceneTemplate)
+      ? script.scenes.filter((scene) => !scene.sub || contentSignature(scene.main) === contentSignature(scene.sub)).map((scene) => scene.id)
+      : [];
+    if (missingSubRole.length > 0) {
+      pushIssue(errors, 'error', 'sub-role-missing', 'sub-capable templates must use sub as a distinct support/checklist area', {
+        scenes: missingSubRole,
+      });
+    }
+
+    const imageScenes = script.scenes.filter((scene) => scene.main?.kind === 'image' || scene.sub?.kind === 'image');
+    const uniqueImageAssets = new Set(
+      imageScenes.flatMap((scene) => [scene.main, scene.sub]).filter((content) => content?.kind === 'image').map((content) => content.asset),
+    );
+    if (script.scenes.length >= QUALITY_PROFILE.longEpisodeSceneThreshold && uniqueImageAssets.size < QUALITY_PROFILE.minImageCountForLongEpisode) {
+      pushIssue(errors, 'error', 'too-few-images', 'long episodes need enough distinct image assets to avoid static-card fatigue', {
+        scenes: script.scenes.length,
+        unique_image_assets: uniqueImageAssets.size,
+        minimum: QUALITY_PROFILE.minImageCountForLongEpisode,
+      });
+    }
+
+    const bodyScenes = script.scenes.filter((scene) => scene.role === 'body');
+    const bodyScenesWithoutMainImage = bodyScenes.filter((scene) => scene.main?.kind !== 'image').map((scene) => scene.id);
+    if (bodyScenes.length >= 2 && bodyScenesWithoutMainImage.length > Math.floor(bodyScenes.length / 2)) {
+      pushIssue(errors, 'error', 'too-many-body-scenes-without-main-image', 'most body scenes need a main image asset for watchability', {
+        body_scenes: bodyScenes.length,
+        scenes_without_main_image: bodyScenesWithoutMainImage,
+      });
+    }
+
+    const imageRatio = uniqueImageAssets.size / Math.max(1, script.scenes.length);
+    if (script.scenes.length >= QUALITY_PROFILE.longEpisodeSceneThreshold && imageRatio < QUALITY_PROFILE.minUniqueImageRatio) {
+      pushIssue(errors, 'error', 'low-image-variety', 'image variety is too low for the episode length', {
+        scenes: script.scenes.length,
+        unique_image_assets: uniqueImageAssets.size,
+        minimum_ratio: QUALITY_PROFILE.minUniqueImageRatio,
+      });
+    }
+
+    const weakImagePrompts = [];
+    const incompleteImagePrompts = [];
+    for (const scene of script.scenes) {
+      for (const key of ['main', 'sub']) {
+        const content = scene[key];
+        if (content?.kind !== 'image') {
+          continue;
+        }
+        const prompt = imagePromptFor(content, metaEntries);
+        if (!isSpecificAssetPrompt(prompt)) {
+          weakImagePrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
+        }
+        const missing = missingImagePromptTerms(prompt);
+        if (missing.length > 0) {
+          incompleteImagePrompts.push({scene: scene.id, slot: key, asset: content.asset, missing, prompt});
+        }
+      }
+    }
+    if (weakImagePrompts.length > 0) {
+      pushIssue(errors, 'error', 'weak-image-prompt', 'image assets need concrete template-aware generation prompts', {
+        assets: weakImagePrompts.slice(0, 12),
+      });
+    }
+    if (incompleteImagePrompts.length > 0) {
+      pushIssue(errors, 'error', 'incomplete-imagegen-prompt', 'imagegen prompts must include template/tone/composition/spacing/negative constraints', {
+        assets: incompleteImagePrompts.slice(0, 12),
+        required_prompt_terms: REQUIRED_IMAGE_PROMPT_TERMS.map((requirement) => requirement.key),
+      });
+    }
+
+    const scenesWithMetadata = script.scenes.filter(hasSceneMetadata).length;
+    const metadataRatio = scenesWithMetadata / script.scenes.length;
+    if (metadataRatio < QUALITY_PROFILE.minSceneMetadataScenesRatio) {
+      pushIssue(errors, 'error', 'missing-scene-quality-metadata', 'most scenes need scene_goal, viewer_question, and visual_role', {
+        scenes: script.scenes.length,
+        scenes_with_metadata: scenesWithMetadata,
+        minimum_ratio: QUALITY_PROFILE.minSceneMetadataScenesRatio,
+      });
+    }
+
+    const scenesWithoutVisualAssetPlan = script.scenes.filter((scene) => !hasVisualAssetPlan(scene)).map((scene) => scene.id);
+    if (scenesWithoutVisualAssetPlan.length > 0) {
+      pushIssue(errors, 'error', 'missing-visual-asset-plan', 'each scene needs visual_asset_plan for asset density and audit handoff', {
+        scenes: scenesWithoutVisualAssetPlan,
+      });
+    }
+
+    const vagueMetaAssets = [];
+    const incompleteLedgerAssets = [];
+    const disallowedAssetSources = [];
+    const unapprovedAssetSources = [];
+    const weakImageFiles = [];
+    for (const [file, asset] of metaEntries.entries()) {
+      if (!file.startsWith('assets/')) {
+        continue;
+      }
+      const description = [asset.description, asset.imagegen_prompt, asset.title].filter(Boolean).join(' / ');
+      if (!isSpecificAssetPrompt(description)) {
+        vagueMetaAssets.push({file, description});
+      }
+      const missingLedgerFields = ['scene_id', 'slot', 'purpose', 'adoption_reason', 'imagegen_prompt', 'imagegen_model'].filter(
+        (field) => typeof asset[field] !== 'string' || asset[field].trim() === '',
+      );
+      if (missingLedgerFields.length > 0) {
+        incompleteLedgerAssets.push({file, missing: missingLedgerFields});
+      }
+      if (isDisallowedImageSource(asset)) {
+        disallowedAssetSources.push({file, source: imageSourceText(asset)});
+      } else if (!isApprovedImageSource(asset)) {
+        unapprovedAssetSources.push({file, source: imageSourceText(asset)});
+      }
+
+      try {
+        const info = await readImageInfo(assetFilePath(episodeDir, file));
+        if (
+          info.bytes < QUALITY_PROFILE.minImageAssetBytes ||
+          info.width < QUALITY_PROFILE.minImageWidth ||
+          info.height < QUALITY_PROFILE.minImageHeight
+        ) {
+          weakImageFiles.push({
+            file,
+            bytes: info.bytes,
+            width: info.width,
+            height: info.height,
+            minimum: {
+              bytes: QUALITY_PROFILE.minImageAssetBytes,
+              width: QUALITY_PROFILE.minImageWidth,
+              height: QUALITY_PROFILE.minImageHeight,
+            },
+          });
+        }
+      } catch (error) {
+        weakImageFiles.push({file, error: error.message});
+      }
+    }
+    if (vagueMetaAssets.length > 0) {
+      pushIssue(errors, 'error', 'vague-asset-ledger', 'meta.json image entries need concrete visual descriptions or prompts', {
+        assets: vagueMetaAssets.slice(0, 12),
+      });
+    }
+    if (incompleteLedgerAssets.length > 0) {
+      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need scene_id, slot, purpose, adoption_reason, imagegen_prompt, and imagegen_model', {
+        assets: incompleteLedgerAssets.slice(0, 12),
+      });
+    }
+    if (disallowedAssetSources.length > 0) {
+      pushIssue(errors, 'error', 'disallowed-image-source', 'delivery images must not be fallback, placeholder, copied, or local card assets', {
+        assets: disallowedAssetSources.slice(0, 20),
+      });
+    }
+    if (unapprovedAssetSources.length > 0) {
+      pushIssue(errors, 'error', 'unapproved-image-source', 'Codex delivery images must use image gen provenance only; NotebookLM and licensed downloads are not accepted for inserted images', {
+        assets: unapprovedAssetSources.slice(0, 20),
+      });
+    }
+    if (weakImageFiles.length > 0) {
+      pushIssue(errors, 'error', 'weak-image-file', 'delivery images are missing, too small, or not inspectable as real raster assets', {
+        assets: weakImageFiles.slice(0, 20),
+      });
+    }
+  }
+
+  const report = {
+    ok: errors.length === 0,
+    episode_id: script?.meta?.id ?? path.basename(episodeDir),
+    checked_at: new Date().toISOString(),
+    quality_profile: QUALITY_PROFILE,
+    reference_quality_profile: {
+      styles: [...REFERENCE_STYLE_PROFILES],
+      genre_profiles: [...GENRE_PROFILES],
+      metadata_ratio: REFERENCE_METADATA_RATIO,
+      beats: [...REFERENCE_BEATS],
+      hook_types: [...HOOK_TYPES],
+      evidence_roles: [...EVIDENCE_ROLES],
+    },
+    script_path: path.relative(rootDir, scriptPath),
+    errors,
+    warnings,
+  };
+
+  console.log(JSON.stringify(report, null, 2));
+  if (!report.ok) {
+    process.exitCode = 1;
+  }
+};
+
+await audit();

@@ -11,7 +11,7 @@ const probeWavSeconds = (filePath) => {
   const result = spawnSync(
     'ffprobe',
     ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', filePath],
-    {encoding: 'utf8'},
+    {encoding: 'utf8', windowsHide: true},
   );
   if (result.status !== 0) {
     throw new Error(`ffprobe failed for ${filePath}: ${result.stderr || result.stdout}`);

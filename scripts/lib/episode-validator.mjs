@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
 
 export const SCENE_TEMPLATE_IDS = Array.from({length: 21}, (_, index) => `Scene${String(index + 1).padStart(2, '0')}`);
@@ -6,6 +6,10 @@ export const SCENE_TEMPLATE_ID_SET = new Set(SCENE_TEMPLATE_IDS);
 export const SUB_CAPABLE_TEMPLATES = new Set(['Scene02', 'Scene03', 'Scene10', 'Scene13', 'Scene14']);
 export const TITLE_CAPABLE_TEMPLATES = new Set(['Scene04', 'Scene08', 'Scene12', 'Scene15', 'Scene16', 'Scene17', 'Scene19']);
 export const CONTENT_KINDS = new Set(['text', 'bullets', 'image']);
+export const TYPOGRAPHY_FAMILIES = new Set(['gothic', 'mincho']);
+export const TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'content_family', 'title_family']);
+export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family']);
+export const KEIFONT_PUBLIC_PATH = path.join('public', 'fonts', 'keifont.ttf');
 
 const countChars = (value) => Array.from(value).length;
 
@@ -54,6 +58,54 @@ const assertEpisodeFile = async ({filePath, episodeDir, issuePath, label, errors
     }
   } catch {
     pushIssue(errors, 'error', issuePath, `${label} does not exist: ${filePath}`);
+  }
+};
+
+const validateTypographyConfig = ({config, pathName, errors, warnings, usedExplicitGothic, allowedKeys = TYPOGRAPHY_KEYS}) => {
+  if (config === undefined || config === null) {
+    return;
+  }
+
+  if (!isPlainObject(config)) {
+    pushIssue(errors, 'error', pathName, 'typography must be an object');
+    return;
+  }
+
+  for (const key of Object.keys(config)) {
+    if (!allowedKeys.has(key)) {
+      const level = pathName.includes('.dialogue[') && TYPOGRAPHY_KEYS.has(key) ? 'error' : 'error';
+      const message = pathName.includes('.dialogue[')
+        ? 'dialogue typography only supports subtitle_family'
+        : 'typography only supports subtitle_family, content_family, and title_family';
+      pushIssue(level === 'error' ? errors : warnings, level, `${pathName}.${key}`, message);
+      continue;
+    }
+
+    const value = config[key];
+    if (!TYPOGRAPHY_FAMILIES.has(value)) {
+      pushIssue(errors, 'error', `${pathName}.${key}`, `typography family must be gothic or mincho: ${value ?? '<missing>'}`);
+      continue;
+    }
+
+    if (value === 'gothic') {
+      usedExplicitGothic.value = true;
+    }
+  }
+};
+
+const assertKeifontIfNeeded = async ({rootDir, usedExplicitGothic, errors}) => {
+  if (!usedExplicitGothic.value) {
+    return;
+  }
+
+  const fontPath = path.resolve(rootDir, KEIFONT_PUBLIC_PATH);
+  try {
+    const stat = await fs.stat(fontPath);
+    if (!stat.isFile()) {
+      pushIssue(errors, 'error', 'public/fonts/keifont.ttf', 'explicit gothic typography requires public/fonts/keifont.ttf');
+    }
+  } catch {
+    pushIssue(errors, 'error', 'public/fonts/keifont.ttf', 'explicit gothic typography requires public/fonts/keifont.ttf');
   }
 };
 
@@ -307,6 +359,52 @@ const validateTiming = ({script, errors}) => {
   }
 };
 
+const uniqueValues = (values) => [...new Set(values.filter((value) => typeof value === 'string' && value.trim() !== ''))];
+
+const resolveSceneTemplate = ({script, errors, warnings}) => {
+  if (script.meta?.allow_duplicate_templates === true) {
+    pushIssue(warnings, 'warning', 'meta.allow_duplicate_templates', 'allow_duplicate_templates is deprecated; use meta.layout_template for the single video template');
+  }
+
+  const sceneTemplates = uniqueValues(script.scenes.map((scene) => scene?.scene_template));
+  let sceneTemplate = typeof script.meta?.layout_template === 'string' ? script.meta.layout_template : undefined;
+  const legacyMetaTemplate = typeof script.meta?.scene_template === 'string' ? script.meta.scene_template : undefined;
+
+  if (legacyMetaTemplate !== undefined) {
+    if (sceneTemplate === undefined) {
+      sceneTemplate = legacyMetaTemplate;
+      pushIssue(warnings, 'warning', 'meta.scene_template', 'meta.scene_template is accepted as a legacy alias; prefer meta.layout_template');
+    } else if (sceneTemplate !== legacyMetaTemplate) {
+      pushIssue(errors, 'error', 'meta.scene_template', `meta.scene_template must match meta.layout_template (${sceneTemplate}), got ${legacyMetaTemplate}`);
+    }
+  }
+
+  if (sceneTemplate !== undefined && !SCENE_TEMPLATE_ID_SET.has(sceneTemplate)) {
+    pushIssue(errors, 'error', 'meta.layout_template', `meta.layout_template must be Scene01-Scene21: ${sceneTemplate}`);
+  }
+
+  if (!sceneTemplate) {
+    if (sceneTemplates.length === 1) {
+      sceneTemplate = sceneTemplates[0];
+      pushIssue(warnings, 'warning', 'meta.layout_template', `legacy script: move shared scenes[].scene_template (${sceneTemplate}) to meta.layout_template`);
+    } else {
+      pushIssue(errors, 'error', 'meta.layout_template', 'meta.layout_template is required as the single template for the whole video');
+    }
+  }
+
+  if (sceneTemplates.length > 1) {
+    pushIssue(errors, 'error', 'scenes', `Only one scene_template is allowed per video; found ${sceneTemplates.join(', ')}`);
+  }
+
+  script.scenes.forEach((scene, sceneIndex) => {
+    if (typeof scene?.scene_template === 'string' && scene.scene_template !== sceneTemplate) {
+      const sceneId = scene.id ?? `scenes[${sceneIndex}]`;
+      pushIssue(errors, 'error', `scenes[${sceneIndex}].scene_template`, `${sceneId}: scene_template must match meta.layout_template (${sceneTemplate}), got ${scene.scene_template}`);
+    }
+  });
+
+  return sceneTemplate;
+};
 export const formatEpisodeValidationResult = (result) => {
   const lines = [];
   for (const error of result.errors) {
@@ -322,6 +420,8 @@ export const validateEpisodeScript = async (script, options = {}) => {
   const errors = [];
   const warnings = [];
   const episodeDir = options.episodeDir ? path.resolve(options.episodeDir) : null;
+  const rootDir = options.rootDir ? path.resolve(options.rootDir) : process.cwd();
+  const usedExplicitGothic = {value: false};
 
   if (!isPlainObject(script)) {
     pushIssue(errors, 'error', 'script', 'script must be an object');
@@ -330,6 +430,14 @@ export const validateEpisodeScript = async (script, options = {}) => {
 
   if (!isPlainObject(script.meta)) {
     pushIssue(errors, 'error', 'meta', 'meta is required');
+  } else {
+    validateTypographyConfig({
+      config: script.meta.typography,
+      pathName: 'meta.typography',
+      errors,
+      warnings,
+      usedExplicitGothic,
+    });
   }
 
   if (!Array.isArray(script.scenes) || script.scenes.length === 0) {
@@ -350,12 +458,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
     });
   }
 
-  const templates = script.scenes.map((scene) => scene?.scene_template);
-  const duplicates = templates.filter((template, index) => templates.indexOf(template) !== index);
-  const allowDuplicateTemplates = script.meta?.allow_duplicate_templates === true;
-  if (!allowDuplicateTemplates && duplicates.length > 0) {
-    pushIssue(errors, 'error', 'scenes', `Duplicate scene_template detected: ${[...new Set(duplicates)].join(', ')}`);
-  }
+  const canonicalTemplate = resolveSceneTemplate({script, errors, warnings});
 
   for (const [sceneIndex, scene] of script.scenes.entries()) {
     const scenePath = `scenes[${sceneIndex}]`;
@@ -365,21 +468,30 @@ export const validateEpisodeScript = async (script, options = {}) => {
     }
 
     const sceneId = typeof scene.id === 'string' && scene.id.trim() ? scene.id : scenePath;
-    if (!SCENE_TEMPLATE_ID_SET.has(scene.scene_template)) {
+    const resolvedTemplate = scene.scene_template ?? canonicalTemplate;
+    if (!SCENE_TEMPLATE_ID_SET.has(resolvedTemplate)) {
       pushIssue(
         errors,
         'error',
-        `${scenePath}.scene_template`,
-        `${sceneId}: scene_template must be Scene01-Scene21: ${scene.scene_template ?? '<missing>'}`,
+        scene.scene_template === undefined ? 'meta.layout_template' : `${scenePath}.scene_template`,
+        `${sceneId}: scene_template must be Scene01-Scene21: ${resolvedTemplate ?? '<missing>'}`,
       );
     }
 
-    if (scene.sub && !SUB_CAPABLE_TEMPLATES.has(scene.scene_template)) {
-      pushIssue(warnings, 'warning', `${scenePath}.sub`, `${sceneId}: ${scene.scene_template} has no renderable sub content area; use sub: null`);
+    validateTypographyConfig({
+      config: scene.typography,
+      pathName: `${scenePath}.typography`,
+      errors,
+      warnings,
+      usedExplicitGothic,
+    });
+
+    if (scene.sub && !SUB_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
+      pushIssue(warnings, 'warning', `${scenePath}.sub`, `${sceneId}: ${resolvedTemplate} has no renderable sub content area; use sub: null`);
     }
 
-    if (scene.title_text && !TITLE_CAPABLE_TEMPLATES.has(scene.scene_template)) {
-      pushIssue(warnings, 'warning', `${scenePath}.title_text`, `${sceneId}: ${scene.scene_template} has no title slot; move the heading into main.text if needed`);
+    if (scene.title_text && !TITLE_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
+      pushIssue(warnings, 'warning', `${scenePath}.title_text`, `${sceneId}: ${resolvedTemplate} has no title slot; move the heading into main.text if needed`);
     }
 
     if (!scene.main) {
@@ -410,10 +522,25 @@ export const validateEpisodeScript = async (script, options = {}) => {
       } else if (countChars(line.text) > 25) {
         pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text exceeds 25 chars: "${line.text}"`);
       }
+      validateTypographyConfig({
+        config: line.typography,
+        pathName: `${linePath}.typography`,
+        errors,
+        warnings,
+        usedExplicitGothic,
+        allowedKeys: DIALOGUE_TYPOGRAPHY_KEYS,
+      });
     }
   }
 
+  await assertKeifontIfNeeded({rootDir, usedExplicitGothic, errors});
   validateTiming({script, errors});
 
   return {ok: errors.length === 0, errors, warnings};
 };
+
+
+
+
+
+

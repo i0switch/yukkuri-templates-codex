@@ -1,4 +1,4 @@
-# 動画化パイプライン仕様書
+﻿# 動画化パイプライン仕様書
 
 静止画42枚の基盤から**動画**を生成するための全体仕様。Claude Code / Codex 両方の
 プロンプト（`20_prompt_claude-code.md`・`21_prompt_codex.md`）はこの仕様書に従う。
@@ -102,6 +102,7 @@ YAML で書く。JSONより手編集しやすい・コメントが書ける。
 meta:
   id: "ep001-synbio-intro"           # ファイル名と一致
   title: "合成生物学ってなに？"
+  scene_template: "Scene02"         # 1動画につき1つだけ使う背景テンプレ
   pair: "ZM"                         # "RM" | "ZM"
   fps: 30
   width: 1920
@@ -111,6 +112,10 @@ meta:
   bgm_mood: "穏やか＋好奇心"
   voice_engine: "voicevox"           # "voicevox" (ZMペア) | "aquestalk" (RMペア)
   target_duration_sec: 180           # 目安（厳守ではない）
+  typography:
+    subtitle_family: "gothic"         # "gothic" | "mincho"
+    content_family: "gothic"          # main/sub/caption 用
+    title_family: "gothic"            # title_text 用
 
 characters:
   # pair: ZM の例（voice_engine: voicevox）
@@ -142,11 +147,13 @@ bgm:
   fade_out_sec: 1.5
 
 scenes:
-  # シーンの順序＝動画の再生順
+  # シーンの順序＝動画の再生順。全シーンで meta.scene_template を使う
+  # scenes[].scene_template は使用禁止。scene は時間ブロックで、テンプレートではない。
   - id: "s01"
-    scene_template: "Scene19"        # どの背景テンプレを使うか（01〜21）
     role: "intro"                    # "intro" | "body" | "outro" | "cta"
     title_text: "合成生物学ってなに？"      # titleSlot に入るテキスト（ある場合）
+    typography:
+      subtitle_family: "mincho"       # 任意。scene 単位の上書き
     main:
       kind: "text"                   # "text" | "image" | "bullets"
       text: "生物を『設計』する学問"
@@ -156,6 +163,8 @@ scenes:
         speaker: "left"              # "left" | "right"
         text: "みんな、こんにちはなのだ！"
         expression: "smile"
+        typography:
+          subtitle_family: "mincho"   # 任意。セリフ字幕だけ上書き
         pre_pause_sec: 0.2           # セリフ前の間
         post_pause_sec: 0.3          # セリフ後の間
       - id: "l02"
@@ -167,7 +176,6 @@ scenes:
     # duration_sec は [05 タイミング確定] で自動書き戻し
 
   - id: "s02"
-    scene_template: "Scene02"
     role: "body"
     main:
       kind: "image"
@@ -196,7 +204,6 @@ scenes:
   # ... s03, s04, ... sNN
 
   - id: "s{N}"
-    scene_template: "Scene04"
     role: "outro"
     main:
       kind: "text"
@@ -212,7 +219,19 @@ scenes:
         expression: "smile"
 ```
 
-### 3.1 シーン長の決定ルール
+### 3.1 Typography 指定ルール
+
+フォントは `script.yaml` の `typography` で指定する。分類は `gothic` / `mincho` のみで、
+CSSフォント名を直接書かない。
+
+優先順位は `dialogue[].typography.subtitle_family` > `scenes[].typography` > `meta.typography` > 暗黙既定 `gothic`。
+`dialogue[].typography` は字幕用の `subtitle_family` だけを指定できる。
+`content_family` は main/sub/caption、`title_family` は `title_text` に使う。
+
+`gothic` を明示指定する場合は `public/fonts/keifont.ttf` を必須とし、けいふぉんとを先頭フォントとして使う。
+ファイルが無い状態で `gothic` を明示した台本は validator で FAIL にする。
+
+### 3.2 シーン長の決定ルール
 
 各シーンの `duration_sec` は以下で自動算出する（`build-episode.mjs` 内）：
 
@@ -223,19 +242,19 @@ duration_sec = sum(pre_pause + wav_sec + post_pause for each line)
 
 切り上げ単位は 0.1秒。fps=30 なら 3フレーム刻み。
 
-### 3.2 `scene_template` の選び方の目安
+### 3.3 `meta.scene_template` の選び方
 
-| role | 推奨テンプレ | 理由 |
+1本の動画では `meta.scene_template` を1つだけ選ぶ。intro/body/outro/cta でテンプレを散らさない。
+テンプレ選定は、動画全体で必要な枠を基準に決める。
+
+| 必要な画面構造 | 候補テンプレ | 理由 |
 |---|---|---|
-| intro（タイトル表示） | 08, 15, 20 | タイトルエリアがある |
-| intro（シンプル） | 01, 04 | 見出しと話者だけで十分 |
-| body（図解多め） | 02, 03, 10, 13 | main+sub の2枠で箇条書き補足 |
-| body（メイン1枚） | 05, 06, 07, 09, 18, 21 | 図解/写真を大きく出したい |
-| body（UI見せ） | 11, 14, 17 | ガラスUI/SFパネル系 |
-| outro（まとめ） | 04, 20 | タイトル＋まとめ板 |
-| cta（登録誘導） | 01, 04 | シンプル構図が映える |
+| タイトル枠を強く使う | 04, 08, 12, 15, 16, 17, 19 | 見出しや章タイトルを置きやすい |
+| main + sub で補足を分ける | 02, 03, 10, 13, 14 | 本題と補足を同時に見せられる |
+| main 画像を大きく見せる | 01, 05, 06, 07, 09, 18, 20, 21 | 図解や写真を広く使いやすい |
 
-AI はこの目安に従い、似た構図が連続しないように散らす。
+動画内の変化はテンプレ変更ではなく、main/sub/title/subtitle の中身、画像差し替え、字幕、演出で作る。
+validator は `meta.scene_template` を必須にする。`scenes[].scene_template` が残っていたら FAIL にする。
 
 ---
 
@@ -313,6 +332,9 @@ export const SceneXX_Video: React.FC<SceneVideoProps> = ({ sceneData, episodeDir
 `SceneXX_Video` は既存 `SceneXX` の横に増設する（静止画用 `SceneXX` は削らない）。
 
 ### 4.2 `VideoMain.tsx`（新規・タイムライン全体）
+
+`SceneRenderer` は `script.meta.scene_template` を読み、その1つの `SceneXX_Video` / `SceneXX` 系コンポーネントへ全 scene を流し込む。
+`script.render.json` でも各 scene へ `scene_template` は補完しない。
 
 ```tsx
 // src/compositions/VideoMain.tsx
@@ -499,3 +521,14 @@ ImageGen 可の Codex でも、**写真素材は生成ではなく調達**する
 - [ ] 字幕がセリフに同期している（0.2秒以内のズレ）
 - [ ] `meta.json` に全素材のソースURL・ライセンスが記録されている
 - [ ] キャラが画面外に出ていない・背景の主要装飾を覆っていない
+
+
+
+
+
+
+
+
+
+
+

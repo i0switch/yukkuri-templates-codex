@@ -1,5 +1,6 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
+import {spawnSync} from 'node:child_process';
 import {parseDocument} from 'yaml';
 import {buildAudioForEpisode} from './voicevox.mjs';
 import {buildAudioForEpisodeAquesTalk} from './aquestalk.mjs';
@@ -54,6 +55,23 @@ const assertValidScript = async (script, stage) => {
   }
   if (!result.ok) {
     throw new Error(`${stage} validation failed`);
+  }
+};
+
+const assertQualityGate = () => {
+  const result = spawnSync(process.execPath, ['scripts/audit-episode-quality.mjs', episodeId], {
+    cwd: rootDir,
+    encoding: 'utf8',
+    windowsHide: true,
+  });
+  if (result.stdout) {
+    console.log(result.stdout.trim());
+  }
+  if (result.stderr) {
+    console.error(result.stderr.trim());
+  }
+  if (result.status !== 0) {
+    throw new Error('Pre-build quality gate failed');
   }
 };
 
@@ -120,6 +138,10 @@ const buildRenderJson = async (script) => {
 
   const renderData = {
     ...script,
+    scenes: script.scenes.map((scene) => ({
+      ...scene,
+      scene_template: scene.scene_template ?? script.meta.scene_template,
+    })),
     public_dir: `episodes/${episodeId}`,
     base_layout_width: 1920,
     base_layout_height: 1080,
@@ -131,6 +153,7 @@ const buildRenderJson = async (script) => {
 const document = await readYamlDocument();
 const script = document.toJS();
 await assertValidScript(script, 'Pre-build');
+assertQualityGate();
 const durations =
   script.meta.voice_engine === 'aquestalk'
     ? await buildAudioForEpisodeAquesTalk(episodeDir, script)
@@ -139,3 +162,6 @@ const updatedScript = buildTimings(script, durations);
 await assertValidScript(updatedScript, 'Post-build');
 await buildRenderJson(updatedScript);
 console.log(JSON.stringify({episodeId, total_duration_sec: updatedScript.total_duration_sec}, null, 2));
+
+
+

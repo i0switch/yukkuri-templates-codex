@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
 
@@ -118,7 +118,6 @@ const commonMeta = {
   voice_engine: 'voicevox',
   target_duration_sec: 24,
   image_style: 'フラット・白背景・青緑基調・テキスト非表示',
-  allow_duplicate_templates: true,
 };
 
 const bgm = {
@@ -398,9 +397,8 @@ const ensureDir = async (dirPath) => {
   await fs.mkdir(dirPath, {recursive: true});
 };
 
-const makeScene = ({id, template, role, title, main, sub, lines}) => ({
+const makeScene = ({id, role, title, main, sub, lines}) => ({
   id,
-  scene_template: template,
   role,
   title_text: title,
   main,
@@ -431,6 +429,7 @@ const buildEpisodeScript = (topic) => {
     meta: {
       id: pairPreset.toEpisodeId(topic.episodeId),
       title: topic.title,
+      scene_template: topic.template,
       pair: pairPreset.id,
       ...commonMeta,
     },
@@ -439,7 +438,6 @@ const buildEpisodeScript = (topic) => {
     scenes: [
       makeScene({
         id: 's01',
-        template: topic.template,
         role: 'intro',
         title: topic.title,
         main: {kind: 'text', text: topic.hookMain},
@@ -448,7 +446,6 @@ const buildEpisodeScript = (topic) => {
       }),
       makeScene({
         id: 's02',
-        template: topic.template,
         role: 'body',
         title: '仕組み',
         main: {kind: 'bullets', items: topic.points},
@@ -457,11 +454,10 @@ const buildEpisodeScript = (topic) => {
       }),
       makeScene({
         id: 's03',
-        template: topic.template,
         role: 'outro',
         title: '覚え方',
         main: {kind: 'text', text: topic.takeaway},
-        sub: {kind: 'bullets', items: ['1本1テンプレート動画', `template: ${topic.template}`]},
+        sub: null,
         lines: scene3,
       }),
     ],
@@ -582,3 +578,14 @@ const manifest = {
 
 await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 console.log(JSON.stringify({manifestPath, count: topics.length}, null, 2));
+
+
+
+
+
+
+
+
+
+
+

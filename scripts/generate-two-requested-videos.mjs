@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
 import {stringify} from 'yaml';
 
@@ -12,15 +12,14 @@ const countChars = (value) => Array.from(value).length;
 const commonMeta = {
   pair: 'ZM',
   fps: 30,
-  width: 1280,
-  height: 720,
+  width: 1920,
+  height: 1080,
   audience: '副業や生活改善に興味がある一般層',
   tone: '短く刺す・危機感あり・でも対処まで出す',
   bgm_mood: '軽快だが少し緊張感',
   voice_engine: 'voicevox',
   target_duration_sec: 300,
   image_style: 'フラット図解・テキストなし・動画挿入用',
-  allow_duplicate_templates: true,
 };
 
 const characters = {
@@ -65,6 +64,54 @@ const episodes = [
       ['s14_main.png', '小さな自動化の流れ、入力から投稿までのシンプルなパイプライン'],
       ['s21_main.png', 'チェックリストで安全に進む副業設計、落ち着いた達成感'],
     ],
+    mainBullets: [
+      ['需要確認', '小さく販売', '反応を記録'],
+      ['ツールより需要', '売る前に聞く', '反応で判断'],
+      ['収集沼', '未完成', '売上ゼロ'],
+      ['学習だけ', '検証ゼロ', '一週間消耗'],
+      ['買う人不在', '悩みが浅い', '便利止まり'],
+      ['小さな実績', '一件の反応', '大作禁止'],
+      ['困りごと', '言葉を拾う', '答えは後'],
+      ['一時間商品', '軽く買える', '範囲を絞る'],
+      ['安すぎ注意', '価値範囲', '無料で逃げない'],
+      ['保存導線', '相談導線', '読後の一歩'],
+      ['手順固定後', '自動化', '失敗も増幅'],
+      ['結論先出し', '損を刺す', '一歩で閉じる'],
+      ['放置リスク', '対処一つ', '保存される型'],
+      ['十人確認', '一人で悩まない', '市場に聞く'],
+      ['三十分運用', '記録固定', '改善固定'],
+      ['切り口変更', '商品断定しない', '見せ方検証'],
+      ['フック', '悩み具体性', '入口改善'],
+      ['不安で終えない', '対処まで', '信用を守る'],
+      ['短く刺す', '一投稿一つ', '欲張らない'],
+      ['悩み十個', '一投稿', '反応記録'],
+      ['需要逆算', '順番重視', '作って探さない'],
+      ['今日一投稿', '記録開始', '放置を止める'],
+    ],
+    subBullets: [
+      ['作りすぎ注意', '導線を置く', '自動化は後'],
+      ['需要確認', '小さく出す', '記録する'],
+      ['集めない', '作る', '見せる'],
+      ['時間上限', '期限', '検証数'],
+      ['誰の悩み', '痛みの深さ', '支払う理由'],
+      ['1件でよい', '早く出す', '反応を見る'],
+      ['質問3つ', '原文保存', '言い換えない'],
+      ['成果物1つ', '納期短め', '値段軽め'],
+      ['安売り注意', '範囲明記', '追加は別'],
+      ['保存', '相談', '次の投稿'],
+      ['手順化後', 'ログあり', '戻せる'],
+      ['結論', '損失', '行動'],
+      ['放置', '損', '対処'],
+      ['10人', '3反応', '1改善'],
+      ['30分', '記録', '次回改善'],
+      ['切り口', '見出し', '悩み'],
+      ['入口', '具体例', '一文目'],
+      ['危機感', '根拠', '対処'],
+      ['一投稿', '一主張', '一行動'],
+      ['メモ', '投稿', '記録'],
+      ['順番', '需要', '小さく'],
+      ['今日', '一歩', '記録'],
+    ],
     sceneTitles: [
       ['導入', ['AI副業は楽に見えるのだ', 'でも最初に損しやすいわ', '稼げる前に消耗なのだ', '順番を間違えるからよ']],
       ['結論', ['先に売り物を決めるのだ？', 'そこが一番大事なのよ', 'ツール選びじゃないのだ', '需要確認が先ですわ']],
@@ -92,11 +139,18 @@ const episodes = [
     mainForScene: (index) => {
       const assetMap = {0: 's01_main.png', 6: 's07_main.png', 13: 's14_main.png', 20: 's21_main.png'};
       if (assetMap[index]) {
-        return {kind: 'image', asset: `assets/${assetMap[index]}`, caption: index === 0 ? '最初に損する順番' : '小さく検証する'};
+        const description = episodes[0].assets.find(([file]) => file === assetMap[index])?.[1];
+        return makeImageContent({
+          asset: `assets/${assetMap[index]}`,
+          caption: index === 0 ? '最初に損する順番' : index === 6 ? '悩みの言葉を拾う' : index === 13 ? '十人で小さく検証' : '需要から逆算する',
+          description,
+          template: 'Scene02',
+          slot: 'main',
+        });
       }
-      return {kind: 'bullets', items: ['需要確認', '小さく販売', '反応を記録']};
+      return {kind: 'bullets', items: episodes[0].mainBullets[index]};
     },
-    subForScene: () => ({kind: 'bullets', items: ['作りすぎ注意', '導線を置く', '自動化は後']}),
+    subForScene: (index) => ({kind: 'bullets', items: episodes[0].subBullets[index]}),
   },
   {
     id: 'ep702-phone-storage-risk',
@@ -115,6 +169,30 @@ const episodes = [
       ['s08_main.png', 'バックアップされない写真と壊れたクラウド矢印の注意図解'],
       ['s15_main.png', '写真整理の三分類、残す、消す、移すを示すシンプル図解'],
       ['s22_main.png', 'スマホが軽くなり通知が整うクリーンなホーム画面'],
+    ],
+    mainBullets: [
+      ['容量不足', '撮れない', '更新できない'],
+      ['撮影失敗', '大事な瞬間', '後悔'],
+      ['動作低下', '更新失敗', '警告増加'],
+      ['保存不可', 'イベント中', 'あとで消す罠'],
+      ['同期停止', '保存済み錯覚', '写真消失'],
+      ['警告慣れ', '通知埋もれ', '危険見逃し'],
+      ['動画が重い', '積み上がる', '一気に効く'],
+      ['連写', 'スクショ', '重複写真'],
+      ['スクショから', '期限切れ', '低リスク'],
+      ['長い動画', '先に避難', '不安を減らす'],
+      ['残す', '消す', '移す'],
+      ['週一', '五分', '固定日'],
+      ['同期確認', '端末外で見る', '入れたつもり禁止'],
+      ['コピー', '確認', '削除'],
+      ['設定確認', '数字で見る', '感覚禁止'],
+      ['大きい順', '未使用アプリ', '整理'],
+      ['古い月', '時間制限', '迷ったら移す'],
+      ['スクショ後削除', '放置前', '増やさない'],
+      ['自動削除注意', '別保存', '設定確認'],
+      ['撮影安定', '探す時間減', '気分も軽い'],
+      ['機会損失', '写真保護', '先に逃がす'],
+      ['空き確認', '動画移動', '五分で開始'],
     ],
     sceneTitles: [
       ['導入', ['容量不足を放置してないのだ？', 'それ地味に損が大きいわ', '写真が多いだけなのだ', '実はリスクが重なるのよ']],
@@ -143,35 +221,91 @@ const episodes = [
     mainForScene: (index) => {
       const assetMap = {0: 's01_main.png', 7: 's08_main.png', 14: 's15_main.png', 21: 's22_main.png'};
       if (assetMap[index]) {
-        return {kind: 'image', asset: `assets/${assetMap[index]}`, caption: index === 0 ? '容量不足は放置リスク' : '整理は三分類で進める'};
+        const description = episodes[1].assets.find(([file]) => file === assetMap[index])?.[1];
+        return makeImageContent({
+          asset: `assets/${assetMap[index]}`,
+          caption: index === 0 ? '容量不足は放置リスク' : index === 7 ? 'バックアップ漏れに注意' : index === 14 ? '整理は三分類で進める' : '五分で未来を軽くする',
+          description,
+          template: 'Scene20',
+          slot: 'main',
+        });
       }
-      return {kind: 'bullets', items: ['残す', '消す', '移す']};
+      return {kind: 'bullets', items: episodes[1].mainBullets[index]};
     },
     subForScene: () => null,
   },
 ];
 
-const makeScene = (episode, index, [title, lines]) => ({
-  id: `s${String(index + 1).padStart(2, '0')}`,
-  scene_template: episode.template,
-  role: index === 0 ? 'intro' : index === episode.sceneTitles.length - 1 ? 'cta' : index > episode.sceneTitles.length - 4 ? 'outro' : 'body',
-  title_text: title,
-  main: episode.mainForScene(index),
-  sub: episode.subForScene(index),
-  dialogue: lines.map((text, lineIndex) => ({
-    id: `l${String(lineIndex + 1).padStart(2, '0')}`,
-    speaker: lineIndex % 2 === 0 ? 'left' : 'right',
-    text,
-    expression: lineIndex === 0 ? 'happy' : lineIndex === 1 ? 'calm' : 'smile',
-    pre_pause_sec: 0.12,
-    post_pause_sec: 0.28,
-  })),
+const makeImagePrompt = ({caption, description, template, slot}) => [
+  `ゆっくり解説動画の${template} ${slot}枠に入れる図解素材`,
+  `主題: ${caption}`,
+  `内容: ${description}`,
+  '1枚1メッセージ、中央に主題、余白を広く取る',
+  '細かい文字、ブランドロゴ、実在人物、既存キャラクターは禁止',
+  '16:9、フラット図解、青緑基調、字幕やキャラを邪魔しない',
+].join('。');
+
+const makeImageContent = ({asset, caption, description, template, slot}) => ({
+  kind: 'image',
+  asset,
+  caption,
+  asset_requirements: {
+    description,
+    imagegen_prompt: makeImagePrompt({caption, description, template, slot}),
+    style: '16:9 flat explainer diagram, spacious composition, no small text',
+    aspect: '16:9',
+    negative: 'small text, dense UI, brand logos, real people, existing characters',
+  },
 });
+
+const getSceneLines = (_episode, _index, sceneTuple) => {
+  const [, lines] = sceneTuple;
+  return lines;
+};
+
+const getSceneQuality = (episode, index, sceneTuple, main, sub) => {
+  const [title, lines] = sceneTuple;
+  const leftLine = lines.find((_, lineIndex) => lineIndex % 2 === 0) ?? lines[0];
+  const contentText = main.kind === 'image' ? main.caption : main.items?.join(' / ') ?? main.text;
+  const subText = sub ? sub.items?.join(' / ') ?? sub.text ?? sub.caption : 'サブ枠なし';
+
+  return {
+    title,
+    scene_goal: `${title}: ${lines[1] ?? lines[0]} を短く理解させる`,
+    viewer_question: leftLine,
+    visual_role: `main枠は「${contentText}」、sub枠は「${subText}」を担当する`,
+  };
+};
+
+const makeScene = (episode, index, sceneTuple) => {
+  const main = episode.mainForScene(index);
+  const sub = episode.subForScene(index);
+  const quality = getSceneQuality(episode, index, sceneTuple, main, sub);
+  return {
+    id: `s${String(index + 1).padStart(2, '0')}`,
+    role: index === 0 ? 'intro' : index === episode.sceneTitles.length - 1 ? 'cta' : index > episode.sceneTitles.length - 4 ? 'outro' : 'body',
+    scene_goal: quality.scene_goal,
+    viewer_question: quality.viewer_question,
+    visual_role: quality.visual_role,
+    title_text: episode.template === 'Scene20' ? quality.title : undefined,
+    main,
+    sub,
+    dialogue: getSceneLines(episode, index, sceneTuple).map((text, lineIndex) => ({
+      id: `l${String(lineIndex + 1).padStart(2, '0')}`,
+      speaker: lineIndex % 2 === 0 ? 'left' : 'right',
+      text,
+      expression: lineIndex === 0 ? 'happy' : lineIndex === 1 ? 'calm' : 'smile',
+      pre_pause_sec: 0.12,
+      post_pause_sec: 0.28,
+    })),
+  };
+};
 
 const buildScript = (episode) => ({
   meta: {
     id: episode.id,
     title: episode.title,
+    scene_template: episode.template,
     ...commonMeta,
   },
   characters,
@@ -188,7 +322,7 @@ const buildImagePointScript = (episode) => {
   for (let index = 0; index < episode.sceneTitles.length; index += 1) {
     const scene = makeScene(episode, index, episode.sceneTitles[index]);
     lines.push(`## ${scene.id} ${scene.title_text}`);
-    lines.push(`- scene_template: ${scene.scene_template}`);
+    lines.push(`- scene_template: ${episode.template}`);
     lines.push(`- main_content: ${scene.main.kind === 'image' ? `${scene.main.caption} / ${scene.main.asset}` : scene.main.items?.join(' / ') ?? scene.main.text}`);
     lines.push(`- sub_content: ${scene.sub ? scene.sub.items.join(' / ') : 'sub_contentなし'}`);
     lines.push(`- subtitle_area: ${episode.templateMemo.subtitle_area}`);
@@ -206,7 +340,9 @@ const buildImagePointScript = (episode) => {
 
 const buildScriptMarkdown = (episode) => {
   const lines = [`# ${episode.title}`, '', '## 企画', '- 1投稿1メッセージの動画版として、放置リスクから対処まで短く通す', `- 使用テンプレート: ${episode.template}`, '- 想定尺: 5分程度', '', '## 台本'];
-  episode.sceneTitles.forEach(([title, dialogue], index) => {
+  episode.sceneTitles.forEach((sceneTuple, index) => {
+    const [title] = sceneTuple;
+    const dialogue = getSceneLines(episode, index, sceneTuple);
     const sceneId = `s${String(index + 1).padStart(2, '0')}`;
     lines.push('', `### ${sceneId} ${title}`);
     dialogue.forEach((line, lineIndex) => {
@@ -290,6 +426,12 @@ const buildMeta = (episode) => ({
       source_site: 'OpenAI image generation',
       source_url: 'generated locally by Codex image_gen skill',
       description,
+      imagegen_prompt: makeImagePrompt({
+        caption: description,
+        description,
+        template: episode.template,
+        slot: 'main',
+      }),
       license: 'user-generated AI asset for this project',
       credit_required: false,
     })),
@@ -320,3 +462,11 @@ for (const episode of episodes) {
 }
 
 console.log(JSON.stringify({episodes: episodes.map((episode) => episode.id)}, null, 2));
+
+
+
+
+
+
+
+

@@ -1,10 +1,18 @@
 export const NOTO_SANS_JP = '"Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif';
 export const M_PLUS = '"M PLUS Rounded 1c", "Yu Gothic", "Meiryo", sans-serif';
+export const KEIFONT_PUBLIC_PATH = 'fonts/keifont.ttf';
+
+export const FONT_FAMILIES = {
+  gothic: '"Keifont", "けいふぉんと", "Yu Gothic", "Meiryo", sans-serif',
+  mincho: '"Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif',
+} as const;
 
 export const FONTS = {
-  subtitle: NOTO_SANS_JP,
+  subtitle: FONT_FAMILIES.gothic,
   ui: M_PLUS,
 } as const;
+
+export type FontFamilyKey = keyof typeof FONT_FAMILIES;
 
 export const VIDEO = {
   width: 1920,

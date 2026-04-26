@@ -15,6 +15,7 @@ type Props = {
   textAlign?: 'left' | 'center';
   fontSize?: number;
   fontWeight?: number | string;
+  fontFamily?: string;
 };
 
 export const SubtitleBar: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const SubtitleBar: React.FC<Props> = ({
   textAlign = 'center',
   fontSize = FS.subtitle,
   fontWeight = 500,
+  fontFamily = FONTS.subtitle,
 }) => {
   return (
     <div
@@ -47,7 +49,7 @@ export const SubtitleBar: React.FC<Props> = ({
         alignItems: 'center',
         justifyContent: textAlign === 'center' ? 'center' : 'flex-start',
         padding: '0 40px',
-        fontFamily: FONTS.subtitle,
+        fontFamily,
         fontSize,
         fontWeight,
         color: textColor,

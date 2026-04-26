@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+﻿import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {stringify} from 'yaml';
@@ -569,7 +569,7 @@ const makeImagePointMarkdown = (episode, scenes) => {
     `|---|---|---|---|---|---|---|---|`,
   ];
   scenes.forEach((scene) => {
-    lines.push(`| ${scene.id} | ${scene.scene_template} | ${mdEscape(scene.main.caption)} | ${scene.sub ? mdEscape(scene.sub.items.join(' / ')) : 'sub_contentなし'} | ${episode.templateMemo.subtitle_area} | ${scene.title_text ?? episode.templateMemo.title_area} | ${scene.dialogue[0].id} の開始前から表示 | script/${episode.id}/${scene.main.asset} |`);
+    lines.push(`| ${scene.id} | ${episode.template} | ${mdEscape(scene.main.caption)} | ${scene.sub ? mdEscape(scene.sub.items.join(' / ')) : 'sub_contentなし'} | ${episode.templateMemo.subtitle_area} | ${scene.title_text ?? episode.templateMemo.title_area} | ${scene.dialogue[0].id} の開始前から表示 | script/${episode.id}/${scene.main.asset} |`);
   });
   lines.push('', `## 台本`, '');
   scenes.forEach((scene) => {
@@ -641,7 +641,6 @@ const createEpisode = async (episode) => {
 
     return {
       id: `s${sceneNo}`,
-      scene_template: episode.template,
       role: chapter.role,
       ...(chapter.titleText ? {title_text: chapter.titleText} : {}),
       main: {
@@ -680,7 +679,7 @@ const createEpisode = async (episode) => {
       voice_engine: 'voicevox',
       target_duration_sec: 300,
       image_style: 'ローカル生成のフラット図解カード',
-      allow_duplicate_templates: true,
+      scene_template: episode.template,
     },
     characters: {
       left: {
@@ -738,3 +737,13 @@ for (const episode of episodes) {
 }
 
 console.log(JSON.stringify({created: episodes.map((episode) => episode.id)}, null, 2));
+
+
+
+
+
+
+
+
+
+
