@@ -3,6 +3,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {stringify} from 'yaml';
+import {estimateEpisodeDuration} from './lib/duration-estimator.mjs';
 
 const rootDir = process.cwd();
 const fixtureRoot = path.join(rootDir, '.cache', 'duration-guard-fixtures');
@@ -32,9 +33,56 @@ const run = (args, {expectFailure = false, expectMessage} = {}) => {
   if (result.status !== 0) {
     throw new Error(`Expected pass but failed: node ${args.join(' ')}\n${output}`);
   }
+  if (expectMessage && !output.includes(expectMessage)) {
+    throw new Error(`Expected message "${expectMessage}" but got:\n${output}`);
+  }
 };
 
-const writeFixture = async ({name, targetDurationSec, totalDurationSec}) => {
+const assert = (condition, message) => {
+  if (!condition) {
+    throw new Error(message);
+  }
+};
+
+const estimateFixture = ({targetDurationSec, voiceEngine = 'voicevox', lineCount}) =>
+  estimateEpisodeDuration({
+    meta: {
+      target_duration_sec: targetDurationSec,
+      voice_engine: voiceEngine,
+    },
+    scenes: [
+      {
+        dialogue: Array.from({length: lineCount}, (_, index) => ({
+          id: `l${String(index + 1).padStart(3, '0')}`,
+          text: 'テスト発話',
+        })),
+      },
+    ],
+  });
+
+const makeDialogue = (lineCount) =>
+  Array.from({length: lineCount}, (_, index) => {
+    const base = {
+      id: `l${String(index + 1).padStart(2, '0')}`,
+      speaker: index % 2 === 0 ? 'left' : 'right',
+      text: index % 2 === 0 ? '危険を確認するのだ' : 'テストですわ',
+    };
+    if (index === 0) {
+      return {
+        ...base,
+        wav_sec: 1,
+        start_sec: 0.1,
+        end_sec: 1.1,
+        emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300},
+      };
+    }
+    if (index === 1) {
+      return {...base, wav_sec: 1, start_sec: 1.3, end_sec: 2.3};
+    }
+    return base;
+  });
+
+const writeFixture = async ({name, targetDurationSec, totalDurationSec, dialogueLineCount = 2}) => {
   const dir = path.join(fixtureRoot, name);
   await fs.rm(dir, {recursive: true, force: true});
   await fs.mkdir(path.join(dir, 'assets'), {recursive: true});
@@ -85,10 +133,7 @@ const writeFixture = async ({name, targetDurationSec, totalDurationSec}) => {
           kind: 'bullets',
           items: ['尺チェック', '自然音声優先'],
         },
-        dialogue: [
-          {id: 'l01', speaker: 'left', text: '危険を確認するのだ', wav_sec: 1, start_sec: 0.1, end_sec: 1.1, emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300}},
-          {id: 'l02', speaker: 'right', text: 'テストですわ', wav_sec: 1, start_sec: 1.3, end_sec: 2.3},
-        ],
+        dialogue: makeDialogue(dialogueLineCount),
       },
     ],
   };
@@ -135,15 +180,50 @@ const writeFixture = async ({name, targetDurationSec, totalDurationSec}) => {
 await fs.mkdir(fixtureRoot, {recursive: true});
 
 const target300At280 = await writeFixture({name: 'target-300-at-280', targetDurationSec: 300, totalDurationSec: 280});
+const target300At260 = await writeFixture({name: 'target-300-at-260', targetDurationSec: 300, totalDurationSec: 260});
+const target300At340 = await writeFixture({name: 'target-300-at-340', targetDurationSec: 300, totalDurationSec: 340, dialogueLineCount: 150});
 const target360At340 = await writeFixture({name: 'target-360-at-340', targetDurationSec: 360, totalDurationSec: 340});
 const target360At310 = await writeFixture({name: 'target-360-at-310', targetDurationSec: 360, totalDurationSec: 310});
+const target360At410 = await writeFixture({name: 'target-360-at-410', targetDurationSec: 360, totalDurationSec: 410});
 
+run(['scripts/validate-episode-script.mjs', target300At260], {
+  expectFailure: true,
+  expectMessage: 'allowed_min=270s',
+});
 run(['scripts/validate-episode-script.mjs', target300At280]);
+run(['scripts/validate-episode-script.mjs', target300At340], {
+  expectMessage: 'natural overrun is allowed',
+});
 run(['scripts/validate-episode-script.mjs', target360At340]);
 run(['scripts/validate-episode-script.mjs', target360At310], {
   expectFailure: true,
-  expectMessage: 'allowed=324-396s',
+  expectMessage: 'allowed_min=324s',
 });
+run(['scripts/validate-episode-script.mjs', target360At410], {
+  expectMessage: 'natural overrun is allowed',
+});
+run(['scripts/estimate-episode-duration.mjs', target300At260], {
+  expectFailure: true,
+  expectMessage: '"duration_status": "under"',
+});
+run(['scripts/estimate-episode-duration.mjs', target300At340], {
+  expectMessage: '"duration_status": "over"',
+});
+
+const underEstimate = estimateFixture({targetDurationSec: 300, lineCount: 100});
+assert(underEstimate.ok === false, 'under target estimate must fail');
+assert(underEstimate.duration_status === 'under', 'under target estimate must report duration_status=under');
+assert(underEstimate.recommended_line_delta > 0, 'under target estimate must recommend additional lines');
+
+const withinEstimate = estimateFixture({targetDurationSec: 300, lineCount: 120});
+assert(withinEstimate.ok === true, 'within target estimate must pass');
+assert(withinEstimate.duration_status === 'within', 'within target estimate must report duration_status=within');
+assert(withinEstimate.recommended_line_delta === 0, 'within target estimate must not recommend line changes');
+
+const overEstimate = estimateFixture({targetDurationSec: 300, lineCount: 150});
+assert(overEstimate.ok === true, 'over target estimate must pass');
+assert(overEstimate.duration_status === 'over', 'over target estimate must report duration_status=over');
+assert(overEstimate.recommended_line_delta === 0, 'over target estimate must not recommend line changes');
 
 const buildEpisodeSource = await fs.readFile(path.join(rootDir, 'scripts', 'build-episode.mjs'), 'utf8');
 for (const removedPaddingToken of ['remainingGap', 'scenePadding']) {

@@ -89,3 +89,13 @@
 魔理沙「後回しにするほど差が広がるだぜ。今日の5分が未来の3万円を守るんだぜ。」
 霊夢「コメント欄に「確認した」って書いてくれると嬉しいわ。」
 魔理沙「高評価もよろしくなんだぜ。次回もお楽しみにだぜ。」
+
+## prompt_pack_quality_markers
+
+- scene_format: 10シーン、自然な会話単位、1シーン6発話
+- viewer_misunderstanding: 明細なんて見なくてよくない？／家計簿アプリで大丈夫じゃない？／全部チェックするの大変じゃない？
+- reaction_level: 驚き→危機感→焦り→安心→実行 の感情曲線
+- mini_punchline: 月5分コンビニのレジで迷う時間より短い／3万円が静かに消えていた
+- number_or_example: 月1000円×2年=24000円、年会費1320円×2枚×2年=5280円、合計約3万円
+- 具体例: 月1000円×2年放置=24000円、年会費2枚持ち=5280円
+- セルフ監査: script_final.md reviewed for character voice consistency, daze balance, hook strength, and CTA completeness

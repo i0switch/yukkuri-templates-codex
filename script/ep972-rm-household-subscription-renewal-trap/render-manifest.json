@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T08:05:44.923Z",
+  "input_hash": "6ca41266e9ddd4d2dde707c965fb7a13a47bc981c1ad1a5c6bfa48fd8e56a983",
+  "inputs": {
+    "script_final": "405c1274196831bb8f444e2ce426da2d5a0dd0871206e2726b164a02de3e6f30",
+    "script_yaml": "2f463c48e4359a2452b2db48527996db91ab00024efe756dd2bd838e0fa3b26c",
+    "image_prompts": "033d5c72c4820dee074d8cfa8ad5456666f7ade10c5756dc5a947c6825f6b8e0",
+    "image_files": "9b8ee9f5cea3eed9636b1d7d929ea07e8500eb8472ad4b6e8f5754ca863ef64a",
+    "bgm_files": "d50bea64fa4f5ef5f55517236bae22a10ea6bf15abb583b4b5e492a195e1af10",
+    "render_json": "ab6ddf90e0892aa95236a9b8d6352bcbc47fce8e0e1cad56e43e10548c8ca334"
+  },
+  "output": "out/videos/ep972-rm-household-subscription-renewal-trap.mp4",
+  "composition_id": "Video-ep972-rm-household-subscription-renewal-trap"
+}

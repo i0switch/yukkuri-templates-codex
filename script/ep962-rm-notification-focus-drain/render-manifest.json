@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T08:04:13.777Z",
+  "input_hash": "22ff1ab086a6ea1a7ec29079210daccd6f3a8fa3e26195a943437f2a52611ae6",
+  "inputs": {
+    "script_final": "bc0380153613de34ea3a272b143d74ee111bc000416fb983b346b0857c5f6fe2",
+    "script_yaml": "811375c5ab0afe1da896fc06efc4cfcf1557747d5a3fd6dfa00e51c640d9ef1a",
+    "image_prompts": "324d021f2a582866cd910b507b2920cbc4796faf970f9a9569234be2153a2d48",
+    "image_files": "51e040112c0c4c44d26441d3f48732dea4d80434167de29e5166b17fad64cba8",
+    "bgm_files": "f8ab6922d36fba90a53a5c94167ee194e1728f82102891f02cc65ba50ec6e750",
+    "render_json": "ad26598a09ff6fe331468514fa57a2d3f02118a58de881f8ff7b703360e1168d"
+  },
+  "output": "out/videos/ep962-rm-notification-focus-drain.mp4",
+  "composition_id": "Video-ep962-rm-notification-focus-drain"
+}

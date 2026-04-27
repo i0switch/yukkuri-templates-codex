@@ -1,0 +1,94 @@
+{
+  "images": [
+    {
+      "file": "assets/s01_main.png",
+      "scene_id": "s01",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda1-0902-71b1-8989-edac61244167/ig_0cb629a9e4553c560169ef025c5d3c81918389bd28eacfe4f8.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "80b885149e55fa91bc792a6a193cbfdcaeb5bb3f29b96cb08636f18e43669dca"
+    },
+    {
+      "file": "assets/s02_main.png",
+      "scene_id": "s02",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda2-15f1-7f10-978b-c5cd35dfddc1/ig_06143b095367f1190169ef029e4bd081919151afeeb8faf4c0.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "dc550d2dfbd98295aa416df61777d617ae1eba6360594f1684040206e1de8dfe"
+    },
+    {
+      "file": "assets/s03_main.png",
+      "scene_id": "s03",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda6-32a8-7351-b219-daa50c8015d0/ig_03015d8a6b0de4150169ef03b0f7c0819188ba378443066141.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "44d9aad712ad50d540776ac9a6d6e1fa65006fdf95f18ba5a88b7e9ef4a6acc4"
+    },
+    {
+      "file": "assets/s04_main.png",
+      "scene_id": "s04",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda7-2a0c-7792-a753-581604b5cfcb/ig_0751eaabeb8292e90169ef03eeee8c81919e19d04ca4eaa448.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "1f4943f066982a99cecdc534e89b8ed36b5ec0351e503eac12b499784dee0275"
+    },
+    {
+      "file": "assets/s05_main.png",
+      "scene_id": "s05",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda8-788c-71f0-80ae-3d8a633704d8/ig_023183435dc783020169ef04455a64819188c83b2f3c9f473e.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "e551f533abe5c742f79eff5b432bde7d229a636eba71f56247a6348c6e749501"
+    },
+    {
+      "file": "assets/s06_main.png",
+      "scene_id": "s06",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcda9-b73b-7043-bd08-aef057cc2bde/ig_0bbdf0761ab7d08a0169ef049356888191b6f820658fd1e0d7.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "0b489d3ec9e67310d78eb4a4a45bdbed13a2eb4f120be6dd2e4c9cc34ded1d22"
+    },
+    {
+      "file": "assets/s07_main.png",
+      "scene_id": "s07",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcdad-9128-7ab3-8038-5ad0fd81f3e3/ig_0ac68d2e09537d4a0169ef058ef0348191b3644049b36c9cf5.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "28573998bfd247b285da22100b6b655b0b9073886de0df55efdd7500629e93cb"
+    },
+    {
+      "file": "assets/s08_main.png",
+      "scene_id": "s08",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcdaf-7791-7eb1-b67d-53c5a4f72602/ig_09ac61afcd930edc0169ef06112e3c8191a5bea2d0c9553d25.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "19d65aaae039c9b2081bd43608581da9f5e6aefa08cd92acbb45d0c19f89c796"
+    },
+    {
+      "file": "assets/s09_main.png",
+      "scene_id": "s09",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcdb0-9f85-73f0-a213-43f37cac5bb2/ig_06d90b811f2865a30169ef0655fec08191b81769c397dc257a.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "b1a2075277a045d943df9e6c6c3e06540152b03906270a40e68ec0118f297b0f"
+    },
+    {
+      "file": "assets/s10_main.png",
+      "scene_id": "s10",
+      "slot": "main",
+      "source_url": "codex://generated_images/019dcdb1-d92f-76a3-902d-4df6b04f0a5f/ig_0891b15c55e4042b0169ef06a9d8e08191b0c8ca83f1b07094.png",
+      "generation_tool": "codex-imagegen",
+      "imagegen_model": "codex-imagegen/gpt-image-1",
+      "prompt_sha256": "1e50d79828f23402169c2adb91b661ec834fbeebacc91d2406944563d8fe50ee"
+    }
+  ]
+}

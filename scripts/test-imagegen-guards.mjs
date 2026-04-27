@@ -3,7 +3,7 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {stringify} from 'yaml';
-import {CANONICAL_FIXED_IMAGEGEN_PROMPT} from './lib/imagegen-prompt-contract.mjs';
+import {formatCanonicalImagegenPrompt} from './lib/imagegen-prompt-contract.mjs';
 
 const rootDir = process.cwd();
 const fixtureRoot = path.join(rootDir, '.cache', 'imagegen-guard-fixtures');
@@ -49,13 +49,13 @@ const run = (args, {expectFailure = false, expectReportIssues = false} = {}) => 
   }
 };
 
-const promptFor = ({sceneId, lineText}) => `${sceneId}: テストシーン
-
-${lineText}
-
-${CANONICAL_FIXED_IMAGEGEN_PROMPT}
-
-画像の雰囲気は青緑と白を基調にした明るい解説動画向けの雰囲気で生成してください。`;
+const promptFor = ({sceneId, lineText}) =>
+  formatCanonicalImagegenPrompt({
+    sceneId,
+    sceneTitle: 'テストシーン',
+    dialogueText: lineText,
+    mood: '青緑と白を基調にした明るい解説動画向けの雰囲気',
+  });
 
 const sceneFor = (index, prompt, {usePromptRef = false} = {}) => {
   const sceneId = `s${String(index).padStart(2, '0')}`;

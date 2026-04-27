@@ -1,6 +1,8 @@
 import {loadEpisodeRenderData} from '../lib/load-script';
-import ep953ZmPasswordReuseAccountTakeover from '../../script/ep953-zm-password-reuse-account-takeover/script.render.json';
+import ep962RmCreditcardSilentChargeTrap from '../../script/ep962-rm-creditcard-silent-charge-trap/script.render.json';
+import ep963ZmSmartphoneNotificationBatterySave from '../../script/ep963-zm-smartphone-notification-battery-save/script.render.json';
 
 export const episodeCompositions = [
-  loadEpisodeRenderData(ep953ZmPasswordReuseAccountTakeover),
+  loadEpisodeRenderData(ep962RmCreditcardSilentChargeTrap),
+  loadEpisodeRenderData(ep963ZmSmartphoneNotificationBatterySave),
 ];

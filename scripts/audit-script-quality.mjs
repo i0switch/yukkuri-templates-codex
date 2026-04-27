@@ -318,14 +318,20 @@ const audit = async () => {
         legacy_guideline: '90-130',
       });
     }
-    if (!durationEstimate.ok) {
-      pushIssue(errors, 'error', 'estimated-natural-speech-duration', 'TTSエンジン別の推定自然音声尺がtarget_duration_secの許容範囲外です', durationEstimate);
+    if (durationEstimate.duration_status === 'under') {
+      pushIssue(errors, 'error', 'estimated-natural-speech-duration-under', 'TTSエンジン別の推定自然音声尺がtarget_duration_secの下限未満です。台本補完で発話量を増やしてください', durationEstimate);
+    } else if (durationEstimate.duration_status === 'over') {
+      pushIssue(warnings, 'warning', 'estimated-natural-speech-duration-over', 'TTSエンジン別の推定自然音声尺がtarget_duration_secの上限を超えていますが、自然尺超過として続行できます', durationEstimate);
     }
   }
 
-  if (targetSec >= 150 && averageLines < 8) {
-    pushIssue(errors, 'error', 'low-dialogue-density', '1シーン平均8セリフ以上が必要です', {
+  const voiceEngine = String(script.meta?.voice_engine ?? 'voicevox').toLowerCase();
+  const minLinesPerScene = voiceEngine === 'aquestalk' ? 6 : 8;
+  if (targetSec >= 150 && averageLines < minLinesPerScene) {
+    pushIssue(errors, 'error', 'low-dialogue-density', `1シーン平均${minLinesPerScene}セリフ以上が必要です（${voiceEngine}）`, {
       average_lines_per_scene: Number(averageLines.toFixed(2)),
+      min_lines_per_scene: minLinesPerScene,
+      voice_engine: voiceEngine,
     });
   }
 

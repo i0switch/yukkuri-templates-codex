@@ -1,5 +1,5 @@
 import React from 'react';
-import {measureLineBreaks, type LineBreakMode} from './subtitleLineBreaks';
+import {measureLineBreaks} from './subtitleLineBreaks';
 import {resolveTextStrokeStyle} from './textStrokeStyle';
 
 type Props = {
@@ -19,7 +19,6 @@ type Props = {
   textShadow?: string;
   textStrokeColor?: string;
   textStrokeWidth?: number;
-  lineBreakMode?: LineBreakMode;
   maxLines?: number;
   highlightWords?: string[];
   highlightVariant?: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
@@ -62,7 +61,6 @@ const resolveFontSize = ({
   maxFontSize,
   lineHeight,
   letterSpacing,
-  lineBreakMode,
   maxLines,
 }: {
   text: string;
@@ -72,7 +70,6 @@ const resolveFontSize = ({
   maxFontSize: number;
   lineHeight: number;
   letterSpacing: number;
-  lineBreakMode: LineBreakMode;
   maxLines?: number;
 }): FitResult => {
   const lowerBound = Math.max(6, Math.min(minFontSize, maxFontSize));
@@ -90,7 +87,6 @@ const resolveFontSize = ({
       fontSize: mid,
       lineHeight,
       letterSpacing,
-      mode: lineBreakMode,
       maxLines,
     });
 
@@ -111,7 +107,6 @@ const resolveFontSize = ({
       fontSize: bestFontSize,
       lineHeight,
       letterSpacing,
-      mode: lineBreakMode,
       maxLines,
     });
     if (measured.height > height && measured.lineCount > 0) {
@@ -124,7 +119,6 @@ const resolveFontSize = ({
         fontSize: bestFontSize,
         lineHeight,
         letterSpacing,
-        mode: lineBreakMode,
         maxLines,
       }).text;
     }
@@ -136,7 +130,6 @@ const resolveFontSize = ({
     fontSize: bestFontSize,
     lineHeight,
     letterSpacing,
-    mode: lineBreakMode,
     maxLines,
   });
 
@@ -164,7 +157,6 @@ export const AutoFitText: React.FC<Props> = ({
   textShadow,
   textStrokeColor,
   textStrokeWidth = 0,
-  lineBreakMode = 'normal',
   maxLines,
   highlightWords = [],
   highlightVariant = 'punch',
@@ -179,7 +171,6 @@ export const AutoFitText: React.FC<Props> = ({
     maxFontSize,
     lineHeight,
     letterSpacing,
-    lineBreakMode,
     maxLines,
   });
   const strokeStyle = resolveTextStrokeStyle({
@@ -247,7 +238,7 @@ export const AutoFitText: React.FC<Props> = ({
           color,
           textAlign,
           whiteSpace,
-          wordBreak: lineBreakMode === 'budoux' ? 'normal' : wordBreak,
+          wordBreak,
           letterSpacing,
           ...strokeStyle,
           textShadow: resolvedTextShadow,

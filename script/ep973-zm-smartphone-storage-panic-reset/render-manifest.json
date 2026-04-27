@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T08:16:24.903Z",
+  "input_hash": "ec5b2e8a888c8944dc312ac1ba36c04c54c25e231623b63d2c36ad341f36f035",
+  "inputs": {
+    "script_final": "e7e8d3ae9ba72ab630f05db05e96447dcf89489097c9fc2bd8ff96ef18f03b32",
+    "script_yaml": "201f6e05d29e6492e19c7f39218da8487658fe0bc89bbb1c063454aba99c2249",
+    "image_prompts": "e613232d0bfbc730366706853ad6348cd7c72ac4d7cf17e0c524513fee897429",
+    "image_files": "85c9b72e71d15f002569a73ffe4d99edd2587305b6f0317e6c440969f68f757e",
+    "bgm_files": "414c60501fcf92212b3002112ad1df2525ad00801b513151acd2ae6254d0434a",
+    "render_json": "8ca363a3b59ccc16128cdf167d497cd11b932e344506bda14c11b17c5acd5974"
+  },
+  "output": "out/videos/ep973-zm-smartphone-storage-panic-reset.mp4",
+  "composition_id": "Video-ep973-zm-smartphone-storage-panic-reset"
+}

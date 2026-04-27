@@ -5,80 +5,80 @@
       "scene_id": "s01",
       "slot": "main",
       "file": "assets/s01_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s01_main.png",
-      "original_file": "pending/s01_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eefda2360c8191999edb0b9858af39.png",
+      "original_file": "ig_08b114844bc57aa70169eefda2360c8191999edb0b9858af39.png",
       "prompt_sha256": "4ad17d034d9aac9d77e2a694d0d71517e42d39ee3a6d9b96104736c18e3ed0ef"
     },
     {
       "scene_id": "s02",
       "slot": "main",
       "file": "assets/s02_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s02_main.png",
-      "original_file": "pending/s02_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eefe43252c8191b9ef3c9b8a8adbdf.png",
+      "original_file": "ig_08b114844bc57aa70169eefe43252c8191b9ef3c9b8a8adbdf.png",
       "prompt_sha256": "87bd5a446713603cf5bb4ffb066993345961632b284f9a45d29d9ffa3c75762f"
     },
     {
       "scene_id": "s03",
       "slot": "main",
       "file": "assets/s03_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s03_main.png",
-      "original_file": "pending/s03_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eefe78ac608191bd87e00fd025c668.png",
+      "original_file": "ig_08b114844bc57aa70169eefe78ac608191bd87e00fd025c668.png",
       "prompt_sha256": "d82f53486c039a972fc458af1635dcfa3419c83004664f1efcda9a275d283e5c"
     },
     {
       "scene_id": "s04",
       "slot": "main",
       "file": "assets/s04_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s04_main.png",
-      "original_file": "pending/s04_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eefebe59fc8191b61861e2ae833cd3.png",
+      "original_file": "ig_08b114844bc57aa70169eefebe59fc8191b61861e2ae833cd3.png",
       "prompt_sha256": "54e814ba58f95ab3be3a317820a2690c02cb06ed56ff6c1b1be79518f87c534b"
     },
     {
       "scene_id": "s05",
       "slot": "main",
       "file": "assets/s05_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s05_main.png",
-      "original_file": "pending/s05_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eeff3936608191bdb8dd6bba78141f.png",
+      "original_file": "ig_08b114844bc57aa70169eeff3936608191bdb8dd6bba78141f.png",
       "prompt_sha256": "da3fd0eb9cfaadaff94abea7455c1bd32e98ea3b67097d1d96276dc9733d683e"
     },
     {
       "scene_id": "s06",
       "slot": "main",
       "file": "assets/s06_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s06_main.png",
-      "original_file": "pending/s06_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169eeff835c348191a17003a8ef048d67.png",
+      "original_file": "ig_08b114844bc57aa70169eeff835c348191a17003a8ef048d67.png",
       "prompt_sha256": "eee439a3684012cb5e1f504b095d54e74d248daa08c19452fe14176913fefee1"
     },
     {
       "scene_id": "s07",
       "slot": "main",
       "file": "assets/s07_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s07_main.png",
-      "original_file": "pending/s07_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169ef001c04f08191a4e51a0957752753.png",
+      "original_file": "ig_08b114844bc57aa70169ef001c04f08191a4e51a0957752753.png",
       "prompt_sha256": "ab5dc1d7cfa9e95321da7e581a928f904fa62d539283754cc5e5ee57ede61953"
     },
     {
       "scene_id": "s08",
       "slot": "main",
       "file": "assets/s08_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s08_main.png",
-      "original_file": "pending/s08_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169ef005a620c8191a011f201a92a4b5a.png",
+      "original_file": "ig_08b114844bc57aa70169ef005a620c8191a011f201a92a4b5a.png",
       "prompt_sha256": "044dc6ba8bcdd4e60b8c33041bafbfbcb28c916251ebbc2a2ec6c26980269376"
     },
     {
       "scene_id": "s09",
       "slot": "main",
       "file": "assets/s09_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s09_main.png",
-      "original_file": "pending/s09_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169ef009d003881919803bbf3a16b577b.png",
+      "original_file": "ig_08b114844bc57aa70169ef009d003881919803bbf3a16b577b.png",
       "prompt_sha256": "de47e91f5e16e6a9dd18eb73ada17f6248f3e745b216e10afdd6d21faf124d1e"
     },
     {
       "scene_id": "s10",
       "slot": "main",
       "file": "assets/s10_main.png",
-      "source_url": "codex://generated_images/pending/ep971-zm-qr-code-phishing-trap/s10_main.png",
-      "original_file": "pending/s10_main.png",
+      "source_url": "codex://generated_images/019dcd71-2c7b-7003-92b9-9e46cad00071/ig_08b114844bc57aa70169ef00e93b988191beb0331f897e1be6.png",
+      "original_file": "ig_08b114844bc57aa70169ef00e93b988191beb0331f897e1be6.png",
       "prompt_sha256": "027b1bbdb697e9ca0148e9680bfab651e78242ba169cfcc0a0b817f4582fad78"
     }
   ]

@@ -410,7 +410,6 @@ const renderBarSubtitle = (
         fontFamily={fontFamily}
         textStrokeColor={stroke.color}
         textStrokeWidth={stroke.width}
-        lineBreakMode="budoux"
         maxLines={3}
         highlightWords={emphasis?.words}
         highlightVariant={emphasis?.style}
@@ -443,7 +442,6 @@ const renderOverlaySubtitle = (
       textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
       textStrokeColor={stroke.color}
       textStrokeWidth={stroke.width}
-      lineBreakMode="budoux"
       maxLines={3}
       highlightWords={emphasis?.words}
       highlightVariant={emphasis?.style}
@@ -556,7 +554,6 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
     </AbsoluteFill>
   );
 };
-
 
 
 

@@ -113,3 +113,13 @@
 めたん「この動画を見て設定を変えた方は、ぜひコメント欄に変化を教えてくださいますか。」
 ずんだもん「ぼくも今日やってみるのだ。役に立ったら高評価もよろしくなのだ。」
 めたん「次回もお役に立てる情報をお届けしますわ。今日もありがとうございました。」
+
+## prompt_pack_quality_markers
+
+- scene_format: 10シーン、自然な会話単位、1シーン6〜8発話
+- viewer_misunderstanding: 通知が多くても電池はそんなに減らないのだ／全部の通知を切ればいいのだ／ちょっと見るだけだし平気なのだ
+- reaction_level: 驚き→危機感→納得→行動意欲 の感情曲線
+- mini_punchline: ぼくより睡眠不足なのだ可哀想／充電ケーブルから自由になれるかもしれない
+- number_or_example: 通知1日100回=100回スマホ起動、25アプリ通知オフで電池18%改善、集中力回復に23分
+- 具体例: 25アプリ通知オフ=電池18%改善、朝からお昼で60%→78%残存、夕方まで充電なし
+- セルフ監査: script_final.md reviewed for character voice consistency (なのだ/のだ vs ですわ/わ/のです), hook strength, CTA completeness, and L3 reaction presence

@@ -68,6 +68,44 @@ _reference/script_prompt_pack/09_image_prompt_audit.md（任意）
 
 旧 `prompts/01-10` と `_reference/script_prompt_pack/legacy/` は退避資料。新規生成・監査では使わない。
 
+## Script Generation Search Exclusion Rule
+
+台本生成、構成作成、YAML化、画像プロンプト作成の初動で、巨大ディレクトリを再帰探索してはいけない。
+必要な入口は `docs/pipeline_contract.md` と `_reference/script_prompt_pack/` の正準ファイルであり、過去生成物や複製repoを先に読みに行かない。
+
+`.claude/` は丸ごと除外しない。skill / command / helper が必要な場合だけ、次を読む。
+
+- `.claude/skills/**/SKILL.md`
+- `.claude/skills/**` の `SKILL.md` から明示参照されたファイル
+- `.claude/commands/**`
+- `.claude/*.mjs` など、ユーザーまたは手順が明示した軽量ヘルパー
+
+ただし、次は台本生成の通常参照元ではない。初動探索で読んではいけない。
+
+- `.claude/worktrees/**`
+- `.claude/**/node_modules/**`
+- `.claude/**/.cache/**`
+- `.claude/**/.remotion-public/**`
+- `.claude/**/out/**`
+- `.claude/**/public/episodes/**`
+- `.claude/**/script/**/audio/**`
+- `.claude/**/script/**/bgm/**`
+- `.claude/**/script/**/assets/**`
+- `.claude/**/notebookLM/workspace/**`
+- `.claude/**/.tmp/**`
+- `node_modules/**`
+- `.cache/**`
+- `.remotion-public/**`
+- `out/**`
+- `public/episodes/**`
+- `script/**/audio/**`
+- `script/**/bgm/**`
+- `script/**/assets/**`
+
+`.claude/worktrees/` は過去作業・並列作業の複製repoとして扱う。
+ユーザーが明示しない限り、台本生成の参考資料として使わない。
+過去 episode を参考にする場合も、ユーザー指定の episode、または明示的に選んだ最大2本の軽量テキスト成果物だけを見る。
+
 ## Critical Script Quality Rule
 
 台本生成時は、最初から表示都合の短文にしない。
@@ -169,7 +207,8 @@ meta:
 - 5分動画は発話数だけで判定しない。`npm run estimate:episode-duration -- <episode_id>` のTTSエンジン別推定秒数を先に見る
 - 初期係数は RM/AquesTalk `5.2秒/発話`、ZM/VOICEVOX `3.8秒/発話`
 - 尺が短すぎる場合は台本量を増やす
-- 尺が長すぎる場合は台本量を減らす
+- 尺が長すぎる場合は自然尺を優先してそのまま使う
+- 尺不足時は `07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む
 - `script.yaml` / `meta.json` に `audio_playback_rate` を書いてはいけない
 
 この違反は `scripts/lib/episode-validator.mjs` でFAILにする。

@@ -52,6 +52,7 @@
 
 作風はLLMが `script_final.md` 全体を読んで判断する。`visual_type`、`supports_dialogue`、`supports_moment`、`hook_type`、`myth_vs_fact`、`boke_or_reaction` は v2 では使用しない。`imagegen_prompt` 本文にも混ぜない。
 `visual_asset_plan[].image_role` と `visual_asset_plan[].composition_type` は vNext の公開契約として使う。プロンプト本文には英語キーではなく、日本語の「画像の役割」「構図タイプ」として自然文で入れる。
+対象シーンタイトルは画像内の大きく目立つ見出しとして必ず入れる。ただし `s01` などの scene id と会話全文は画像内に入れない。
 
 ## Render Schema
 

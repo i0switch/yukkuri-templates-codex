@@ -751,7 +751,7 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
   }
 };
 
-const validateTiming = ({script, errors}) => {
+const validateTiming = ({script, errors, warnings}) => {
   let sceneDurationSum = 0;
   let hasAllSceneDurations = true;
 
@@ -824,13 +824,27 @@ const validateTiming = ({script, errors}) => {
     durationWindow &&
     typeof script.total_duration_sec === 'number' &&
     Number.isFinite(script.total_duration_sec) &&
-    (script.total_duration_sec < durationWindow.min || script.total_duration_sec > durationWindow.max)
+    script.total_duration_sec < durationWindow.min
   ) {
     pushIssue(
       errors,
       'error',
       'total_duration_sec',
-      `total_duration_sec must stay within natural speech duration window for target_duration_sec without changing speech speed: target=${round1(targetSec)}s, allowed=${round1(durationWindow.min)}-${round1(durationWindow.max)}s, actual=${round1(script.total_duration_sec)}s`,
+      `total_duration_sec must not be below the natural speech duration minimum for target_duration_sec without changing speech speed: target=${round1(targetSec)}s, allowed_min=${round1(durationWindow.min)}s, actual=${round1(script.total_duration_sec)}s`,
+    );
+  }
+
+  if (
+    durationWindow &&
+    typeof script.total_duration_sec === 'number' &&
+    Number.isFinite(script.total_duration_sec) &&
+    script.total_duration_sec > durationWindow.max
+  ) {
+    pushIssue(
+      warnings,
+      'warning',
+      'total_duration_sec',
+      `total_duration_sec exceeds the target_duration_sec natural speech window, but natural overrun is allowed: target=${round1(targetSec)}s, allowed_max=${round1(durationWindow.max)}s, actual=${round1(script.total_duration_sec)}s`,
     );
   }
 };
@@ -1105,7 +1119,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
 
   await assertKeifontIfNeeded({rootDir, usedExplicitGothic, errors});
   validateMotionAndEmphasisCoverage({script, errors});
-  validateTiming({script, errors});
+  validateTiming({script, errors, warnings});
 
   return {ok: errors.length === 0, errors, warnings};
 };

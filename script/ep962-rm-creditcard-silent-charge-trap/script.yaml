@@ -40,7 +40,12 @@ scenes:
     main:
       kind: image
       asset: assets/s01_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 見覚えのない請求が紛れる
+        - 放置すると損が続く
+        - 月1回確認が防御になる
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -63,25 +68,25 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "ねえ魔理沙、クレカって払い終わったら明細なんて見なくてよくない？"
+        text: "魔理沙、知らない間に毎月お金が消えてたらどうする？クレカ明細って実は怖いよ。"
         expression: confused
         emphasis:
           words:
-            - 明細
+            - 消えてたら
           style: danger
           se: warning
           pause_after_ms: 300
       - id: l02
         speaker: right
-        text: "それ、相当危険な考え方だぜ。"
+        text: "毎月なんとなく明細を放置してる人、実はかなりいるんだぜ。"
         expression: shock
       - id: l03
         speaker: left
-        text: "え、なんで。引き落としされたら終わりでしょ。"
-        expression: confused
+        text: "この動画を見れば確認すべき3つのポイントがわかるのね。"
+        expression: smile
       - id: l04
         speaker: right
-        text: "引き落とされた中に、身に覚えのない請求が混じってたらどうするんだぜ。"
+        text: "引き落とされた中に、身に覚えのない請求が混じってたらどうするんだ。"
         expression: confident
       - id: l05
         speaker: left
@@ -89,7 +94,7 @@ scenes:
         expression: surprise
       - id: l06
         speaker: right
-        text: "そのままずっと払い続けるだぜ。半年気づかなかった人、実際にかなりいるんだぜ。"
+        text: "半年気づかなかった人が実際にかなりいる。静かに損し続けているんだぜ。"
         expression: smug
 
   - id: s02
@@ -101,7 +106,12 @@ scenes:
     main:
       kind: image
       asset: assets/s02_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 少額は検知されにくい
+        - 1年で6,000円超も
+        - 小額ほど狙われやすい
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -124,28 +134,32 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "でも不正利用ってカード会社から連絡が来るんじゃないの？"
+        text: "どうせ不正利用ってカード会社から連絡来るんじゃないの？"
         expression: confused
       - id: l02
         speaker: right
-        text: "少額だと検知されないことがあるんだぜ。500円とか980円は特に見逃されやすいだぜ。"
+        text: "少額は検知されないことがある。"
         expression: confident
       - id: l03
         speaker: left
-        text: "え、そんな小さい額でも不正利用されるの？"
+        text: "え、そんな小額でも不正利用されてるのね。ヤバい。"
         expression: surprise
       - id: l04
         speaker: right
-        text: "むしろ小額のほうが狙われやすいだぜ。気づかれにくいからな。"
+        text: "むしろ小額のほうが狙われやすい。気づかれにくいからな。"
         expression: smug
       - id: l05
         speaker: left
-        text: "それが毎月続いたら……"
+        text: "それが毎月続いたら……ヤバいじゃない。"
         expression: shock
       - id: l06
         speaker: right
-        text: "1年で**6000円**、5年で3万円が静かに消えていくだぜ。"
+        text: "1年で**6000円**、5年で3万円が静かに消えていくんだぜ。"
         expression: confident
+      - id: l07
+        speaker: left
+        text: "その数字、急に現実になってきたわ。"
+        expression: shock
 
   - id: s03
     role: body
@@ -156,7 +170,12 @@ scenes:
     main:
       kind: image
       asset: assets/s03_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 初年度無料→2年目から有料
+        - 年会費は毎年同じ月に来る
+        - 明細で年1回確認する
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -179,27 +198,27 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "そういえば私のクレカ、最初は年会費無料って書いてあったんだけど。"
+        text: "そういえば私のクレカ、無料って書いてあったのにいつの間に引かれてるの？"
         expression: confused
       - id: l02
         speaker: right
-        text: "2年目以降から有料になるパターン、よくあるだぜ。"
+        text: "初年度だけ無料のやつだな。"
         expression: confident
       - id: l03
         speaker: left
-        text: "え、ちゃんと確認したのに。"
+        text: "え、ちゃんと確認したのに……待って。"
         expression: confused
       - id: l04
         speaker: right
-        text: "「初年度無料」って書いてあったはずだぜ。2年目以降はちゃっかり引かれてるだぜ。"
+        text: "「初年度無料」は2年目から課金が始まる。うっかりしてると毎年引かれ続けるんだ。"
         expression: smug
       - id: l05
         speaker: left
-        text: "いつの間に有料になったのよ……。"
+        text: "全然気づかなかったわ……。"
         expression: shock
       - id: l06
         speaker: right
-        text: "年会費は毎年同じ月に来るから、明細で1年1回確認するだけで気づけるだぜ。"
+        text: "年会費は毎年同じ月に来る。明細で年1回確認するだけで気づけるんだぜ。"
         expression: confident
 
   - id: s04
@@ -211,7 +230,12 @@ scenes:
     main:
       kind: image
       asset: assets/s04_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 解約しないと毎年引かれる
+        - 使用状況は無関係
+        - 不要サービスから解約する
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -234,19 +258,19 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "去年入ったサービス、まだ引かれてたりするかな。"
+        text: "どうせ使ってないサービスは自動で止まるでしょ。"
         expression: confused
       - id: l02
         speaker: right
-        text: "解約しないと毎年自動で更新されるサービス、多いだぜ。"
+        text: "止まらないんだぜ。"
         expression: confident
       - id: l03
         speaker: left
-        text: "え、使ってないやつも？"
+        text: "え、使ってないやつも毎年引かれてるの？"
         expression: surprise
       - id: l04
         speaker: right
-        text: "使ってるかどうかは関係ないだぜ。解約手続きをしない限り、引かれ続けるんだぜ。"
+        text: "解約手続きをしない限り引かれ続ける。使用状況は関係ないんだ。"
         expression: confident
       - id: l05
         speaker: left
@@ -254,8 +278,12 @@ scenes:
         expression: shock
       - id: l06
         speaker: right
-        text: "それを明細で確認して、使ってないものから解約するだぜ。それだけで数千円変わることもあるだぜ。"
+        text: "それを明細で確認して、使ってないものから解約するんだぜ。数千円変わることもある。"
         expression: smug
+      - id: l07
+        speaker: left
+        text: "今夜すぐ確認してみるわ。"
+        expression: smile
 
   - id: s05
     role: body
@@ -266,7 +294,12 @@ scenes:
     main:
       kind: image
       asset: assets/s05_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 金額大きい順に並べる
+        - 見覚えのないものだけ確認
+        - 月1回5分で十分
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -289,19 +322,19 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "明細って、具体的にどこを見ればいいの？"
-        expression: confused
+        text: "明細なんて全部チェックするの？面倒じゃない。"
+        expression: wry
       - id: l02
         speaker: right
-        text: "まず金額の大きい順に並べ替えて、見覚えのないものを探すだぜ。"
+        text: "全部じゃないんだぜ。"
         expression: confident
       - id: l03
         speaker: left
-        text: "全部チェックするの？それ大変じゃない。"
-        expression: wry
+        text: "え、どこを見ればいいの？"
+        expression: confused
       - id: l04
         speaker: right
-        text: "月に1回、**5分**で終わるだぜ。見慣れた出費と違うものだけ気にすれば十分だぜ。"
+        text: "金額の大きい順に並べ替えて、見覚えのないものだけ確認する。月1回**5分**だ。"
         expression: smug
       - id: l05
         speaker: left
@@ -309,7 +342,7 @@ scenes:
         expression: smile
       - id: l06
         speaker: right
-        text: "そうだぜ。定期引き落としを月ごとに比較すると、変化がすぐわかるだぜ。"
+        text: "定期引き落としを月ごとに比較すると、変化がすぐわかるんだぜ。"
         expression: confident
 
   - id: s06
@@ -321,7 +354,12 @@ scenes:
     main:
       kind: image
       asset: assets/s06_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 月1,000円×2年=24,000円
+        - 年会費2枚で5,280円追加
+        - 合計3万円近くに
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -344,7 +382,7 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "ちょっと怖くなってきたんだけど、私どのくらい損してるかな。"
+        text: "怖くなってきたんだけど、私どのくらい損してるかな。"
         expression: confused
         emphasis:
           words:
@@ -354,24 +392,28 @@ scenes:
           pause_after_ms: 200
       - id: l02
         speaker: right
-        text: "たとえば不要なサービスが月1000円で2年放置してたら、**24000円**だぜ。"
+        text: "試算してみるぞ。"
         expression: confident
       - id: l03
         speaker: left
-        text: "2万4千円……旅行行けたじゃない。"
-        expression: shock
+        text: "え、どんな計算になるの？"
+        expression: confused
       - id: l04
         speaker: right
-        text: "さらに年会費1320円のカードを2枚持ちしてたら、2年で5280円が追加されるだぜ。"
+        text: "月1000円の不要サービスを2年放置で**24000円**。年会費2枚持ちが加わると3万円近くになるんだぜ。"
         expression: confident
       - id: l05
         speaker: left
-        text: "合計で3万円近く消えてたかもしれないってこと？"
+        text: "3万円……ヤバい、旅行行けたじゃない。"
         expression: shock
       - id: l06
         speaker: right
-        text: "明細を見ていなかった代償だぜ。でも今気づけば止められるんだぜ。"
+        text: "明細を見ていなかった代償だ。今気づけば止められるんだぜ。"
         expression: smug
+      - id: l07
+        speaker: left
+        text: "今気づいてよかったわ。"
+        expression: smile
 
   - id: s07
     role: body
@@ -382,7 +424,12 @@ scenes:
     main:
       kind: image
       asset: assets/s07_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 利用通知をオンにする
+        - 使うたびにスマホに通知
+        - 不正はすぐ気づける
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -405,27 +452,27 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "毎月手動で明細を開くの、続けられる自信がないんだけど。"
+        text: "面倒だから毎月手動で明細を開く自信がないんだけど。"
         expression: wry
       - id: l02
         speaker: right
-        text: "カード会社のアプリに「利用通知」設定があるだぜ。カードを使うたびにスマホに通知が来るだぜ。"
+        text: "通知設定で自動化できるんだぜ。"
         expression: confident
       - id: l03
         speaker: left
-        text: "あ、それなら身に覚えのない請求にすぐ気づけるじゃない。"
+        text: "え、それなら身に覚えのない請求にすぐ気づけるじゃない。"
         expression: smile
       - id: l04
         speaker: right
-        text: "気づいた瞬間にカード会社へ連絡すれば、被害を最小限に抑えられるだぜ。"
+        text: "気づいた瞬間にカード会社へ連絡すれば、被害を最小限に抑えられる。"
         expression: confident
       - id: l05
         speaker: left
-        text: "その設定って難しい？"
+        text: "その設定って難しいの？"
         expression: confused
       - id: l06
         speaker: right
-        text: "カード会社のアプリを入れて、利用通知をオンにするだけだぜ。5分以内に終わるだぜ。"
+        text: "カード会社のアプリを入れて、利用通知をオンにするだけだぜ。5分もあれば終わる。"
         expression: smug
 
   - id: s08
@@ -437,7 +484,12 @@ scenes:
     main:
       kind: image
       asset: assets/s08_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 家計簿と明細確認は別
+        - 連携アプリは集計するだけ
+        - 身に覚えを自分の目で確認
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -460,11 +512,11 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "でも私、家計簿アプリで管理してるから大丈夫なんじゃないかな。"
+        text: "でも家計簿アプリで管理してるから大丈夫なんじゃないかな。"
         expression: wry
       - id: l02
         speaker: right
-        text: "家計簿アプリと明細確認は別の話だぜ。"
+        text: "家計簿と明細確認は別の話だぜ。"
         expression: confident
       - id: l03
         speaker: left
@@ -472,16 +524,20 @@ scenes:
         expression: confused
       - id: l04
         speaker: right
-        text: "連携アプリは金額を集計するだけで、不正利用かどうかは判定しないだぜ。判断できるのは自分だけなんだぜ。"
-        expression: confident
+        text: "連携アプリは金額を集計するだけで、不正利用かどうかは判定しない。判断できるのは自分だけだ。"
+        expression: calm
       - id: l05
         speaker: left
         text: "じゃあ家計簿アプリを使ってても、明細は自分で見るべきなのね。"
         expression: calm
       - id: l06
         speaker: right
-        text: "「金額確認」じゃなく「身に覚えのある支出か」の目で見るのが大事なんだぜ。"
-        expression: smug
+        text: "「金額確認」じゃなく「身に覚えのある支出か」で見るのが大事なんだぜ。"
+        expression: confident
+      - id: l07
+        speaker: left
+        text: "明細の見方が変わったわ。"
+        expression: smile
 
   - id: s09
     role: body
@@ -492,7 +548,12 @@ scenes:
     main:
       kind: image
       asset: assets/s09_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - ①今月の明細を確認する
+        - ②不要サービスを解約する
+        - ③利用通知をオンにする
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -515,28 +576,32 @@ scenes:
     dialogue:
       - id: l01
         speaker: left
-        text: "結局今日何をすればいいの？"
+        text: "いつかやろうと思ってたけど、今日やることって具体的に何？"
         expression: confused
       - id: l02
         speaker: right
-        text: "3ステップだぜ。まずカード会社のアプリを開いて、今月の明細を確認するだぜ。"
+        text: "3ステップだぜ。"
         expression: confident
       - id: l03
         speaker: left
-        text: "それだけ？"
-        expression: confused
+        text: "え、3つだけ？それなら今日できるじゃない。"
+        expression: smile
       - id: l04
         speaker: right
-        text: "次に定期引き落としの名前を確認して、使っていないサービスがあれば解約手続きをするだぜ。"
+        text: "まずカード会社のアプリを開いて明細を確認。次に不要な定期サービスを解約する。"
         expression: confident
       - id: l05
         speaker: left
-        text: "3つ目は？"
-        expression: normal
+        text: "3つ目も今日すぐできるのね。"
+        expression: smile
       - id: l06
         speaker: right
-        text: "利用通知の設定をオンにするだぜ。これだけで次から自動で気づける仕組みができるだぜ。"
-        expression: smug
+        text: "利用通知をオンにすれば、次から自動で気づける仕組みができるんだぜ。"
+        expression: smile
+      - id: l07
+        speaker: left
+        text: "この3ステップ、今日必ずやるわ。"
+        expression: laugh
 
   - id: s10
     role: cta
@@ -547,7 +612,12 @@ scenes:
     main:
       kind: image
       asset: assets/s10_main.png
-    sub: null
+    sub:
+      kind: bullets
+      items:
+        - 月5分の確認で守れる
+        - 気づいた今日からでOK
+        - コメントで確認報告してね
     visual_asset_plan:
       - slot: main
         purpose: script_final直投げ型の挿入画像
@@ -580,7 +650,7 @@ scenes:
           pause_after_ms: 300
       - id: l02
         speaker: right
-        text: "明細確認・不要サービス解約・利用通知オン。この3つだけで被害リスクを大幅に下げられるだぜ。"
+        text: "明細確認・不要サービス解約・利用通知オン。この3つだけで被害リスクを大幅に下げられるんだぜ。"
         expression: confident
       - id: l03
         speaker: left
@@ -588,7 +658,7 @@ scenes:
         expression: smile
       - id: l04
         speaker: right
-        text: "後回しにするほど差が広がるだぜ。今日の**5分**が未来の3万円を守るんだぜ。"
+        text: "後回しにするほど差が広がるんだぜ。今日の**5分**が未来の3万円を守る。"
         expression: confident
       - id: l05
         speaker: left
@@ -596,5 +666,5 @@ scenes:
         expression: smile
       - id: l06
         speaker: right
-        text: "高評価もよろしくなんだぜ。次回もお楽しみにだぜ。"
+        text: "高評価もよろしくなんだぜ。次回もお楽しみにだ。"
         expression: smug

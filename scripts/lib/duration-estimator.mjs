@@ -1,6 +1,6 @@
 export const TTS_SECONDS_PER_LINE = Object.freeze({
-  aquestalk: 2.6,
-  voicevox: 2.35,
+  aquestalk: 5.2,
+  voicevox: 3.8,
 });
 
 export const durationWindowForTarget = (targetSec) => {
@@ -36,29 +36,25 @@ export const estimateEpisodeDuration = (script) => {
   const estimatedSec = stats.lineCount * secondsPerLine;
   const targetSec = Number(script?.meta?.target_duration_sec ?? script?.total_duration_sec ?? 0);
   const window = durationWindowForTarget(targetSec);
-  const deltaToWindow =
+  const durationStatus =
     window === null
-      ? 0
+      ? 'not_applicable'
       : estimatedSec < window.min
-        ? window.min - estimatedSec
+        ? 'under'
         : estimatedSec > window.max
-          ? estimatedSec - window.max
-          : 0;
-  const recommendedLineDelta =
-    window === null || deltaToWindow === 0
-      ? 0
-      : estimatedSec < window.min
-        ? Math.ceil(deltaToWindow / secondsPerLine)
-        : -Math.ceil(deltaToWindow / secondsPerLine);
+          ? 'over'
+          : 'within';
+  const recommendedLineDelta = durationStatus === 'under' ? Math.ceil((window.min - estimatedSec) / secondsPerLine) : 0;
 
   return {
-    ok: window === null || (estimatedSec >= window.min && estimatedSec <= window.max),
+    ok: durationStatus !== 'under',
     voice_engine: voiceEngine,
     seconds_per_line: secondsPerLine,
     target_duration_sec: Number.isFinite(targetSec) && targetSec > 0 ? targetSec : null,
     allowed_min_sec: window ? Math.round(window.min * 10) / 10 : null,
     allowed_max_sec: window ? Math.round(window.max * 10) / 10 : null,
     estimated_duration_sec: Math.round(estimatedSec * 10) / 10,
+    duration_status: durationStatus,
     recommended_line_delta: recommendedLineDelta,
     stats: {
       scenes: stats.sceneCount,

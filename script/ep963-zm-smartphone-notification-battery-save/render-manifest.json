@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T08:29:54.417Z",
+  "input_hash": "259a01c69b6ff88505870cb6d441df333f8ed1314ffae726caec04accb4a6a32",
+  "inputs": {
+    "script_final": "f4f53bfaf80f664ee71cedc1343b4bec7956c8dcbd85c77e48d6de5f45d85ba7",
+    "script_yaml": "031fdd2bdafe61ae40f6850be00d59b4802d682cd1df4eac7e7c0ce0999e3b6c",
+    "image_prompts": "e19d62b3209410faf20c41b0a341f7a28ec29c56befd91ec7c77a7b8aa48a308",
+    "image_files": "33f4f25e3f4db981247da986c906bd7e37861f759ee29c2ada7a536be600efb1",
+    "bgm_files": "ec6345600e56479434cd2c673d274460acb173eb90b804568b69bd6f91067cc3",
+    "render_json": "2e09d3bc13a7c27dfcb15aa9a7635afd391f70344de1985c0e9f9c31862e9f2d"
+  },
+  "output": "out/videos/ep963-zm-smartphone-notification-battery-save.mp4",
+  "composition_id": "Video-ep963-zm-smartphone-notification-battery-save"
+}

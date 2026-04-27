@@ -1,0 +1,816 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T08:06:00.301Z",
+  "entries": {
+    "s01_l02": {
+      "file": "audio/s01_l02.wav",
+      "input_hash": "bf6f280f3693c720022f8a76c8a1caea1847efabedddfde243c5335aec5907f3",
+      "duration_sec": 4.362667,
+      "file_sha256": "535f3baea1a7e60a672a28d45db5a722fc0d337a164a6b3b4e7ec9c61ee44dfc",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:31.216Z"
+    },
+    "s01_l01": {
+      "file": "audio/s01_l01.wav",
+      "input_hash": "07ba43d3070ab5c4503d8447b9f2a27ff8c283fc8f9e4cae9abad2a33135f08e",
+      "duration_sec": 4.746667,
+      "file_sha256": "5e84266a68a957b4b1c01916e6a4e9dedb3781dc31bd7f0f0789fcc9e0440268",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:33.201Z"
+    },
+    "s01_l03": {
+      "file": "audio/s01_l03.wav",
+      "input_hash": "2ef064af61ff72b31d0d21c5d2f3df9455b245a4bc053dfe401b21deabffadba",
+      "duration_sec": 2.154667,
+      "file_sha256": "21d8876e2e093a3306793c4e2e95090c59e09c6c48513e27029ab814b2e0694b",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:34.356Z"
+    },
+    "s01_l04": {
+      "file": "audio/s01_l04.wav",
+      "input_hash": "7ea4e96b0f9d46cf2cbe638e5aa4973d993cbf62c93987e20049ecd32e9673b1",
+      "duration_sec": 2.709333,
+      "file_sha256": "75d82c0efa49f313f004f4bf3de13097fe0404548990eed374f2f5e0c6e71131",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:35.756Z"
+    },
+    "s01_l05": {
+      "file": "audio/s01_l05.wav",
+      "input_hash": "c555a27e90a548d3b8d8f950694db24a7e3f34e3c27844ac30c15c96ff197c25",
+      "duration_sec": 2.517333,
+      "file_sha256": "cc51fa1d2573a55401ee4de8f1c893ff52793bea5a9babc626038932cea07b8b",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:37.340Z"
+    },
+    "s01_l06": {
+      "file": "audio/s01_l06.wav",
+      "input_hash": "5b0699bee7a883fb32a853524a467572bac700b8536acffa2e21ba8628675075",
+      "duration_sec": 3.658667,
+      "file_sha256": "dd8121d17438b43f7f3cae114e889c73c4df79976593b3d1a9f44d69f290c771",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:39.329Z"
+    },
+    "s01_l07": {
+      "file": "audio/s01_l07.wav",
+      "input_hash": "921ea0b37b3197d96128238d1b030396e0d298ae4c27511c1f5e7baf89996367",
+      "duration_sec": 1.994667,
+      "file_sha256": "65d6d4b9065315f66ff59eb762e3f6fd566b02a2bb237e9004e2db6da9187572",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:40.643Z"
+    },
+    "s01_l08": {
+      "file": "audio/s01_l08.wav",
+      "input_hash": "1acc9653e18a53ef79854d00e57dcf9926e998764bafc80819dbc839aa7877c5",
+      "duration_sec": 3.626667,
+      "file_sha256": "d8b101ffb13ff8ba1628cff5ed479db5eefdcd1a99922341597397082f984974",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:42.644Z"
+    },
+    "s01_l09": {
+      "file": "audio/s01_l09.wav",
+      "input_hash": "9ea69000515da857d9b1fb2d946e31f752b2f20aec292520af54aabd6531fce5",
+      "duration_sec": 3.050667,
+      "file_sha256": "f6d742385e0eb200493500fc7de63e86340bdcc1642f1c344fcd405b87f7538b",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:44.215Z"
+    },
+    "s02_l01": {
+      "file": "audio/s02_l01.wav",
+      "input_hash": "efac2ca698fe985edb24544d05eabf80700726f11738eebeff673a985d7c612b",
+      "duration_sec": 3.989333,
+      "file_sha256": "a05f4f4599192a18a69c2b71bcb77c7fc557a6a6d35094fdae0896b1213c79eb",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:50.849Z"
+    },
+    "s02_l02": {
+      "file": "audio/s02_l02.wav",
+      "input_hash": "5ad609f752343865250589a68a0e0193563d0e1a22827502f9bf8813002cd789",
+      "duration_sec": 1.077333,
+      "file_sha256": "641611abc36490cb8eae4cd3aeee2ba214eeace3e6b3cc823b0cc623e1f21d00",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:52.045Z"
+    },
+    "s02_l03": {
+      "file": "audio/s02_l03.wav",
+      "input_hash": "509f5c59a2ef2c9e0ee1a1c1aa5d2c728692537e4f88b7a4c9198c776bfd594b",
+      "duration_sec": 2.496,
+      "file_sha256": "3d236b3e22aded7e160e84223507ce768afe96032875456c510b444839355de7",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:53.555Z"
+    },
+    "s02_l04": {
+      "file": "audio/s02_l04.wav",
+      "input_hash": "eb245c735d0da9f294ec90e6b2f98e885fdc42b2750e4effecb38b258ad473ff",
+      "duration_sec": 5.994667,
+      "file_sha256": "f8c9c2e264e897eece121566d6e4e4d55eb26fa0a482901ea3f86bdaf3d8418c",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "adopted_from": "line-durations.json"
+    },
+    "s02_l05": {
+      "file": "audio/s02_l05.wav",
+      "input_hash": "a2c0cacd7602160720b0bb3c79fe587646651437f8ef14ff3f526c2f700a45cc",
+      "duration_sec": 1.856,
+      "file_sha256": "0ea75937381eba29cb7a2b64f8ab1b7ed865e151e5986952a10e3425f567e95b",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:27:57.146Z"
+    },
+    "s02_l06": {
+      "file": "audio/s02_l06.wav",
+      "input_hash": "cda2787077c014f86140c021c3d074e62a65bbc8a1a78159c628f5bff2bfb431",
+      "duration_sec": 3.381333,
+      "file_sha256": "f539b285721c8cdaf2ab61d78dd56657ef80a671a0a215293672f66a86649da8",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:27:59.107Z"
+    },
+    "s02_l07": {
+      "file": "audio/s02_l07.wav",
+      "input_hash": "0862ef2613ff16894c6ec07645b518b16a2f3f6cd3c31f890e5b20e4becb32a5",
+      "duration_sec": 3.008,
+      "file_sha256": "216f4b33d90a8a325ac00c4bf00287a253691111fa37c05531eea41715cfcf1f",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:00.711Z"
+    },
+    "s02_l08": {
+      "file": "audio/s02_l08.wav",
+      "input_hash": "d8cd92b556ca18a3ac18d8ec830144c2dfa22c119d6a2c796c90ca748679ec25",
+      "duration_sec": 4.608,
+      "file_sha256": "b6bf94cf17abe48726ba2f74025ad1c0f03bd11ea54d6366e1d48fb0f35e9655",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:02.741Z"
+    },
+    "s02_l09": {
+      "file": "audio/s02_l09.wav",
+      "input_hash": "0c0472f55b01f7191a1d2c088281f505c483d0db8296263edc57178dbc5fa1b8",
+      "duration_sec": 3.381333,
+      "file_sha256": "1548dde0c2d52f246405802974d2fb3c387fe2b2ea6d7f0750f0f8cc87973190",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:04.820Z"
+    },
+    "s03_l01": {
+      "file": "audio/s03_l01.wav",
+      "input_hash": "a25058f7e82472db58f7f46f1708f948b7414ad286413c9f84af5cfc4aab42aa",
+      "duration_sec": 2.592,
+      "file_sha256": "17fbbef42b950c64cba62bab5be8ebe80f095ee71308433de68520dd0bdee80e",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:11.264Z"
+    },
+    "s03_l02": {
+      "file": "audio/s03_l02.wav",
+      "input_hash": "f84033a00fdebba7f74a4d1cd86c055246502ef1d184ca869a2c4e2df290cdba",
+      "duration_sec": 2.389333,
+      "file_sha256": "b02db285fbc4d4207ce6d6995b8697c194ecb5c1d8a118f2f7756b2acb5507c2",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:12.654Z"
+    },
+    "s03_l03": {
+      "file": "audio/s03_l03.wav",
+      "input_hash": "fd0081d004d4174afa985b3840350a1319b993a5060f34ef20a9298f9ba5daeb",
+      "duration_sec": 2.293333,
+      "file_sha256": "3802de3c15c20080100064edaec775c0ab415f48caf0fcf72e2d68069b295bc9",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:14.199Z"
+    },
+    "s03_l04": {
+      "file": "audio/s03_l04.wav",
+      "input_hash": "7cb01cf922acda9a87b821d924333ca1d6cf283038c9d86a8530e83174a9aa65",
+      "duration_sec": 3.701333,
+      "file_sha256": "bd8bd58a224637f34edc311aa5e9e5e9812db119ce240f9bded0a010f1ea0c4b",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:15.982Z"
+    },
+    "s03_l05": {
+      "file": "audio/s03_l05.wav",
+      "input_hash": "de611615a9eb8f1938b2176a82a816d3769c1c666fc05b91394101d4ee6f3fd9",
+      "duration_sec": 1.962667,
+      "file_sha256": "98100b48948fef2f9d6953e32336b1ca93063f3026ae8321a2bdf62ec8f9feb0",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:17.199Z"
+    },
+    "s03_l06": {
+      "file": "audio/s03_l06.wav",
+      "input_hash": "663e6514c6616a4b578f213aa5a0ab1fbc1f0ea7062922cbf89480a6876d307a",
+      "duration_sec": 4.981333,
+      "file_sha256": "ca3033ff1daa26cee425cda87f9a2e114a5ca38928f8ac75bb493bb620f0b252",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:19.850Z"
+    },
+    "s03_l07": {
+      "file": "audio/s03_l07.wav",
+      "input_hash": "cd7f29f4e886e8720628f1e4ad967675278a4aeecbc57b1e56664ca294f71ea7",
+      "duration_sec": 2.421333,
+      "file_sha256": "395ad545cb5b5974ee33081ab418d76cb749ce6ec49ce6c39ac9de86e2a80c4a",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:21.114Z"
+    },
+    "s03_l08": {
+      "file": "audio/s03_l08.wav",
+      "input_hash": "7b5df1abfbbb67d5d574a6a7d9e5d8d12f0ed035621cdbac74061d563a417c83",
+      "duration_sec": 4.16,
+      "file_sha256": "e33f31c83257cbb410599bd1b5903a3d71f2b089a5e7d8676e971eb6d0bfcc3e",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:23.060Z"
+    },
+    "s03_l09": {
+      "file": "audio/s03_l09.wav",
+      "input_hash": "aba207ceecdf5f37a3da669001376228d47d26764f08519a6c0efda41d0c10a8",
+      "duration_sec": 1.984,
+      "file_sha256": "1596358b0e98d63de20a153f0030a3eb2f5abd6751150df155f4628e6e5b0f11",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:24.348Z"
+    },
+    "s04_l01": {
+      "file": "audio/s04_l01.wav",
+      "input_hash": "e3f893933cd7fe08076e75708512cbe450762e62b402c3b7b571494f23945761",
+      "duration_sec": 2.528,
+      "file_sha256": "acb2065d42a34f0be14430e6fa34395e134d5134f1c5bd7ff89c08047da9f306",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:30.456Z"
+    },
+    "s04_l02": {
+      "file": "audio/s04_l02.wav",
+      "input_hash": "96bafaa63c6155389b86db1ba162097abac21938aa1956d80005e5f993a93b30",
+      "duration_sec": 1.098667,
+      "file_sha256": "1bf3db85adcf62a4dc871bbfa243b2721bdf5bcea687e3d99d644ad39b0cba99",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:31.402Z"
+    },
+    "s04_l03": {
+      "file": "audio/s04_l03.wav",
+      "input_hash": "644bd0ef64d86c94432a1275dc760e1ea5ec29ae4d1dfa03813c5960ac4f7ae2",
+      "duration_sec": 2.784,
+      "file_sha256": "4d91ae80b525d1ca9a153edd9c55ba1484d52808f0ccd71e56dc9965df4ea900",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:32.847Z"
+    },
+    "s04_l04": {
+      "file": "audio/s04_l04.wav",
+      "input_hash": "c2fadf4fdfacc14fb0075db18f2395354a81b40d1cbf2902e0b19d20ee68ef42",
+      "duration_sec": 4.384,
+      "file_sha256": "139c664606aaad9483aae7c732f1783725fc263e6a3155c0acb871cf3d166e7c",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:34.951Z"
+    },
+    "s04_l05": {
+      "file": "audio/s04_l05.wav",
+      "input_hash": "e763144cba57ab4dbe69d28f623ae507fb19335dcbaa91d7a3a21b68b49a78a4",
+      "duration_sec": 2.453333,
+      "file_sha256": "4772f74d91ffe76b7913cacdbf7e827eaad5014a091bb6b976f8b2c61235f842",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:36.215Z"
+    },
+    "s04_l06": {
+      "file": "audio/s04_l06.wav",
+      "input_hash": "0cf2d667890723a91f8bc803c773d978f376a14d60646319c81f94ae180dcad5",
+      "duration_sec": 4.213333,
+      "file_sha256": "6e5809067c232fc4f028e52cdfe587fb1106f2a2334277be443665bf668b695a",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:38.092Z"
+    },
+    "s04_l07": {
+      "file": "audio/s04_l07.wav",
+      "input_hash": "0b30e07cfa7cb25989e27f71e0b1d2377136bc60b4d2dce7c7b578800f87d9f5",
+      "duration_sec": 2.912,
+      "file_sha256": "27272c76b79490a802127ce51471c79f440b72a75770c2f8ad26d12bcf98a77f",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:39.530Z"
+    },
+    "s04_l08": {
+      "file": "audio/s04_l08.wav",
+      "input_hash": "814646076e937bcbcefc09c74ad8b402fef815afa9f1c3df7f2c6096e1fd4a12",
+      "duration_sec": 3.242667,
+      "file_sha256": "6f346d4b18f70c99d042f03317bcd7c01f50bcf357a66c60610f37ac8d631d02",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:41.158Z"
+    },
+    "s04_l09": {
+      "file": "audio/s04_l09.wav",
+      "input_hash": "c09721017d86d7a236f0c6df46002480fea8c268a37920af64526b185ac0a12b",
+      "duration_sec": 1.941333,
+      "file_sha256": "ec585c8f45b1e9e89303c90660887ed97ea2f1d5028963ad19fed97717db9ca7",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:42.409Z"
+    },
+    "s05_l01": {
+      "file": "audio/s05_l01.wav",
+      "input_hash": "d73ff0e7c4ccd34d47fb5a92e251a4527f94e590772ed8505f26046add114698",
+      "duration_sec": 3.285333,
+      "file_sha256": "9ee578547652f046142eede81592cbfc5a89f6467252c1d106b721c6128beaaa",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:47.937Z"
+    },
+    "s05_l02": {
+      "file": "audio/s05_l02.wav",
+      "input_hash": "9af2c65dbb8b2a6edca14b7c4cb182e30309651eee2274d0a9a4937cd4402a05",
+      "duration_sec": 1.077333,
+      "file_sha256": "748d0bd34aade9b190e809d9d939541a62dfc647f129558fbb10e95d9b43e69b",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:48.827Z"
+    },
+    "s05_l03": {
+      "file": "audio/s05_l03.wav",
+      "input_hash": "dcf5b124bb3d73289806674cc45003232234cdb31c02631fb20398f8caa7de40",
+      "duration_sec": 2.474667,
+      "file_sha256": "37d02017ec157062aef7f51f76a659dbe9d1ee3d1c034ad6a4c3e095bfa503ab",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:50.140Z"
+    },
+    "s05_l04": {
+      "file": "audio/s05_l04.wav",
+      "input_hash": "7c56dc45b30c30329ac4f93e24756e9fafa90be85e877f1106b35152552eff00",
+      "duration_sec": 5.088,
+      "file_sha256": "a7ebc7518d0995878efa56c2dd2d873b32c34d20ae7899894f611e90c173dd78",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:52.147Z"
+    },
+    "s05_l05": {
+      "file": "audio/s05_l05.wav",
+      "input_hash": "a8dbad0a3a1918e4986148595274a146a14ffbc86bb0296028877b85e40c4944",
+      "duration_sec": 2.261333,
+      "file_sha256": "f61dcb5a15f1a14695e2a021c755eb5397210b93cd949dba6259ed3db0d3b73f",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:53.389Z"
+    },
+    "s05_l06": {
+      "file": "audio/s05_l06.wav",
+      "input_hash": "7b11ba661d701d1ef03e17327b517282d56a7005188613990938cd5dfa974700",
+      "duration_sec": 3.754667,
+      "file_sha256": "24a49f2c7775e0b1bcfc6e17a60b1a048166af389d19dcb68b82f2727f863e30",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:55.202Z"
+    },
+    "s05_l07": {
+      "file": "audio/s05_l07.wav",
+      "input_hash": "bf9f570459795513c1312f9a2808be9db3e0b7d3189e930593d380f0656ba64f",
+      "duration_sec": 3.552,
+      "file_sha256": "14388369fe3d78588cfeec8a2e5e3a55db9f5fb3e3771c21421e9b8df8b16f13",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:57.147Z"
+    },
+    "s05_l08": {
+      "file": "audio/s05_l08.wav",
+      "input_hash": "8e9d283aedb12ef5490afa48ce2deb8851629a88c22198560701a59dc94f94e2",
+      "duration_sec": 2.016,
+      "file_sha256": "71a997c94236db6cda166397a5d91023ab11afaf68bc83dd46900dd6bbc9644a",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:28:58.302Z"
+    },
+    "s05_l09": {
+      "file": "audio/s05_l09.wav",
+      "input_hash": "a4aea747d32e7be95b83fffae9781f36d407d88fb7a62d49070c068e51e9b656",
+      "duration_sec": 2.474667,
+      "file_sha256": "3adc13acbc015b7b1c66583f7fa050891dec4f8b4951c4cd8682c93a7784408d",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:28:59.761Z"
+    },
+    "s06_l01": {
+      "file": "audio/s06_l01.wav",
+      "input_hash": "f3f074ccf30c36ec79560bc48563c98cd0a590ea11cbe796bc5a9d062ec8cc76",
+      "duration_sec": 4.170667,
+      "file_sha256": "9964205c6f209ffd5d1eb93bca5c45519a12ef857521e9db6a816b4230090239",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:06.496Z"
+    },
+    "s06_l02": {
+      "file": "audio/s06_l02.wav",
+      "input_hash": "cb769bf3b04ae91ea4d7c9b7bd808a980697009b3afdeed6f5fbd9689dbbb417",
+      "duration_sec": 0.864,
+      "file_sha256": "1c998cd9e4b49dd449145bc95839b3483ff00cdd677b4114934b5d54ae3c0a67",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:07.329Z"
+    },
+    "s06_l03": {
+      "file": "audio/s06_l03.wav",
+      "input_hash": "8c3f78b4b55cf7eef3f4d3cae603961190dfcd39cc4e39fea891755ac4abc77c",
+      "duration_sec": 2.314667,
+      "file_sha256": "b59c4d94aca491018bb414a59d545683e3d7fa0d6b2f6e2750d9ea5e374f9aab",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:08.654Z"
+    },
+    "s06_l04": {
+      "file": "audio/s06_l04.wav",
+      "input_hash": "0ae2770fcba47d423357fd3dd5e8c6085e3bdf557f28ee3ac652ab1eda97af76",
+      "duration_sec": 4.928,
+      "file_sha256": "2385c3f31db66aed6f0bed08b177168700f8c114711793771a18123d0e77d633",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:10.932Z"
+    },
+    "s06_l05": {
+      "file": "audio/s06_l05.wav",
+      "input_hash": "cc472d91d6c0053a41f4dd1437432c37a5e3bb7d1a69181c64fc28e8926a52ac",
+      "duration_sec": 2.314667,
+      "file_sha256": "41e7edfbf7954574a031583e88e3f26717699e7ce492549a84df638aedfa3e68",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:12.368Z"
+    },
+    "s06_l06": {
+      "file": "audio/s06_l06.wav",
+      "input_hash": "08288ab096376bc1a9ab25ff76008512f71410df3570a49d8fb897ed09cbce9e",
+      "duration_sec": 4.288,
+      "file_sha256": "73e2ca14f8d40397bf23658259e3d0e8c01fe5c3c6d9676d374c690413e3adf8",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:14.271Z"
+    },
+    "s06_l07": {
+      "file": "audio/s06_l07.wav",
+      "input_hash": "c019dd92c5348cddb4df61b240422fec9a2eb183c6ab537d5430e809e0302a55",
+      "duration_sec": 2.634667,
+      "file_sha256": "e21728269b5055003c3f67af18830f6576bf8288f6c8102ad80f28d85f89f1b7",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:15.679Z"
+    },
+    "s06_l08": {
+      "file": "audio/s06_l08.wav",
+      "input_hash": "537374e0823deb1a0baf643c1cc4ae50638458d5cb1affc5cf1f00cf1011bd3f",
+      "duration_sec": 4.330667,
+      "file_sha256": "77e8d86ffa65f6d8433df7779898192a3ae9d533ab8a89eac3ce84b96f7aeaa6",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:17.672Z"
+    },
+    "s06_l09": {
+      "file": "audio/s06_l09.wav",
+      "input_hash": "9bf61e7c437ec39797752f522f39648f2f05865ed2a960c31ed2f5fe0e4a85a4",
+      "duration_sec": 2.602667,
+      "file_sha256": "abe87eafe626e6bc88138d5a481a91ce77a770cb63589b0ec13f37deb0cdf8f1",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:19.140Z"
+    },
+    "s07_l01": {
+      "file": "audio/s07_l01.wav",
+      "input_hash": "b4ab9b936ca54588e02ef727e7a86018758bee1cbfbc87416ccbdb251d484bfe",
+      "duration_sec": 3.317333,
+      "file_sha256": "65988ca0fdb2ce031d44d70dbd08b92497c97b6944de38583d1f2a14f87b3ccc",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:25.815Z"
+    },
+    "s07_l02": {
+      "file": "audio/s07_l02.wav",
+      "input_hash": "ad6b40f91e71fbe5873f258aa7e4232393d9a295d51391d691f1c751f9a3e585",
+      "duration_sec": 0.810667,
+      "file_sha256": "99658df2ae5f080edfdc6ebea688c41aadf62740658977d4124522fbb2d152ed",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:26.648Z"
+    },
+    "s07_l03": {
+      "file": "audio/s07_l03.wav",
+      "input_hash": "a02512f870ef645d329f0ffa4a597819f4155098f612c3defd2e1eb034bf8b74",
+      "duration_sec": 2.378667,
+      "file_sha256": "6a1f011c653cd84d98f9f72d06253f64cacccd4f7f1bb1499a2c0168d72d7686",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:28.083Z"
+    },
+    "s07_l04": {
+      "file": "audio/s07_l04.wav",
+      "input_hash": "dc94b283d7f8ce863bcc2c891ded458aa0a54f4d41a425485c75ac9aba3dee57",
+      "duration_sec": 3.274667,
+      "file_sha256": "caf72d8589d86b1d7c7bab4e282bd6555dfc1ae2104e7279059e01f48f9748f2",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:29.827Z"
+    },
+    "s07_l05": {
+      "file": "audio/s07_l05.wav",
+      "input_hash": "df06fbdf2465e2e1aa25d6dd008a69549f12fe60e51e2904a93f0668819b2c41",
+      "duration_sec": 2.005333,
+      "file_sha256": "e483337c186f549eb56c201891aefdcefd559c6066c42c44ac8e4bc1f34e1e07",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:31.120Z"
+    },
+    "s07_l06": {
+      "file": "audio/s07_l06.wav",
+      "input_hash": "4e2421bedc754cc2f84b46f51324069a9a7a82c2d35180048d6d962f249afce9",
+      "duration_sec": 4.277333,
+      "file_sha256": "fa9d1bbfe86717b216e58bc37ce1b6cf3f4fccc8695633d8ad9acd51ca8df93f",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:33.141Z"
+    },
+    "s07_l07": {
+      "file": "audio/s07_l07.wav",
+      "input_hash": "9ee98c3665c35420111732d0664f5c25edb0bc6b537da6fd24ef521a8f32e1a5",
+      "duration_sec": 2.485333,
+      "file_sha256": "78580161b49b6fe79d2917a0a0760b4df7e23c00733e967ab59998317d1480e5",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:34.489Z"
+    },
+    "s07_l08": {
+      "file": "audio/s07_l08.wav",
+      "input_hash": "fca0e14a340f9004af8521234b79049be44a5ce9a4b90a56f723f76636541c0f",
+      "duration_sec": 4.298667,
+      "file_sha256": "a1e8951bb330462552c64c60e8433057b35cfbaee5503a096ffe349f0647b7b7",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:36.517Z"
+    },
+    "s07_l09": {
+      "file": "audio/s07_l09.wav",
+      "input_hash": "6539923d21c68126249d91a542795c0ab8e5eb7e4406ccc3e4db000b36f73c19",
+      "duration_sec": 2.016,
+      "file_sha256": "6e3e0474ef41e39292a31d63fd7cffc2c82d86c6d131a9096ee6d335e9fcca2d",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:37.915Z"
+    },
+    "s08_l01": {
+      "file": "audio/s08_l01.wav",
+      "input_hash": "567993986a7f1a0e939193062e6f79fba0e7fa1b8ebdec81817b73944a2d8ee8",
+      "duration_sec": 3.018667,
+      "file_sha256": "c442eed719f589de424225c7f59f91e1b01ecc9103d8c24946ac3fcb245de4d2",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:43.275Z"
+    },
+    "s08_l02": {
+      "file": "audio/s08_l02.wav",
+      "input_hash": "315b68a0b9c54321c8bdc7c91847ae999b087ac50af9123e46a0cd2662430883",
+      "duration_sec": 1.12,
+      "file_sha256": "2d992b75421ea0842e2278daffc05612d3fe8397425d543211152b54143472cb",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:44.096Z"
+    },
+    "s08_l03": {
+      "file": "audio/s08_l03.wav",
+      "input_hash": "c88a2e4416f687e7a16fcecf5c7f9678fdf337c10b440da303112976cf8f5a90",
+      "duration_sec": 2.101333,
+      "file_sha256": "5339ce372e2fc1c3fe661ddf0cc5fde18733685363dbbc91cb9009f15bf88bae",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:45.234Z"
+    },
+    "s08_l04": {
+      "file": "audio/s08_l04.wav",
+      "input_hash": "3b1ce4607fe437259d87acaed51029395382626949c53a151831c7877444e25a",
+      "duration_sec": 4.970667,
+      "file_sha256": "81a109eb1080113e5abf9b1fc56ab6fabd8a5a0ed76ec7c9d4b57c8d52044063",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:47.103Z"
+    },
+    "s08_l05": {
+      "file": "audio/s08_l05.wav",
+      "input_hash": "0c27b61c09fc22c4ac264d0f3764918df09dbc603894ae30de1224ccb6d64f5e",
+      "duration_sec": 2.645333,
+      "file_sha256": "4ab27afe94550ab108cbfae178b6593ed65ee9b70d50f348057c470f4a581c12",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:48.436Z"
+    },
+    "s08_l06": {
+      "file": "audio/s08_l06.wav",
+      "input_hash": "40b2fa81f2536018c09c127d25f71c5d8498c816e38958aa42f61f484eb05d19",
+      "duration_sec": 4.277333,
+      "file_sha256": "92e1625b935226a5731183b2cdbb3034ece0e77542cd85f51852e7129c0384c2",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:50.267Z"
+    },
+    "s08_l07": {
+      "file": "audio/s08_l07.wav",
+      "input_hash": "3527f8ed8091aa899c9db525d1e5007c83fd6b3dbf24574ee43decaf3459e667",
+      "duration_sec": 2.261333,
+      "file_sha256": "7e09958f50f1a41a4cb31c3a9c7c1213a2140d3455552212eedd5413a6786cbe",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:51.423Z"
+    },
+    "s08_l08": {
+      "file": "audio/s08_l08.wav",
+      "input_hash": "a88a5f8a120f9ea1ab01631ea68d073a3559ad29203cb4e16bc6156003226b58",
+      "duration_sec": 3.968,
+      "file_sha256": "3c873d163d67c49a9ce6744cb7c912e28c79369c39d5c8c99fa4b9fe53d5da0c",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:29:53.142Z"
+    },
+    "s08_l09": {
+      "file": "audio/s08_l09.wav",
+      "input_hash": "031beaabf46f074bc10e7a329c35e0210d37b6de6cb35b610107eb3f79cf4842",
+      "duration_sec": 1.418667,
+      "file_sha256": "0e6a25d0454625108f448b2384bd195e61602a1cb63eab194466a81bd00a6985",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:54.042Z"
+    },
+    "s09_l01": {
+      "file": "audio/s09_l01.wav",
+      "input_hash": "1ed3342719e8ca814c317c7c98e931583668092b148b71ca79e7e93b53ad13db",
+      "duration_sec": 4.149333,
+      "file_sha256": "90973c3b4040592b460fb09c54609421ec9a142d47e27c93816b8fd63aa11a2e",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:29:59.994Z"
+    },
+    "s09_l02": {
+      "file": "audio/s09_l02.wav",
+      "input_hash": "7e9dcbc1dd4b0b2681f718133effc1d6f14176b7117bae1b638286df1310cd5f",
+      "duration_sec": 0.885333,
+      "file_sha256": "e026c24330985139f6084d2a22d8dfc415dcf9531842760bbbf5e4372e9419ed",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:00.745Z"
+    },
+    "s09_l03": {
+      "file": "audio/s09_l03.wav",
+      "input_hash": "2a7a03b82ef33aea58b59d52e6dea2d994432bf6866b4cdf14e2509f4228efd4",
+      "duration_sec": 2.901333,
+      "file_sha256": "567d097e0e402f25708735007e100fb86c4b881674d2c2930400543743ed69ba",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:02.119Z"
+    },
+    "s09_l04": {
+      "file": "audio/s09_l04.wav",
+      "input_hash": "baf9782686c3ac1a4c4825763d4f26db8a1db18091229ed7c0160c9e21a7287f",
+      "duration_sec": 4.021333,
+      "file_sha256": "cd44344def26df36f5c560a218d7a893b1c22fcfbd820cd0a922e442b8a28892",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:03.863Z"
+    },
+    "s09_l05": {
+      "file": "audio/s09_l05.wav",
+      "input_hash": "16106faa09fb1b53d2a65da52d6cc55c96a92136e472830e3b0c1578480f6497",
+      "duration_sec": 2.602667,
+      "file_sha256": "6567235bbea7b89a6a07bc70c00f645dd70d9065b067d172471e0293f2378833",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:05.145Z"
+    },
+    "s09_l06": {
+      "file": "audio/s09_l06.wav",
+      "input_hash": "af415f6a1f0d295cb539507513435ed98c97e9f247c18101c95b134a776cda24",
+      "duration_sec": 3.594667,
+      "file_sha256": "a6db471d16e0a450d5ca3d1d52859747b73501f24b1ffa059c34ecda2e85d972",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:06.757Z"
+    },
+    "s09_l07": {
+      "file": "audio/s09_l07.wav",
+      "input_hash": "a43c46f662823cda1da0791b157b0c8f0fc0b2f8f570be0e0c1623bbed95a956",
+      "duration_sec": 3.605333,
+      "file_sha256": "c9f98c32c3c9c8fffb688b0ec51f6f6bcccfa75a7c2daf6bb10206fdf92f8889",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:08.346Z"
+    },
+    "s09_l08": {
+      "file": "audio/s09_l08.wav",
+      "input_hash": "ddbf6e7f8922edc1438a55a84ebe6bf3401b9ecab463e7bf3fcb9b7ee709cb72",
+      "duration_sec": 3.744,
+      "file_sha256": "d4e3e1c4a2a75f6c18ff6501cff46ee13b903cdfa371915b2c5ac6c48acb2194",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:10.046Z"
+    },
+    "s09_l09": {
+      "file": "audio/s09_l09.wav",
+      "input_hash": "bc9572067a93024a11dd2885256076642c604ea2830903419c87bb521b047411",
+      "duration_sec": 2.538667,
+      "file_sha256": "a45a8e4127c3fac5902254308d05379570c17b1fe83b8f7cbdbccf642800b1b3",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:11.301Z"
+    },
+    "s10_l01": {
+      "file": "audio/s10_l01.wav",
+      "input_hash": "033214b899acff18f8a6952a18e4c02ed510a7c7c044dafdf02e33db28d8f7f1",
+      "duration_sec": 4.298667,
+      "file_sha256": "6816ab879f2278e9d55bae6e068418ccb52052b866dbbba6f129f4338268fad1",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:16.387Z"
+    },
+    "s10_l02": {
+      "file": "audio/s10_l02.wav",
+      "input_hash": "ef9e00792b99c7c00665871812ff02bf4d962deac6737f99ee315785a557b6d2",
+      "duration_sec": 4.117333,
+      "file_sha256": "7f306712677059687a5353591ce73af51852ecf2e7a36066bb6e93eba79002f4",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:18.194Z"
+    },
+    "s10_l03": {
+      "file": "audio/s10_l03.wav",
+      "input_hash": "c579687df7862115137b2c670e4fa8df6f593c11f5f3a5088ee96cd0a84d2c1b",
+      "duration_sec": 3.690667,
+      "file_sha256": "a8e63626b42adf50b50e5d8608a03564ad5b3842b93bb75ae7ca1fb30708d3d3",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:19.810Z"
+    },
+    "s10_l04": {
+      "file": "audio/s10_l04.wav",
+      "input_hash": "90a27d8152e008594923ac979c0d187bfd738684ecc3f701744b9d950f2be0c0",
+      "duration_sec": 3.573333,
+      "file_sha256": "82efd981b76a987008c7bdd7058aab1530017ff5da701aaccd4798e625577702",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:21.478Z"
+    },
+    "s10_l05": {
+      "file": "audio/s10_l05.wav",
+      "input_hash": "34500dde922f636aa831a814c19249da2120ab9b1ffad773b4c39f90c126e003",
+      "duration_sec": 2.432,
+      "file_sha256": "b6b2a2daa36511222dd899c05580503a968d35552effc4be48d239e2894e4717",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:22.775Z"
+    },
+    "s10_l06": {
+      "file": "audio/s10_l06.wav",
+      "input_hash": "2cca96da6fda8dc5a6c0cc2b14e9db15743b6c84b30be54ad89b6c180fbea850",
+      "duration_sec": 4.128,
+      "file_sha256": "c9a31de89ee49b0750cfdbc3ae12455e666de79376a31ba166987ae322bd2d58",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:24.564Z"
+    },
+    "s10_l07": {
+      "file": "audio/s10_l07.wav",
+      "input_hash": "c5becf81a418548d9b0021c596e4714f791c01f752238d3f1f4590b6a8890d69",
+      "duration_sec": 1.610667,
+      "file_sha256": "4c9be9e8a27e9a49ee5ebe15c65346831e128b54cbd4095c2bd293a23b0a55dc",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:25.497Z"
+    },
+    "s10_l08": {
+      "file": "audio/s10_l08.wav",
+      "input_hash": "d2765f98722ea0da4c91e588668539fd0557b40e1fb926f28d8b569c6f024cad",
+      "duration_sec": 2.592,
+      "file_sha256": "c1ceed2813b24ec8c042254ce11bc4eade7e92e5e6364a8fb56f72b61cf17c88",
+      "voice_engine": "voicevox",
+      "speaker_id": 2,
+      "generated_at": "2026-04-27T07:30:26.833Z"
+    },
+    "s10_l09": {
+      "file": "audio/s10_l09.wav",
+      "input_hash": "4f9ddcfc1139bdb2f3788b76c9a2cd92cee9a03d983734caa98ad6ce377bea70",
+      "duration_sec": 3.349333,
+      "file_sha256": "b097ff29708d296cf028e00b4c7753f91ce473d81e4dd9e9d0a97d536aa3bc4c",
+      "voice_engine": "voicevox",
+      "speaker_id": 3,
+      "generated_at": "2026-04-27T07:30:28.400Z"
+    }
+  }
+}

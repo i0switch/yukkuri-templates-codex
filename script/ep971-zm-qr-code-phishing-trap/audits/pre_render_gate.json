@@ -1,13 +1,13 @@
 {
   "step": "pre_render_gate",
   "verdict": "PASS",
-  "checked_at": "2026-04-27T05:58:19.573Z",
+  "checked_at": "2026-04-27T07:31:34.685Z",
   "checks": [
     "validate-script-generation-route",
     "validate-script-prompt-pack-evidence",
     "validate-script-final-review",
     "estimate-episode-duration",
-    "validate-episode-script --prompt-only",
+    "validate-episode-script",
     "audit-script-quality",
     "script prompt pack presence",
     "episode-level script prompt pack evidence files",
@@ -17,6 +17,6 @@
     "image prompt and generated-image audits are intentionally non-blocking",
     "dialogue rejects known mechanical conversion artifacts"
   ],
-  "prompt_only": true,
+  "prompt_only": false,
   "mode": "prompt_pack"
 }

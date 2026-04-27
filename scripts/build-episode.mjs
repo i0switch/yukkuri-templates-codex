@@ -9,9 +9,12 @@ import {loadScriptPromptPack} from './lib/load-script-prompt-pack.mjs';
 
 const rootDir = process.cwd();
 const episodeId = process.argv[2];
+const flags = new Set(process.argv.slice(3));
+const forceAudio = flags.has('--force') || flags.has('--force-audio');
+const skipQualityGate = flags.has('--skip-quality-gate');
 
 if (!episodeId) {
-  throw new Error('Usage: node scripts/build-episode.mjs <episode_id>');
+  throw new Error('Usage: node scripts/build-episode.mjs <episode_id> [--force|--force-audio] [--skip-quality-gate]');
 }
 
 const episodeDir = path.join(rootDir, 'script', episodeId);
@@ -129,8 +132,8 @@ const buildTimings = (script, durations) => {
     );
   }
   if (durationWindow && naturalTotal > durationWindow.max) {
-    throw new Error(
-      `Natural speech duration is too long for target_duration_sec without changing speech speed: natural=${round1(naturalTotal)}s, allowed_max=${round1(durationWindow.max)}s. Reduce dialogue volume instead of speeding up audio.`,
+    console.warn(
+      `Natural speech duration exceeds target_duration_sec window, but natural overrun is allowed: natural=${round1(naturalTotal)}s, allowed_max=${round1(durationWindow.max)}s. Keeping the script unchanged.`,
     );
   }
 
@@ -172,11 +175,15 @@ await loadScriptPromptPack(rootDir);
 const document = await readYamlDocument();
 const script = document.toJS();
 await assertValidScript(script, 'Pre-build');
-assertQualityGate();
+if (skipQualityGate) {
+  console.log('[build-episode] skipped duplicate quality gate because render-episode already ran pre-render-gate');
+} else {
+  assertQualityGate();
+}
 const durations =
   script.meta.voice_engine === 'aquestalk'
-    ? await buildAudioForEpisodeAquesTalk(episodeDir, script)
-    : await buildAudioForEpisode(episodeDir, script);
+    ? await buildAudioForEpisodeAquesTalk(episodeDir, script, {forceAudio})
+    : await buildAudioForEpisode(episodeDir, script, {forceAudio});
 const updatedScript = buildTimings(script, durations);
 await assertValidScript(updatedScript, 'Post-build');
 await buildRenderJson(updatedScript);

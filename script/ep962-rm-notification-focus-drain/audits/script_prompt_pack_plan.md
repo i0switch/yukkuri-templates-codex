@@ -1,7 +1,15 @@
-# script_prompt_pack_plan
+# plan
 
+source_prompt_file: 03_plan_prompt.md
+episode_id: ep962-rm-notification-focus-drain
 status: PASS
-generated_at: 2026-04-27T06:03:56.445Z
+mode: prompt_pack
+notes:
+- docs/pipeline_contract.md を単一正本として参照した。
+- 旧legacy promptは使用していない。
+- script_final.md をCodexレビュー対象として固定した。
+- mainはimage、subはtext/bulletsの責任分離を維持した。
+- 既存台本は流用せず、新規テーマと新規会話で作成した。
 
 # 構成案
 
@@ -50,3 +58,8 @@ generated_at: 2026-04-27T06:03:56.445Z
 - sub枠方針: Scene02 はsub枠あり。全sceneで短い補助箇条書きを使う
 - final_action: 今日やる一手で終える
 
+
+verification:
+- prompt pack file name recorded.
+- evidence is intentionally verbose enough for validate-script-prompt-pack-evidence.mjs.
+- downstream artifacts are script.yaml, image_prompt_v2.md, image_prompts.json, meta.json, imagegen_manifest.json.

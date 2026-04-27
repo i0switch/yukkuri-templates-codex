@@ -84,6 +84,43 @@ planning.md
 
 画像プロンプトは `script_final.md` の対象シーン全文を主入力にした `visual_asset_plan[].imagegen_prompt` として作る。
 会話は Remotion の字幕で出すため、画像内に会話全文を並べる指示は禁止する。
+対象シーンタイトルは、画像内の大きく目立つ見出しとして必ず入れる。例: `s01: 月580円が年6,960円に化ける` の場合、画像内に入れる見出しは `月580円が年6,960円に化ける` だけにし、`s01` は入れない。
+
+## 台本生成時の探索除外
+
+台本生成、構成作成、YAML化、画像プロンプト作成の初動では、必要な正準ドキュメントと対象 episode だけを読む。
+高速化のため、生成物、複製repo、依存関係、公開用コピーを再帰探索してはいけない。
+
+`.claude/` は丸ごと禁止しない。必要時に限り、次は読んでよい。
+
+- `.claude/skills/**/SKILL.md`
+- `.claude/skills/**` の `SKILL.md` から明示参照されたファイル
+- `.claude/commands/**`
+- `.claude/*.mjs` など、ユーザーまたは手順が明示した軽量ヘルパー
+
+ただし、台本生成の参照元として次は読まない。
+
+- `.claude/worktrees/**`
+- `.claude/**/node_modules/**`
+- `.claude/**/.cache/**`
+- `.claude/**/.remotion-public/**`
+- `.claude/**/out/**`
+- `.claude/**/public/episodes/**`
+- `.claude/**/script/**/audio/**`
+- `.claude/**/script/**/bgm/**`
+- `.claude/**/script/**/assets/**`
+- `.claude/**/notebookLM/workspace/**`
+- `.claude/**/.tmp/**`
+- `node_modules/**`
+- `.cache/**`
+- `.remotion-public/**`
+- `out/**`
+- `public/episodes/**`
+- `script/**/audio/**`
+- `script/**/bgm/**`
+- `script/**/assets/**`
+
+過去 episode を参照する場合は、ユーザー指定の episode、または明示的に選んだ最大2本の軽量テキスト成果物だけに限定する。
 
 ## 視聴維持 vNext メタ
 
@@ -226,7 +263,22 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 - ZM / VOICEVOX 初期係数: `3.8秒/発話`
 - `npm run estimate:episode-duration -- <episode_id>` を音声生成前に実行する
 - `audio_playback_rate` や `atempo` で尺合わせしない
+- 推定自然音声尺またはbuild後の実音声尺が下限未満の場合は、`07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む
+- 推定自然音声尺またはbuild後の実音声尺が上限を超えた場合は、自然尺を優先してそのまま使う。短縮目的で `script_final.md` を削らない
 - `script.yaml` からMarkdown側を同期した場合、`script_final_review.md` はstale扱いにし、再レビューする
+
+## 差分生成キャッシュ
+
+動画生成は品質ゲートを維持したまま、未変更成果物を再利用してよい。
+
+- 音声は `script/{episode_id}/audio-manifest.json` に発話ごとの `input_hash`、`duration_sec`、`file_sha256` を記録する
+- 発話本文、話者、音声エンジン、speaker/preset が一致し、wavのhashも一致する場合は音声再生成をskipする
+- Remotion本レンダーは `script/{episode_id}/render-manifest.json` に `script_final.md`、`script.yaml`、画像プロンプト、画像ファイル、BGM、`script.render.json`、描画コードを含む入力hashを記録する
+- 入力hashが一致し、MP4が存在する場合は `render:episode` のRemotion本レンダーをskipしてよい
+- `--force-audio` は音声だけ、`--force-render` はRemotion本レンダーだけ、`--force` はBGM・音声・Remotion本レンダーを強制再実行する
+- 差分生成は `gate:episode` と `audit:video` の代替ではない。完成条件は従来どおり gate PASS、MP4存在、video audit PASS を必須にする
+
+サブエージェントで分担する場合も、成果物契約は変えない。台本エージェントは `script_final.md` とレビューまで、YAMLエージェントは `script.yaml` と尺/テンプレ整合、画像エージェントは画像プロンプトと画像台帳、音声/レンダーエージェントはBGM・音声・`script.render.json`・Remotion、監査エージェントはgate・video audit・偽完成チェックを担当する。
 
 ## 静止画テンプレート
 

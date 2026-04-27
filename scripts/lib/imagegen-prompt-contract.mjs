@@ -4,6 +4,7 @@ export const CANONICAL_FIXED_IMAGEGEN_PROMPT = [
   '字幕やセリフは別で表示するため、会話等は画像に入れないでください。',
   'キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。',
   '画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。',
+  '画像内には、対象シーンの見出し本文だけを大きく目立つ見出しとして配置してください。scene idは画像内に入れないでください。',
   '文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。',
   '下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。',
   '画像の役割を、理解補助、不安喚起、笑い、比較、手順整理、証拠提示、オチ補助のいずれかとして明確にしてください。',
@@ -17,5 +18,8 @@ export const CANONICAL_FIXED_IMAGEGEN_PROMPT = [
   '動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。',
 ].join(' ');
 
+export const formatImageHeadlineInstruction = (sceneTitle) =>
+  `画像内に「${sceneTitle}」という見出しを必ず目立つように配置してください。`;
+
 export const formatCanonicalImagegenPrompt = ({sceneId, sceneTitle, dialogueText, mood}) =>
-  `${sceneId}: ${sceneTitle}\n\n${dialogueText}\n\n${CANONICAL_FIXED_IMAGEGEN_PROMPT}\n\n画像の雰囲気は${mood}で生成してください。`;
+  `${sceneId}: ${sceneTitle}\n\n${dialogueText}\n\n${formatImageHeadlineInstruction(sceneTitle)}\n\n${CANONICAL_FIXED_IMAGEGEN_PROMPT}\n\n画像の雰囲気は${mood}で生成してください。`;

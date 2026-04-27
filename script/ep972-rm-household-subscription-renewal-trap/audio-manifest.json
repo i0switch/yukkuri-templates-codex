@@ -1,0 +1,996 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T07:42:23.207Z",
+  "entries": {
+    "s01_l01": {
+      "file": "audio/s01_l01.wav",
+      "input_hash": "62ac3bdcb00e463673c2fd7cdc3cf80017a10601faac93db21d8b489df6e48d2",
+      "duration_sec": 4.757,
+      "file_sha256": "46e0ec88e134237121369dabcbf649abeaefbbc2c1cf26ab32d9c2702b998d2e",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:16.869Z"
+    },
+    "s01_l02": {
+      "file": "audio/s01_l02.wav",
+      "input_hash": "27f188295bf22228b2e2d949eb7dce9da1bc3a9dfe8054af901227096259637d",
+      "duration_sec": 2.782,
+      "file_sha256": "a4fff508393aa6fa34942c30243d8688b13bd87272c73e27e0745c9828910484",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:17.516Z"
+    },
+    "s01_l03": {
+      "file": "audio/s01_l03.wav",
+      "input_hash": "843226d90e80430ee4d146ddddc2b54552cc864e6532bd2651ddf01387a0975e",
+      "duration_sec": 3.787,
+      "file_sha256": "b54937c68505669c0a5d9416b65be593b6d21363475b6db8f57d43aa8c0c68e0",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:17.921Z"
+    },
+    "s01_l04": {
+      "file": "audio/s01_l04.wav",
+      "input_hash": "a8f8c17f60f82b98dc3239df624264f50c4cbb92661849190bc34e31ec92c413",
+      "duration_sec": 3.372,
+      "file_sha256": "1dedc2de7115618fd17ef536bab90b3a04b723175f0262beab0c465429fa1bef",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:18.367Z"
+    },
+    "s01_l05": {
+      "file": "audio/s01_l05.wav",
+      "input_hash": "30e842d1bb1d59a042dba78965ce2ece1644db911bc19d8ee2092c5e975e5c7f",
+      "duration_sec": 2.8995,
+      "file_sha256": "d14d6779af215bb9fea6af579f4645675e1090aa2e7be3562e08b4297c066cbd",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:19.011Z"
+    },
+    "s01_l06": {
+      "file": "audio/s01_l06.wav",
+      "input_hash": "28bec28f6e0119a514628f7f54139b8e9ae842ff8a0eb9e4d531c3cb2645bb3e",
+      "duration_sec": 2.917,
+      "file_sha256": "084c4043c72b95b027ded597c900073133e61057789f73b52d7a520aaad0539f",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:19.361Z"
+    },
+    "s01_l07": {
+      "file": "audio/s01_l07.wav",
+      "input_hash": "f1171a41094859e13f728d6ad6471ee2fb081a99b7db9705b8326b9b4dc631c4",
+      "duration_sec": 3.527,
+      "file_sha256": "73ca0cfe05b27c125587ca99c452e4d34b015bc5bf7b4f332a809c97bc27e4de",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:19.651Z"
+    },
+    "s01_l08": {
+      "file": "audio/s01_l08.wav",
+      "input_hash": "0a7dc76fab973702ae5c37cd83bb51934666a86bd2bca2b98057b54cc178196b",
+      "duration_sec": 3.9145,
+      "file_sha256": "549f36028686fcf8edad4298b6834220b5162b380a0f8bf0625ab0a8d8cb5c49",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:20.154Z"
+    },
+    "s01_l09": {
+      "file": "audio/s01_l09.wav",
+      "input_hash": "b47d76a3eac8c598bdbcac96a9c98e3560a7291fe86986fc0bafeec9dd234a5e",
+      "duration_sec": 3.532,
+      "file_sha256": "1ba653c5e5e9ed38754343e88fdd9944ca89a75aab60de2180b579c6ad76b317",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:20.771Z"
+    },
+    "s01_l10": {
+      "file": "audio/s01_l10.wav",
+      "input_hash": "d159f6c4c1cda0423d33fd88ca11676ed3490ef4c13604311acc3a0944aaa519",
+      "duration_sec": 3.272,
+      "file_sha256": "cef4535902c455a7f5e2ce0500bb43dffe5f309fb4cb04e955addfc74aec4759",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:21.199Z"
+    },
+    "s01_l11": {
+      "file": "audio/s01_l11.wav",
+      "input_hash": "f71e5cac6ff15e42e332a5f1598887d5207c1d8ac0da213486bd5daf4cfc7696",
+      "duration_sec": 2.937,
+      "file_sha256": "409de0d47d76036f70aa5ead8e0c107daaf67398b22ddcb04dc6b2f8292a1951",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:21.565Z"
+    },
+    "s02_l01": {
+      "file": "audio/s02_l01.wav",
+      "input_hash": "e4ac07ed39f2c1d2416482c7fa70b989498ae02de447c57907cee54ddf7d9890",
+      "duration_sec": 2.99325,
+      "file_sha256": "30e6f183fc991953f9aafdc50a4c80afa4b5e85ba49633523cfa5040e65583a2",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:22.443Z"
+    },
+    "s02_l02": {
+      "file": "audio/s02_l02.wav",
+      "input_hash": "adc8bc9fa4b461c5a313a85ff240a7239580c91f5d8e3c6981c44040893c4d51",
+      "duration_sec": 2.2645,
+      "file_sha256": "21c3c59a2611a60ad749b42e979915a359a4434fde8e1ff44a1e2e7e8769c9ca",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:22.786Z"
+    },
+    "s02_l03": {
+      "file": "audio/s02_l03.wav",
+      "input_hash": "d7ef153cf2a9f0685f460f841ad8be61bd0962d45a975cd93c00ab052adad33a",
+      "duration_sec": 3.3295,
+      "file_sha256": "538727292fc6c272af5c915864e22c066dd0112423c766f148f018ce8d17a7d6",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:23.228Z"
+    },
+    "s02_l04": {
+      "file": "audio/s02_l04.wav",
+      "input_hash": "882eb87aeb621cd052fed2e37b35846a4e5eace8ca10e9af5dd06b97b227817a",
+      "duration_sec": 3.0645,
+      "file_sha256": "2725d37ed79f510dd341c27f6371076300d6513a1620e613b3ae9e950fc5f93e",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:24.197Z"
+    },
+    "s02_l05": {
+      "file": "audio/s02_l05.wav",
+      "input_hash": "2f1b8995365737200a25dc29add25eaf06cbcbff952706d5261fc89cf44a919c",
+      "duration_sec": 4.1145,
+      "file_sha256": "68e568b8542ffdbb937f7cca6abf28c1432aa612da8004836e5e30ba76c20edd",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:24.478Z"
+    },
+    "s02_l06": {
+      "file": "audio/s02_l06.wav",
+      "input_hash": "7fca1766f54a9035bdf5efb72f20f2c882d0fad4fc561daab96f2327cb167511",
+      "duration_sec": 3.947,
+      "file_sha256": "f440ca73c5700ce9a1fe8a01ac015a260581834fc0982bdbf9438b5064b735f2",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:24.824Z"
+    },
+    "s02_l07": {
+      "file": "audio/s02_l07.wav",
+      "input_hash": "1a10725bc25dfc698ab2fa3b138bcd49e4e450a5614ddf25e8048e899da242a5",
+      "duration_sec": 2.647,
+      "file_sha256": "62f80ae4be7901ab98788ad6474a9be3ba4ce3f0ec0aa13c8e6bb860227991da",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:25.592Z"
+    },
+    "s02_l08": {
+      "file": "audio/s02_l08.wav",
+      "input_hash": "100379c5192e4f2553f7f9604c794e6f7541b8785cb70327a7aeb8b7749c58e1",
+      "duration_sec": 2.6745,
+      "file_sha256": "531528022f3a4ffd42d3327c05f4a6f3b3341b6f04659e2543be3ad118bf857c",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:26.032Z"
+    },
+    "s02_l09": {
+      "file": "audio/s02_l09.wav",
+      "input_hash": "da6c5ff7845b3046def27313c146cb94daa5083c58e955289def0d704fb90212",
+      "duration_sec": 3.2495,
+      "file_sha256": "a253ea17adda2b8aa6a554841639e56fcf9f49cd3779e32bad69c732a2496f24",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:26.362Z"
+    },
+    "s02_l10": {
+      "file": "audio/s02_l10.wav",
+      "input_hash": "d4aae346504be613d98fedc2bbbfbbf31bc6a36e56441504d49644d5108ba5c2",
+      "duration_sec": 4.0845,
+      "file_sha256": "4b11d9ccf17919aa422dad6c29be89f21cb41a6e2160e2808182803cc1f40661",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:27.078Z"
+    },
+    "s02_l11": {
+      "file": "audio/s02_l11.wav",
+      "input_hash": "bf163c0a49e5067279e4cc54ed29b5b47548921b4c75b43a6823397f63ed65a1",
+      "duration_sec": 3.3745,
+      "file_sha256": "3ac3bacac65eb41f7213034103e86a5d295b8075b42c76f0867d9c4ca989e506",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:27.458Z"
+    },
+    "s03_l01": {
+      "file": "audio/s03_l01.wav",
+      "input_hash": "91b4304afb69f0269d193129f3080d033e907a18d90518863b4c3d367373e6bd",
+      "duration_sec": 3.2695,
+      "file_sha256": "5fffe61f39bfaee239c06e5bfb08a4c2613ada9e199394d9d722d92970cb5f9b",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:27.936Z"
+    },
+    "s03_l02": {
+      "file": "audio/s03_l02.wav",
+      "input_hash": "50cfe9a456cb4dd48c4525ab26e01c11db51a8d5c1b936e8b1cb06a438a4984a",
+      "duration_sec": 2.0545,
+      "file_sha256": "292ec3ccfe710ae406587a09ac73bb92cd8538ce944ca9e6251d8c806be3b08d",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:28.504Z"
+    },
+    "s03_l03": {
+      "file": "audio/s03_l03.wav",
+      "input_hash": "a00e82e042ab5486cf7d9139ba14568833a341b533c85045c08bd352cf652436",
+      "duration_sec": 2.4895,
+      "file_sha256": "42ca640e82adf74b82b854375e042d31e32f42c008b78ed1c9d952ba285c137a",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:28.977Z"
+    },
+    "s03_l04": {
+      "file": "audio/s03_l04.wav",
+      "input_hash": "e819d1c5ef5fc6d9352368a7b5af6239513bdd0e23aab5f9950584381cf5e1f5",
+      "duration_sec": 3.822,
+      "file_sha256": "2e8a5e857a46248d49463c152b696c4ad4f22ed85dc12861ded840a51926a856",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:29.436Z"
+    },
+    "s03_l05": {
+      "file": "audio/s03_l05.wav",
+      "input_hash": "b8d25b6cf802b60b42eba3974e2cfbd5e0bdf17d3abc271f4882871ae79ba056",
+      "duration_sec": 3.5795,
+      "file_sha256": "9a962f633463fd729f4e39a999b2849d0a9d58c59fb4f73148b739c4e1bfc986",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:30.317Z"
+    },
+    "s03_l06": {
+      "file": "audio/s03_l06.wav",
+      "input_hash": "21dd14a1a3706dd75c269687e506097de0a48d9fbe6f91d20a0d9227fa47cefd",
+      "duration_sec": 4.2445,
+      "file_sha256": "eee0ecd9f53ded7c6b30d79448ebccb1e84c5a4e879cee6c4216bd18ccfa7360",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:30.829Z"
+    },
+    "s03_l07": {
+      "file": "audio/s03_l07.wav",
+      "input_hash": "2bad69f649c6bf6856191c2b05b3c4d1853b8439bd8f4a0ebb462d9c184833cb",
+      "duration_sec": 2.1545,
+      "file_sha256": "b9506757a9df2ec2d3c5cde44235c4ac015ef8df37aa23d125c7947ace0ef7c3",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:31.197Z"
+    },
+    "s03_l08": {
+      "file": "audio/s03_l08.wav",
+      "input_hash": "b8354ce739058a1390736661baf54c518fe76b7e9202e8e374ec9b3a755e4cc7",
+      "duration_sec": 4.74025,
+      "file_sha256": "a70a0616329fa2ad7e6b91407c9348cfe50048102db49b3a6fe79ee841f2249c",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:32.106Z"
+    },
+    "s03_l09": {
+      "file": "audio/s03_l09.wav",
+      "input_hash": "6f02485dc1c2fd2de5b2d493236bb60586182c39798569efd8df41adbb42335a",
+      "duration_sec": 2.312,
+      "file_sha256": "d9391ba04efe34de3468fece33be366800aec00c4c62f6cbb395b55eaa7a0b80",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:32.561Z"
+    },
+    "s03_l10": {
+      "file": "audio/s03_l10.wav",
+      "input_hash": "80678273fbeb4abe2255d2efe0b71dbe147de93068556afe804b6344cef72b58",
+      "duration_sec": 3.7945,
+      "file_sha256": "e0a084de53e77b49c583569b2bc6cc37f287f98158681140dcb1d8aa26361e05",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:32.882Z"
+    },
+    "s03_l11": {
+      "file": "audio/s03_l11.wav",
+      "input_hash": "ae8789f2989d7245a04c6459a456c88d1e91f877342119957e30fb212f94dcda",
+      "duration_sec": 3.547,
+      "file_sha256": "5e4a40b1292af45c8460aab6819aa35558a04e51214ee9fdc772fc735a72e3a2",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:33.710Z"
+    },
+    "s04_l01": {
+      "file": "audio/s04_l01.wav",
+      "input_hash": "2d2b68b9d340b20b3db378ebbb4f0f1f6a551d59c0907e8421e34e2d64eaaf21",
+      "duration_sec": 3.287,
+      "file_sha256": "5bc17cd1fc2daa5b53989f815a779b270fc5e734e462a85f27536bd8e461528a",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:34.279Z"
+    },
+    "s04_l02": {
+      "file": "audio/s04_l02.wav",
+      "input_hash": "3b5a97e0d705f57e2d68332f6dcb8373d09f312765974d7f2437f8b1b41e8f4e",
+      "duration_sec": 1.407,
+      "file_sha256": "b14c212d78bc95cf17fddd0c28975b02c90e7fb25e5953787934c25b605317c5",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:34.669Z"
+    },
+    "s04_l03": {
+      "file": "audio/s04_l03.wav",
+      "input_hash": "a031c91a15103bd255e9f3cf1b2877a4a5eb2eb875cf29426be3bcf87569f6e1",
+      "duration_sec": 2.7795,
+      "file_sha256": "e14d4bace4e03465147eb9dea34ee12f5995e4aea57919c9de15bb118c1969a2",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:35.442Z"
+    },
+    "s04_l04": {
+      "file": "audio/s04_l04.wav",
+      "input_hash": "6b729279cb4b473d2586bfa0c756f15c62b471102e1d0757d83a14fc68c74f90",
+      "duration_sec": 3.8245,
+      "file_sha256": "3425fb7e8e935132337f70fb685ae2f997252d6c4c67c520c4d937cc77a85d8f",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:35.923Z"
+    },
+    "s04_l05": {
+      "file": "audio/s04_l05.wav",
+      "input_hash": "f0ab79251485f9f3af1168193f7dc55b2ebcb5d9a7f055abdbce51b4abf57076",
+      "duration_sec": 3.1795,
+      "file_sha256": "0f0d44863598e0c4c8787d60db7cff1b4af5ec0e77f973931d77413c8132c14a",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:36.709Z"
+    },
+    "s04_l06": {
+      "file": "audio/s04_l06.wav",
+      "input_hash": "c414f6fe25163f6c2bd084802b47b3216793fb98f3857b01d4eb6aee926366e0",
+      "duration_sec": 5.21325,
+      "file_sha256": "e044589a9625eb1c2357acda9da6c4be86d693ed696d5047930c2dd354c7ddbb",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:37.331Z"
+    },
+    "s04_l07": {
+      "file": "audio/s04_l07.wav",
+      "input_hash": "c3d497e12460dcec444c04031a0edd65227a5c3d073dbce48314cf5a791cbeab",
+      "duration_sec": 2.252,
+      "file_sha256": "505472bb6340f171a3649d41621ca9641358fdf090d692d5a96233c86f85aa1e",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:37.775Z"
+    },
+    "s04_l08": {
+      "file": "audio/s04_l08.wav",
+      "input_hash": "0f1e6fa41afa7d0a77d15c285ab1b4028027ab2deef93c2951dd02154b985deb",
+      "duration_sec": 3.887,
+      "file_sha256": "92c05dcd96685ad191ba60dd551033b5348c3a708ac5106bdcd225375c66c5f3",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:38.330Z"
+    },
+    "s04_l09": {
+      "file": "audio/s04_l09.wav",
+      "input_hash": "a45af5e907a56896ed16318c4f6ab207a53e43928c032cb59783493c7adecdab",
+      "duration_sec": 2.7245,
+      "file_sha256": "f04fbff2b1d8fd06c9efbc49959ec9d72281ee2e75491e46e4ff80b50c99012a",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:38.811Z"
+    },
+    "s04_l10": {
+      "file": "audio/s04_l10.wav",
+      "input_hash": "0691d6031f9eaa627cba881babd20cc530b97c571a48f496ed78acafb7f125b1",
+      "duration_sec": 4.172,
+      "file_sha256": "93a5474355ae9222a56c632c4d50229387533073270c90556f441de3ccc17bba",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:39.245Z"
+    },
+    "s04_l11": {
+      "file": "audio/s04_l11.wav",
+      "input_hash": "d1d1aef7f0adc80fe8dcb9acd490965ab6d8a3ad46bd9513e89e9e2f1166b865",
+      "duration_sec": 3.4395,
+      "file_sha256": "2fc30991e6bdc90c5bce6a8153b8d43e006315d965fd50d6cc6bd1e1996d78b3",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:39.848Z"
+    },
+    "s05_l01": {
+      "file": "audio/s05_l01.wav",
+      "input_hash": "8b5c019afba0f656bf3c7c8047d6766e4cb231d632eb9f4ac63ceb86878df13a",
+      "duration_sec": 3.492,
+      "file_sha256": "7a671f7f9a5ad2821ea0269f0f4611268cda012b7911633e9bdc407af98c5964",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:40.551Z"
+    },
+    "s05_l02": {
+      "file": "audio/s05_l02.wav",
+      "input_hash": "e7401da857062df2b0c94b7777108463fb3db1217be689dd3a490656da5000a3",
+      "duration_sec": 0.887,
+      "file_sha256": "15fb3603641b0c15e1e72d52c2e59adbd579f641b53f2a3f3f931c3baa7ef87b",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:41.071Z"
+    },
+    "s05_l03": {
+      "file": "audio/s05_l03.wav",
+      "input_hash": "2a1afef3c160a3e5399403bd1bc0ad87c48e85d2a41cc56c21959cbb76308850",
+      "duration_sec": 2.1595,
+      "file_sha256": "e2da058a79e3f77f077d4f94a66b94405d2d1095584982e23c2774bdfed53910",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:41.810Z"
+    },
+    "s05_l04": {
+      "file": "audio/s05_l04.wav",
+      "input_hash": "cd212c1b4af0777ed9fe45eca105a7cce0046e87275f1d76e3958cbcdb599347",
+      "duration_sec": 4.3245,
+      "file_sha256": "2c061bbde88acb882b17548a8d22e0749cf59c4f794959669f9920d9feabb003",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:42.318Z"
+    },
+    "s05_l05": {
+      "file": "audio/s05_l05.wav",
+      "input_hash": "0ae69b0d174e9e97982b69e468b4f777b3fe750304f7640e405db83d0334bb1b",
+      "duration_sec": 3.0295,
+      "file_sha256": "c66466da3556d53bed81aa5bf980833e6d8ba2158eab112dcff5df0c4466c41a",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:42.666Z"
+    },
+    "s05_l06": {
+      "file": "audio/s05_l06.wav",
+      "input_hash": "1eb181631fd448c9d00d250667838ae345b045e6785126057c398462ae93bcf2",
+      "duration_sec": 2.852,
+      "file_sha256": "b6a2523793b8e325ba1f8b578f7bacd551fdc02632b7faf3a86aece3c12ea3d9",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:43.468Z"
+    },
+    "s05_l07": {
+      "file": "audio/s05_l07.wav",
+      "input_hash": "46dcfb76c1dd10c68462055821c12fce8f5e591a8258e78ad115f9c7fd7fa4ff",
+      "duration_sec": 2.3745,
+      "file_sha256": "3cf8b0de0bc0523e1c72c4d4c5d5ca7f5e6ca211514e5f8ed692d7ac2c37e9b5",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:44.008Z"
+    },
+    "s05_l08": {
+      "file": "audio/s05_l08.wav",
+      "input_hash": "9c44d17bfca860466b0f9e4a2d08aec91a71d59d2e03180c445c13bbe412efa2",
+      "duration_sec": 3.747,
+      "file_sha256": "9fa8ae6d39e59c95ad681512d070a9aa1e80f5af37b7a211e5623f1899262beb",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:44.439Z"
+    },
+    "s05_l09": {
+      "file": "audio/s05_l09.wav",
+      "input_hash": "1e301f9938a40acc81d88af0a99f1fd4d5263c11a1df8d6b1d9dcbfe3fa4b17c",
+      "duration_sec": 2.3845,
+      "file_sha256": "086d10c410f3c05f08812652cef8982663d6618ee721db133725dc32a7cf0309",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:45.228Z"
+    },
+    "s05_l10": {
+      "file": "audio/s05_l10.wav",
+      "input_hash": "c98c8aa82bf423ef6f7dc61938800410e965a4708047496316eb3d50b2366935",
+      "duration_sec": 4.3945,
+      "file_sha256": "e9687b416533b45c9360e5f27d33f6623e394cd43d168f95742e8d6e64aa2c47",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:45.661Z"
+    },
+    "s05_l11": {
+      "file": "audio/s05_l11.wav",
+      "input_hash": "86433a4ddca2806a02b134ea848c05cddc9b691916c90c78fa42dbde09514285",
+      "duration_sec": 3.012,
+      "file_sha256": "e0d1886190579c1fe318d4cb1e431eb8bdd0d46066a2d187066e84486b2bac39",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:46.242Z"
+    },
+    "s06_l01": {
+      "file": "audio/s06_l01.wav",
+      "input_hash": "6e41e038beccdc704561a18b40b7332d4ede326f453113105556461532fdacf9",
+      "duration_sec": 2.837,
+      "file_sha256": "50337f8c76c107ea3b004d803f84dd0e5494dfeff084ff2e60f7e16aaaf3b5c1",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:47.095Z"
+    },
+    "s06_l02": {
+      "file": "audio/s06_l02.wav",
+      "input_hash": "f3c4621c88a3f01ac356ffa50dee5fe67b0206e87a40bccc4425c90b5f3434f2",
+      "duration_sec": 2.2445,
+      "file_sha256": "a16e08d30fb8c167f4a5c27637622b141f2406b45878a67bd4eea080e8c991ae",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:47.722Z"
+    },
+    "s06_l03": {
+      "file": "audio/s06_l03.wav",
+      "input_hash": "fce5bb579f38b48f74a44f5a8b8c9d2406da48561357773bdc1e1fd7b7e9c057",
+      "duration_sec": 3.197,
+      "file_sha256": "4cc2d110465223d579b4e66c424ccdb110ddd15badd43d9e7e91a188d9dbda0b",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:48.672Z"
+    },
+    "s06_l04": {
+      "file": "audio/s06_l04.wav",
+      "input_hash": "5c1c6f0b65ffab33d71164b41cbb0c4e9c1058dd1624012a6013015a3a350641",
+      "duration_sec": 4.1195,
+      "file_sha256": "ec9082209693795cde0ca6a77e2c719dce00525fe2141ca590e08a5cff02a738",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:49.110Z"
+    },
+    "s06_l05": {
+      "file": "audio/s06_l05.wav",
+      "input_hash": "4663456cf70a11fc140eefd80c3f28b6c9256dbaa4297e1ac0bde2fc7315841e",
+      "duration_sec": 2.347,
+      "file_sha256": "10877aa2089089f00aacdcf9d91e46f86b4a808fa4a1459d80ab110d157c90e0",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:49.847Z"
+    },
+    "s06_l06": {
+      "file": "audio/s06_l06.wav",
+      "input_hash": "414b95656cf5566b94e19f08962da8c571d79553fa6c7a224f660e0c80830590",
+      "duration_sec": 4.3895,
+      "file_sha256": "456900a184579ae1bbb742fbde0685ec8850d04f28777234f394c69cd82af3c7",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:50.794Z"
+    },
+    "s06_l07": {
+      "file": "audio/s06_l07.wav",
+      "input_hash": "7c9fe4a26d163565987708f1d9e72302209e8825a824bbedd4f333e0f60df214",
+      "duration_sec": 1.9845,
+      "file_sha256": "9ceee5d5c94d79ec7b412a29f659517346d699403ee7b50025bb1766fd2e2c91",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:51.488Z"
+    },
+    "s06_l08": {
+      "file": "audio/s06_l08.wav",
+      "input_hash": "e1670e55e41d5b143b174f960ff86a6e0ab813fd0c403775beacbf8cb056b709",
+      "duration_sec": 3.4545,
+      "file_sha256": "e0ff7079063a098fc941c562a679a4cf48bbd9e0ee89033bbdc5e75d166a5484",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:52.101Z"
+    },
+    "s06_l09": {
+      "file": "audio/s06_l09.wav",
+      "input_hash": "0bdc38b5ae09c381895c847ad2a3c0749f4de12a213f4d78934cef45cf38b38a",
+      "duration_sec": 2.047,
+      "file_sha256": "a464c4b17a9bf9228484fa3a28bc8a66c58136e4f31973614ded7ba41c0245e4",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:52.691Z"
+    },
+    "s06_l10": {
+      "file": "audio/s06_l10.wav",
+      "input_hash": "386c93dffc1cfa8dfac276a2bed9d63b180f4a7c8a626b33ea012f2468fe455f",
+      "duration_sec": 4.227,
+      "file_sha256": "29b6e90f904c9792db69f937b10a5affaf97720de902c073eb2194a3bd025978",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:53.573Z"
+    },
+    "s06_l11": {
+      "file": "audio/s06_l11.wav",
+      "input_hash": "b7a7ffdbfadf0c2dbdad0853f420cafb385180d1390e971fbb80f66b30c370c7",
+      "duration_sec": 2.5045,
+      "file_sha256": "d77467661217be2088b1760b92d706d00017e1aefa849d2c851a28f157748f95",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:54.198Z"
+    },
+    "s07_l01": {
+      "file": "audio/s07_l01.wav",
+      "input_hash": "3d0634b51c141b3a96b104b0d7c6fc3789d5bcc7c0d288f5e964f335ec8cac34",
+      "duration_sec": 3.2745,
+      "file_sha256": "27a5a7de62a360544a887c8ca7af4aefa68376d727dac186d0562e4f5c4ff309",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:54.943Z"
+    },
+    "s07_l02": {
+      "file": "audio/s07_l02.wav",
+      "input_hash": "07ee6b9a644b1a5e95ba367c699ad6051691e08e7b6d7535ba1234ebd6d4a344",
+      "duration_sec": 3.112,
+      "file_sha256": "5fe5fefdfaa6a4c4a965c22a85091e0d35081c7e1cca2c37afb7925b967ad187",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:55.898Z"
+    },
+    "s07_l03": {
+      "file": "audio/s07_l03.wav",
+      "input_hash": "a9978a5e63d5f6c908e2035aeec148ff5157aeda4964db7bafe8ffdadb1a719b",
+      "duration_sec": 2.992,
+      "file_sha256": "83f78b95a1123774781299d4316eecd1754a7a5c67fbec7f0047346a18de7c0d",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:56.861Z"
+    },
+    "s07_l04": {
+      "file": "audio/s07_l04.wav",
+      "input_hash": "3dce83c3f83397b96e1c50b887f95c4f40698ab374412a221eff52f5cf478501",
+      "duration_sec": 3.562,
+      "file_sha256": "f8b4512c1cff948074ce7c228e1af914569447ab6609ea52501f5b0f927a3ff4",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:57.858Z"
+    },
+    "s07_l05": {
+      "file": "audio/s07_l05.wav",
+      "input_hash": "67936371ecf66cd9347cf40baad047f712e2c61a9f6eedf8fb49f05e31216526",
+      "duration_sec": 2.3045,
+      "file_sha256": "a8a1b47b83dd0eb338713a6d8cde5bb2edeccc95089c8e7525dba832bae96623",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:41:58.566Z"
+    },
+    "s07_l06": {
+      "file": "audio/s07_l06.wav",
+      "input_hash": "0acdaaab08edf22d63ffcef08a925a07f1967d1ae8631f05f117727806443459",
+      "duration_sec": 5.197,
+      "file_sha256": "be7b08d1fdc069f17b4d411929da49826a1d6abe01e3ce9bff4bed83c5ce1a6c",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:41:59.261Z"
+    },
+    "s07_l07": {
+      "file": "audio/s07_l07.wav",
+      "input_hash": "5e1c25441c491615abf1c204d8e474ee8fa24db2e1b39f0362e3818339335093",
+      "duration_sec": 2.792,
+      "file_sha256": "33acd4523aa05c792efd20a1390856c98f06b3782d9fd149120ce73cbe0258a3",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:00.065Z"
+    },
+    "s07_l08": {
+      "file": "audio/s07_l08.wav",
+      "input_hash": "ddf477a07e5a6002bf3ca88a9ef50756a53a68a287d83bf15b69965437c740ff",
+      "duration_sec": 4.2195,
+      "file_sha256": "a086f068fbbbd719aea0a9f30c6c63a0007f765d640efe740a550df02ef4cd45",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:00.588Z"
+    },
+    "s07_l09": {
+      "file": "audio/s07_l09.wav",
+      "input_hash": "e12c5cc0d3234d9a1d750dddafa1ec3bd45b7a45417e4729213fa61f7173e9cc",
+      "duration_sec": 2.1395,
+      "file_sha256": "29e4ed6215821c50544d51fd7e9b4e68455254a90ad968276afc4d19f21e2e77",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:01.152Z"
+    },
+    "s07_l10": {
+      "file": "audio/s07_l10.wav",
+      "input_hash": "03f410d72150ed2bdb8653eeb3c52629b0ffb75fd17cec9a199ca49a1558243b",
+      "duration_sec": 3.5295,
+      "file_sha256": "6b4fe0e7cf908eda33119cb06a54e35f21dc4bb2d0d14afab73de80dcc022a0c",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:01.888Z"
+    },
+    "s07_l11": {
+      "file": "audio/s07_l11.wav",
+      "input_hash": "ed9a6a2d48b79778c532263a714824821d1975fe45f3f331f3bc951ba9698c50",
+      "duration_sec": 2.77825,
+      "file_sha256": "e683fc8f938de647979642b29e01bec992628b499f7bd4bb96018b4ce9bc45be",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:02.629Z"
+    },
+    "s08_l01": {
+      "file": "audio/s08_l01.wav",
+      "input_hash": "9e1759f950800cab0d2c97e05f4a04edde2293da73eed5cd46fbae25f2d60210",
+      "duration_sec": 3.122,
+      "file_sha256": "8b49d849b3fee4cdfd4d9442b40140643fae76a325ea60662f080dc8ebd91b4c",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:03.163Z"
+    },
+    "s08_l02": {
+      "file": "audio/s08_l02.wav",
+      "input_hash": "292f16918d698f044b784f6a75029cc419d9f3ad906a5c3fe47c90411468321d",
+      "duration_sec": 3.2195,
+      "file_sha256": "4c91fd6974baf123bfb658025766681f436889e4a54cf21a702d1083ec7f8272",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:03.950Z"
+    },
+    "s08_l03": {
+      "file": "audio/s08_l03.wav",
+      "input_hash": "f0e6d7bd661996f8d78a0c483d7b64574157a53165e436dc23f669db75d9ce2e",
+      "duration_sec": 2.087,
+      "file_sha256": "8341c3b719f4d1a596bcd997ff53addf5b282e9d004153e7260ba79eb927b0dd",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:04.474Z"
+    },
+    "s08_l04": {
+      "file": "audio/s08_l04.wav",
+      "input_hash": "4f2f2863f75d1bda33079ca510fbd88b0c9340a08a4afb3271df92fca2222f4e",
+      "duration_sec": 4.0645,
+      "file_sha256": "2ce53c18a71369e62d9eef7553eb1f42dbd4c195e50dc72c67bb1f688bdcaf94",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:04.903Z"
+    },
+    "s08_l05": {
+      "file": "audio/s08_l05.wav",
+      "input_hash": "13a4f05fb970f83ddb212ef84873f2ade40d0c6cffbfeee5f49f19781cbace00",
+      "duration_sec": 1.777,
+      "file_sha256": "2a756a31f2c8f9dfab533253ccdc5147f32334224fb286a739d1e5b4b238b214",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:05.627Z"
+    },
+    "s08_l06": {
+      "file": "audio/s08_l06.wav",
+      "input_hash": "daceccfa80966cb802194fa625dca9798f2cc1d52fc8b4745e91181c38a51469",
+      "duration_sec": 3.6095,
+      "file_sha256": "d81d0ef6eedaa993c27d088ec0c94deb498d1c8838e111ef3be535c710b01ae0",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:06.338Z"
+    },
+    "s08_l07": {
+      "file": "audio/s08_l07.wav",
+      "input_hash": "8f4b0aa0ffa8171e0e4d37557d75b1409451d1094ac7fb68999ea0acd8f6f0d7",
+      "duration_sec": 2.6345,
+      "file_sha256": "1ffb86bfc6c1fc3fe83be75babb7981ea66fffce1e673b2119cacaa486d2f0d6",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:07.113Z"
+    },
+    "s08_l08": {
+      "file": "audio/s08_l08.wav",
+      "input_hash": "9b53f812d7194938c9187a0e71068412adb0cca872a783f43e704b37305adb0b",
+      "duration_sec": 5.0145,
+      "file_sha256": "6589a81bfd7b916cd07854e08d3e0f4b89153de6a87d29497df2b0e17c0c38c5",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:07.583Z"
+    },
+    "s08_l09": {
+      "file": "audio/s08_l09.wav",
+      "input_hash": "660ec15259f3d4a9e6c2424233683ca90e455d76bc2e528c3bac0812855af3be",
+      "duration_sec": 2.0345,
+      "file_sha256": "f9719514906c9691d2148a075c0edbd0359ae5deefb929737ea21c487e8a3348",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:08.173Z"
+    },
+    "s08_l10": {
+      "file": "audio/s08_l10.wav",
+      "input_hash": "86190d47cb005ec97f50a210b2229a8b89d2abac8f60eabff55cf89883ac09d2",
+      "duration_sec": 2.5795,
+      "file_sha256": "23ea2e5ab2b642b3bbb90fccb164a19b47d6c5be4461a80eaca382dd9de615a8",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:08.925Z"
+    },
+    "s08_l11": {
+      "file": "audio/s08_l11.wav",
+      "input_hash": "c98a14b2409bde243a33d943692192fe80b669906b19c2e3868d92c793c5986d",
+      "duration_sec": 2.0945,
+      "file_sha256": "0b86ee340af4b02274d6b3c36fa2b2a5eb6deda081c50a20687a5515c24864fb",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:09.498Z"
+    },
+    "s09_l01": {
+      "file": "audio/s09_l01.wav",
+      "input_hash": "ba4e6b96dffaa477f0ab00d97b18b2993edb7f5f079a102077f4de1481cdb731",
+      "duration_sec": 3.632,
+      "file_sha256": "66518f746facb5a1704e76bc12985e5ff2195ce27a247447626a3f51c91bd34c",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:10.372Z"
+    },
+    "s09_l02": {
+      "file": "audio/s09_l02.wav",
+      "input_hash": "360bdd5cedca4603e968ffb35545f261b5853d1422c277f4941ca43cdfd3716e",
+      "duration_sec": 3.9545,
+      "file_sha256": "10807a100c12f5c43b7972a977484ca28f5728bbec6360bf33f4e79248f92a56",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:10.824Z"
+    },
+    "s09_l03": {
+      "file": "audio/s09_l03.wav",
+      "input_hash": "357df386a531a2de8856170de689694624e53c9fd1967c1a8e59e502958a170a",
+      "duration_sec": 3.4145,
+      "file_sha256": "00ac2013a5efa7e2a53737494b3f1a4b0b0a50a4fd71daef3dfea8ccfc4ac405",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:11.304Z"
+    },
+    "s09_l04": {
+      "file": "audio/s09_l04.wav",
+      "input_hash": "e300dd75e8f6575eb0977742fc662e34f02fb3a82e5036a37b4113b2dcffbe75",
+      "duration_sec": 3.547,
+      "file_sha256": "803966e68f65157621c1aa18186ba24e6576e9c078e8bb5ab66b50558c7d193f",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:12.279Z"
+    },
+    "s09_l05": {
+      "file": "audio/s09_l05.wav",
+      "input_hash": "b1d2afbda56e6dc6fe09f17ce14cdf5685bd7fc14b08059c3ba79f49d73d62ac",
+      "duration_sec": 2.217,
+      "file_sha256": "a4f2e947d666ed909e5c94d196dda5b065202263560dd01abec10a554b55ecc4",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:12.815Z"
+    },
+    "s09_l06": {
+      "file": "audio/s09_l06.wav",
+      "input_hash": "2f4524215add27d2e52af9c3cc676c0e28d25e9e6193c1f549d2c424dbc484e9",
+      "duration_sec": 5.1295,
+      "file_sha256": "b9562afb115e2f10488965b8ae3ff9ac675014acbd4fc73d3fe4d1e6c3a15a27",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:13.326Z"
+    },
+    "s09_l07": {
+      "file": "audio/s09_l07.wav",
+      "input_hash": "f60d8b10adcea5358c1d79a8608c543e9fb9dcd4215cd7e8817617c6186ea64c",
+      "duration_sec": 2.5845,
+      "file_sha256": "14fd08e77876486ff1ddc44a41bb0db6f9b59a601feef6a9cae9871b923b32f3",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:14.036Z"
+    },
+    "s09_l08": {
+      "file": "audio/s09_l08.wav",
+      "input_hash": "49deddf904ee6750fc17436ccd628fd237ad4b3c5658ac282d4c9e9eb0ebe7fe",
+      "duration_sec": 5.057,
+      "file_sha256": "5bfb12ba64e0c94505667a74ca108aeb07ffefac7003e8e329a8c3372c038ef4",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:14.611Z"
+    },
+    "s09_l09": {
+      "file": "audio/s09_l09.wav",
+      "input_hash": "ee8c12e1cb2a86c466111beeaa69cd2d947d7e2e4a50494422c9dd4612f80af7",
+      "duration_sec": 2.587,
+      "file_sha256": "0b03e9aea97e83c64a2b8457f71f97079437f7c76e27fa25366322818d8617e4",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:14.958Z"
+    },
+    "s09_l10": {
+      "file": "audio/s09_l10.wav",
+      "input_hash": "669b65b71da3bddac63fb22d5bd0ec4edbf1cc869d415852b1ebf5d8fe6625da",
+      "duration_sec": 3.4645,
+      "file_sha256": "a1449cbbfa02f961aa67cf5372442f416c5d234c6abfcfcb96371f91e290577f",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:15.728Z"
+    },
+    "s09_l11": {
+      "file": "audio/s09_l11.wav",
+      "input_hash": "a801fd8b74df7001d5a26b326699be3b6d447b9ed5f1d6529f996cd527ba371c",
+      "duration_sec": 2.7045,
+      "file_sha256": "a05387618544af876134cbf65a37cff146fc833452c924fa2caaf84d1f900b4d",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:16.131Z"
+    },
+    "s10_l01": {
+      "file": "audio/s10_l01.wav",
+      "input_hash": "11fbd2fdc2d847c2f2fc05cd7764ab042e6f327e486cb5cc478531260f122b77",
+      "duration_sec": 3.2845,
+      "file_sha256": "d8d40497dfbebabae6fb66f2f1aebbd59679cd4bd0877c67cc86a09fd1530e0c",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:16.841Z"
+    },
+    "s10_l02": {
+      "file": "audio/s10_l02.wav",
+      "input_hash": "c5725081b0e246b9f9627a8ab34587c740b37e42c637ca4536d1bed2ae3da52e",
+      "duration_sec": 2.507,
+      "file_sha256": "c74f5b4d00aefa2b95fd11538ae3816bdab045035608aad8255d3425e0abf930",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:17.514Z"
+    },
+    "s10_l03": {
+      "file": "audio/s10_l03.wav",
+      "input_hash": "99f1529971d9169906677bee5b5d626c11d5ec947267a35c9614b285b655cb63",
+      "duration_sec": 3.392,
+      "file_sha256": "a45efd5ed02ea1b4822c481589f1dde73256a34d6dc2b799c2779dd5d8fb4181",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:18.033Z"
+    },
+    "s10_l04": {
+      "file": "audio/s10_l04.wav",
+      "input_hash": "fe5cc5642781d4aba483509b697f65cd4adfce6f4fe47204a61403d449c4f8f1",
+      "duration_sec": 4.1895,
+      "file_sha256": "239e17d23a6c0555cd0cd6af97fe107b19689af5ad7019704634f91dd3d2616a",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:18.882Z"
+    },
+    "s10_l05": {
+      "file": "audio/s10_l05.wav",
+      "input_hash": "cb567b1185ea7a84968129da5c17c149536fbef8e46d251861867f71c36d5479",
+      "duration_sec": 3.157,
+      "file_sha256": "c394d3b47478c4407abd5ef95b913cc2f58a94289011bb4e8dca649d2268df27",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:19.462Z"
+    },
+    "s10_l06": {
+      "file": "audio/s10_l06.wav",
+      "input_hash": "df4ab45a81eab93e4a4ba9ee28699fe9f99e0de737dc2b7f6e99dc828de226fc",
+      "duration_sec": 3.7145,
+      "file_sha256": "735db5c3c62b2f456a056994ed709148efdc15608a21dca3c5692b4011712519",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:20.032Z"
+    },
+    "s10_l07": {
+      "file": "audio/s10_l07.wav",
+      "input_hash": "0b95520e3c30687eb840618c231600ae5150cf1b33c97af43295eb19ca4626d2",
+      "duration_sec": 3.5945,
+      "file_sha256": "62714b0c6fbbf279b46251718678ff7d0dd27065a94f4ccd0e39851f758f9b15",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:20.865Z"
+    },
+    "s10_l08": {
+      "file": "audio/s10_l08.wav",
+      "input_hash": "5dd84829d7eaa2006df061137f210bf5e399a6d24d1aa63015d194cb689edd21",
+      "duration_sec": 4.382,
+      "file_sha256": "e40e841b0ec09b43807dadacebc4ae0303411d98aebd41c62740659ea915e3f5",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:21.266Z"
+    },
+    "s10_l09": {
+      "file": "audio/s10_l09.wav",
+      "input_hash": "5db17e352e047c1f7c040e16ea551d516cb5aa7ac52ddb6f4d5c60e7cfde550e",
+      "duration_sec": 3.3095,
+      "file_sha256": "7a187e01a22e30e10419d642729f169dbb34f4bcc5aab9febd97af6c94e7be80",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:21.974Z"
+    },
+    "s10_l10": {
+      "file": "audio/s10_l10.wav",
+      "input_hash": "a03297e083cfdcf4b457766f94d0785f62616a8b51bed29552ffb90f0b8382ce",
+      "duration_sec": 2.9895,
+      "file_sha256": "9906e975fea9aa350f1f04fcb3361b6770052e0f44493a62ba91f9a5cc5f30f5",
+      "voice_engine": "aquestalk",
+      "preset": "まりさ",
+      "generated_at": "2026-04-27T07:42:22.678Z"
+    },
+    "s10_l11": {
+      "file": "audio/s10_l11.wav",
+      "input_hash": "fecff916d130f64424541b226670e5de09655a97e4ee2ec4fb1811f0e1c6ba0b",
+      "duration_sec": 4.007,
+      "file_sha256": "0ba8f22a724321e5931a3d2de146bd1365f8827818e423853e6937a64b3068c3",
+      "voice_engine": "aquestalk",
+      "preset": "れいむ",
+      "generated_at": "2026-04-27T07:42:23.207Z"
+    }
+  }
+}

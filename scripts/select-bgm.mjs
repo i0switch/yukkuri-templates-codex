@@ -4,6 +4,8 @@ import {parseDocument} from 'yaml';
 
 const rootDir = process.env.BGM_ROOT_DIR ? path.resolve(process.env.BGM_ROOT_DIR) : process.cwd();
 const episodeId = process.argv[2];
+const flags = new Set(process.argv.slice(3));
+const forceBgm = flags.has('--force') || flags.has('--force-bgm');
 const MIN_BGM_BYTES = Number.parseInt(process.env.BGM_MIN_BYTES ?? '10240', 10);
 const DOVA_BASE_URL = process.env.DOVA_BASE_URL ?? 'https://dova-s.jp';
 const DEFAULT_LICENSE = 'DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）';
@@ -421,7 +423,7 @@ const main = async () => {
   const document = await readScriptDocument();
   const script = document.toJS();
 
-  if (await hasUsableExistingBgm(script)) {
+  if (!forceBgm && (await hasUsableExistingBgm(script))) {
     console.log(JSON.stringify({episodeId, status: 'skipped', reason: 'existing bgm.file is present'}, null, 2));
     return;
   }

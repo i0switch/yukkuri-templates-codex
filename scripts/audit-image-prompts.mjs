@@ -24,6 +24,7 @@ const FIXED_PROMPT_REQUIREMENTS = [
   {key: 'mobile_viewing', patterns: [/スマホ視聴でも伝わるように主役は1つ/]},
   {key: 'no_generic_it_visual', patterns: [/どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線/]},
   {key: 'japanese_text_only', patterns: [/画像内の可読テキストは日本語だけにしてください/]},
+  {key: 'image_headline_required', patterns: [/対象シーンの見出し本文だけを大きく目立つ見出しとして配置してください/]},
   {key: 'no_bottom_input_space', patterns: [/下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください/]},
   {key: 'aspect_ratio', patterns: [/16:9の横長構図/]},
   {key: 'mood_line', patterns: [/画像の雰囲気は.+で生成してください。/s]},
@@ -36,7 +37,7 @@ const INTERNAL_META_PATTERNS = [
   {key: 'supports_moment', pattern: /supports_moment/i},
   {key: 'supports_dialogue', pattern: /supports_dialogue/i},
   {key: 'image_direction', pattern: /image_direction/i},
-  {key: 'legacy_layers', pattern: /前景|中景|背景|foreground|midground|background/i},
+  {key: 'legacy_layers', pattern: /(?:前景|中景|背景)\s*[:：]|foreground|midground|background/i},
   {key: 'legacy_quality', pattern: /negative constraints|品質基準|生成単位|safe_space/i},
 ];
 
@@ -109,6 +110,14 @@ const readScript = async (scriptPath) => parseDocument(await fs.readFile(scriptP
 
 const normalize = (value) => String(value ?? '').replace(/\r\n/g, '\n').trim();
 
+const escapeRegExp = (value) => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const sceneHeadingFor = (prompt, sceneId) => {
+  const firstLine = normalize(prompt).split('\n')[0]?.trim() ?? '';
+  const match = firstLine.match(new RegExp(`^${escapeRegExp(sceneId)}:\\s*(.+)$`));
+  return match ? {firstLine, title: match[1].trim()} : {firstLine, title: ''};
+};
+
 const promptLocationsFor = (scene, plan, registry) => {
   const locations = [];
   if (typeof plan?.imagegen_prompt === 'string') {
@@ -169,6 +178,8 @@ const patternMatchesNonNegated = (prompt, pattern) => {
 const legacyPromptMatches = (prompt) =>
   LEGACY_IMAGEGEN_PROMPT_PATTERNS.filter(({pattern}) => patternMatchesNonNegated(prompt, pattern)).map(({key}) => key);
 
+const genericPromptMatches = (prompt) => GENERIC_PROMPT_PATTERNS.filter((pattern) => patternMatchesNonNegated(prompt, pattern));
+
 const isNegatedForbiddenBatchPhrase = (prompt, matchIndex) => {
   const prefix = prompt.slice(Math.max(0, matchIndex - 40), matchIndex);
   return /(?:禁止|しない|入れない|避ける|ではない|しません|禁止です)[^。\n]*$/.test(prefix);
@@ -186,6 +197,7 @@ const hasForbiddenBatchInstruction = (prompt) =>
 
 const auditPrompt = ({scene, location, issues}) => {
   const prompt = normalize(location.prompt);
+  const heading = sceneHeadingFor(prompt, scene.id);
 
   if (prompt.length < 240) {
     pushIssue(issues, 'error', 'weak-yukkuri-imagegen-prompt', `${location.name}: imagegen_prompt is too short`, {
@@ -194,8 +206,22 @@ const auditPrompt = ({scene, location, issues}) => {
     return;
   }
 
-  if (!prompt.includes(`${scene.id}:`)) {
+  if (!heading.title) {
     pushIssue(issues, 'error', 'missing-scene-heading', `${location.name}: imagegen_prompt must start from the target scene id and title`);
+  } else {
+    const headlineInstruction = new RegExp(`画像内に「${escapeRegExp(heading.title)}」という見出しを必ず目立つように配置してください。`);
+    if (!headlineInstruction.test(prompt)) {
+      pushIssue(
+        issues,
+        'error',
+        'missing-image-headline-instruction',
+        `${location.name}: imagegen_prompt must explicitly place the scene title inside the image as a prominent headline`,
+        {
+          scene_heading: heading.firstLine,
+          expected_title: heading.title,
+        },
+      );
+    }
   }
 
   const missingDialogue = (scene.dialogue ?? [])
@@ -222,7 +248,7 @@ const auditPrompt = ({scene, location, issues}) => {
     });
   }
 
-  if (GENERIC_PROMPT_PATTERNS.some((pattern) => pattern.test(prompt))) {
+  if (genericPromptMatches(prompt).length > 0) {
     pushIssue(issues, 'error', 'generic-icon-imagegen-prompt', `${location.name}: imagegen_prompt still points toward a generic white-background icon/card`);
   }
 

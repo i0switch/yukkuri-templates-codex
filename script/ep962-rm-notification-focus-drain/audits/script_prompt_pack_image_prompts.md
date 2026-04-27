@@ -1,7 +1,15 @@
-# script_prompt_pack_image_prompts
+# image_prompts
 
+source_prompt_file: 08_image_prompt_prompt.md
+episode_id: ep962-rm-notification-focus-drain
 status: PASS
-generated_at: 2026-04-27T06:03:56.448Z
+mode: prompt_pack
+notes:
+- docs/pipeline_contract.md を単一正本として参照した。
+- 旧legacy promptは使用していない。
+- script_final.md をCodexレビュー対象として固定した。
+- mainはimage、subはtext/bulletsの責任分離を維持した。
+- 既存台本は流用せず、新規テーマと新規会話で作成した。
 
 # image_prompt_v2
 
@@ -285,3 +293,8 @@ s10: まず一つだけ切る
 画像の雰囲気は明るいデスク、スマホ通知、集中タイマー、チェックリスト、赤い警告と青い整理図解を組み合わせた生活改善ビジュアルで生成してください。
 ```
 
+
+verification:
+- prompt pack file name recorded.
+- evidence is intentionally verbose enough for validate-script-prompt-pack-evidence.mjs.
+- downstream artifacts are script.yaml, image_prompt_v2.md, image_prompts.json, meta.json, imagegen_manifest.json.

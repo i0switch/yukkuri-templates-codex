@@ -3,6 +3,16 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {parseDocument} from 'yaml';
+import {
+  audioLineInputHash,
+  fileSha256,
+  mapLimit,
+  readJsonFile,
+  readAudioManifest,
+  shouldReuseAudioLine,
+  shouldReuseLegacyAudioLine,
+  writeAudioManifest,
+} from './lib/pipeline-cache.mjs';
 
 export const DEFAULT_VOICEVOX_BASE_URL = 'http://127.0.0.1:50021';
 export const VOICEVOX_BASE_URL = process.env.VOICEVOX_BASE_URL || DEFAULT_VOICEVOX_BASE_URL;
@@ -87,26 +97,89 @@ const synthVoicevox = async (text, speaker, {baseUrl = VOICEVOX_BASE_URL} = {}) 
   return Buffer.from(await synthesisResponse.arrayBuffer());
 };
 
-export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEVOX_BASE_URL} = {}) => {
+const voicevoxConcurrency = () => Math.max(1, Number.parseInt(process.env.VOICEVOX_AUDIO_CONCURRENCY ?? '2', 10) || 2);
+
+export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEVOX_BASE_URL, forceAudio = false} = {}) => {
   const {baseUrl: checkedBaseUrl} = await checkVoicevoxEngine({baseUrl});
   const audioDir = path.join(episodeDir, 'audio');
   await fs.mkdir(audioDir, {recursive: true});
 
+  const manifest = await readAudioManifest(episodeDir);
+  const legacyDurations = await readJsonFile(path.join(episodeDir, 'line-durations.json'), {});
+  const nextEntries = {...(manifest.entries ?? {})};
   const durations = {};
-  for (const scene of script.scenes) {
-    for (const line of scene.dialogue) {
+  const tasks = script.scenes.flatMap((scene) =>
+    scene.dialogue.map((line) => {
       const speakerId =
         line.speaker === 'left'
           ? script.characters.left.voicevox_speaker_id
           : script.characters.right.voicevox_speaker_id;
-      const wav = await synthVoicevox(sanitizeSpeechText(line.text), speakerId, {baseUrl: checkedBaseUrl});
-      const outFile = path.join(audioDir, `${scene.id}_${line.id}.wav`);
-      await fs.writeFile(outFile, wav);
-      durations[`${scene.id}_${line.id}`] = probeWavSeconds(outFile);
+      const text = sanitizeSpeechText(line.text);
+      const key = `${scene.id}_${line.id}`;
+      return {
+        key,
+        outFile: path.join(audioDir, `${key}.wav`),
+        speakerId,
+        text,
+        inputHash: audioLineInputHash({voiceEngine: 'voicevox', speaker: line.speaker, voiceId: speakerId, text}),
+      };
+    }),
+  );
+
+  let reused = 0;
+  let generated = 0;
+  await mapLimit(tasks, voicevoxConcurrency(), async (task) => {
+    const cached = forceAudio
+      ? {ok: false, reason: 'force_audio'}
+      : await shouldReuseAudioLine({manifest, key: task.key, outFile: task.outFile, inputHash: task.inputHash});
+    if (cached.ok) {
+      durations[task.key] = cached.durationSec;
+      reused += 1;
+      return;
+    }
+    const legacy = forceAudio
+      ? {ok: false, reason: 'force_audio'}
+      : await shouldReuseLegacyAudioLine({lineDurations: legacyDurations, key: task.key, outFile: task.outFile});
+    if (legacy.ok) {
+      durations[task.key] = legacy.durationSec;
+      nextEntries[task.key] = {
+        file: `audio/${task.key}.wav`,
+        input_hash: task.inputHash,
+        duration_sec: legacy.durationSec,
+        file_sha256: legacy.fileSha256,
+        voice_engine: 'voicevox',
+        speaker_id: task.speakerId,
+        adopted_from: 'line-durations.json',
+      };
+      reused += 1;
+      return;
+    }
+
+    const wav = await synthVoicevox(task.text, task.speakerId, {baseUrl: checkedBaseUrl});
+    await fs.writeFile(task.outFile, wav);
+    const durationSec = probeWavSeconds(task.outFile);
+    durations[task.key] = durationSec;
+    nextEntries[task.key] = {
+      file: `audio/${task.key}.wav`,
+      input_hash: task.inputHash,
+      duration_sec: durationSec,
+      file_sha256: await fileSha256(task.outFile),
+      voice_engine: 'voicevox',
+      speaker_id: task.speakerId,
+      generated_at: new Date().toISOString(),
+    };
+    generated += 1;
+  });
+
+  for (const key of Object.keys(nextEntries)) {
+    if (!Object.prototype.hasOwnProperty.call(durations, key)) {
+      delete nextEntries[key];
     }
   }
 
+  await writeAudioManifest(episodeDir, {version: 1, entries: nextEntries});
   await fs.writeFile(path.join(episodeDir, 'line-durations.json'), JSON.stringify(durations, null, 2));
+  console.log(JSON.stringify({audio_cache: {voice_engine: 'voicevox', reused, generated, force_audio: forceAudio}}, null, 2));
   return durations;
 };
 
