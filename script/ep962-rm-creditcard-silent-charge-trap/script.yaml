@@ -1,0 +1,600 @@
+meta:
+  id: ep962-rm-creditcard-silent-charge-trap
+  title: クレカの明細を確認しない人が気づかず損している話
+  layout_template: Scene02
+  pair: RM
+  fps: 30
+  width: 1280
+  height: 720
+  audience: クレカ払いを日常的に使っているが明細をほとんど確認しない20〜40代
+  tone: 生活感のあるゆっくり実用解説、軽い危機感から安心へ
+  voice_engine: aquestalk
+  target_duration_sec: 312
+  image_style: クレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感
+
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: れいむ
+    speaking_style: 素直な気づき、生活感、困惑、視聴者目線
+  right:
+    character: marisa
+    aquestalk_preset: まりさ
+    speaking_style: 具体化、例え、警告、行動に落とす
+
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/23353
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5
+
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: 明細未確認の危険性を損失ファーストで提示
+    viewer_question: 焦りと共感
+    visual_role: スマートフォンのクレカ明細画面に見覚えのない請求が混じるコミカルな家計ビジュアル
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 冒頭の損失提示シーンを視覚的に強調するため
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt: |-
+          s01: 明細を開かない人の末路
+
+          霊夢「ねえ魔理沙、クレカって払い終わったら明細なんて見なくてよくない？」
+          魔理沙「それ、相当危険な考え方だぜ。」
+          霊夢「え、なんで。引き落としされたら終わりでしょ。」
+          魔理沙「引き落とされた中に、身に覚えのない請求が混じってたらどうするんだぜ。」
+          霊夢「……それ、気づかなかったら？」
+          魔理沙「そのままずっと払い続けるだぜ。半年気づかなかった人、実際にかなりいるんだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "ねえ魔理沙、クレカって払い終わったら明細なんて見なくてよくない？"
+        expression: confused
+        emphasis:
+          words:
+            - 明細
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: l02
+        speaker: right
+        text: "それ、相当危険な考え方だぜ。"
+        expression: shock
+      - id: l03
+        speaker: left
+        text: "え、なんで。引き落としされたら終わりでしょ。"
+        expression: confused
+      - id: l04
+        speaker: right
+        text: "引き落とされた中に、身に覚えのない請求が混じってたらどうするんだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "……それ、気づかなかったら？"
+        expression: surprise
+      - id: l06
+        speaker: right
+        text: "そのままずっと払い続けるだぜ。半年気づかなかった人、実際にかなりいるんだぜ。"
+        expression: smug
+
+  - id: s02
+    role: body
+    scene_goal: 少額不正利用が検知されにくい仕組みを説明
+    viewer_question: 驚きと不安
+    visual_role: クレカ明細に小さな不審な請求が並ぶ、気づきにくさを表す比喩ビジュアル
+    motion_mode: punch
+    main:
+      kind: image
+      asset: assets/s02_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 少額不正利用の見えにくさを視覚的に示すため
+        image_role: 不安喚起
+        composition_type: 失敗例シミュレーション
+        imagegen_prompt: |-
+          s02: 不正利用は気づかない
+
+          霊夢「でも不正利用ってカード会社から連絡が来るんじゃないの？」
+          魔理沙「少額だと検知されないことがあるんだぜ。500円とか980円は特に見逃されやすいだぜ。」
+          霊夢「え、そんな小さい額でも不正利用されるの？」
+          魔理沙「むしろ小額のほうが狙われやすいだぜ。気づかれにくいからな。」
+          霊夢「それが毎月続いたら……」
+          魔理沙「1年で6000円、5年で3万円が静かに消えていくだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "でも不正利用ってカード会社から連絡が来るんじゃないの？"
+        expression: confused
+      - id: l02
+        speaker: right
+        text: "少額だと検知されないことがあるんだぜ。500円とか980円は特に見逃されやすいだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "え、そんな小さい額でも不正利用されるの？"
+        expression: surprise
+      - id: l04
+        speaker: right
+        text: "むしろ小額のほうが狙われやすいだぜ。気づかれにくいからな。"
+        expression: smug
+      - id: l05
+        speaker: left
+        text: "それが毎月続いたら……"
+        expression: shock
+      - id: l06
+        speaker: right
+        text: "1年で**6000円**、5年で3万円が静かに消えていくだぜ。"
+        expression: confident
+
+  - id: s03
+    role: body
+    scene_goal: 年会費の初年度無料トラップを解説
+    viewer_question: 納得と不安
+    visual_role: 「初年度無料」の文字と、2年目から切り替わる請求イメージ図
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s03_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 年会費の初年度無料トラップを図解するため
+        image_role: 不安喚起
+        composition_type: NG / OK 比較
+        imagegen_prompt: |-
+          s03: 年会費の罠
+
+          霊夢「そういえば私のクレカ、最初は年会費無料って書いてあったんだけど。」
+          魔理沙「2年目以降から有料になるパターン、よくあるだぜ。」
+          霊夢「え、ちゃんと確認したのに。」
+          魔理沙「「初年度無料」って書いてあったはずだぜ。2年目以降はちゃっかり引かれてるだぜ。」
+          霊夢「いつの間に有料になったのよ……。」
+          魔理沙「年会費は毎年同じ月に来るから、明細で1年1回確認するだけで気づけるだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "そういえば私のクレカ、最初は年会費無料って書いてあったんだけど。"
+        expression: confused
+      - id: l02
+        speaker: right
+        text: "2年目以降から有料になるパターン、よくあるだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "え、ちゃんと確認したのに。"
+        expression: confused
+      - id: l04
+        speaker: right
+        text: "「初年度無料」って書いてあったはずだぜ。2年目以降はちゃっかり引かれてるだぜ。"
+        expression: smug
+      - id: l05
+        speaker: left
+        text: "いつの間に有料になったのよ……。"
+        expression: shock
+      - id: l06
+        speaker: right
+        text: "年会費は毎年同じ月に来るから、明細で1年1回確認するだけで気づけるだぜ。"
+        expression: confident
+
+  - id: s04
+    role: body
+    scene_goal: 自動更新サービスの見落としを説明
+    viewer_question: 焦り
+    visual_role: スマートフォン画面でサービスが自動継続している比喩イラスト
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s04_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 自動更新の仕組みを視覚化するため
+        image_role: 不安喚起
+        composition_type: 原因マップ
+        imagegen_prompt: |-
+          s04: サービス自動更新の落とし穴
+
+          霊夢「去年入ったサービス、まだ引かれてたりするかな。」
+          魔理沙「解約しないと毎年自動で更新されるサービス、多いだぜ。」
+          霊夢「え、使ってないやつも？」
+          魔理沙「使ってるかどうかは関係ないだぜ。解約手続きをしない限り、引かれ続けるんだぜ。」
+          霊夢「ちょっと待って。今思い当たるサービスが3個あるんだけど。」
+          魔理沙「それを明細で確認して、使ってないものから解約するだぜ。それだけで数千円変わることもあるだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "去年入ったサービス、まだ引かれてたりするかな。"
+        expression: confused
+      - id: l02
+        speaker: right
+        text: "解約しないと毎年自動で更新されるサービス、多いだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "え、使ってないやつも？"
+        expression: surprise
+      - id: l04
+        speaker: right
+        text: "使ってるかどうかは関係ないだぜ。解約手続きをしない限り、引かれ続けるんだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "ちょっと待って。今思い当たるサービスが3個あるんだけど。"
+        expression: shock
+      - id: l06
+        speaker: right
+        text: "それを明細で確認して、使ってないものから解約するだぜ。それだけで数千円変わることもあるだぜ。"
+        expression: smug
+
+  - id: s05
+    role: body
+    scene_goal: 明細の具体的な見方を整理
+    viewer_question: 納得
+    visual_role: クレカアプリの明細画面で「見るべきポイント」を示す整理図
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s05_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 明細確認の具体的な見方を視覚化するため
+        image_role: 理解補助
+        composition_type: 手順図
+        imagegen_prompt: |-
+          s05: 明細の見方・どこを見るか
+
+          霊夢「明細って、具体的にどこを見ればいいの？」
+          魔理沙「まず金額の大きい順に並べ替えて、見覚えのないものを探すだぜ。」
+          霊夢「全部チェックするの？それ大変じゃない。」
+          魔理沙「月に1回、5分で終わるだぜ。見慣れた出費と違うものだけ気にすれば十分だぜ。」
+          霊夢「5分か。コンビニのレジで迷う時間より短いじゃない。」
+          魔理沙「そうだぜ。定期引き落としを月ごとに比較すると、変化がすぐわかるだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "明細って、具体的にどこを見ればいいの？"
+        expression: confused
+      - id: l02
+        speaker: right
+        text: "まず金額の大きい順に並べ替えて、見覚えのないものを探すだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "全部チェックするの？それ大変じゃない。"
+        expression: wry
+      - id: l04
+        speaker: right
+        text: "月に1回、**5分**で終わるだぜ。見慣れた出費と違うものだけ気にすれば十分だぜ。"
+        expression: smug
+      - id: l05
+        speaker: left
+        text: "5分か。コンビニのレジで迷う時間より短いじゃない。"
+        expression: smile
+      - id: l06
+        speaker: right
+        text: "そうだぜ。定期引き落としを月ごとに比較すると、変化がすぐわかるだぜ。"
+        expression: confident
+
+  - id: s06
+    role: body
+    scene_goal: 放置した場合の具体的な損額を数字で提示する中盤再フック
+    viewer_question: 驚きと焦り
+    visual_role: 2年放置した場合の累積損失額を視覚化した金額カウンターまたは積み上げ図
+    motion_mode: punch
+    main:
+      kind: image
+      asset: assets/s06_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 放置損額を数字で強調する中盤再フック画像として
+        image_role: 不安喚起
+        composition_type: 誇張図解
+        imagegen_prompt: |-
+          s06: 損額を計算してみる
+
+          霊夢「ちょっと怖くなってきたんだけど、私どのくらい損してるかな。」
+          魔理沙「たとえば不要なサービスが月1000円で2年放置してたら、24000円だぜ。」
+          霊夢「2万4千円……旅行行けたじゃない。」
+          魔理沙「さらに年会費1320円のカードを2枚持ちしてたら、2年で5280円が追加されるだぜ。」
+          霊夢「合計で3万円近く消えてたかもしれないってこと？」
+          魔理沙「明細を見ていなかった代償だぜ。でも今気づけば止められるんだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "ちょっと怖くなってきたんだけど、私どのくらい損してるかな。"
+        expression: confused
+        emphasis:
+          words:
+            - 損
+          style: danger
+          se: warning
+          pause_after_ms: 200
+      - id: l02
+        speaker: right
+        text: "たとえば不要なサービスが月1000円で2年放置してたら、**24000円**だぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "2万4千円……旅行行けたじゃない。"
+        expression: shock
+      - id: l04
+        speaker: right
+        text: "さらに年会費1320円のカードを2枚持ちしてたら、2年で5280円が追加されるだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "合計で3万円近く消えてたかもしれないってこと？"
+        expression: shock
+      - id: l06
+        speaker: right
+        text: "明細を見ていなかった代償だぜ。でも今気づけば止められるんだぜ。"
+        expression: smug
+
+  - id: s07
+    role: body
+    scene_goal: アプリ通知を使った自動チェック方法を紹介
+    viewer_question: 希望と安堵
+    visual_role: スマートフォンのカード利用通知が届いた瞬間のスクリーンショット風ビジュアル
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s07_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 利用通知設定のメリットを視覚化するため
+        image_role: 理解補助
+        composition_type: ビフォーアフター
+        imagegen_prompt: |-
+          s07: アプリ通知で自動チェック
+
+          霊夢「毎月手動で明細を開くの、続けられる自信がないんだけど。」
+          魔理沙「カード会社のアプリに「利用通知」設定があるだぜ。カードを使うたびにスマホに通知が来るだぜ。」
+          霊夢「あ、それなら身に覚えのない請求にすぐ気づけるじゃない。」
+          魔理沙「気づいた瞬間にカード会社へ連絡すれば、被害を最小限に抑えられるだぜ。」
+          霊夢「その設定って難しい？」
+          魔理沙「カード会社のアプリを入れて、設定から「利用通知」をオンにするだけだぜ。5分以内に終わるだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "毎月手動で明細を開くの、続けられる自信がないんだけど。"
+        expression: wry
+      - id: l02
+        speaker: right
+        text: "カード会社のアプリに「利用通知」設定があるだぜ。カードを使うたびにスマホに通知が来るだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "あ、それなら身に覚えのない請求にすぐ気づけるじゃない。"
+        expression: smile
+      - id: l04
+        speaker: right
+        text: "気づいた瞬間にカード会社へ連絡すれば、被害を最小限に抑えられるだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "その設定って難しい？"
+        expression: confused
+      - id: l06
+        speaker: right
+        text: "カード会社のアプリを入れて、利用通知をオンにするだけだぜ。5分以内に終わるだぜ。"
+        expression: smug
+
+  - id: s08
+    role: body
+    scene_goal: 家計簿アプリとの違いを説明し誤解を解消
+    viewer_question: 納得
+    visual_role: 家計簿アプリと明細確認の役割の違いを示す比較図
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s08_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 家計簿アプリと明細確認の違いを明確に示すため
+        image_role: 理解補助
+        composition_type: NG / OK 比較
+        imagegen_prompt: |-
+          s08: よくある言い訳と反論
+
+          霊夢「でも私、家計簿アプリで管理してるから大丈夫なんじゃないかな。」
+          魔理沙「家計簿アプリと明細確認は別の話だぜ。」
+          霊夢「え、連携してれば同じじゃない？」
+          魔理沙「連携アプリは金額を集計するだけで、不正利用かどうかは判定しないだぜ。それを判断できるのは自分だけなんだぜ。」
+          霊夢「じゃあ家計簿アプリを使ってても、明細は自分で見るべきなのね。」
+          魔理沙「そうだぜ。「金額確認」じゃなく「身に覚えのある支出か」の目で見るのが大事なんだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "でも私、家計簿アプリで管理してるから大丈夫なんじゃないかな。"
+        expression: wry
+      - id: l02
+        speaker: right
+        text: "家計簿アプリと明細確認は別の話だぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "え、連携してれば同じじゃない？"
+        expression: confused
+      - id: l04
+        speaker: right
+        text: "連携アプリは金額を集計するだけで、不正利用かどうかは判定しないだぜ。判断できるのは自分だけなんだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "じゃあ家計簿アプリを使ってても、明細は自分で見るべきなのね。"
+        expression: calm
+      - id: l06
+        speaker: right
+        text: "「金額確認」じゃなく「身に覚えのある支出か」の目で見るのが大事なんだぜ。"
+        expression: smug
+
+  - id: s09
+    role: body
+    scene_goal: 今日できる具体的な3ステップを整理
+    viewer_question: 安堵と行動意欲
+    visual_role: 3ステップが番号付きで整理されたチェックリスト風ビジュアル
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s09_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 今日やる3ステップを視覚的にわかりやすく示すため
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt: |-
+          s09: 今日の行動ステップ3つ
+
+          霊夢「結局今日何をすればいいの？」
+          魔理沙「3ステップだぜ。まずカード会社のアプリを開いて、今月の明細を確認するだぜ。」
+          霊夢「それだけ？」
+          魔理沙「次に定期引き落としの名前を確認して、使っていないサービスがあれば解約手続きをするだぜ。」
+          霊夢「3つ目は？」
+          魔理沙「利用通知の設定をオンにするだぜ。これだけで次から自動で気づける仕組みができるだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "結局今日何をすればいいの？"
+        expression: confused
+      - id: l02
+        speaker: right
+        text: "3ステップだぜ。まずカード会社のアプリを開いて、今月の明細を確認するだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "それだけ？"
+        expression: confused
+      - id: l04
+        speaker: right
+        text: "次に定期引き落としの名前を確認して、使っていないサービスがあれば解約手続きをするだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "3つ目は？"
+        expression: normal
+      - id: l06
+        speaker: right
+        text: "利用通知の設定をオンにするだぜ。これだけで次から自動で気づける仕組みができるだぜ。"
+        expression: smug
+
+  - id: s10
+    role: cta
+    scene_goal: まとめと視聴者への行動宣言
+    viewer_question: 行動意欲
+    visual_role: 「今日できること」を3項目で締めた行動宣言ビジュアル
+    motion_mode: recap
+    main:
+      kind: image
+      asset: assets/s10_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 最終行動を視覚化して視聴者の行動を促すため
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt: |-
+          s10: まとめと行動宣言
+
+          霊夢「結局、見てないだけで静かに3万円消えてたかもしれないのね。」
+          魔理沙「明細確認・不要サービス解約・利用通知オン。この3つだけで被害リスクを大幅に下げられるだぜ。」
+          霊夢「要は月5分ちゃんと見るだけで、ずっと守れるってことじゃない。」
+          魔理沙「後回しにするほど差が広がるだぜ。今日の5分が未来の3万円を守るんだぜ。」
+          霊夢「コメント欄に「確認した」って書いてくれると嬉しいわ。」
+          魔理沙「高評価もよろしくなんだぜ。次回もお楽しみにだぜ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+
+          画像の雰囲気はクレジットカード明細、スマートフォン家計管理、落ち着いた赤・グレー・白を基調にした警戒感と誠実感で生成してください。下部20%は字幕とキャラクター用に余白を残し、実在ブランド、実在UI、会話全文、長文日本語、細かい表、ウォーターマークは入れないでください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: "結局、見てないだけで静かに3万円消えてたかもしれないのね。"
+        expression: shock
+        emphasis:
+          words:
+            - 3万円
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: l02
+        speaker: right
+        text: "明細確認・不要サービス解約・利用通知オン。この3つだけで被害リスクを大幅に下げられるだぜ。"
+        expression: confident
+      - id: l03
+        speaker: left
+        text: "要は月5分ちゃんと見るだけで、ずっと守れるってことじゃない。"
+        expression: smile
+      - id: l04
+        speaker: right
+        text: "後回しにするほど差が広がるだぜ。今日の**5分**が未来の3万円を守るんだぜ。"
+        expression: confident
+      - id: l05
+        speaker: left
+        text: "コメント欄に「確認した」って書いてくれると嬉しいわ。"
+        expression: smile
+      - id: l06
+        speaker: right
+        text: "高評価もよろしくなんだぜ。次回もお楽しみにだぜ。"
+        expression: smug
