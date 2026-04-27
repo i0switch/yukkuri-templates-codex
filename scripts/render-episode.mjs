@@ -7,6 +7,7 @@ const episodeId = process.argv[2];
 const outputPath = process.argv[3] ?? path.join('out', 'videos', `${episodeId}.mp4`);
 const publicDir = path.join(rootDir, 'public');
 const targetPublicDir = path.join(rootDir, '.remotion-public', episodeId);
+const compositionEpisodeId = episodeId.replace(/[^a-zA-Z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, '-');
 
 if (!episodeId) {
   throw new Error('Usage: node scripts/render-episode.mjs <episode_id> [out/videos/file.mp4]');
@@ -84,7 +85,7 @@ run(
     'remotion',
     'render',
     'src/index.ts',
-    `Video-${episodeId}`,
+    `Video-${compositionEpisodeId}`,
     outputPath,
     '--public-dir',
     path.relative(rootDir, targetPublicDir),

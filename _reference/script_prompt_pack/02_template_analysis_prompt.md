@@ -25,6 +25,8 @@ template_analysis:
     safe_area:
   sub_content:
     exists: true | false
+    sub_required: true | false
+    sub_content_style: text | bullets | none
     role_if_exists:
     max_items:
     safe_area:
@@ -54,7 +56,12 @@ template_analysis:
 ## 重要ルール
 
 - `Scene02` / `Scene03` / `Scene10` / `Scene13` / `Scene14` はsub枠あり。mainとsubを重複させない。
-- sub枠が小さい場合は、3項目チェック、NG/OK、注意点、現在地だけにする。
+- sub枠ありテンプレートでは `sub_required: true` とし、全sceneで `sub.kind: text` または `sub.kind: bullets` を使う。
+- `sub_content_style` は、詳しい補足や注意点なら `text`、小見出し・4〜6項目チェック・NG/OK・手順現在地なら `bullets` にする。
+- 新規動画で `sub.kind: image` は使わない。
+- `sub.kind: bullets` は原則4〜6項目、推奨6項目にする。3項目だけにするのは締め・要約・最終行動など情報を絞る意図が明確な場合だけ。
+- `sub.kind: text` は4〜6行の短い補足文を改行区切りで出す。
+- sub枠が小さい場合でも、短い4〜6項目チェック、NG/OK、注意点、現在地として収める。
 - sub枠なしテンプレートでは `sub: null` を正準にする。
 - タイトル枠なしテンプレートでは、`title_text` に頼らず、必要なら `main.text` や画像内短語へ逃がす。
 - 画像プロンプトには、字幕欄とキャラ配置を避ける指示を必ず入れる。

@@ -46,4 +46,4 @@
 - `npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4`
 - 画像素材の provenance を `meta.json` に残す
 - fallback / placeholder / local card を完成素材扱いしない
-- 既定解像度は HD (1280×720)
+- 旧監査時点では既定解像度を HD (1280×720) と記録していたが、これは現在の正準仕様ではない。現行正本は `docs/pipeline_contract.md` であり、ユーザーが解像度を明示しない限り既定解像度は FullHD (1920×1080)。

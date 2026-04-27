@@ -81,6 +81,13 @@ const assertQualityGate = () => {
   }
 };
 
+const durationWindowForTarget = (targetSec) => {
+  if (!Number.isFinite(targetSec) || targetSec <= 0) {
+    return null;
+  }
+  return {min: targetSec * 0.9, max: targetSec * 1.1};
+};
+
 const buildTimings = (script, durations) => {
   const naturalSceneDurations = [];
   for (const scene of script.scenes) {
@@ -115,19 +122,27 @@ const buildTimings = (script, durations) => {
 
   const naturalTotal = naturalSceneDurations.reduce((sum, scene) => sum + scene.naturalDurationSec, 0);
   const targetTotal = script.meta.target_duration_sec ?? naturalTotal;
-  const remainingGap = Math.max(targetTotal - naturalTotal, 0);
-  const scenePadding = remainingGap / naturalSceneDurations.length;
+  const durationWindow = durationWindowForTarget(Number(targetTotal));
+  if (durationWindow && naturalTotal < durationWindow.min) {
+    throw new Error(
+      `Natural speech duration is too short for target_duration_sec without changing speech speed: natural=${round1(naturalTotal)}s, allowed_min=${round1(durationWindow.min)}s. Increase dialogue density instead of using audio_playback_rate.`,
+    );
+  }
+  if (durationWindow && naturalTotal > durationWindow.max) {
+    throw new Error(
+      `Natural speech duration is too long for target_duration_sec without changing speech speed: natural=${round1(naturalTotal)}s, allowed_max=${round1(durationWindow.max)}s. Reduce dialogue volume instead of speeding up audio.`,
+    );
+  }
 
   let runningTotal = 0;
   script.scenes = script.scenes.map((scene, index) => {
     const timing = naturalSceneDurations[index];
-    const tailPadSec = round1(scenePadding);
-    const durationSec = round1(timing.naturalDurationSec + tailPadSec);
+    const durationSec = round1(timing.naturalDurationSec);
     runningTotal += durationSec;
     return {
       ...scene,
       dialogue: timing.dialogue,
-      tail_pad_sec: tailPadSec,
+      tail_pad_sec: 0,
       duration_sec: durationSec,
     };
   });

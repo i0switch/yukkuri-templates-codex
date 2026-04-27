@@ -7,6 +7,8 @@ export interface CharacterSpec {
   character: CharacterName;
   expression?: Expression;
   flip?: boolean;
+  isSpeaking?: boolean;
+  speakingFrame?: number;
 }
 
 export interface Rect {

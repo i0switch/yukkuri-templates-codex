@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {parseDocument} from 'yaml';
 import {loadImagePromptPack} from './lib/load-image-prompt-pack.mjs';
+import {loadImagePromptRegistry, promptFromRegistry} from './lib/image-prompt-registry.mjs';
 
 const rootDir = process.cwd();
 const target = process.argv[2];
@@ -15,8 +16,16 @@ const FIXED_PROMPT_REQUIREMENTS = [
   {key: 'not_dialogue_recreation', patterns: [/会話内容をそのまま再現するためのものではなく/]},
   {key: 'no_dialogue_in_image', patterns: [/字幕やセリフは別で表示するため、会話等は画像に入れないでください/]},
   {key: 'no_character_chat_scene', patterns: [/キャラクター同士の会話シーンにはせず/]},
-  {key: 'support_visuals', patterns: [/図解、アイコン、小物、UI、概念図、状況説明ビジュアル/]},
-  {key: 'aspect_ratio', patterns: [/Make the aspect ratio 16:9\./]},
+  {key: 'support_visuals', patterns: [/図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアル/]},
+  {key: 'image_role', patterns: [/画像の役割を、理解補助、不安喚起、笑い、比較、手順整理、証拠提示、オチ補助/]},
+  {key: 'composition_type', patterns: [/構図タイプを、NG \/ OK 比較、失敗例シミュレーション、誇張図解、証拠写真風、チェックリスト、手順図、原因マップ、ビフォーアフター、ツッコミ待ち構図、事故寸前構図/]},
+  {key: 'largest_subject', patterns: [/画面で一番大きく見せる対象/]},
+  {key: 'visualized_sentence', patterns: [/対象シーンから画像化する一言を1つ選び/]},
+  {key: 'mobile_viewing', patterns: [/スマホ視聴でも伝わるように主役は1つ/]},
+  {key: 'no_generic_it_visual', patterns: [/どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線/]},
+  {key: 'japanese_text_only', patterns: [/画像内の可読テキストは日本語だけにしてください/]},
+  {key: 'no_bottom_input_space', patterns: [/下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください/]},
+  {key: 'aspect_ratio', patterns: [/16:9の横長構図/]},
   {key: 'mood_line', patterns: [/画像の雰囲気は.+で生成してください。/s]},
 ];
 
@@ -39,6 +48,11 @@ const GENERIC_PROMPT_PATTERNS = [
   /汎用(素材|アイコン|図解)/,
   /フラットな図解[。．\s]*$/,
   /わかりやすいカード[。．\s]*$/,
+  /抽象的な青いネットワーク線/,
+  /綺麗なIT図解/,
+  /サイバー空間.{0,10}背景/,
+  /どのシーンにも使える/,
+  /テーマ名をそのまま図解/,
   /licensed photo style/i,
   /clean explainer thumbnail/i,
   /high readability/i,
@@ -65,6 +79,16 @@ const BATCH_GENERATION_PATTERNS = [
   /切り抜き/,
 ];
 
+const LEGACY_IMAGEGEN_PROMPT_PATTERNS = [
+  {key: 'english_aspect_instruction', pattern: /Make the aspect ratio 16:9\./i},
+  {key: 'english_text_instruction', pattern: /\b(?:English|in English|with English)\b/i},
+  {key: 'bottom_blank_space', pattern: /(?:下部|画面下部)20%[^。\n]*(?:余白|空け|空白|残し)/},
+  {key: 'bottom_safe_space_en', pattern: /(?:bottom|lower)[^.\n]*(?:20|twenty)[^.\n]*(?:blank|empty|safe space|space)/i},
+  {key: 'input_like_space', pattern: /(?:入力欄|チャット欄|テキストボックス|textbox|text box|prompt box)/i},
+  {key: 'legacy_ui_wording', pattern: /実在UI|UIの完全模写|(?:^|[^一-龥ぁ-んァ-ヶA-Za-z])UI(?:[^一-龥ぁ-んァ-ヶA-Za-z]|$)/},
+  {key: 'legacy_wide_whitespace', pattern: /余白のある横長構図|余白多め/},
+];
+
 const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 
 const pushIssue = (issues, level, code, message, details = {}) => {
@@ -85,10 +109,16 @@ const readScript = async (scriptPath) => parseDocument(await fs.readFile(scriptP
 
 const normalize = (value) => String(value ?? '').replace(/\r\n/g, '\n').trim();
 
-const promptLocationsFor = (scene, plan) => {
+const promptLocationsFor = (scene, plan, registry) => {
   const locations = [];
   if (typeof plan?.imagegen_prompt === 'string') {
     locations.push({name: `${scene.id}.visual_asset_plan.imagegen_prompt`, prompt: plan.imagegen_prompt});
+  }
+  if (typeof plan?.imagegen_prompt_ref === 'string') {
+    const prompt = promptFromRegistry(registry, plan.imagegen_prompt_ref);
+    if (prompt) {
+      locations.push({name: `${scene.id}.visual_asset_plan.imagegen_prompt_ref(${plan.imagegen_prompt_ref})`, prompt});
+    }
   }
 
   const slot = plan?.slot;
@@ -101,6 +131,13 @@ const promptLocationsFor = (scene, plan) => {
   if (typeof contentPrompt === 'string') {
     locations.push({name: `${scene.id}.${slot}.asset_requirements.imagegen_prompt`, prompt: contentPrompt});
   }
+  const contentPromptRef = content?.asset_requirements?.imagegen_prompt_ref;
+  if (typeof contentPromptRef === 'string') {
+    const prompt = promptFromRegistry(registry, contentPromptRef);
+    if (prompt) {
+      locations.push({name: `${scene.id}.${slot}.asset_requirements.imagegen_prompt_ref(${contentPromptRef})`, prompt});
+    }
+  }
 
   return locations;
 };
@@ -112,6 +149,40 @@ const missingFixedRequirements = (prompt) =>
 
 const internalMetaMatches = (prompt) =>
   INTERNAL_META_PATTERNS.filter(({pattern}) => pattern.test(prompt)).map(({key}) => key);
+
+const isNegatedLegacyPhrase = (prompt, matchIndex, matchLength) => {
+  const prefix = prompt.slice(Math.max(0, matchIndex - 40), matchIndex);
+  const suffix = prompt.slice(matchIndex + matchLength, matchIndex + matchLength + 80);
+  return /(?:禁止|しない|入れない|避ける|ではない|しません|禁止です|作らない)[^。\n]*$/.test(prefix) ||
+    /^[^。\n]*(?:禁止|しない|入れない|避ける|ではない|しません|禁止です|作らない)/.test(suffix);
+};
+
+const patternMatchesNonNegated = (prompt, pattern) => {
+  for (const match of prompt.matchAll(new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`))) {
+    if (!isNegatedLegacyPhrase(prompt, match.index ?? 0, match[0].length)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const legacyPromptMatches = (prompt) =>
+  LEGACY_IMAGEGEN_PROMPT_PATTERNS.filter(({pattern}) => patternMatchesNonNegated(prompt, pattern)).map(({key}) => key);
+
+const isNegatedForbiddenBatchPhrase = (prompt, matchIndex) => {
+  const prefix = prompt.slice(Math.max(0, matchIndex - 40), matchIndex);
+  return /(?:禁止|しない|入れない|避ける|ではない|しません|禁止です)[^。\n]*$/.test(prefix);
+};
+
+const hasForbiddenBatchInstruction = (prompt) =>
+  BATCH_GENERATION_PATTERNS.some((pattern) => {
+    for (const match of prompt.matchAll(new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`))) {
+      if (!isNegatedForbiddenBatchPhrase(prompt, match.index ?? 0)) {
+        return true;
+      }
+    }
+    return false;
+  });
 
 const auditPrompt = ({scene, location, issues}) => {
   const prompt = normalize(location.prompt);
@@ -155,7 +226,14 @@ const auditPrompt = ({scene, location, issues}) => {
     pushIssue(issues, 'error', 'generic-icon-imagegen-prompt', `${location.name}: imagegen_prompt still points toward a generic white-background icon/card`);
   }
 
-  if (BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(prompt))) {
+  const legacyPrompt = legacyPromptMatches(prompt);
+  if (legacyPrompt.length > 0) {
+    pushIssue(issues, 'error', 'legacy-imagegen-prompt-wording', `${location.name}: imagegen_prompt still contains old prompt wording`, {
+      matched: legacyPrompt,
+    });
+  }
+
+  if (hasForbiddenBatchInstruction(prompt)) {
     pushIssue(
       issues,
       'error',
@@ -165,9 +243,9 @@ const auditPrompt = ({scene, location, issues}) => {
   }
 };
 
-const auditPlan = ({scene, plan, index, issues}) => {
+const auditPlan = ({scene, plan, index, issues, registry}) => {
   const pathName = `${scene.id}.visual_asset_plan[${index}]`;
-  const locations = promptLocationsFor(scene, plan);
+  const locations = promptLocationsFor(scene, plan, registry);
 
   if (locations.length === 0) {
     pushIssue(issues, 'error', 'missing-imagegen-prompt', `${pathName}: imagegen_prompt is required`);
@@ -189,6 +267,7 @@ const audit = async () => {
   const issues = [];
   const {scriptPath, episodeDir} = resolveTarget(target);
   const script = await readScript(scriptPath);
+  const registry = await loadImagePromptRegistry(episodeDir);
 
   if (!isPlainObject(script) || !Array.isArray(script.scenes)) {
     pushIssue(issues, 'error', 'script', 'script.scenes must be present');
@@ -200,7 +279,7 @@ const audit = async () => {
         continue;
       }
       for (const [index, plan] of plans.entries()) {
-        auditPlan({scene, plan, index, issues});
+        auditPlan({scene, plan, index, issues, registry});
       }
     }
   }

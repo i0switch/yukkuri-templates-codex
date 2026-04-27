@@ -6,6 +6,12 @@ import type {EpisodeRenderData} from '../lib/load-script';
 export const VideoMain: React.FC<{script: EpisodeRenderData}> = ({script}) => {
   const {fps} = useVideoConfig();
   const totalFrames = Math.ceil(script.total_duration_sec * fps);
+  const sceneRanges = script.scenes.reduce<Array<{start: number; end: number; mode: string}>>((ranges, scene) => {
+    const start = ranges.length > 0 ? ranges[ranges.length - 1].end : 0;
+    const end = start + Math.ceil(scene.duration_sec * fps);
+    ranges.push({start, end, mode: scene.motion_mode ?? 'normal'});
+    return ranges;
+  }, []);
 
   return (
     <AbsoluteFill style={{backgroundColor: '#ffffff'}}>
@@ -29,7 +35,18 @@ export const VideoMain: React.FC<{script: EpisodeRenderData}> = ({script}) => {
                 extrapolateRight: 'clamp',
               },
             );
-            return Math.min(fadeIn, fadeOut);
+            const activeMode = sceneRanges.find((range) => frame >= range.start && frame < range.end)?.mode ?? 'normal';
+            const moodMultiplier =
+              activeMode === 'warning'
+                ? 1.08
+                : activeMode === 'reveal'
+                  ? 1.04
+                  : activeMode === 'recap'
+                    ? 0.92
+                    : activeMode === 'checklist'
+                      ? 0.96
+                      : 1;
+            return Math.min(fadeIn, fadeOut) * moodMultiplier;
           }}
         />
       ) : null}

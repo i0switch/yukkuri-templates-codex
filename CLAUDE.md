@@ -4,15 +4,16 @@
 
 作業時は次を正準入口にする。
 
-1. `AI_VIDEO_GENERATION_GUIDE.md`
-2. `docs/architecture_v2.md`
-3. `AGENTS.md`
-4. `prompts/00_core_principles.md`（v2 思想サマリ）
-5. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（実行用プロンプト正本）
-6. 必要な `_reference/script_prompt_pack/*.md`（00〜11）
+1. `docs/pipeline_contract.md`（成果物名、順序、停止条件、完了条件の単一正本）
+2. `AGENTS.md`
+3. `AI_VIDEO_GENERATION_GUIDE.md`
+4. `docs/architecture_v2.md`
+5. `prompts/00_core_principles.md`（v2 思想サマリ）
+6. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（実行用プロンプト正本）
+7. 必要な `_reference/script_prompt_pack/*.md`（00〜11）
 
-旧 `prompts/01-10` は `legacy/prompts/` に退避済み。新規生成・監査では `_reference/script_prompt_pack/` を使う。
-旧版 docs の詳細は `legacy/CLAUDE.md.v1` / `legacy/AGENTS.md.v1` 等に退避済み。矛盾する場合は v2 方針を優先する。
+旧 `prompts/01-10` と `_reference/script_prompt_pack/legacy/` は退避資料。新規生成・監査では `_reference/script_prompt_pack/` の非 legacy ファイルを使う。
+旧版 docs の詳細は `legacy/CLAUDE.md.v1` / `legacy/AGENTS.md.v1` / `legacy/v1_root_docs/` に退避済み。矛盾する場合は `docs/pipeline_contract.md` を優先する。
 
 ## Critical Script Quality Rule
 
@@ -39,6 +40,30 @@
    - draftの意味、キャラ口調、情報順序を壊さない
 
 `script_final.md` のCodexレビューが終わるまで、YAML化、画像生成、音声生成、レンダーへ進んではいけない。
+レビュー結果の先頭には `<!-- script_final_sha256: <sha256> -->` を書く。`script_final.md` を後続修正した場合はレビューを更新し、hashを一致させる。
+
+## Duration Estimate Rule
+
+5分動画は発話数だけで判定しない。音声合成前に次を実行し、TTSエンジン別の推定自然音声尺が `270〜330秒` に入るか確認する。
+
+```powershell
+npm run estimate:episode-duration -- <episode_id>
+```
+
+初期係数は RM/AquesTalk `5.2秒/発話`、ZM/VOICEVOX `3.8秒/発話`。尺が外れる場合は発話量で調整し、音声速度は変えない。
+
+## Hybrid User Script Rule
+
+ユーザーが手書き台本を渡す場合は `hybrid_user_script` モードで進める。
+Claude Codeで実行する場合も、Codexと同じ `script/{episode_id}/...` 成果物名、停止条件、完了条件を使う。
+
+- 原文保存: `script/{episode_id}/source_manual_script.md`
+- AI整形後: `planning.md` / `script_draft.md` / `script_final.md`
+- レビュー: `audits/script_final_review.md`
+- 手動受け入れ証跡: `audits/manual_intake.md`
+
+`manual_intake.md` には `mode: hybrid_user_script`、`source_script: source_manual_script.md`、`image_source: user_generated`、`rights_confirmed: true` を記録する。
+このモードでは prompt pack 証跡の代わりに `source_manual_script.md` と `manual_intake.md` を手動受け入れ証跡として扱ってよい。
 
 ## Main Content Image Rule
 
@@ -49,6 +74,11 @@
 - 作風はLLMが `script_final.md` 全体から判断して追記する
 - 日本語テキストは入れてよい
 - ただし会話全文を画像内に並べる指示にはしない
+
+ユーザーが画像を外部生成する場合、AI は `image_prompt_v2.md` に scene ごとのプロンプトと保存先を出す。
+ユーザーは任意ツールで生成した実画像を `script/{episode_id}/assets/sNN_main.png` に保存する。
+`meta.json` では `source_type: "user_generated"`、`generation_tool`、`rights_confirmed: true`、`license`、`imagegen_prompt` を必須にする。
+placeholder、fallback、local card、copied、出所不明画像は受け入れない。
 
 ## Image Audit Is Non-Blocking
 
@@ -97,9 +127,11 @@
 ## Required Commands
 
 ```powershell
-python scripts/run_pipeline.py --episode script/<episode_id> --dry-run
+python scripts/run_pipeline.py --episode script/<episode_id> --dry-run  # 参考/skeleton
+npm run estimate:episode-duration -- <episode_id>
 npm run gate:episode -- <episode_id>
 npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4
+npm run audit:video -- <episode_id>
 ```
 
 ## Completion Rule

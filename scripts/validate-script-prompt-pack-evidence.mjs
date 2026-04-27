@@ -67,6 +67,48 @@ const readTextIfExists = async (filePath) => {
   }
 };
 
+const validateManualIntake = async ({episodeDir, auditsDir, issues}) => {
+  const sourcePath = path.join(episodeDir, 'source_manual_script.md');
+  const intakePath = path.join(auditsDir, 'manual_intake.md');
+  const sourceText = await readTextIfExists(sourcePath);
+  const intakeText = await readTextIfExists(intakePath);
+
+  if (sourceText === null) {
+    pushIssue(issues, 'error', 'missing-manual-source-script', '手書き台本の原文 source_manual_script.md がありません', {
+      file: path.relative(rootDir, sourcePath).replaceAll('\\', '/'),
+    });
+  } else if (sourceText.trim().length < 100) {
+    pushIssue(issues, 'error', 'thin-manual-source-script', 'source_manual_script.md が薄すぎます', {
+      chars: sourceText.trim().length,
+      min_chars: 100,
+    });
+  }
+
+  if (intakeText === null) {
+    pushIssue(issues, 'error', 'missing-manual-intake', 'hybrid_user_script モードには audits/manual_intake.md が必要です', {
+      file: path.relative(rootDir, intakePath).replaceAll('\\', '/'),
+    });
+    return false;
+  }
+
+  const requiredTerms = [
+    {key: 'mode', pattern: /hybrid_user_script|manual/i},
+    {key: 'source_manual_script', pattern: /source_manual_script\.md/},
+    {key: 'image_source', pattern: /user_generated/},
+    {key: 'rights_confirmed', pattern: /rights_confirmed\s*:\s*true/i},
+  ];
+  for (const requirement of requiredTerms) {
+    if (!requirement.pattern.test(intakeText)) {
+      pushIssue(issues, 'error', 'incomplete-manual-intake', 'manual_intake.md に手動受け入れ情報が不足しています', {
+        key: requirement.key,
+        file: path.relative(rootDir, intakePath).replaceAll('\\', '/'),
+      });
+    }
+  }
+
+  return true;
+};
+
 const audit = async () => {
   const issues = [];
   const episodeDir = path.join(rootDir, 'script', episodeId);
@@ -87,6 +129,28 @@ const audit = async () => {
       chars: finalScript.trim().length,
       min_chars: 800,
     });
+  }
+
+  const manualIntakePath = path.join(auditsDir, 'manual_intake.md');
+  const hasManualIntake = (await readTextIfExists(manualIntakePath)) !== null;
+  if (hasManualIntake) {
+    await validateManualIntake({episodeDir, auditsDir, issues});
+    const report = {
+      ok: !issues.some((issue) => issue.level === 'error'),
+      episode_id: episodeId,
+      checked_at: new Date().toISOString(),
+      mode: 'hybrid_user_script',
+      audits_dir: path.relative(rootDir, auditsDir).replaceAll('\\', '/'),
+      required_evidence: ['source_manual_script.md', 'audits/manual_intake.md'],
+      codex_review_target: finalScript === null ? null : 'script_final.md',
+      issues,
+    };
+
+    console.log(JSON.stringify(report, null, 2));
+    if (!report.ok) {
+      process.exitCode = 1;
+    }
+    return;
   }
 
   for (const requirement of REQUIRED_EVIDENCE) {

@@ -27,6 +27,11 @@ import {Scene19} from './compositions/Scene19';
 import {Scene20} from './compositions/Scene20';
 import {Scene21} from './compositions/Scene21';
 import {TemplateTestStill, TEST_STILL_SCENE_IDS, type TestStillSceneId} from './compositions/TemplateTestStill';
+import {
+  TemplateGuideStill,
+  TEMPLATE_GUIDE_SCENE_IDS,
+  type TemplateGuideSceneId,
+} from './compositions/TemplateGuideStill';
 
 const common = {
   durationInFrames: VIDEO.durationInFrames,
@@ -58,6 +63,8 @@ const sceneEntries = [
   {id: '20', component: Scene20},
   {id: '21', component: Scene21},
 ] as const;
+
+const toCompositionEpisodeId = (episodeId: string) => episodeId.replace(/[^a-zA-Z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, '-');
 
 export const Root: React.FC = () => {
   const keifontUrl = staticFile(KEIFONT_PUBLIC_PATH);
@@ -98,7 +105,7 @@ export const Root: React.FC = () => {
       {episodeCompositions.map((episodeRenderData) => (
         <Composition
           key={episodeRenderData.meta.id}
-          id={`Video-${episodeRenderData.meta.id}`}
+          id={`Video-${toCompositionEpisodeId(episodeRenderData.meta.id)}`}
           component={VideoMain}
           width={episodeRenderData.meta.width}
           height={episodeRenderData.meta.height}
@@ -123,6 +130,15 @@ export const Root: React.FC = () => {
           defaultProps={{sceneId: id as TestStillSceneId, pairId: 'ZM'}}
         />,
       ])}
+      {TEMPLATE_GUIDE_SCENE_IDS.map((id) => (
+        <Composition
+          key={`TemplateGuide-${id}-RM`}
+          id={`TemplateGuide-${id}-RM`}
+          component={TemplateGuideStill}
+          {...common}
+          defaultProps={{sceneId: id as TemplateGuideSceneId, pairId: 'RM'}}
+        />
+      ))}
       {sceneEntries.map(({id, component: SceneComponent}) => {
         return (
           <React.Fragment key={id}>

@@ -7,6 +7,8 @@ const fixtureRoot = path.join(rootDir, 'script');
 const fixtureIds = [
   '__fixture_prompt_pack_evidence_pass',
   '__fixture_prompt_pack_evidence_missing',
+  '__fixture_manual_intake_pass',
+  '__fixture_manual_intake_no_rights',
 ];
 
 const run = (episodeId, {expectFailure = false} = {}) => {
@@ -124,15 +126,49 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
   }
 };
 
+const writeManualIntake = async ({episodeId, rightsConfirmed = true}) => {
+  const episodeDir = path.join(fixtureRoot, episodeId);
+  const auditsDir = path.join(episodeDir, 'audits');
+  await fs.rm(episodeDir, {recursive: true, force: true});
+  await fs.mkdir(auditsDir, {recursive: true});
+  await fs.writeFile(
+    path.join(episodeDir, 'source_manual_script.md'),
+    '# source_manual_script\n\n' + 'ユーザーが手書きした台本素材。ここからAIが動画用の構成、自然会話、script_final.mdを整える。'.repeat(8),
+    'utf8',
+  );
+  await fs.writeFile(
+    path.join(episodeDir, 'script_final.md'),
+    '# script_final\n\n' + '霊夢「手書き台本を元に自然な会話へ整えた版だよ」\n魔理沙「画像はユーザー生成で受け入れる契約にするぜ」\n'.repeat(40),
+    'utf8',
+  );
+  await fs.writeFile(
+    path.join(auditsDir, 'manual_intake.md'),
+    `# manual_intake
+
+mode: hybrid_user_script
+source_script: source_manual_script.md
+script_author: user
+image_source: user_generated
+rights_confirmed: ${rightsConfirmed}
+notes: Codex / Claude Code のどちらでも同じ成果物構造で進める。
+`,
+    'utf8',
+  );
+};
+
 for (const id of fixtureIds) {
   await fs.rm(path.join(fixtureRoot, id), {recursive: true, force: true});
 }
 
 await writeEvidence({episodeId: '__fixture_prompt_pack_evidence_pass'});
 await writeEvidence({episodeId: '__fixture_prompt_pack_evidence_missing', includeEvidence: false});
+await writeManualIntake({episodeId: '__fixture_manual_intake_pass'});
+await writeManualIntake({episodeId: '__fixture_manual_intake_no_rights', rightsConfirmed: false});
 
 run('__fixture_prompt_pack_evidence_pass');
 run('__fixture_prompt_pack_evidence_missing', {expectFailure: true});
+run('__fixture_manual_intake_pass');
+run('__fixture_manual_intake_no_rights', {expectFailure: true});
 
 for (const id of fixtureIds) {
   await fs.rm(path.join(fixtureRoot, id), {recursive: true, force: true});

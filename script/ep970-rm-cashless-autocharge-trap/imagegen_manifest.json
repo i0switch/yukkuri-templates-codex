@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "images": [
+    {
+      "scene_id": "s01",
+      "slot": "main",
+      "file": "assets/s01_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s01_main.png",
+      "original_file": "pending/s01_main.png",
+      "prompt_sha256": "23ba1ab284cca0f0ec0b9323ae7c6009634dd59a1636a9010258f1bb45391678"
+    },
+    {
+      "scene_id": "s02",
+      "slot": "main",
+      "file": "assets/s02_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s02_main.png",
+      "original_file": "pending/s02_main.png",
+      "prompt_sha256": "0573112120083823632e00e2270d32511895fc6602a82ebe414133570cb059d6"
+    },
+    {
+      "scene_id": "s03",
+      "slot": "main",
+      "file": "assets/s03_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s03_main.png",
+      "original_file": "pending/s03_main.png",
+      "prompt_sha256": "6aa10ff0ca06f23e3ae49dbba5ac2559e22d2ce0c0c0fb6424f54637ba89b482"
+    },
+    {
+      "scene_id": "s04",
+      "slot": "main",
+      "file": "assets/s04_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s04_main.png",
+      "original_file": "pending/s04_main.png",
+      "prompt_sha256": "1d0e9d32ecbc675236d502f3721b45459de498f40fa693ee72e9da52d278f301"
+    },
+    {
+      "scene_id": "s05",
+      "slot": "main",
+      "file": "assets/s05_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s05_main.png",
+      "original_file": "pending/s05_main.png",
+      "prompt_sha256": "ed7415997cf15afb82057d0070824d7d21f90e8dba69e3514ef01dbc186dd49c"
+    },
+    {
+      "scene_id": "s06",
+      "slot": "main",
+      "file": "assets/s06_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s06_main.png",
+      "original_file": "pending/s06_main.png",
+      "prompt_sha256": "98520eb590991ea63d06c5e96171af67cb60c2bf8188dad1cd038f62fdd07d78"
+    },
+    {
+      "scene_id": "s07",
+      "slot": "main",
+      "file": "assets/s07_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s07_main.png",
+      "original_file": "pending/s07_main.png",
+      "prompt_sha256": "042aa1d31ae5e4ef581d65ee00391fe49e6a36344ee208d0e4bbd6986dbc95d8"
+    },
+    {
+      "scene_id": "s08",
+      "slot": "main",
+      "file": "assets/s08_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s08_main.png",
+      "original_file": "pending/s08_main.png",
+      "prompt_sha256": "2e3441cc0be30921ac5715daaaac2c2ecb75f6d9c4197f8a1923c07f087c6b26"
+    },
+    {
+      "scene_id": "s09",
+      "slot": "main",
+      "file": "assets/s09_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s09_main.png",
+      "original_file": "pending/s09_main.png",
+      "prompt_sha256": "c3526a59503aa810b500030f9f02d599b369dfc1fdc6e352b234dafabe1dbcea"
+    },
+    {
+      "scene_id": "s10",
+      "slot": "main",
+      "file": "assets/s10_main.png",
+      "source_url": "codex://generated_images/pending/ep970-rm-cashless-autocharge-trap/s10_main.png",
+      "original_file": "pending/s10_main.png",
+      "prompt_sha256": "b6f0f34a92bedbdd2227e04f384542a418549c501969e4a35037c92dece3531e"
+    }
+  ]
+}

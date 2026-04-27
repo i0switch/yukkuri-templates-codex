@@ -1,0 +1,990 @@
+meta:
+  id: ep971-zm-qr-code-phishing-trap
+  title: 偽QRコードでアカウントとお金を取られる前に見る3つの確認
+  layout_template: Scene02
+  pair: ZM
+  fps: 30
+  width: 1920
+  height: 1080
+  audience: QR決済、宅配通知、店舗ポスターのQRを日常的に読み取るスマホ利用者
+  tone: 日常の油断から偽QRの見分け方へ進む防犯解説。ずんだもんの焦りをめたんが冷静に止める。
+  bgm_mood: 少し緊張感のあるサイバー防犯解説BGM
+  voice_engine: voicevox
+  target_duration_sec: 300
+  image_style: スマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+    speaking_style: 焦り、勘違い、素直な反応、行動宣言
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+    speaking_style: 冷静な訂正、短い皮肉、具体的な防犯手順
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5
+scenes:
+  - id: s01
+    role: intro
+    scene_goal: QR読み取りの油断を自分ごと化する
+    viewer_question: QRは読み取れれば正しい
+    visual_role: 貼り替えられたQRシールを読み取りそうなスマホ
+    scene_format: あるある型
+    motion_mode: warning
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub:
+      kind: bullets
+      items:
+        - 読み取り前に周囲を見る
+        - 通知リンクを急いで開かない
+        - 公式アプリから確認
+        - ログイン画面で止まる
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 日常のQRが危険に変わる瞬間を見せるため
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: image_prompts.json#s01.main
+        imagegen_prompt: |-
+          s01: 貼り替えQRで支払いが消える
+
+          ずんだもん「宅配のQRを読んだら、危険なログイン画面が出てきたのだ。」
+          めたん「毎日スマホで読む人ほど、そこで止まるべきですわ。」
+          ずんだもん「今日は偽QRでお金とアカウントを取られない確認をするのだ。」
+          めたん「QRは便利だけど、見た目では行き先が読めませんの。」
+          ずんだもん「黒い四角が全部まじめに見えるのだ。」
+          めたん「だから読み取った後の画面で判断しますわ。」
+          ずんだもん「マジで？読み取る前じゃなく後も大事なのだ？」
+          めたん「前、直後、入力前の3か所で止まるの。」
+          ずんだもん「3回ブレーキなのだな。」
+          めたん「急がせる画面ほど疑うべきですわ。」
+          ずんだもん「ぼく、急げって言われると走るタイプなのだ。」
+          めたん「そこを今日は止めますわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「不安喚起」、構図タイプは「事故寸前構図」です。 画面で一番大きく見せる対象は「貼り替えられたQRシールを読み取りそうなスマホ」です。その理由は「日常のQRが危険に変わる瞬間を見せるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「そのQR、本物？」です。画像で再現する状況は「ポスター上のQRに薄い偽シールが重なっている」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 宅配のQRを読んだら、危険なログイン画面が出てきたのだ。
+        expression: shock
+        emphasis:
+          words:
+            - ログイン画面
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: l02
+        speaker: right
+        text: 毎日スマホで読む人ほど、そこで止まるべきですわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: 今日は偽QRでお金とアカウントを取られない確認をするのだ。
+        expression: confused
+      - id: l04
+        speaker: right
+        text: QRは便利だけど、見た目では行き先が読めませんの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 黒い四角が全部まじめに見えるのだ。
+        expression: wry
+      - id: l06
+        speaker: right
+        text: だから読み取った後の画面で判断しますわ。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: マジで？読み取る前じゃなく後も大事なのだ？
+        expression: shock
+      - id: l08
+        speaker: right
+        text: 前、直後、入力前の3か所で止まるの。
+        expression: talk
+      - id: l09
+        speaker: left
+        text: 3回ブレーキなのだな。
+        expression: calm
+      - id: l10
+        speaker: right
+        text: 急がせる画面ほど疑うべきですわ。
+        expression: serious
+      - id: l11
+        speaker: left
+        text: ぼく、急げって言われると走るタイプなのだ。
+        expression: wry
+      - id: l12
+        speaker: right
+        text: そこを今日は止めますわ。
+        expression: smug
+  - id: s02
+    role: body
+    scene_goal: 店舗やポスターのQRが貼り替えられる可能性を知る
+    viewer_question: 店に貼ってあれば本物
+    visual_role: ポスターのQRに上貼りシールが少し浮いている様子
+    scene_format: 失敗エピソード型
+    motion_mode: reveal
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s02_main.png
+    sub:
+      kind: bullets
+      items:
+        - シールの浮きを見る
+        - 印刷とズレを確認
+        - 店員に聞く
+        - 読取後のURLを見る
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 物理的な貼り替えが起きると理解させるため
+        image_role: 証拠提示
+        composition_type: 証拠写真風
+        imagegen_prompt_ref: image_prompts.json#s02.main
+        imagegen_prompt: |-
+          s02: 偽QRは上から貼れる
+
+          ずんだもん「店に貼ってあるなら本物でしょなのだ。」
+          めたん「そこが油断ですわ。」
+          ずんだもん「え、店の壁まで疑うのだ？」
+          めたん「QRは上から偽シールを貼れますの。」
+          ずんだもん「マジで！？悪い工作がアナログなのだ。」
+          めたん「角が浮く、印刷とズレる、質感が違う。」
+          ずんだもん「スマホの前に目視チェックなのだな。」
+          めたん「迷ったら店員に確認するのが早いですわ。」
+          ずんだもん「聞くの恥ずかしいけど、盗られるよりマシなのだ。」
+          めたん「支払い前の数秒で守れることがありますの。」
+          ずんだもん「QRの角を見る癖をつけるのだ。」
+          めたん「小さい違和感を拾いましょう。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「証拠提示」、構図タイプは「証拠写真風」です。 画面で一番大きく見せる対象は「ポスターのQRに上貼りシールが少し浮いている様子」です。その理由は「物理的な貼り替えが起きると理解させるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「上から貼れる」です。画像で再現する状況は「角がめくれたQRシールと警告の虫眼鏡」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 店に貼ってあるなら本物でしょなのだ。
+        expression: confident
+      - id: l02
+        speaker: right
+        text: そこが油断ですわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: え、店の壁まで疑うのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: QRは上から偽シールを貼れますの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: マジで！？悪い工作がアナログなのだ。
+        expression: shock
+      - id: l06
+        speaker: right
+        text: 角が浮く、印刷とズレる、質感が違う。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: スマホの前に目視チェックなのだな。
+        expression: calm
+      - id: l08
+        speaker: right
+        text: 迷ったら店員に確認するのが早いですわ。
+        expression: talk
+      - id: l09
+        speaker: left
+        text: 聞くの恥ずかしいけど、盗られるよりマシなのだ。
+        expression: worried
+      - id: l10
+        speaker: right
+        text: 支払い前の数秒で守れることがありますの。
+        expression: serious
+      - id: l11
+        speaker: left
+        text: QRの角を見る癖をつけるのだ。
+        expression: smile
+      - id: l12
+        speaker: right
+        text: 小さい違和感を拾いましょう。
+        expression: smug
+  - id: s03
+    role: body
+    scene_goal: SMSやメールの偽QRが急がせる心理を使うと示す
+    viewer_question: 期限がある通知は急ぐべき
+    visual_role: 本日中と強調された偽宅配通知と公式アプリの比較
+    scene_format: 誤解訂正型
+    motion_mode: warning
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s03_main.png
+    sub:
+      kind: bullets
+      items:
+        - 本日中に注意
+        - SMS内リンクを押さない
+        - 公式アプリで確認
+        - 荷物番号を別入力
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 急かす文句に反応する危険を見せるため
+        image_role: 不安喚起
+        composition_type: 失敗例シミュレーション
+        imagegen_prompt_ref: image_prompts.json#s03.main
+        imagegen_prompt: |-
+          s03: 宅配通知の急がせ文句
+
+          ずんだもん「本日中なら急ぐべきでしょ。」
+          めたん「急がせる時点で警戒ですわ。」
+          ずんだもん「つまり焦らせるのが罠なのだ？」
+          めたん「24時間、再配達、保管期限はよく使われますの。」
+          ずんだもん「宅配っぽい言葉だと信じちゃうのだ。」
+          めたん「SMS内リンクではなく公式アプリで見る。」
+          ずんだもん「荷物番号も自分で入れるのだな。」
+          めたん「リンク先で入れると相手に渡すだけですわ。」
+          ずんだもん「それ普通にヤバいのだ。」
+          めたん「急ぐ時ほど、入口を変えるの。」
+          ずんだもん「通知からじゃなく公式から入るのだ。」
+          めたん「それだけでかなり避けられますわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「不安喚起」、構図タイプは「失敗例シミュレーション」です。 画面で一番大きく見せる対象は「本日中と強調された偽宅配通知と公式アプリの比較」です。その理由は「急かす文句に反応する危険を見せるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「急がせる通知」です。画像で再現する状況は「赤い期限表示がスマホ画面に迫る」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 本日中なら急ぐべきでしょ。
+        expression: worried
+      - id: l02
+        speaker: right
+        text: 急がせる時点で警戒ですわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: つまり焦らせるのが罠なのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: 24時間、再配達、保管期限はよく使われますの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 宅配っぽい言葉だと信じちゃうのだ。
+        expression: calm
+      - id: l06
+        speaker: right
+        text: SMS内リンクではなく公式アプリで見る。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 荷物番号も自分で入れるのだな。
+        expression: smile
+      - id: l08
+        speaker: right
+        text: リンク先で入れると相手に渡すだけですわ。
+        expression: serious
+      - id: l09
+        speaker: left
+        text: それ普通にヤバいのだ。
+        expression: shock
+      - id: l10
+        speaker: right
+        text: 急ぐ時ほど、入口を変えるの。
+        expression: talk
+      - id: l11
+        speaker: left
+        text: 通知からじゃなく公式から入るのだ。
+        expression: confident
+      - id: l12
+        speaker: right
+        text: それだけでかなり避けられますわ。
+        expression: smug
+  - id: s04
+    role: body
+    scene_goal: 読み取り後のURL確認を習慣化する
+    viewer_question: QRならURLは見なくていい
+    visual_role: 安全そうなQRから怪しいURLへ伸びる矢印
+    scene_format: 反証型
+    motion_mode: checklist
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s04_main.png
+    sub:
+      kind: bullets
+      items:
+        - 短縮URLに注意
+        - 公式名の綴りを見る
+        - 余計な記号を見る
+        - 開く前に止まる
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: QRの中身はURLだと理解させるため
+        image_role: 理解補助
+        composition_type: 原因マップ
+        imagegen_prompt_ref: image_prompts.json#s04.main
+        imagegen_prompt: |-
+          s04: URL短縮と変なドメイン
+
+          ずんだもん「QRならURLを見なくていいでしょ。」
+          めたん「そこを見ますの。」
+          ずんだもん「え、黒い四角の正体はURLなのだ？」
+          めたん「そう。短縮URLや変なドメインは警戒ですわ。」
+          ずんだもん「公式っぽい名前でも油断するのだ。」
+          めたん「1文字違い、余計な記号、長すぎる文字列を見る。」
+          ずんだもん「読むの面倒だけど、開く前の1秒なのだ。」
+          めたん「その1秒がログイン情報を守るのです。」
+          ずんだもん「急いで開くほど相手の思うつぼなのだ。」
+          めたん「URL確認はブレーキですわ。」
+          ずんだもん「開く前に一呼吸なのだ。」
+          めたん「怪しければ閉じて公式から入り直すの。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「理解補助」、構図タイプは「原因マップ」です。 画面で一番大きく見せる対象は「安全そうなQRから怪しいURLへ伸びる矢印」です。その理由は「QRの中身はURLだと理解させるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「QRの中身はURL」です。画像で再現する状況は「黒いQRの中から長いURLが出て虫眼鏡で確認される」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: QRならURLを見なくていいでしょ。
+        expression: confident
+      - id: l02
+        speaker: right
+        text: そこを見ますの。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: え、黒い四角の正体はURLなのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: そう。短縮URLや変なドメインは警戒ですわ。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 公式っぽい名前でも油断するのだ。
+        expression: worried
+      - id: l06
+        speaker: right
+        text: 1文字違い、余計な記号、長すぎる文字列を見る。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 読むの面倒だけど、開く前の1秒なのだ。
+        expression: calm
+      - id: l08
+        speaker: right
+        text: その1秒がログイン情報を守るのです。
+        expression: serious
+      - id: l09
+        speaker: left
+        text: 急いで開くほど相手の思うつぼなのだ。
+        expression: wry
+      - id: l10
+        speaker: right
+        text: URL確認はブレーキですわ。
+        expression: smug
+      - id: l11
+        speaker: left
+        text: 開く前に一呼吸なのだ。
+        expression: smile
+      - id: l12
+        speaker: right
+        text: 怪しければ閉じて公式から入り直すの。
+        expression: talk
+  - id: s05
+    role: body
+    scene_goal: IDやパスワード入力前に確認する癖を作る
+    viewer_question: ログインを求められたら入れる
+    visual_role: 偽ログイン画面の手前で止まる指
+    scene_format: 手順型
+    motion_mode: punch
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s05_main.png
+    sub:
+      kind: bullets
+      items:
+        - ログイン要求で止まる
+        - 認証コードを入れない
+        - 公式アプリへ戻る
+        - 画面を閉じる勇気
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 入力直前が最大の防衛点だと見せるため
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: image_prompts.json#s05.main
+        imagegen_prompt: |-
+          s05: ログイン画面で止まる
+
+          ずんだもん「ログインを求められたら入れるしかないでしょ。」
+          めたん「そこで止まりますわ。」
+          ずんだもん「マジで？ログイン画面がゴールじゃないのだ？」
+          めたん「偽サイトの目的はID、パスワード、6桁コードですの。」
+          ずんだもん「認証コードまで入れたら終わるのだ。」
+          めたん「コードは鍵です。人に渡してはいけませんわ。」
+          ずんだもん「画面に言われても渡さないのだな。」
+          めたん「公式アプリを開き直して確認する。」
+          ずんだもん「面倒でも閉じる勇気なのだ。」
+          めたん「閉じても荷物や支払いは逃げませんの。」
+          ずんだもん「焦りだけが逃げ道を狭くするのだ。」
+          めたん「入力前に止まる。それが一番強いですわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「不安喚起」、構図タイプは「事故寸前構図」です。 画面で一番大きく見せる対象は「偽ログイン画面の手前で止まる指」です。その理由は「入力直前が最大の防衛点だと見せるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「入力前に止まる」です。画像で再現する状況は「ID入力欄の前に大きな停止サインが出ている」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: ログインを求められたら入れるしかないでしょ。
+        expression: worried
+      - id: l02
+        speaker: right
+        text: そこで止まりますわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: マジで？ログイン画面がゴールじゃないのだ？
+        expression: shock
+      - id: l04
+        speaker: right
+        text: 偽サイトの目的はID、パスワード、6桁コードですの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 認証コードまで入れたら終わるのだ。
+        expression: shock
+      - id: l06
+        speaker: right
+        text: コードは鍵です。人に渡してはいけませんわ。
+        expression: serious
+      - id: l07
+        speaker: left
+        text: 画面に言われても渡さないのだな。
+        expression: calm
+      - id: l08
+        speaker: right
+        text: 公式アプリを開き直して確認する。
+        expression: confident
+      - id: l09
+        speaker: left
+        text: 面倒でも閉じる勇気なのだ。
+        expression: smile
+      - id: l10
+        speaker: right
+        text: 閉じても荷物や支払いは逃げませんの。
+        expression: smug
+      - id: l11
+        speaker: left
+        text: 焦りだけが逃げ道を狭くするのだ。
+        expression: wry
+      - id: l12
+        speaker: right
+        text: 入力前に止まる。それが一番強いですわ。
+        expression: talk
+  - id: s06
+    role: body
+    scene_goal: 中盤でQR全般を怖がるのでなく入口確認へ再整理する
+    viewer_question: QRは全部危険
+    visual_role: 危険な入口と安全な公式入口の分岐ゲート
+    scene_format: まとめ再フック型
+    reference_beat: "midpoint_rehook: 中盤再フック。QR自体ではなく入口の信頼確認が犯人だと反転する"
+    motion_mode: reveal
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s06_main.png
+    sub:
+      kind: bullets
+      items:
+        - QR全部を怖がらない
+        - 入口を確認する
+        - 現物の貼り替えを見る
+        - 公式から入り直す
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 怖がる対象をQRから入口確認へ変えるため
+        image_role: 比較
+        composition_type: ビフォーアフター
+        imagegen_prompt_ref: image_prompts.json#s06.main
+        imagegen_prompt: |-
+          s06: 犯人はQRではなく入口
+
+          ずんだもん「もうQRは全部怖いのだ。」
+          めたん「実は犯人はQRではなく入口ですわ。」
+          ずんだもん「それは詰む。黒い四角を全部敵にしてたのだ。」
+          めたん「見るのは3入口。現物、読み取り後URL、入力前ですの。」
+          ずんだもん「QRそのものより、どこへ入るかを見るのだな。」
+          めたん「公式から入り直せるなら、そちらを使う。」
+          ずんだもん「偽QRは入口をすり替える罠なのだ。」
+          めたん「その理解なら怖がり方が正しくなりますわ。」
+          ずんだもん「怖がるより、止まる場所を決めるのだ。」
+          めたん「その通り。止まる場所を3つ持つ。」
+          ずんだもん「現物、URL、入力前。覚えやすいのだ。」
+          めたん「そこを越えなければ被害は大きく減りますわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「比較」、構図タイプは「ビフォーアフター」です。 画面で一番大きく見せる対象は「危険な入口と安全な公式入口の分岐ゲート」です。その理由は「怖がる対象をQRから入口確認へ変えるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「犯人は入口」です。画像で再現する状況は「同じQRでも入口確認ありなしで道が分かれる」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: もうQRは全部怖いのだ。
+        expression: shock
+      - id: l02
+        speaker: right
+        text: 実は犯人はQRではなく入口ですわ。
+        expression: confident
+        emphasis:
+          words:
+            - 犯人は入口
+          style: surprise
+          se: reveal
+          pause_after_ms: 500
+      - id: l03
+        speaker: left
+        text: それは詰む。黒い四角を全部敵にしてたのだ。
+        expression: shock
+      - id: l04
+        speaker: right
+        text: 見るのは3入口。現物、読み取り後URL、入力前ですの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: QRそのものより、どこへ入るかを見るのだな。
+        expression: calm
+      - id: l06
+        speaker: right
+        text: 公式から入り直せるなら、そちらを使う。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 偽QRは入口をすり替える罠なのだ。
+        expression: worried
+      - id: l08
+        speaker: right
+        text: その理解なら怖がり方が正しくなりますわ。
+        expression: smug
+      - id: l09
+        speaker: left
+        text: 怖がるより、止まる場所を決めるのだ。
+        expression: smile
+      - id: l10
+        speaker: right
+        text: その通り。止まる場所を3つ持つ。
+        expression: talk
+      - id: l11
+        speaker: left
+        text: 現物、URL、入力前。覚えやすいのだ。
+        expression: confident
+      - id: l12
+        speaker: right
+        text: そこを越えなければ被害は大きく減りますわ。
+        expression: serious
+  - id: s07
+    role: body
+    scene_goal: QR決済では支払い先と金額を確認する
+    viewer_question: 読み取れたら支払い先も正しい
+    visual_role: 支払い前画面で支払い先と金額を確認するチェック
+    scene_format: 手順型
+    motion_mode: checklist
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s07_main.png
+    sub:
+      kind: bullets
+      items:
+        - 支払い先名を見る
+        - 金額を確認
+        - 店名と照合
+        - 違和感なら中止
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 決済前に止まる具体行動を示すため
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt_ref: image_prompts.json#s07.main
+        imagegen_prompt: |-
+          s07: 支払い前の金額確認
+
+          ずんだもん「読み取れたら支払い先も正しいでしょ。」
+          めたん「決済前に見ますわ。」
+          ずんだもん「つまり最後のボタン前が関所なのだ？」
+          めたん「支払い先名、金額、店名の3つですの。」
+          ずんだもん「知らない名前なら中止なのだな。」
+          めたん「金額が違う時も止める。少額でも同じですわ。」
+          ずんだもん「少額だと見逃しがちなのだ。」
+          めたん「1回通すと相手を信用しやすくなるの。」
+          ずんだもん「最初の1回が大事なのだな。」
+          めたん「決済ボタンは確認後に押すものですわ。」
+          ずんだもん「勢いで押さないのだ。」
+          めたん「支払い先と金額を声に出すくらいでいいわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「手順整理」、構図タイプは「チェックリスト」です。 画面で一番大きく見せる対象は「支払い前画面で支払い先と金額を確認するチェック」です。その理由は「決済前に止まる具体行動を示すため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「払う前に見る」です。画像で再現する状況は「決済ボタンの前に支払い先と金額の確認枠が強調される」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 読み取れたら支払い先も正しいでしょ。
+        expression: confident
+      - id: l02
+        speaker: right
+        text: 決済前に見ますわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: つまり最後のボタン前が関所なのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: 支払い先名、金額、店名の3つですの。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 知らない名前なら中止なのだな。
+        expression: calm
+      - id: l06
+        speaker: right
+        text: 金額が違う時も止める。少額でも同じですわ。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 少額だと見逃しがちなのだ。
+        expression: worried
+      - id: l08
+        speaker: right
+        text: 1回通すと相手を信用しやすくなるの。
+        expression: talk
+      - id: l09
+        speaker: left
+        text: 最初の1回が大事なのだな。
+        expression: smile
+      - id: l10
+        speaker: right
+        text: 決済ボタンは確認後に押すものですわ。
+        expression: smug
+      - id: l11
+        speaker: left
+        text: 勢いで押さないのだ。
+        expression: confident
+      - id: l12
+        speaker: right
+        text: 支払い先と金額を声に出すくらいでいいわ。
+        expression: talk
+  - id: s08
+    role: body
+    scene_goal: 不審時のスクショと連絡先確認を促す
+    viewer_question: 怪しい画面はすぐ消せば終わり
+    visual_role: 怪しい画面のスクショと公式窓口へ相談する流れ
+    scene_format: 手順型
+    motion_mode: checklist
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s08_main.png
+    sub:
+      kind: bullets
+      items:
+        - 怪しい画面を保存
+        - 日時を残す
+        - 公式窓口を探す
+        - 画面内番号に電話しない
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 被害前後の行動を整理するため
+        image_role: 証拠提示
+        composition_type: 手順図
+        imagegen_prompt_ref: image_prompts.json#s08.main
+        imagegen_prompt: |-
+          s08: スクショ保存で証拠を残す
+
+          ずんだもん「怪しい画面はすぐ消せば終わりなのだ。」
+          めたん「消す前に残しますわ。」
+          ずんだもん「え、証拠写真みたいに撮るのだ？」
+          めたん「スクショ、日時、どこから開いたかを残す。」
+          ずんだもん「パニックだと忘れそうなのだ。」
+          めたん「だから支払い前に保存する癖が役立ちますの。」
+          ずんだもん「連絡先は画面の番号にしがちなのだ。」
+          めたん「それも罠かもしれない。公式サイトから探すの。」
+          ずんだもん「罠の中に相談窓口まであるの怖いのだ。」
+          めたん「閉じて、公式で調べ直す。これが基本ですわ。」
+          ずんだもん「証拠を残して、公式へ行くのだ。」
+          めたん「慌てた時ほど順番を固定しますわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「証拠提示」、構図タイプは「手順図」です。 画面で一番大きく見せる対象は「怪しい画面のスクショと公式窓口へ相談する流れ」です。その理由は「被害前後の行動を整理するため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「証拠を残す」です。画像で再現する状況は「スマホ画面、時計、公式問い合わせカードが並ぶ」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 怪しい画面はすぐ消せば終わりなのだ。
+        expression: confident
+      - id: l02
+        speaker: right
+        text: 消す前に残しますわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: え、証拠写真みたいに撮るのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: スクショ、日時、どこから開いたかを残す。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: パニックだと忘れそうなのだ。
+        expression: worried
+      - id: l06
+        speaker: right
+        text: だから支払い前に保存する癖が役立ちますの。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 連絡先は画面の番号にしがちなのだ。
+        expression: confused
+      - id: l08
+        speaker: right
+        text: それも罠かもしれない。公式サイトから探すの。
+        expression: serious
+      - id: l09
+        speaker: left
+        text: 罠の中に相談窓口まであるの怖いのだ。
+        expression: shock
+      - id: l10
+        speaker: right
+        text: 閉じて、公式で調べ直す。これが基本ですわ。
+        expression: talk
+      - id: l11
+        speaker: left
+        text: 証拠を残して、公式へ行くのだ。
+        expression: smile
+      - id: l12
+        speaker: right
+        text: 慌てた時ほど順番を固定しますわ。
+        expression: smug
+  - id: s09
+    role: body
+    scene_goal: 迷ったら読み取らない、別ルートを選ぶ判断を教える
+    viewer_question: 読まないと損する
+    visual_role: 怪しいQRを読む道と公式検索へ戻る道の比較
+    scene_format: Before / After型
+    motion_mode: warning
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s09_main.png
+    sub:
+      kind: bullets
+      items:
+        - 迷ったら読まない
+        - 公式検索に切り替え
+        - 店員に確認
+        - 急ぎほど止まる
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 読まない選択が正しい場面を見せるため
+        image_role: 比較
+        composition_type: NG / OK 比較
+        imagegen_prompt_ref: image_prompts.json#s09.main
+        imagegen_prompt: |-
+          s09: 読み取らない勇気
+
+          ずんだもん「読まないと損するでしょ。」
+          めたん「損より被害が大きいですわ。」
+          ずんだもん「マジで？クーポンより口座が大事なのだ。」
+          めたん「当たり前ですの。1分かけて公式検索へ切り替える。」
+          ずんだもん「1分で守れるなら安いのだ。」
+          めたん「店なら店員に聞く。宅配なら公式アプリ。」
+          ずんだもん「急いでいる時ほど止まるのだな。」
+          めたん「急ぎは判断力を削りますわ。」
+          ずんだもん「焦りは詐欺師の味方なのだ。」
+          めたん「だから別ルートを持つの。」
+          ずんだもん「読まない勇気、覚えたのだ。」
+          めたん「安全確認できないQRは閉じましょう。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「比較」、構図タイプは「NG / OK 比較」です。 画面で一番大きく見せる対象は「怪しいQRを読む道と公式検索へ戻る道の比較」です。その理由は「読まない選択が正しい場面を見せるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「読まない勇気」です。画像で再現する状況は「二股の道で、怪しいQR側に警告、公式検索側に安全サイン」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: 読まないと損するでしょ。
+        expression: worried
+      - id: l02
+        speaker: right
+        text: 損より被害が大きいですわ。
+        expression: serious
+      - id: l03
+        speaker: left
+        text: マジで？クーポンより口座が大事なのだ。
+        expression: shock
+      - id: l04
+        speaker: right
+        text: 当たり前ですの。1分かけて公式検索へ切り替える。
+        expression: talk
+      - id: l05
+        speaker: left
+        text: 1分で守れるなら安いのだ。
+        expression: calm
+      - id: l06
+        speaker: right
+        text: 店なら店員に聞く。宅配なら公式アプリ。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 急いでいる時ほど止まるのだな。
+        expression: smile
+      - id: l08
+        speaker: right
+        text: 急ぎは判断力を削りますわ。
+        expression: serious
+      - id: l09
+        speaker: left
+        text: 焦りは詐欺師の味方なのだ。
+        expression: wry
+      - id: l10
+        speaker: right
+        text: だから別ルートを持つの。
+        expression: talk
+      - id: l11
+        speaker: left
+        text: 読まない勇気、覚えたのだ。
+        expression: confident
+      - id: l12
+        speaker: right
+        text: 安全確認できないQRは閉じましょう。
+        expression: smug
+  - id: s10
+    role: cta
+    scene_goal: 今日の行動とコメント誘導で締める
+    viewer_question: 確認箇所が多くて続かない
+    visual_role: 現物、URL、入力前の3つのブレーキカード
+    scene_format: まとめ再フック型
+    motion_mode: recap
+    duration_sec: 30
+    main:
+      kind: image
+      asset: assets/s10_main.png
+    sub:
+      kind: bullets
+      items:
+        - 現物を見る
+        - URLを見る
+        - 入力前に止まる
+        - コメントは怪しい通知あるある
+    visual_asset_plan:
+      - slot: main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: 最後に確認ポイントを一枚にまとめるため
+        image_role: オチ補助
+        composition_type: チェックリスト
+        imagegen_prompt_ref: image_prompts.json#s10.main
+        imagegen_prompt: |-
+          s10: 今日やる3つのブレーキ
+
+          ずんだもん「まとめると、QR全部を怖がる話じゃないのだな。」
+          めたん「入口を確認する話ですわ。」
+          ずんだもん「今日やるなら何からなのだ？」
+          めたん「現物を見る、URLを見る、入力前に止まる。この3つですの。」
+          ずんだもん「3つなら覚えられるのだ。」
+          めたん「宅配通知は公式アプリから確認しましょう。」
+          ずんだもん「店のQRは角とズレを見るのだ。」
+          めたん「ログイン画面が出たら閉じて入り直す。」
+          ずんだもん「コメントで怪しい通知あるあるも教えてほしいのだ。」
+          めたん「みんなの事例が次の被害防止になりますわ。」
+          ずんだもん「ぼくは今日から入力前に一回止まるのだ。」
+          めたん「その一回がアカウントとお金を守りますわ。」
+
+          ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアルを中心に構成してください。 画像内の可読テキストは日本語だけにしてください。英語ラベル、英語見出し、英語UI、英単語の装飾文字は禁止です。 文字が崩れる可能性がある場合は、文字を使わずアイコン、色分け、形、配置で表現してください。 下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください。 画像の役割は「オチ補助」、構図タイプは「チェックリスト」です。 画面で一番大きく見せる対象は「現物、URL、入力前の3つのブレーキカード」です。その理由は「最後に確認ポイントを一枚にまとめるため」です。 小さくする、または入れない対象は「既存キャラクター、実在人物、ブランドロゴ、実在UI、長文の説明」です。 対象シーンから画像化する一言は「3つのブレーキ」です。画像で再現する状況は「スマホの前に3つの停止カードが並ぶ」です。画像で再現しない要素は「会話全文、人物同士の会話、字幕用余白」です。 スマホ視聴でも伝わるように主役は1つ、画像内の小さい文字は最大3語、アイコンは最大5個、重要要素は画面中央から上部に置いてください。 どのシーンにも使える白背景アイコン、抽象的な青いネットワーク線、台本の具体例と関係が薄い綺麗な汎用図解は禁止です。 字幕やキャラクターに重なる位置へ重要情報を置かず、背景や小物は画面端まで自然に続けてください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 動画の解説画面に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。
+
+          画像の雰囲気はスマホ、QRコード、宅配通知、警告マーク、公式確認を使った黒黄アクセントの防犯図解で生成してください。
+    dialogue:
+      - id: l01
+        speaker: left
+        text: まとめると、QR全部を怖がる話じゃないのだな。
+        expression: calm
+      - id: l02
+        speaker: right
+        text: 入口を確認する話ですわ。
+        expression: confident
+      - id: l03
+        speaker: left
+        text: 今日やるなら何からなのだ？
+        expression: confused
+      - id: l04
+        speaker: right
+        text: 現物を見る、URLを見る、入力前に止まる。この3つですの。
+        expression: talk
+        emphasis:
+          words:
+            - 現物
+            - URL
+            - 入力前
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: l05
+        speaker: left
+        text: 3つなら覚えられるのだ。
+        expression: smile
+      - id: l06
+        speaker: right
+        text: 宅配通知は公式アプリから確認しましょう。
+        expression: confident
+      - id: l07
+        speaker: left
+        text: 店のQRは角とズレを見るのだ。
+        expression: talk
+      - id: l08
+        speaker: right
+        text: ログイン画面が出たら閉じて入り直す。
+        expression: serious
+      - id: l09
+        speaker: left
+        text: コメントで怪しい通知あるあるも教えてほしいのだ。
+        expression: smile
+      - id: l10
+        speaker: right
+        text: みんなの事例が次の被害防止になりますわ。
+        expression: calm
+      - id: l11
+        speaker: left
+        text: ぼくは今日から入力前に一回止まるのだ。
+        expression: confident
+      - id: l12
+        speaker: right
+        text: その一回がアカウントとお金を守りますわ。
+        expression: smug
+total_duration_sec: 300
+credits:
+  voices:
+    - VOICEVOX:ずんだもん
+    - VOICEVOX:四国めたん
+  images:
+    - codex-imagegen generated scene images
+  bgm: []

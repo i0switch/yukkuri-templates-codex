@@ -14,9 +14,12 @@ scenes:
     sub:
       kind: bullets
       items:
-        - 確認
-        - 逃がす
-        - 最後に実行
+        - 容量表示を見る
+        - 最近追加を確認
+        - 大事な写真を選ぶ
+        - クラウド同期を見る
+        - 外部に逃がす
+        - 最後に削除
     dialogue:
       - id: l01
         speaker: left

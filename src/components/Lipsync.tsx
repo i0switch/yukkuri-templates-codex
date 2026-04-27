@@ -54,5 +54,6 @@ export const pickLipsyncExpression = ({
   }
 
   const toggleFrames = Math.max(1, Math.round(fps * 0.12));
-  return Math.floor(frame / toggleFrames) % 2 === 0 ? 'talk' : 'halfOpen';
+  const expressiveBase = activeLine.expression && activeLine.expression !== 'normal' ? activeLine.expression : baseExpression;
+  return Math.floor(frame / toggleFrames) % 2 === 0 ? 'talk' : expressiveBase;
 };

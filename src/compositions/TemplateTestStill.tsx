@@ -97,6 +97,8 @@ const makeTextSlot = (kind: 'title' | 'main' | 'sub' | 'subtitle'): SlotRenderer
       textShadow="0 2px 0 rgba(255,255,255,0.9), 0 -2px 0 rgba(255,255,255,0.9), 2px 0 0 rgba(255,255,255,0.9), -2px 0 0 rgba(255,255,255,0.9)"
       textStrokeColor={TEXT_STROKE.subtitle.color}
       textStrokeWidth={TEXT_STROKE.subtitle.width}
+      lineBreakMode={isSubtitle ? 'budoux' : 'normal'}
+      maxLines={isSubtitle ? 3 : undefined}
       style={{
         padding: isTitle ? '4px 10px' : isSubtitle ? '8px 28px' : isSub ? '12px 14px' : '20px 28px',
         boxSizing: 'border-box',

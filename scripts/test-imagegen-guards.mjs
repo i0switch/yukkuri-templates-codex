@@ -1,16 +1,19 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
 import {stringify} from 'yaml';
+import {CANONICAL_FIXED_IMAGEGEN_PROMPT} from './lib/imagegen-prompt-contract.mjs';
 
 const rootDir = process.cwd();
 const fixtureRoot = path.join(rootDir, '.cache', 'imagegen-guard-fixtures');
 
-const pngBytes = () => {
+const pngBytes = (seed = 1) => {
   const buffer = Buffer.alloc(100_100, 0);
   Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(buffer, 0);
   buffer.writeUInt32BE(1920, 16);
   buffer.writeUInt32BE(1080, 20);
+  buffer.writeUInt32BE(seed, 24);
   return buffer;
 };
 
@@ -50,20 +53,22 @@ const promptFor = ({sceneId, lineText}) => `${sceneId}: テストシーン
 
 ${lineText}
 
-ゆっくり解説動画向けの挿入画像を日本語で生成してください。 この画像は会話内容をそのまま再現するためのものではなく、シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強するためのコンテンツ画像です。 字幕やセリフは別で表示するため、会話等は画像に入れないでください。 キャラクター同士の会話シーンにはせず、テーマ理解を助ける図解、アイコン、小物、UI、概念図、状況説明ビジュアルを中心に構成してください。 画面全体を有効活用し、情報が一目で伝わる、整理された高品質なビジュアルにしてください。 YouTubeの解説動画に適した、見やすく印象的で、内容理解を助ける16:9の横長構図で作成してください。 Make the aspect ratio 16:9.
+${CANONICAL_FIXED_IMAGEGEN_PROMPT}
 
 画像の雰囲気は青緑と白を基調にした明るい解説動画向けの雰囲気で生成してください。`;
 
-const sceneFor = (index, prompt) => {
+const sceneFor = (index, prompt, {usePromptRef = false} = {}) => {
   const sceneId = `s${String(index).padStart(2, '0')}`;
   const visualTypes = ['hook_poster', 'myth_vs_fact', 'danger_simulation', 'before_after', 'flowchart_scene', 'checklist_panel', 'mini_story_scene', 'final_action_card'];
   const visualType = visualTypes[(index - 1) % visualTypes.length];
-  const compositionType = ['smartphone_closeup', 'split_warning_path', 'three_layer_panel'][index % 3];
+  const compositionType = ['NG / OK 比較', '誇張図解', '証拠写真風'][index % 3];
   const lineText = `確認${index}をするのだ`;
   const finalPrompt = prompt ?? promptFor({sceneId, lineText});
+  const promptRef = `${sceneId}.main`;
   return {
     id: sceneId,
     role: index === 1 ? 'intro' : index === 7 ? 'outro' : index === 8 ? 'cta' : 'body',
+    motion_mode: index === 1 ? 'warning' : index === 4 || index === 5 ? 'reveal' : index === 8 ? 'recap' : index % 2 === 0 ? 'punch' : 'compare',
     scene_goal: `${sceneId} goal`,
     viewer_question: `${sceneId} question`,
     visual_role: `${sceneId} visual`,
@@ -71,7 +76,7 @@ const sceneFor = (index, prompt) => {
       kind: 'image',
       asset: `assets/${sceneId}_main.png`,
       asset_requirements: {
-        imagegen_prompt: finalPrompt,
+        ...(usePromptRef ? {imagegen_prompt_ref: promptRef} : {imagegen_prompt: finalPrompt}),
       },
     },
     sub: null,
@@ -79,6 +84,8 @@ const sceneFor = (index, prompt) => {
       {
         slot: 'main',
         purpose: `${sceneId} purpose`,
+        image_role: index === 8 ? 'オチ補助' : '理解補助',
+        composition_type: compositionType,
         supports_dialogue: [`${sceneId}_l01`],
         supports_moment: `${sceneId}_l01の誤解を止めて行動へつなぐ瞬間`,
         visual_type: visualType,
@@ -109,19 +116,26 @@ const sceneFor = (index, prompt) => {
           must_not_include: ['実在UI', '既存キャラクター', '長文日本語'],
           quality_bar: 'YouTube解説動画の高品質スライドとして成立',
         },
-        imagegen_prompt: finalPrompt,
+        ...(usePromptRef ? {imagegen_prompt_ref: promptRef} : {imagegen_prompt: finalPrompt}),
       },
     ],
-    dialogue: [{id: 'l01', speaker: index % 2 === 0 ? 'right' : 'left', text: lineText}],
+    dialogue: [
+      {
+        id: 'l01',
+        speaker: index % 2 === 0 ? 'right' : 'left',
+        text: lineText,
+        ...([1, 4, 5, 8].includes(index) ? {emphasis: {words: ['確認'], style: 'action', se: 'success', pause_after_ms: 300}} : {}),
+      },
+    ],
   };
 };
 
-const writeFixture = async ({name, badPrompt, sheetMeta = false}) => {
+const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated = false, rightsConfirmed = true, duplicateImages = false, usePromptRef = false}) => {
   const dir = path.join(fixtureRoot, name);
   await fs.rm(dir, {recursive: true, force: true});
   await fs.mkdir(path.join(dir, 'assets'), {recursive: true});
 
-  const scenes = Array.from({length: 8}, (_, index) => sceneFor(index + 1, index === 0 ? badPrompt : undefined));
+  const scenes = Array.from({length: 8}, (_, index) => sceneFor(index + 1, index === 0 ? badPrompt : undefined, {usePromptRef}));
   const script = {
     meta: {
       id: name,
@@ -138,33 +152,60 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false}) => {
       image_style: '青緑の高品質解説動画スライド',
       layout_template: 'Scene01',
     },
-    characters: {left: {character: 'zundamon'}, right: {character: 'metan'}},
+    characters: {
+      left: {character: 'zundamon', voicevox_speaker_id: 3},
+      right: {character: 'metan', voicevox_speaker_id: 2},
+    },
     scenes,
   };
 
   const assets = [];
+  const manifestImages = [];
   for (const scene of scenes) {
     const assetPath = scene.main.asset;
-    await fs.writeFile(path.join(dir, assetPath), pngBytes());
+    await fs.writeFile(path.join(dir, assetPath), pngBytes(duplicateImages ? 1 : Number(scene.id.slice(1))));
     const plan = scene.visual_asset_plan[0];
+    const prompt = promptFor({sceneId: scene.id, lineText: `確認${Number(scene.id.slice(1))}をするのだ`});
+    const sourceUrl = sheetMeta ? 'codex://generated_images/shared-sheet/sheet.png' : `codex://generated_images/${name}/${scene.id}.png`;
+    const generationId = sheetMeta ? 'shared-sheet' : `${name}-${scene.id}`;
     assets.push({
       file: assetPath,
-      source_type: 'OpenAI image generation',
-      source_url: sheetMeta ? 'openai-image://shared-sheet' : `openai-image://${name}/${scene.id}`,
-      generation_id: sheetMeta ? 'shared-sheet' : `${name}-${scene.id}`,
+      source_type: userGenerated ? 'user_generated' : 'imagegen',
+      ...(userGenerated
+        ? {
+            generation_tool: 'Claude Code user workflow',
+            rights_confirmed: rightsConfirmed,
+          }
+        : {
+            generation_tool: 'codex-imagegen',
+            rights_confirmed: true,
+            source_url: sourceUrl,
+            generation_id: generationId,
+          }),
       license: 'generated image',
       imagegen_model: 'gpt-image-2',
       scene_id: scene.id,
       slot: 'main',
       purpose: plan.purpose,
       adoption_reason: `${scene.id}の会話補強に一致`,
-      imagegen_prompt: plan.imagegen_prompt,
+      imagegen_prompt: prompt,
       image_direction: plan.image_direction,
       visual_type: plan.visual_type,
       supports_dialogue: plan.supports_dialogue,
       supports_moment: plan.supports_moment,
       ...(sheetMeta ? {crop_from: 'sheet.png'} : {}),
     });
+    if (!userGenerated) {
+      manifestImages.push({
+        scene_id: scene.id,
+        slot: 'main',
+        file: assetPath,
+        source_url: sourceUrl,
+        generation_id: generationId,
+        original_file: `${scene.id}.png`,
+        prompt_sha256: createHash('sha256').update(prompt, 'utf8').digest('hex'),
+      });
+    }
   }
 
   const meta = {assets};
@@ -174,22 +215,75 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false}) => {
 
   await fs.writeFile(path.join(dir, 'script.yaml'), stringify(script), 'utf8');
   await fs.writeFile(path.join(dir, 'meta.json'), `${JSON.stringify(meta, null, 2)}\n`, 'utf8');
+  if (usePromptRef) {
+    await fs.writeFile(
+      path.join(dir, 'image_prompts.json'),
+      `${JSON.stringify(
+        {
+          version: 1,
+          prompts: Object.fromEntries(
+            scenes.map((scene) => {
+              const text = `確認${Number(scene.id.slice(1))}をするのだ`;
+              const prompt = promptFor({sceneId: scene.id, lineText: text});
+              return [
+                `${scene.id}.main`,
+                {
+                  ref: `${scene.id}.main`,
+                  scene_id: scene.id,
+                  slot: 'main',
+                  asset: scene.main.asset,
+                  imagegen_prompt: prompt,
+                  prompt_sha256: createHash('sha256').update(prompt, 'utf8').digest('hex'),
+                },
+              ];
+            }),
+          ),
+        },
+        null,
+        2,
+      )}\n`,
+      'utf8',
+    );
+  }
+  if (!userGenerated) {
+    await fs.writeFile(path.join(dir, 'imagegen_manifest.json'), `${JSON.stringify({version: 1, images: manifestImages}, null, 2)}\n`, 'utf8');
+  }
   return path.join(dir, 'script.yaml');
 };
 
 await fs.mkdir(fixtureRoot, {recursive: true});
 
 const weakPrompt = 'ゆっくり解説動画用。中央に主題、余白多め。licensed photo style, clean explainer thumbnail, high readability。';
+const legacyPrompt = `s01: 古い固定文
+
+確認1をするのだ
+
+ゆっくり解説動画向けの挿入画像を日本語で生成してください。小物、${'UI'}、概念図を中心に構成してください。${'Make the aspect'} ${'ratio 16:9.'}
+
+画像の雰囲気はテストで生成してください。${'下部'}${'20%'}は字幕とキャラクター用に余白を残してください。`;
 const weakPath = await writeFixture({name: 'weak-prompt', badPrompt: weakPrompt});
+const legacyPath = await writeFixture({name: 'legacy-prompt', badPrompt: legacyPrompt});
 const sheetPath = await writeFixture({name: 'grid-sheet', sheetMeta: true});
 const passPath = await writeFixture({name: 'pass'});
+const promptRefPath = await writeFixture({name: 'prompt-ref-pass', usePromptRef: true});
+const userGeneratedPath = await writeFixture({name: 'user-generated-pass', userGenerated: true});
+const userGeneratedNoRightsPath = await writeFixture({name: 'user-generated-no-rights', userGenerated: true, rightsConfirmed: false});
+const duplicateImagesPath = await writeFixture({name: 'duplicate-images', userGenerated: true, duplicateImages: true});
 
 // audit-image-prompts.mjs is non-blocking in v2 (exit 0); verify the report flags issues instead.
 run(['scripts/audit-image-prompts.mjs', weakPath], {expectReportIssues: true});
+run(['scripts/audit-image-prompts.mjs', legacyPath], {expectReportIssues: true});
 run(['scripts/validate-episode-script.mjs', sheetPath]);
 run(['scripts/audit-episode-quality.mjs', sheetPath], {expectFailure: true});
 run(['scripts/audit-image-prompts.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', passPath]);
 run(['scripts/audit-episode-quality.mjs', passPath]);
+run(['scripts/audit-image-prompts.mjs', promptRefPath]);
+run(['scripts/audit-episode-quality.mjs', promptRefPath]);
+run(['scripts/validate-episode-script.mjs', userGeneratedPath]);
+run(['scripts/audit-episode-quality.mjs', userGeneratedPath]);
+run(['scripts/validate-episode-script.mjs', userGeneratedNoRightsPath], {expectFailure: true});
+run(['scripts/audit-episode-quality.mjs', userGeneratedNoRightsPath], {expectFailure: true});
+run(['scripts/audit-episode-quality.mjs', duplicateImagesPath], {expectFailure: true});
 
 console.log(JSON.stringify({ok: true, fixture_root: path.relative(rootDir, fixtureRoot).replaceAll('\\', '/')}, null, 2));

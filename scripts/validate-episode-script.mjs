@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {parseDocument} from 'yaml';
 import {formatEpisodeValidationResult, validateEpisodeScript} from './lib/episode-validator.mjs';
+import {checkVoicevoxEngine} from './voicevox.mjs';
 
 const rootDir = process.cwd();
 const target = process.argv[2];
@@ -17,6 +18,7 @@ const resolveTarget = (value) => {
     return {
       scriptPath: directPath,
       episodeDir: path.dirname(directPath),
+      isEpisodeId: false,
     };
   }
 
@@ -24,6 +26,7 @@ const resolveTarget = (value) => {
   return {
     scriptPath: path.join(episodeDir, 'script.yaml'),
     episodeDir,
+    isEpisodeId: true,
   };
 };
 
@@ -35,16 +38,28 @@ const readScript = async (scriptPath) => {
   return parseDocument(raw).toJS();
 };
 
-const {scriptPath, episodeDir} = resolveTarget(target);
+const {scriptPath, episodeDir, isEpisodeId} = resolveTarget(target);
 const script = await readScript(scriptPath);
 const result = await validateEpisodeScript(script, {episodeDir, promptOnly});
+let preflightError = null;
+
+if (result.ok && isEpisodeId && !promptOnly && script.meta?.voice_engine === 'voicevox') {
+  try {
+    await checkVoicevoxEngine();
+  } catch (error) {
+    preflightError = error;
+  }
+}
 
 const details = formatEpisodeValidationResult(result);
 if (details) {
   console.log(details);
 }
 
-if (!result.ok) {
+if (preflightError) {
+  console.error(preflightError.message);
+  process.exitCode = 1;
+} else if (!result.ok) {
   process.exitCode = 1;
 } else {
   console.log(`OK ${path.relative(rootDir, scriptPath)} (${result.warnings.length} warnings${promptOnly ? ', prompt-only' : ''})`);

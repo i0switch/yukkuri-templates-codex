@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>テンプレート一覧ガイド</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      background: #f4f6f8;
+      color: #18202a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    header {
+      padding: 28px 32px 18px;
+      border-bottom: 1px solid #d9dee7;
+      background: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+
+    header p {
+      margin: 0;
+      color: #5d6876;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(1760px, 100%);
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      overflow: hidden;
+      border: 1px solid #d9dee7;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(24, 32, 42, 0.08);
+    }
+
+    .imageLink {
+      display: block;
+      background: #dfe5ec;
+      aspect-ratio: 16 / 9;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .meta {
+      padding: 12px 14px 14px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .meta p {
+      margin: 0;
+      color: #647282;
+      font-size: 12px;
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 22px 18px 14px;
+      }
+
+      main {
+        padding: 14px;
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .meta p {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>テンプレート一覧ガイド</h1>
+    <p>RM表示のみ。画像、サブ、タイトル、字幕の各エリアを確認するための補助HTML。</p>
+  </header>
+  <main>
+
+        <article class="card">
+          <a class="imageLink" href="scene-01-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-01-rm-guide.png" alt="Scene01 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene01</h2>
+            <p>scene-01_watercolor-frame.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-02-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-02-rm-guide.png" alt="Scene02 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene02</h2>
+            <p>scene-02_gray-3panel.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-03-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-03-rm-guide.png" alt="Scene03 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene03</h2>
+            <p>scene-03_black-3panel.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-04-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-04-rm-guide.png" alt="Scene04 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene04</h2>
+            <p>scene-04_whiteboard-desk.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-05-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-05-rm-guide.png" alt="Scene05 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene05</h2>
+            <p>scene-05_geometric-subtitle.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-06-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-06-rm-guide.png" alt="Scene06 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene06</h2>
+            <p>scene-06_mech-panel.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-07-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-07-rm-guide.png" alt="Scene07 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene07</h2>
+            <p>scene-07_laboratory-glass.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-08-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-08-rm-guide.png" alt="Scene08 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene08</h2>
+            <p>scene-08_japanese-room-tag.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-09-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-09-rm-guide.png" alt="Scene09 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene09</h2>
+            <p>scene-09_cinema-bar.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-10-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-10-rm-guide.png" alt="Scene10 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene10</h2>
+            <p>scene-10_mono-3panel.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-11-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-11-rm-guide.png" alt="Scene11 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene11</h2>
+            <p>scene-11_whiteboard-ui.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-12-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-12-rm-guide.png" alt="Scene12 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene12</h2>
+            <p>scene-12_classroom-bubbles.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-13-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-13-rm-guide.png" alt="Scene13 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene13</h2>
+            <p>scene-13_dark-3panel.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-14-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-14-rm-guide.png" alt="Scene14 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene14</h2>
+            <p>scene-14_multilayer-glass.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-15-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-15-rm-guide.png" alt="Scene15 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene15</h2>
+            <p>scene-15_sakura-night.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-16-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-16-rm-guide.png" alt="Scene16 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene16</h2>
+            <p>scene-16_sf-3stack-dark.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-17-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-17-rm-guide.png" alt="Scene17 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene17</h2>
+            <p>scene-17_sf-3stack-mid.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-18-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-18-rm-guide.png" alt="Scene18 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene18</h2>
+            <p>scene-18_mountain-scenery.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-19-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-19-rm-guide.png" alt="Scene19 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene19</h2>
+            <p>scene-19_whiteboard-desk-2.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-20-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-20-rm-guide.png" alt="Scene20 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene20</h2>
+            <p>scene-20_rainbow-glass.md</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="imageLink" href="scene-21-rm-guide.png" target="_blank" rel="noreferrer">
+            <img src="scene-21-rm-guide.png" alt="Scene21 guide image" loading="lazy">
+          </a>
+          <div class="meta">
+            <h2>Scene21</h2>
+            <p>scene-21_ui-decoration.md</p>
+          </div>
+        </article>
+  </main>
+</body>
+</html>

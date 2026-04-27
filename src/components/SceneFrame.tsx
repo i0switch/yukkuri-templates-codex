@@ -225,6 +225,8 @@ export const SceneFrame: React.FC<Props> = ({
         scale={leftScale}
         flip={leftCharacter.flip}
         fullBody={leftIsFullBody}
+        isSpeaking={leftCharacter.isSpeaking}
+        speakingFrame={leftCharacter.speakingFrame}
       />
       <CharacterFace
         character={rightCharacterName}
@@ -234,6 +236,8 @@ export const SceneFrame: React.FC<Props> = ({
         scale={rightScale}
         flip={rightCharacter.flip}
         fullBody={rightIsFullBody}
+        isSpeaking={rightCharacter.isSpeaking}
+        speakingFrame={rightCharacter.speakingFrame}
       />
     </AbsoluteFill>
   );

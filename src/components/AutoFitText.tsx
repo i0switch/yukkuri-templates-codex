@@ -1,7 +1,6 @@
 import React from 'react';
-
-const CJK_CHAR_RE =
-  /[\u1100-\u11FF\u2E80-\u2FFF\u3040-\u30FF\u3130-\u318F\u31A0-\u31BF\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFF01-\uFF60\uFFE0-\uFFE6]/;
+import {measureLineBreaks, type LineBreakMode} from './subtitleLineBreaks';
+import {resolveTextStrokeStyle} from './textStrokeStyle';
 
 type Props = {
   text: string;
@@ -20,80 +19,40 @@ type Props = {
   textShadow?: string;
   textStrokeColor?: string;
   textStrokeWidth?: number;
+  lineBreakMode?: LineBreakMode;
+  maxLines?: number;
+  highlightWords?: string[];
+  highlightVariant?: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
   style?: React.CSSProperties;
 };
 
 type FitResult = {
   fontSize: number;
   lineCount: number;
+  text: string;
 };
 
-const getCharWidthRatio = (char: string) => {
-  if (char === ' ') {
-    return 0.34;
-  }
-  if (char === '\t') {
-    return 0.68;
-  }
-  if (CJK_CHAR_RE.test(char)) {
-    return 1;
-  }
-  if (/[A-Z0-9]/.test(char)) {
-    return 0.66;
-  }
-  if (/[a-z]/.test(char)) {
-    return 0.58;
-  }
-  if (/[.,:;!?'`"-]/.test(char)) {
-    return 0.34;
-  }
-  if (/[(){}\[\]<>/\\|]/.test(char)) {
-    return 0.48;
-  }
-  return 0.72;
-};
-
-const measureLineCount = (
-  text: string,
-  width: number,
-  fontSize: number,
-  lineHeight: number,
-  letterSpacing: number,
-) => {
-  const availableWidth = Math.max(1, width);
-  const paragraphs = text.split('\n');
-  let lineCount = 0;
-
-  for (const paragraph of paragraphs) {
-    if (!paragraph) {
-      lineCount += 1;
-      continue;
+const extractMarkdownHighlights = (value: string) => {
+  const words: string[] = [];
+  const text = value.replace(/\*\*([^*\n][^*]*?)\*\*/g, (_match, word: string) => {
+    const trimmed = String(word).trim();
+    if (trimmed) {
+      words.push(trimmed);
     }
-
-    let currentWidth = 0;
-    let currentLineHasChars = false;
-
-    for (const char of paragraph) {
-      const charWidth = fontSize * getCharWidthRatio(char) + letterSpacing;
-      if (currentLineHasChars && currentWidth + charWidth > availableWidth) {
-        lineCount += 1;
-        currentWidth = charWidth;
-        currentLineHasChars = true;
-        continue;
-      }
-
-      currentWidth += charWidth;
-      currentLineHasChars = true;
-    }
-
-    lineCount += 1;
-  }
-
-  return {
-    lineCount,
-    height: lineCount * fontSize * lineHeight,
-  };
+    return String(word);
+  });
+  return {text, words};
 };
+
+const HighlightBounceKeyframes = () => (
+  <style>
+    {`@keyframes subtitle-highlight-bounce {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.18); }
+      100% { transform: scale(1.08); }
+    }`}
+  </style>
+);
 
 const resolveFontSize = ({
   text,
@@ -103,6 +62,8 @@ const resolveFontSize = ({
   maxFontSize,
   lineHeight,
   letterSpacing,
+  lineBreakMode,
+  maxLines,
 }: {
   text: string;
   width: number;
@@ -111,20 +72,32 @@ const resolveFontSize = ({
   maxFontSize: number;
   lineHeight: number;
   letterSpacing: number;
+  lineBreakMode: LineBreakMode;
+  maxLines?: number;
 }): FitResult => {
   const lowerBound = Math.max(6, Math.min(minFontSize, maxFontSize));
   let bestFontSize = lowerBound;
   let bestLineCount = 1;
+  let bestText = text;
   let low = lowerBound;
   let high = Math.max(lowerBound, Math.round(maxFontSize));
 
   while (low <= high) {
     const mid = Math.floor((low + high) / 2);
-    const measured = measureLineCount(text, width, mid, lineHeight, letterSpacing);
+    const measured = measureLineBreaks({
+      text,
+      width,
+      fontSize: mid,
+      lineHeight,
+      letterSpacing,
+      mode: lineBreakMode,
+      maxLines,
+    });
 
-    if (measured.height <= height) {
+    if (measured.height <= height && measured.fitsMaxLines) {
       bestFontSize = mid;
       bestLineCount = measured.lineCount;
+      bestText = measured.text;
       low = mid + 1;
     } else {
       high = mid - 1;
@@ -132,17 +105,45 @@ const resolveFontSize = ({
   }
 
   if (bestFontSize === lowerBound) {
-    const measured = measureLineCount(text, width, bestFontSize, lineHeight, letterSpacing);
+    const measured = measureLineBreaks({
+      text,
+      width,
+      fontSize: bestFontSize,
+      lineHeight,
+      letterSpacing,
+      mode: lineBreakMode,
+      maxLines,
+    });
     if (measured.height > height && measured.lineCount > 0) {
       const scaled = Math.max(6, Math.floor((height / (measured.lineCount * lineHeight)) * 10) / 10);
       bestFontSize = Math.min(bestFontSize, scaled);
       bestLineCount = measured.lineCount;
+      bestText = measureLineBreaks({
+        text,
+        width,
+        fontSize: bestFontSize,
+        lineHeight,
+        letterSpacing,
+        mode: lineBreakMode,
+        maxLines,
+      }).text;
     }
   }
 
+  const finalMeasured = measureLineBreaks({
+    text,
+    width,
+    fontSize: bestFontSize,
+    lineHeight,
+    letterSpacing,
+    mode: lineBreakMode,
+    maxLines,
+  });
+
   return {
     fontSize: Math.max(6, bestFontSize),
-    lineCount: bestLineCount,
+    lineCount: finalMeasured.lineCount || bestLineCount,
+    text: finalMeasured.text || bestText,
   };
 };
 
@@ -163,39 +164,64 @@ export const AutoFitText: React.FC<Props> = ({
   textShadow,
   textStrokeColor,
   textStrokeWidth = 0,
+  lineBreakMode = 'normal',
+  maxLines,
+  highlightWords = [],
+  highlightVariant = 'punch',
   style,
 }) => {
+  const markdown = extractMarkdownHighlights(text);
   const fit = resolveFontSize({
-    text,
+    text: markdown.text,
     width,
     height,
     minFontSize,
     maxFontSize,
     lineHeight,
     letterSpacing,
+    lineBreakMode,
+    maxLines,
   });
-  const strokeWidth = Math.max(0, textStrokeWidth);
-  const strokeShadow =
-    textStrokeColor && strokeWidth > 0
-      ? [
-          `${strokeWidth}px 0 0 ${textStrokeColor}`,
-          `-${strokeWidth}px 0 0 ${textStrokeColor}`,
-          `0 ${strokeWidth}px 0 ${textStrokeColor}`,
-          `0 -${strokeWidth}px 0 ${textStrokeColor}`,
-          `${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
-          `-${strokeWidth}px ${strokeWidth}px 0 ${textStrokeColor}`,
-          `${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
-          `-${strokeWidth}px -${strokeWidth}px 0 ${textStrokeColor}`,
-        ].join(', ')
-      : undefined;
-  const resolvedTextShadow = [textShadow, strokeShadow].filter(Boolean).join(', ') || undefined;
-  const strokeStyle: React.CSSProperties =
-    textStrokeColor && strokeWidth > 0
-      ? {
-          WebkitTextStroke: `${strokeWidth}px ${textStrokeColor}`,
-          paintOrder: 'stroke fill',
-        }
-      : {};
+  const strokeStyle = resolveTextStrokeStyle({
+    color: textStrokeColor,
+    width: textStrokeWidth,
+  });
+  const resolvedTextShadow = [textShadow, strokeStyle.textShadow].filter(Boolean).join(', ') || undefined;
+  const highlightStyle: React.CSSProperties = {
+    color:
+      highlightVariant === 'danger'
+        ? '#FF2A2A'
+        : highlightVariant === 'surprise'
+          ? '#7C3AED'
+          : highlightVariant === 'number'
+            ? '#F59E0B'
+            : highlightVariant === 'action'
+              ? '#16A34A'
+              : '#FACC15',
+    fontSize: '1.12em',
+    fontWeight: 900,
+    textShadow: '0 2px 10px rgba(0,0,0,0.25)',
+    display: 'inline-block',
+    animation: 'subtitle-highlight-bounce 300ms ease-out both',
+    transformOrigin: 'center bottom',
+  };
+
+  const renderHighlightedText = (value: string) => {
+    const words = [...new Set([...highlightWords, ...markdown.words].map((word) => word.trim()).filter(Boolean))].sort((a, b) => b.length - a.length);
+    if (words.length === 0) {
+      return value;
+    }
+    const pattern = new RegExp(`(${words.map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
+    return value.split(pattern).map((part, index) =>
+      words.includes(part) ? (
+        <span key={`${part}-${index}`} style={highlightStyle}>
+          {part}
+        </span>
+      ) : (
+        <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>
+      ),
+    );
+  };
 
   return (
     <div
@@ -210,6 +236,7 @@ export const AutoFitText: React.FC<Props> = ({
         ...style,
       }}
     >
+      <HighlightBounceKeyframes />
       <div
         style={{
           width: '100%',
@@ -220,13 +247,13 @@ export const AutoFitText: React.FC<Props> = ({
           color,
           textAlign,
           whiteSpace,
-          wordBreak,
+          wordBreak: lineBreakMode === 'budoux' ? 'normal' : wordBreak,
           letterSpacing,
-          textShadow: resolvedTextShadow,
           ...strokeStyle,
+          textShadow: resolvedTextShadow,
         }}
       >
-        {text}
+        {renderHighlightedText(fit.text)}
       </div>
     </div>
   );

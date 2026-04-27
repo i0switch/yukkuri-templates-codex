@@ -1,5 +1,8 @@
 # Architecture v2
 
+動画生成パイプラインの成果物名、順序、停止条件、完了条件は `docs/pipeline_contract.md` を単一正本にする。
+この文書は設計思想と背景を説明する補助文書。
+
 ## なぜv2にするのか
 
 旧方式には、動画化まで通せても品質が落ちる構造が残っていた。
@@ -83,7 +86,7 @@ Remotionで描画するもの:
 
 - 会話字幕、sub 枠のテキスト・箇条書き
 
-新規 episode では、main 枠に `text` や `bullets` を入れない。sub 枠はテキスト/箇条書きを許容する。
+新規 episode では、main 枠に `text` や `bullets` を入れない。sub枠ありテンプレート（`Scene02` / `Scene03` / `Scene10` / `Scene13` / `Scene14`）では、全シーンに `sub.kind: text` または `sub.kind: bullets` を必ず入れる。
 画像キャプションもRemotionテキスト描画になるため使わない。
 `remotion_card_plan.md` は廃止し、正確な要点や手順は台本の会話字幕か、sub 枠のテキスト/箇条書き、または生成画像の視覚表現として処理する。
 
@@ -109,7 +112,7 @@ Remotionで描画するもの:
 - 画像内テキストの破綻
 - 情報量過多
 - main枠での見やすさ
-- 下部20%安全域
+- 字幕、キャラと重要情報の衝突回避
 - 字幕、キャラとの衝突
 - ゆっくり/ずんだもん動画として自然か
 
@@ -158,4 +161,3 @@ NOT_AVAILABLE はクラッシュではないが、PASSでもない。
 ### audit-video.mjs の挙動
 - `meta.width × meta.height` を delivery profile として ffprobe 結果と照合
 - レンダー出力が `meta.width × meta.height` になっていなければ FAIL
-

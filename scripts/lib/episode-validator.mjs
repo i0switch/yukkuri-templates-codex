@@ -12,7 +12,50 @@ export const TYPOGRAPHY_COLOR_KEYS = new Set(['subtitle_stroke_color', 'content_
 export const TYPOGRAPHY_WIDTH_KEYS = new Set(['subtitle_stroke_width', 'content_stroke_width', 'title_stroke_width']);
 export const TYPOGRAPHY_KEYS = new Set([...TYPOGRAPHY_FAMILY_KEYS, ...TYPOGRAPHY_COLOR_KEYS, ...TYPOGRAPHY_WIDTH_KEYS]);
 export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'subtitle_stroke_color', 'subtitle_stroke_width']);
+export const MOTION_MODES = new Set(['normal', 'punch', 'compare', 'warning', 'checklist', 'reveal', 'recap']);
+export const EMPHASIS_STYLES = new Set(['punch', 'danger', 'surprise', 'number', 'action']);
+export const EMPHASIS_SE = new Set(['pop', 'warning', 'question', 'reveal', 'success', 'fail', 'none']);
+export const EMPHASIS_PAUSES_MS = new Set([0, 200, 300, 500]);
+export const DIALOGUE_EXPRESSIONS = new Set([
+  'normal',
+  'neutral',
+  'smile',
+  'surprise',
+  'shock',
+  'wry',
+  'confused',
+  'confident',
+  'laugh',
+  'smug',
+  'calm',
+  'talk',
+  'happy',
+  'smirk',
+  'halfOpen',
+  'surprised',
+  'shocked',
+  'puzzled',
+  'worried',
+  'serious',
+]);
+export const VISUAL_IMAGE_ROLES = new Set(['理解補助', '不安喚起', '笑い', '比較', '手順整理', '証拠提示', 'オチ補助']);
+export const VISUAL_COMPOSITION_TYPES = new Set([
+  'NG / OK 比較',
+  '失敗例シミュレーション',
+  '誇張図解',
+  '証拠写真風',
+  'チェックリスト',
+  '手順図',
+  '原因マップ',
+  'ビフォーアフター',
+  'ツッコミ待ち構図',
+  '事故寸前構図',
+]);
 export const KEIFONT_PUBLIC_PATH = path.join('public', 'fonts', 'keifont.ttf');
+export const ZM_VOICEVOX_BINDINGS = Object.freeze({
+  left: Object.freeze({character: 'zundamon', voicevoxSpeakerId: 3}),
+  right: Object.freeze({character: 'metan', voicevoxSpeakerId: 2}),
+});
 
 const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 
@@ -24,13 +67,28 @@ const pushIssue = (issues, level, pathName, message) => {
   issues.push({level, path: pathName, message});
 };
 
+const round1 = (value) => Math.round(value * 10) / 10;
+
+const durationWindowForTarget = (targetSec) => {
+  if (!Number.isFinite(targetSec) || targetSec <= 0) {
+    return null;
+  }
+  return {min: targetSec * 0.9, max: targetSec * 1.1};
+};
+
 const IMAGE_ASSET_EXTENSION_RE = /\.(png|jpe?g|webp|gif)$/i;
 const REQUIRED_IMAGE_LEDGER_FIELDS = [
+  'source_type',
+  'license',
   'scene_id',
   'slot',
   'purpose',
   'adoption_reason',
+  'imagegen_prompt',
 ];
+const USER_GENERATED_SOURCE_TYPE = 'user_generated';
+const IMAGEGEN_SOURCE_TYPE = 'imagegen';
+const IMAGEGEN_SOURCE_URL_RE = /^codex:\/\/generated_images\/.+/i;
 
 const isSafeEpisodeRelativePath = (filePath) => {
   if (typeof filePath !== 'string' || filePath.trim() === '') {
@@ -157,6 +215,60 @@ const readMetaJson = async ({episodeDir, errors}) => {
   }
 };
 
+const readImagegenManifest = async ({episodeDir, errors}) => {
+  if (!episodeDir) {
+    return null;
+  }
+
+  const manifestPath = path.join(episodeDir, 'imagegen_manifest.json');
+  try {
+    const raw = await fs.readFile(manifestPath, 'utf8');
+    const manifest = JSON.parse(raw);
+    if (!isPlainObject(manifest)) {
+      pushIssue(errors, 'error', 'imagegen_manifest.json', 'imagegen_manifest.json must contain a JSON object');
+      return null;
+    }
+    return manifest;
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return null;
+    }
+
+    pushIssue(errors, 'error', 'imagegen_manifest.json', `imagegen_manifest.json could not be parsed: ${error.message}`);
+    return null;
+  }
+};
+
+const validateNoAudioPlaybackRate = ({script, meta, errors}) => {
+  const scan = (value, pathName, sourceLabel) => {
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => scan(item, `${pathName}[${index}]`, sourceLabel));
+      return;
+    }
+    if (!isPlainObject(value)) {
+      return;
+    }
+    for (const [key, child] of Object.entries(value)) {
+      const childPath = `${pathName}.${key}`;
+      if (key === 'audio_playback_rate') {
+        pushIssue(
+          errors,
+          'error',
+          childPath,
+          `audio_playback_rate is forbidden in ${sourceLabel}; keep speech speed fixed and adjust dialogue density or natural pauses instead`,
+        );
+      }
+      scan(child, childPath, sourceLabel);
+    }
+  };
+
+  scan(script, 'script.yaml', 'script.yaml');
+
+  if (meta) {
+    scan(meta, 'meta.json', 'meta.json');
+  }
+};
+
 const collectReferencedFiles = (script) => {
   const files = [];
 
@@ -185,7 +297,40 @@ const isImageLedgerFile = (file) => {
   return normalized.startsWith('assets/') && IMAGE_ASSET_EXTENSION_RE.test(normalized);
 };
 
-const validateMetaLedger = ({script, meta, errors}) => {
+const isUserGeneratedImageAsset = (asset) => asset?.source_type === USER_GENERATED_SOURCE_TYPE;
+const isImagegenImageAsset = (asset) => asset?.source_type === IMAGEGEN_SOURCE_TYPE;
+
+const imagegenManifestEntries = (manifest) => {
+  if (!manifest) {
+    return [];
+  }
+  if (Array.isArray(manifest.images)) {
+    return manifest.images;
+  }
+  if (Array.isArray(manifest.generated_images)) {
+    return manifest.generated_images;
+  }
+  if (Array.isArray(manifest.entries)) {
+    return manifest.entries;
+  }
+  return [];
+};
+
+const manifestFileForEntry = (entry) => normalizeAssetPath(entry?.file ?? entry?.destination ?? entry?.saved_path ?? entry?.asset ?? '');
+
+const manifestSourceForEntry = (entry) => entry?.source_url ?? entry?.generation_id ?? entry?.generated_id ?? '';
+
+const manifestEntryForAsset = ({manifest, asset}) => {
+  const entries = imagegenManifestEntries(manifest);
+  const normalizedFile = normalizeAssetPath(asset.file);
+  return (
+    entries.find((entry) => manifestFileForEntry(entry) === normalizedFile) ??
+    entries.find((entry) => entry?.scene_id === asset.scene_id && entry?.slot === asset.slot) ??
+    null
+  );
+};
+
+const validateMetaLedger = async ({script, meta, imagegenManifest, errors}) => {
   if (!meta) {
     return;
   }
@@ -212,12 +357,11 @@ const validateMetaLedger = ({script, meta, errors}) => {
     const normalizedFile = normalizeAssetPath(asset.file);
     assetEntries.set(normalizedFile, {asset, index});
 
-    if (typeof asset.license !== 'string' || asset.license.trim() === '') {
-      pushIssue(errors, 'error', `meta.json.assets[${index}].license`, `${asset.file}: license is required`);
-    }
-
     const isImageAsset = referencedImageFiles.has(normalizedFile) || isImageLedgerFile(normalizedFile);
     if (!isImageAsset) {
+      if (typeof asset.license !== 'string' || asset.license.trim() === '') {
+        pushIssue(errors, 'error', `meta.json.assets[${index}].license`, `${asset.file}: license is required`);
+      }
       continue;
     }
 
@@ -228,6 +372,85 @@ const validateMetaLedger = ({script, meta, errors}) => {
         'error',
         `meta.json.assets[${index}]`,
         `${asset.file}: image ledger entry requires ${missingImageFields.join(', ')}`,
+      );
+    }
+
+    if (isUserGeneratedImageAsset(asset)) {
+      if (typeof asset.generation_tool !== 'string' || asset.generation_tool.trim() === '') {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].generation_tool`,
+          `${asset.file}: user_generated image assets require generation_tool`,
+        );
+      }
+      if (asset.rights_confirmed !== true) {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].rights_confirmed`,
+          `${asset.file}: user_generated image assets require rights_confirmed: true`,
+        );
+      }
+    } else if (isImagegenImageAsset(asset)) {
+      if (asset.generation_tool !== 'codex-imagegen') {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].generation_tool`,
+          `${asset.file}: imagegen assets require generation_tool: codex-imagegen`,
+        );
+      }
+      const hasGenerationId = typeof asset.generation_id === 'string' && asset.generation_id.trim() !== '';
+      const hasCodexSourceUrl = typeof asset.source_url === 'string' && IMAGEGEN_SOURCE_URL_RE.test(asset.source_url);
+      if (!hasGenerationId && !hasCodexSourceUrl) {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].source_url`,
+          `${asset.file}: imagegen assets require source_url codex://generated_images/... or generation_id`,
+        );
+      }
+      if (asset.rights_confirmed !== true) {
+        pushIssue(
+          errors,
+          'error',
+          `meta.json.assets[${index}].rights_confirmed`,
+          `${asset.file}: imagegen assets require rights_confirmed: true`,
+        );
+      }
+
+      const manifestEntry = manifestEntryForAsset({manifest: imagegenManifest, asset});
+      if (!manifestEntry) {
+        pushIssue(
+          errors,
+          'error',
+          'imagegen_manifest.json',
+          `${asset.file}: imagegen assets require matching imagegen_manifest.json entry`,
+        );
+      } else {
+        const manifestFile = manifestFileForEntry(manifestEntry);
+        if (manifestFile !== normalizedFile) {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest destination does not match asset file`);
+        }
+        if (manifestEntry.scene_id !== asset.scene_id) {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest scene_id must match meta.json`);
+        }
+        const manifestSource = String(manifestSourceForEntry(manifestEntry) ?? '').trim();
+        const assetSources = [asset.source_url, asset.generation_id].filter((value) => typeof value === 'string' && value.trim() !== '');
+        if (assetSources.length > 0 && manifestSource && !assetSources.includes(manifestSource)) {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest source_url/generation_id must match meta.json`);
+        }
+        if (typeof manifestEntry.prompt_sha256 !== 'string' || manifestEntry.prompt_sha256.trim() === '') {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest entry requires prompt_sha256`);
+        }
+      }
+    } else {
+      pushIssue(
+        errors,
+        'error',
+        `meta.json.assets[${index}].source_type`,
+        `${asset.file}: image source_type must be imagegen or user_generated`,
       );
     }
   }
@@ -286,8 +509,180 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
   }
 };
 
-const SUB_TEXT_WARN_THRESHOLD = 80;
-const SUB_BULLETS_WARN_THRESHOLD = 5;
+const SUB_TEXT_WARN_THRESHOLD = 140;
+const SUB_BULLETS_WARN_THRESHOLD = 6;
+
+const hasSceneEmphasis = (scene, {requireSe = false} = {}) =>
+  Array.isArray(scene?.dialogue) &&
+  scene.dialogue.some((line) => {
+    if (!isPlainObject(line?.emphasis)) {
+      return false;
+    }
+    if (!requireSe) {
+      return true;
+    }
+    return EMPHASIS_SE.has(line.emphasis.se) && line.emphasis.se !== 'none';
+  });
+
+const sceneDurationForMotion = (script, scene) => {
+  if (typeof scene.duration_sec === 'number' && Number.isFinite(scene.duration_sec) && scene.duration_sec > 0) {
+    return scene.duration_sec;
+  }
+  const targetSec = Number(script.meta?.target_duration_sec ?? script.total_duration_sec ?? 0);
+  const sceneCount = Array.isArray(script.scenes) && script.scenes.length > 0 ? script.scenes.length : 1;
+  return Number.isFinite(targetSec) && targetSec > 0 ? targetSec / sceneCount : 0;
+};
+
+const midpointSceneIndexes = (scenes) => {
+  const indexes = [];
+  for (let index = 0; index < scenes.length; index += 1) {
+    const ratio = (index + 0.5) / Math.max(1, scenes.length);
+    if (ratio >= 0.4 && ratio <= 0.6) {
+      indexes.push(index);
+    }
+  }
+  return indexes;
+};
+
+const validateEmphasisConfig = ({emphasis, pathName, lineLabel, errors}) => {
+  if (emphasis === undefined || emphasis === null) {
+    return;
+  }
+  if (!isPlainObject(emphasis)) {
+    pushIssue(errors, 'error', pathName, `${lineLabel}: emphasis must be an object`);
+    return;
+  }
+
+  if (!Array.isArray(emphasis.words) || emphasis.words.length === 0) {
+    pushIssue(errors, 'error', `${pathName}.words`, `${lineLabel}: emphasis.words must be a non-empty array`);
+  } else {
+    emphasis.words.forEach((word, index) => {
+      if (typeof word !== 'string' || word.trim() === '') {
+        pushIssue(errors, 'error', `${pathName}.words[${index}]`, `${lineLabel}: emphasis word must be non-empty text`);
+      }
+    });
+  }
+
+  if (!EMPHASIS_STYLES.has(emphasis.style)) {
+    pushIssue(errors, 'error', `${pathName}.style`, `${lineLabel}: emphasis.style must be punch, danger, surprise, number, or action`);
+  }
+  if (!EMPHASIS_SE.has(emphasis.se)) {
+    pushIssue(errors, 'error', `${pathName}.se`, `${lineLabel}: emphasis.se must be pop, warning, question, reveal, success, fail, or none`);
+  }
+  if (!EMPHASIS_PAUSES_MS.has(emphasis.pause_after_ms)) {
+    pushIssue(errors, 'error', `${pathName}.pause_after_ms`, `${lineLabel}: emphasis.pause_after_ms must be 0, 200, 300, or 500`);
+  }
+};
+
+const validateDialogueExpression = ({expression, pathName, lineLabel, errors}) => {
+  if (expression === undefined || expression === null) {
+    return;
+  }
+  if (typeof expression !== 'string' || expression.trim() === '') {
+    pushIssue(errors, 'error', pathName, `${lineLabel}: expression must be a non-empty string when provided`);
+    return;
+  }
+  if (!DIALOGUE_EXPRESSIONS.has(expression)) {
+    pushIssue(
+      errors,
+      'error',
+      pathName,
+      `${lineLabel}: expression must be one of ${[...DIALOGUE_EXPRESSIONS].join(', ')}`,
+    );
+  }
+};
+
+const validateExpressionRunBalance = ({scene, scenePath, errors}) => {
+  const latestBySpeaker = new Map();
+  for (const [lineIndex, line] of (scene.dialogue ?? []).entries()) {
+    if (!isPlainObject(line) || !['left', 'right'].includes(line.speaker)) {
+      continue;
+    }
+    const expression = line.expression ?? 'normal';
+    const previous = latestBySpeaker.get(line.speaker);
+    const run = previous?.expression === expression ? previous.run + 1 : 1;
+    if (line.expression && run >= 3) {
+      pushIssue(
+        errors,
+        'error',
+        `${scenePath}.dialogue[${lineIndex}].expression`,
+        `${scene.id}/${line.id ?? lineIndex}: same speaker expression must not continue for 3 dialogue turns`,
+      );
+      return;
+    }
+    latestBySpeaker.set(line.speaker, {expression, run});
+  }
+};
+
+const validateVisualAssetPlan = ({scene, scenePath, errors}) => {
+  if (!Array.isArray(scene.visual_asset_plan)) {
+    return;
+  }
+
+  scene.visual_asset_plan.forEach((plan, index) => {
+    const planPath = `${scenePath}.visual_asset_plan[${index}]`;
+    if (!isPlainObject(plan)) {
+      pushIssue(errors, 'error', planPath, `${scene.id}: visual_asset_plan entry must be an object`);
+      return;
+    }
+    if (!VISUAL_IMAGE_ROLES.has(plan.image_role)) {
+      pushIssue(errors, 'error', `${planPath}.image_role`, `${scene.id}: image_role must be one of ${[...VISUAL_IMAGE_ROLES].join(', ')}`);
+    }
+    if (!VISUAL_COMPOSITION_TYPES.has(plan.composition_type)) {
+      pushIssue(errors, 'error', `${planPath}.composition_type`, `${scene.id}: composition_type must be one of ${[...VISUAL_COMPOSITION_TYPES].join(', ')}`);
+    }
+  });
+};
+
+const validateMotionAndEmphasisCoverage = ({script, errors}) => {
+  const scenes = script.scenes ?? [];
+  if (scenes.length === 0) {
+    return;
+  }
+
+  if (!hasSceneEmphasis(scenes[0], {requireSe: true})) {
+    pushIssue(errors, 'error', 'scenes[0].dialogue.emphasis', 's01 requires at least one emphasis with non-none SE');
+  }
+
+  const midpointIndexes = midpointSceneIndexes(scenes);
+  const midpointHasNonNormal = midpointIndexes.some((index) => scenes[index]?.motion_mode && scenes[index].motion_mode !== 'normal');
+  const midpointHasEmphasis = midpointIndexes.some((index) => hasSceneEmphasis(scenes[index], {requireSe: true}));
+  if (!midpointHasNonNormal) {
+    pushIssue(errors, 'error', 'scenes.motion_mode', '40-60% midpoint rehook scene must use a non-normal motion_mode');
+  }
+  if (!midpointHasEmphasis) {
+    pushIssue(errors, 'error', 'scenes.dialogue.emphasis', '40-60% midpoint rehook scene requires emphasis with non-none SE');
+  }
+
+  const lastScene = scenes[scenes.length - 1];
+  const lastPath = `scenes[${scenes.length - 1}]`;
+  if (lastScene?.motion_mode === 'normal') {
+    pushIssue(errors, 'error', `${lastPath}.motion_mode`, `${lastScene.id ?? 'last scene'}: final action scene must not use motion_mode: normal`);
+  }
+  if (!hasSceneEmphasis(lastScene, {requireSe: true})) {
+    pushIssue(errors, 'error', `${lastPath}.dialogue.emphasis`, `${lastScene?.id ?? 'last scene'}: final action scene requires emphasis with non-none SE`);
+  }
+
+  let normalRunSec = 0;
+  let runStart = null;
+  scenes.forEach((scene, index) => {
+    if (scene.motion_mode === 'normal') {
+      normalRunSec += sceneDurationForMotion(script, scene);
+      runStart ??= index;
+      if (normalRunSec > 60) {
+        pushIssue(
+          errors,
+          'error',
+          `scenes[${runStart}..${index}].motion_mode`,
+          `motion_mode: normal must not continue for more than 60 seconds; estimated run=${round1(normalRunSec)}s`,
+        );
+      }
+      return;
+    }
+    normalRunSec = 0;
+    runStart = null;
+  });
+};
 
 const validateContent = async ({content, sceneId, contentPath, episodeDir, errors, warnings, slot, promptOnly = false}) => {
   if (content === null || content === undefined) {
@@ -304,7 +699,7 @@ const validateContent = async ({content, sceneId, contentPath, episodeDir, error
     return;
   }
 
-  // v2 rule: main is image-only; sub may be image / text / bullets / null.
+  // v2 rule: main is image-only. Sub text/bullets are handled by template-level guards below.
   if (slot === 'main' && content.kind !== 'image') {
     pushIssue(
       errors,
@@ -422,6 +817,22 @@ const validateTiming = ({script, errors}) => {
       );
     }
   }
+
+  const targetSec = Number(script.meta?.target_duration_sec);
+  const durationWindow = durationWindowForTarget(targetSec);
+  if (
+    durationWindow &&
+    typeof script.total_duration_sec === 'number' &&
+    Number.isFinite(script.total_duration_sec) &&
+    (script.total_duration_sec < durationWindow.min || script.total_duration_sec > durationWindow.max)
+  ) {
+    pushIssue(
+      errors,
+      'error',
+      'total_duration_sec',
+      `total_duration_sec must stay within natural speech duration window for target_duration_sec without changing speech speed: target=${round1(targetSec)}s, allowed=${round1(durationWindow.min)}-${round1(durationWindow.max)}s, actual=${round1(script.total_duration_sec)}s`,
+    );
+  }
 };
 
 const resolveSceneTemplate = ({script, errors, warnings}) => {
@@ -451,6 +862,75 @@ const resolveSceneTemplate = ({script, errors, warnings}) => {
   });
 
   return sceneTemplate;
+};
+
+const validateVoiceEngineBindings = ({script, errors}) => {
+  const voiceEngine = script.meta?.voice_engine;
+  const pair = script.meta?.pair;
+  const characters = script.characters;
+
+  if (!['aquestalk', 'voicevox'].includes(voiceEngine)) {
+    pushIssue(errors, 'error', 'meta.voice_engine', `voice_engine must be aquestalk or voicevox: ${voiceEngine ?? '<missing>'}`);
+  }
+
+  if (pair === 'ZM' && voiceEngine !== 'voicevox') {
+    pushIssue(errors, 'error', 'meta.voice_engine', 'ZM episodes must use voice_engine: voicevox');
+  }
+
+  if (pair === 'RM' && voiceEngine !== 'aquestalk') {
+    pushIssue(errors, 'error', 'meta.voice_engine', 'RM episodes must use voice_engine: aquestalk');
+  }
+
+  if (!isPlainObject(characters)) {
+    pushIssue(errors, 'error', 'characters', 'characters is required');
+    return;
+  }
+
+  if (pair === 'ZM') {
+    for (const [side, expected] of Object.entries(ZM_VOICEVOX_BINDINGS)) {
+      const config = characters[side];
+      const pathName = `characters.${side}`;
+      if (!isPlainObject(config)) {
+        pushIssue(errors, 'error', pathName, `ZM ${side} character config is required`);
+        continue;
+      }
+      if (config.character !== expected.character) {
+        pushIssue(errors, 'error', `${pathName}.character`, `ZM ${side} character must be ${expected.character}: ${config.character ?? '<missing>'}`);
+      }
+      if (!Number.isInteger(config.voicevox_speaker_id)) {
+        pushIssue(
+          errors,
+          'error',
+          `${pathName}.voicevox_speaker_id`,
+          `${expected.character} must use numeric VOICEVOX speaker id ${expected.voicevoxSpeakerId}: ${config.voicevox_speaker_id ?? '<missing>'}`,
+        );
+      } else if (config.voicevox_speaker_id !== expected.voicevoxSpeakerId) {
+        pushIssue(
+          errors,
+          'error',
+          `${pathName}.voicevox_speaker_id`,
+          `${expected.character} must use VOICEVOX speaker id ${expected.voicevoxSpeakerId}: ${config.voicevox_speaker_id}`,
+        );
+      }
+      if (Object.prototype.hasOwnProperty.call(config, 'aquestalk_preset')) {
+        pushIssue(errors, 'error', `${pathName}.aquestalk_preset`, `${expected.character} must not use aquestalk_preset in ZM episodes`);
+      }
+    }
+  }
+
+  for (const side of ['left', 'right']) {
+    const config = characters[side];
+    if (!isPlainObject(config)) {
+      continue;
+    }
+
+    if (['zundamon', 'metan'].includes(config.character) && voiceEngine !== 'voicevox') {
+      pushIssue(errors, 'error', `characters.${side}.character`, `${config.character} requires voice_engine: voicevox`);
+    }
+    if (pair === 'RM' && Object.prototype.hasOwnProperty.call(config, 'voicevox_speaker_id')) {
+      pushIssue(errors, 'error', `characters.${side}.voicevox_speaker_id`, 'RM episodes must not use voicevox_speaker_id');
+    }
+  }
 };
 export const formatEpisodeValidationResult = (result) => {
   const lines = [];
@@ -492,8 +972,12 @@ export const validateEpisodeScript = async (script, options = {}) => {
     return {ok: false, errors, warnings};
   }
 
+  validateVoiceEngineBindings({script, errors});
+
   const meta = await readMetaJson({episodeDir, errors});
-  validateMetaLedger({script, meta, errors});
+  const imagegenManifest = await readImagegenManifest({episodeDir, errors});
+  validateNoAudioPlaybackRate({script, meta, errors});
+  await validateMetaLedger({script, meta, imagegenManifest, errors});
 
   if (script.bgm?.file) {
     await assertEpisodeFile({
@@ -517,6 +1001,14 @@ export const validateEpisodeScript = async (script, options = {}) => {
 
     const sceneId = typeof scene.id === 'string' && scene.id.trim() ? scene.id : scenePath;
     const resolvedTemplate = canonicalTemplate;
+    if (!MOTION_MODES.has(scene.motion_mode)) {
+      pushIssue(
+        errors,
+        'error',
+        `${scenePath}.motion_mode`,
+        `${sceneId}: motion_mode must be normal, punch, compare, warning, checklist, reveal, or recap`,
+      );
+    }
     if (!SCENE_TEMPLATE_ID_SET.has(resolvedTemplate)) {
       pushIssue(
         errors,
@@ -538,13 +1030,32 @@ export const validateEpisodeScript = async (script, options = {}) => {
       pushIssue(warnings, 'warning', `${scenePath}.sub`, `${sceneId}: ${resolvedTemplate} has no renderable sub content area; use sub: null`);
     }
 
+    if (SUB_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
+      if (scene.sub === null || scene.sub === undefined) {
+        pushIssue(
+          errors,
+          'error',
+          `${scenePath}.sub`,
+          `${sceneId}: ${resolvedTemplate} requires sub content; use sub.kind text or bullets for every scene`,
+        );
+      } else if (scene.sub?.kind === 'image') {
+        pushIssue(
+          errors,
+          'error',
+          `${scenePath}.sub.kind`,
+          `${sceneId}: ${resolvedTemplate} sub content must be text or bullets; sub.kind image is not allowed for new episodes`,
+        );
+      }
+    }
+
     if (scene.title_text && !TITLE_CAPABLE_TEMPLATES.has(resolvedTemplate)) {
-      pushIssue(warnings, 'warning', `${scenePath}.title_text`, `${sceneId}: ${resolvedTemplate} has no title slot; move the heading into main.text if needed`);
+      pushIssue(errors, 'error', `${scenePath}.title_text`, `${sceneId}: ${resolvedTemplate} has no title slot; title_text is forbidden for this template`);
     }
 
     if (!scene.main) {
       pushIssue(errors, 'error', `${scenePath}.main`, `${sceneId}: main content is required`);
     }
+    validateVisualAssetPlan({scene, scenePath, errors});
     await validateContent({content: scene.main, sceneId, contentPath: `${scenePath}.main`, episodeDir, errors, warnings, slot: 'main', promptOnly: options.promptOnly});
     await validateContent({content: scene.sub, sceneId, contentPath: `${scenePath}.sub`, episodeDir, errors, warnings, slot: 'sub', promptOnly: options.promptOnly});
 
@@ -568,6 +1079,18 @@ export const validateEpisodeScript = async (script, options = {}) => {
       if (typeof line.text !== 'string' || line.text.trim() === '') {
         pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text is required`);
       }
+      validateEmphasisConfig({
+        emphasis: line.emphasis,
+        pathName: `${linePath}.emphasis`,
+        lineLabel: `${sceneId}/${line.id ?? lineIndex}`,
+        errors,
+      });
+      validateDialogueExpression({
+        expression: line.expression,
+        pathName: `${linePath}.expression`,
+        lineLabel: `${sceneId}/${line.id ?? lineIndex}`,
+        errors,
+      });
       validateTypographyConfig({
         config: line.typography,
         pathName: `${linePath}.typography`,
@@ -577,16 +1100,12 @@ export const validateEpisodeScript = async (script, options = {}) => {
         allowedKeys: DIALOGUE_TYPOGRAPHY_KEYS,
       });
     }
+    validateExpressionRunBalance({scene, scenePath, errors});
   }
 
   await assertKeifontIfNeeded({rootDir, usedExplicitGothic, errors});
+  validateMotionAndEmphasisCoverage({script, errors});
   validateTiming({script, errors});
 
   return {ok: errors.length === 0, errors, warnings};
 };
-
-
-
-
-
-

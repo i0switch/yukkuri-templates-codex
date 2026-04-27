@@ -14,6 +14,8 @@ export const FONTS = {
 
 export type FontFamilyKey = keyof typeof FONT_FAMILIES;
 
+export const SUBTITLE_FONT_SCALE = 1.25;
+
 export const VIDEO = {
   width: 1920,
   height: 1080,
@@ -56,7 +58,7 @@ export const FS = {
   xs: 20,
   sm: 28,
   md: 40,
-  subtitle: 48,
+  subtitle: Math.round(48 * SUBTITLE_FONT_SCALE),
   subtitleLg: 56,
   display: 72,
   areaLabel: 44,

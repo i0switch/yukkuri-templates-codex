@@ -11,9 +11,18 @@ type Props = {
   scale?: number;
   flip?: boolean;
   fullBody?: boolean;
+  isSpeaking?: boolean;
+  speakingFrame?: number;
 };
 
 const EXPRESSION_ALIASES: Record<string, Expression> = {
+  normal: 'neutral',
+  surprise: 'happy',
+  shock: 'laugh',
+  wry: 'smirk',
+  confused: 'smirk',
+  confident: 'smile',
+  smug: 'smirk',
   surprised: 'happy',
   shocked: 'laugh',
   puzzled: 'smirk',
@@ -33,6 +42,10 @@ const normalizeExpression = (expression: Expression | string | undefined): Expre
   return 'neutral';
 };
 
+const SPEAKING_BOUNCE_PERIOD_FRAMES = 12;
+const SPEAKING_BOUNCE_MAX_Y = 8;
+const SPEAKING_BOUNCE_MAX_SCALE = 0.012;
+
 export const CharacterFace: React.FC<Props> = ({
   character,
   expression = 'neutral',
@@ -41,6 +54,8 @@ export const CharacterFace: React.FC<Props> = ({
   scale = 0.55,
   flip = false,
   fullBody = false,
+  isSpeaking = false,
+  speakingFrame = 0,
 }) => {
   const metrics = CHARACTER_METRICS[character];
   const normalizedExpression = normalizeExpression(expression);
@@ -55,6 +70,14 @@ export const CharacterFace: React.FC<Props> = ({
   const displayImageWidth = renderMetrics.imgW * (displayImageHeight / renderMetrics.imgH);
 
   const faceCenterInImageY = displayImageHeight * renderMetrics.faceCenterRatio.y;
+  const normalizedSpeakingFrame = Math.max(0, speakingFrame);
+  const bounceProgress =
+    isSpeaking
+      ? (normalizedSpeakingFrame % SPEAKING_BOUNCE_PERIOD_FRAMES) / SPEAKING_BOUNCE_PERIOD_FRAMES
+      : 0;
+  const bounceAmount = Math.sin(bounceProgress * Math.PI);
+  const bounceY = -SPEAKING_BOUNCE_MAX_Y * bounceAmount;
+  const speakingScale = 1 + SPEAKING_BOUNCE_MAX_SCALE * bounceAmount;
 
   return (
     <div
@@ -66,6 +89,8 @@ export const CharacterFace: React.FC<Props> = ({
         height: fullBody ? displayImageHeight : displayFaceHeight,
         overflow: fullBody ? 'visible' : 'hidden',
         pointerEvents: 'none',
+        transform: isSpeaking ? `translateY(${bounceY}px) scale(${speakingScale})` : undefined,
+        transformOrigin: 'center bottom',
       }}
     >
       <Img

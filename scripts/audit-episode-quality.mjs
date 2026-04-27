@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 import {parseDocument} from 'yaml';
+import {loadImagePromptRegistry, promptFromRegistry} from './lib/image-prompt-registry.mjs';
 
 const rootDir = process.cwd();
 const target = process.argv[2];
@@ -60,7 +62,7 @@ const QUALITY_PROFILE = {
   minImageHeight: 360,
 };
 
-const REQUIRED_IMAGE_LEDGER_FIELDS = ['license'];
+const REQUIRED_IMAGE_LEDGER_FIELDS = ['source_type', 'license', 'imagegen_prompt'];
 const BANNED_IMAGE_ASSET_METADATA_KEYS = [
   'generated_asset_sheet',
   'asset_sheet',
@@ -89,6 +91,9 @@ const APPROVED_IMAGE_SOURCE_PATTERNS = [
   /openai.*image/i,
   /image[_ -]?gen/i,
 ];
+const USER_GENERATED_SOURCE_TYPE = 'user_generated';
+const IMAGEGEN_SOURCE_TYPE = 'imagegen';
+const IMAGEGEN_SOURCE_URL_RE = /^codex:\/\/generated_images\/.+/i;
 
 const AWKWARD_DIALOGUE_PATTERNS = [
   /羽目ぜ/,
@@ -109,6 +114,8 @@ const ABSTRACT_ASSET_TERMS = [
   'わかりやすい',
   '動画用',
   'フラット',
+  '綺麗なIT図解',
+  '抽象的な青いネットワーク線',
   '日本語フラット図解カード',
   '小さく検証する',
 ];
@@ -117,15 +124,22 @@ const REQUIRED_IMAGE_PROMPT_TERMS = [
   {key: 'insert_image_japanese', patterns: [/ゆっくり解説動画向けの挿入画像を日本語で生成してください/]},
   {key: 'not_dialogue_recreation', patterns: [/会話内容をそのまま再現するためのものではなく/]},
   {key: 'no_dialogue_in_image', patterns: [/字幕やセリフは別で表示するため、会話等は画像に入れないでください/]},
-  {key: 'support_visuals', patterns: [/図解、アイコン、小物、UI、概念図、状況説明ビジュアル/]},
-  {key: 'aspect_ratio', patterns: [/Make the aspect ratio 16:9\./]},
+  {key: 'support_visuals', patterns: [/図解、アイコン、小物、抽象的な画面風ビジュアル、概念図、状況説明ビジュアル/]},
+  {key: 'image_role', patterns: [/画像の役割を、理解補助、不安喚起、笑い、比較、手順整理、証拠提示、オチ補助/]},
+  {key: 'composition_type', patterns: [/構図タイプを、NG \/ OK 比較、失敗例シミュレーション、誇張図解、証拠写真風、チェックリスト、手順図、原因マップ、ビフォーアフター、ツッコミ待ち構図、事故寸前構図/]},
+  {key: 'largest_subject', patterns: [/画面で一番大きく見せる対象/]},
+  {key: 'visualized_sentence', patterns: [/対象シーンから画像化する一言を1つ選び/]},
+  {key: 'mobile_viewing', patterns: [/スマホ視聴でも伝わるように主役は1つ/]},
+  {key: 'japanese_text_only', patterns: [/画像内の可読テキストは日本語だけにしてください/]},
+  {key: 'no_bottom_input_space', patterns: [/下部に白帯、入力欄、チャット欄、テキストボックス風の余白を作らないでください/]},
+  {key: 'aspect_ratio', patterns: [/16:9の横長構図/]},
   {key: 'mood_line', patterns: [/画像の雰囲気は.+で生成してください。/s]},
 ];
 
 const REQUIRED_DIALOGUE_SUPPORT_PROMPT_TERMS = [
   {key: 'scene_concept_support', patterns: [/シーンの要点・状況・概念・比喩を視覚的にわかりやすく補強/]},
   {key: 'no_character_chat_scene', patterns: [/キャラクター同士の会話シーンにはせず/]},
-  {key: 'youtube_16_9', patterns: [/YouTubeの解説動画に適した.+16:9の横長構図/s]},
+  {key: 'video_16_9', patterns: [/動画の解説画面に適した.+16:9の横長構図/s]},
 ];
 
 const BATCH_GENERATION_PATTERNS = [
@@ -147,6 +161,15 @@ const BATCH_GENERATION_PATTERNS = [
   /cut\s*out/i,
   /切り出し/,
   /切り抜き/,
+];
+
+const LEGACY_IMAGEGEN_PROMPT_PATTERNS = [
+  /Make the aspect ratio 16:9\./i,
+  /(?:下部|画面下部)20%[^。\n]*(?:余白|空け|空白|残し)/,
+  /(?:bottom|lower)[^.\n]*(?:20|twenty)[^.\n]*(?:blank|empty|safe space|space)/i,
+  /(?:入力欄|チャット欄|テキストボックス|textbox|text box|prompt box)/i,
+  /実在UI|UIの完全模写|(?:^|[^一-龥ぁ-んァ-ヶA-Za-z])UI(?:[^一-龥ぁ-んァ-ヶA-Za-z]|$)/,
+  /余白のある横長構図|余白多め/,
 ];
 
 const normalizeText = (value) =>
@@ -293,13 +316,15 @@ const visualAssetPlanFor = (scene, slot, asset) => {
   );
 };
 
-const imagePromptFor = (scene, slot, content, metaEntries) => {
+const imagePromptFor = (scene, slot, content, metaEntries, registry) => {
   const asset = content?.asset?.replaceAll('\\', '/');
   const meta = asset ? metaEntries.get(asset) : null;
   const plan = visualAssetPlanFor(scene, slot, asset);
   return [
     plan?.imagegen_prompt,
+    promptFromRegistry(registry, plan?.imagegen_prompt_ref),
     content?.asset_requirements?.imagegen_prompt,
+    promptFromRegistry(registry, content?.asset_requirements?.imagegen_prompt_ref),
     content?.asset_requirements?.generation_plan,
     content?.asset_requirements?.generation_method,
     content?.asset_requirements?.description,
@@ -358,6 +383,26 @@ const stripNegativeConstraintLines = (value) =>
     .lines.join('\n');
 
 const hasBatchGenerationPlan = (value) => BATCH_GENERATION_PATTERNS.some((pattern) => pattern.test(stripNegativeConstraintLines(value)));
+const isNegatedLegacyPhrase = (prompt, matchIndex, matchLength) => {
+  const prefix = prompt.slice(Math.max(0, matchIndex - 40), matchIndex);
+  const suffix = prompt.slice(matchIndex + matchLength, matchIndex + matchLength + 80);
+  return /(?:禁止|しない|入れない|避ける|ではない|しません|禁止です|作らない)[^。\n]*$/.test(prefix) ||
+    /^[^。\n]*(?:禁止|しない|入れない|避ける|ではない|しません|禁止です|作らない)/.test(suffix);
+};
+
+const patternMatchesNonNegated = (prompt, pattern) => {
+  for (const match of prompt.matchAll(new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`))) {
+    if (!isNegatedLegacyPhrase(prompt, match.index ?? 0, match[0].length)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const hasLegacyImagegenPromptWording = (value) => {
+  const prompt = String(value ?? '');
+  return LEGACY_IMAGEGEN_PROMPT_PATTERNS.some((pattern) => patternMatchesNonNegated(prompt, pattern));
+};
 
 const imageSourceText = (asset) =>
   [
@@ -374,7 +419,29 @@ const imageSourceText = (asset) =>
 
 const isDisallowedImageSource = (asset) => DISALLOWED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(imageSourceText(asset)));
 
+const isUserGeneratedImageAsset = (asset) => asset?.source_type === USER_GENERATED_SOURCE_TYPE;
+const isImagegenImageAsset = (asset) => asset?.source_type === IMAGEGEN_SOURCE_TYPE;
+
+const hasValidUserGeneratedMetadata = (asset) =>
+  isUserGeneratedImageAsset(asset) &&
+  asset.rights_confirmed === true &&
+  typeof asset.generation_tool === 'string' &&
+  asset.generation_tool.trim() !== '';
+
+const hasValidImagegenMetadata = (asset) =>
+  isImagegenImageAsset(asset) &&
+  asset.rights_confirmed === true &&
+  asset.generation_tool === 'codex-imagegen' &&
+  ((typeof asset.generation_id === 'string' && asset.generation_id.trim() !== '') ||
+    (typeof asset.source_url === 'string' && IMAGEGEN_SOURCE_URL_RE.test(asset.source_url)));
+
 const isApprovedImageSource = (asset) => {
+  if (isUserGeneratedImageAsset(asset)) {
+    return hasValidUserGeneratedMetadata(asset);
+  }
+  if (isImagegenImageAsset(asset)) {
+    return hasValidImagegenMetadata(asset);
+  }
   const text = imageSourceText(asset);
   return APPROVED_IMAGE_SOURCE_PATTERNS.some((pattern) => pattern.test(text));
 };
@@ -382,9 +449,11 @@ const isApprovedImageSource = (asset) => {
 const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
 
 const imageGenerationIdentifiers = (asset) =>
-  ['source_url', 'generation_id']
-    .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
-    .filter(({value}) => value !== '');
+  hasValidUserGeneratedMetadata(asset)
+    ? [{field: 'user_generated', value: `${asset.generation_tool.trim()}:${asset.file}`}]
+    : ['source_url', 'generation_id']
+        .map((field) => ({field, value: typeof asset?.[field] === 'string' ? asset[field].trim() : ''}))
+        .filter(({value}) => value !== '');
 
 const primaryImageGenerationSource = (asset) => {
   const source = imageGenerationIdentifiers(asset)[0];
@@ -410,8 +479,8 @@ const hasVisualAssetPlanForImages = (scene) =>
         plan.slot.trim() !== '' &&
         typeof plan.purpose === 'string' &&
         plan.purpose.trim() !== '' &&
-        typeof plan.imagegen_prompt === 'string' &&
-        plan.imagegen_prompt.trim() !== ''
+        ((typeof plan.imagegen_prompt === 'string' && plan.imagegen_prompt.trim() !== '') ||
+          (typeof plan.imagegen_prompt_ref === 'string' && plan.imagegen_prompt_ref.trim() !== ''))
       );
     });
 
@@ -620,6 +689,7 @@ const audit = async () => {
   const script = await readScript(scriptPath);
   const meta = await readMeta(episodeDir);
   const metaEntries = imageEntriesFromMeta(meta);
+  const imagePromptRegistry = await loadImagePromptRegistry(episodeDir);
 
   if (!isPlainObject(script) || !Array.isArray(script.scenes) || script.scenes.length === 0) {
     pushIssue(errors, 'error', 'script', 'script.scenes must be a non-empty array');
@@ -775,15 +845,19 @@ const audit = async () => {
     const incompleteImagePrompts = [];
     const incompleteDialogueSupportPrompts = [];
     const batchGenerationPrompts = [];
+    const legacyImagegenPrompts = [];
     for (const scene of script.scenes) {
       for (const key of ['main', 'sub']) {
         const content = scene[key];
         if (content?.kind !== 'image') {
           continue;
         }
-        const prompt = imagePromptFor(scene, key, content, metaEntries);
+        const prompt = imagePromptFor(scene, key, content, metaEntries, imagePromptRegistry);
         if (hasBatchGenerationPlan(prompt)) {
           batchGenerationPrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
+        }
+        if (hasLegacyImagegenPromptWording(prompt)) {
+          legacyImagegenPrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
         }
         if (!isSpecificAssetPrompt(prompt)) {
           weakImagePrompts.push({scene: scene.id, slot: key, asset: content.asset, prompt});
@@ -820,6 +894,11 @@ const audit = async () => {
         assets: batchGenerationPrompts.slice(0, 12),
       });
     }
+    if (legacyImagegenPrompts.length > 0) {
+      pushIssue(errors, 'error', 'legacy-imagegen-prompt-wording', 'imagegen prompts must not contain old bottom-space, English aspect, or UI wording', {
+        assets: legacyImagegenPrompts.slice(0, 12),
+      });
+    }
 
     const scenesWithMetadata = script.scenes.filter(hasSceneMetadata).length;
     const metadataRatio = scenesWithMetadata / script.scenes.length;
@@ -843,8 +922,10 @@ const audit = async () => {
     const unapprovedAssetSources = [];
     const bannedImageAssetMetadata = [];
     const duplicateImagegenSources = [];
+    const duplicateImageFiles = [];
     const weakImageFiles = [];
     const imageSourceOwners = new Map();
+    const imageHashOwners = new Map();
     for (const [file, asset] of metaEntries.entries()) {
       if (!file.startsWith('assets/')) {
         continue;
@@ -852,7 +933,27 @@ const audit = async () => {
       const missingLedgerFields = REQUIRED_IMAGE_LEDGER_FIELDS.filter(
         (field) => typeof asset[field] !== 'string' || asset[field].trim() === '',
       );
-      if (imageGenerationIdentifiers(asset).length === 0) {
+      if (isUserGeneratedImageAsset(asset)) {
+        if (typeof asset.generation_tool !== 'string' || asset.generation_tool.trim() === '') {
+          missingLedgerFields.push('generation_tool');
+        }
+        if (asset.rights_confirmed !== true) {
+          missingLedgerFields.push('rights_confirmed: true');
+        }
+      } else if (isImagegenImageAsset(asset)) {
+        if (asset.generation_tool !== 'codex-imagegen') {
+          missingLedgerFields.push('generation_tool: codex-imagegen');
+        }
+        if (asset.rights_confirmed !== true) {
+          missingLedgerFields.push('rights_confirmed: true');
+        }
+        if (
+          !(typeof asset.generation_id === 'string' && asset.generation_id.trim() !== '') &&
+          !(typeof asset.source_url === 'string' && IMAGEGEN_SOURCE_URL_RE.test(asset.source_url))
+        ) {
+          missingLedgerFields.push('source_url codex://generated_images/... or generation_id');
+        }
+      } else if (imageGenerationIdentifiers(asset).length === 0) {
         missingLedgerFields.push('source_url or generation_id');
       }
       if (missingLedgerFields.length > 0) {
@@ -878,7 +979,16 @@ const audit = async () => {
       }
 
       try {
-        const info = await readImageInfo(assetFilePath(episodeDir, file));
+        const resolvedAssetFile = assetFilePath(episodeDir, file);
+        const imageBuffer = await fs.readFile(resolvedAssetFile);
+        const hash = createHash('sha256').update(imageBuffer).digest('hex');
+        const hashOwner = imageHashOwners.get(hash);
+        if (hashOwner) {
+          duplicateImageFiles.push({file, first_file: hashOwner.file, sha256: hash});
+        } else {
+          imageHashOwners.set(hash, {file});
+        }
+        const info = await readImageInfo(resolvedAssetFile);
         if (
           info.bytes < QUALITY_PROFILE.minImageAssetBytes ||
           info.width < QUALITY_PROFILE.minImageWidth ||
@@ -901,7 +1011,7 @@ const audit = async () => {
       }
     }
     if (incompleteLedgerAssets.length > 0) {
-      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need license and source_url or generation_id', {
+      pushIssue(errors, 'error', 'incomplete-asset-ledger', 'meta.json image entries need license and either source_url/generation_id or valid user_generated metadata', {
         assets: incompleteLedgerAssets.slice(0, 12),
       });
     }
@@ -916,13 +1026,18 @@ const audit = async () => {
         assets: duplicateImagegenSources.slice(0, 20),
       });
     }
+    if (duplicateImageFiles.length > 0) {
+      pushIssue(errors, 'error', 'duplicate-image-file', 'multiple image assets have identical bytes; regenerate or replace duplicate scene images', {
+        assets: duplicateImageFiles.slice(0, 20),
+      });
+    }
     if (disallowedAssetSources.length > 0) {
       pushIssue(errors, 'error', 'disallowed-image-source', 'delivery images must not be fallback, placeholder, copied, or local card assets', {
         assets: disallowedAssetSources.slice(0, 20),
       });
     }
     if (unapprovedAssetSources.length > 0) {
-      pushIssue(errors, 'error', 'unapproved-image-source', 'Codex delivery images must use image gen provenance only; NotebookLM and licensed downloads are not accepted for inserted images', {
+      pushIssue(errors, 'error', 'unapproved-image-source', 'delivery images must use approved image generation provenance or source_type: user_generated with rights_confirmed: true', {
         assets: unapprovedAssetSources.slice(0, 20),
       });
     }

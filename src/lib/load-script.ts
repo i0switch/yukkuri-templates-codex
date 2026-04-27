@@ -81,10 +81,21 @@ export interface VisualAssetPlan {
   required?: boolean;
   slot: 'main' | 'sub' | 'chapter' | 'comparison' | 'summary';
   purpose: string;
+  image_role?: '理解補助' | '不安喚起' | '笑い' | '比較' | '手順整理' | '証拠提示' | 'オチ補助';
+  composition_type?:
+    | 'NG / OK 比較'
+    | '失敗例シミュレーション'
+    | '誇張図解'
+    | '証拠写真風'
+    | 'チェックリスト'
+    | '手順図'
+    | '原因マップ'
+    | 'ビフォーアフター'
+    | 'ツッコミ待ち構図'
+    | '事故寸前構図';
   supports_dialogue?: string[];
   supports_moment?: string;
   visual_type?: VisualType;
-  composition_type?: string;
   image_direction?: ImageDirection;
   insert_timing?: string;
   asset?: string;
@@ -116,6 +127,12 @@ export interface DialogueLine {
   speaker: DialogueSpeaker;
   text: string;
   expression?: string;
+  emphasis?: {
+    words: string[];
+    style: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
+    se: 'pop' | 'warning' | 'question' | 'reveal' | 'success' | 'fail' | 'none';
+    pause_after_ms: 0 | 200 | 300 | 500;
+  };
   typography?: Pick<TypographyConfig, 'subtitle_family' | 'subtitle_stroke_color' | 'subtitle_stroke_width'>;
   pre_pause_sec?: number;
   post_pause_sec?: number;
@@ -127,6 +144,7 @@ export interface DialogueLine {
 export interface EpisodeScene {
   id: string;
   role: SceneRole;
+  motion_mode: 'normal' | 'punch' | 'compare' | 'warning' | 'checklist' | 'reveal' | 'recap';
   scene_goal?: string;
   viewer_question?: string;
   visual_role?: string;
