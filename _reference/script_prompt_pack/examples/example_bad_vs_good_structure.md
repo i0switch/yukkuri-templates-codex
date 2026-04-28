@@ -1,5 +1,8 @@
 # example_bad_vs_good_structure
 
+このファイルは人間監査や追加学習用の補助資料であり、通常生成の必読入力ではない。
+構成生成時は `00_MASTER_SCRIPT_RULES.md` と `03_plan_prompt.md` を正本にする。
+
 構成・密度の anti-pattern と、その書き直し例。
 
 draft / rewrite 工程では、章タイトル・冒頭・中盤・結末がここに引っかかっていないかを必ず照合する。

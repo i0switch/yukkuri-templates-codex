@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {Scene01} from '../compositions/Scene01';
 import {Scene02} from '../compositions/Scene02';
 import {Scene03} from '../compositions/Scene03';
@@ -24,9 +24,10 @@ import {Scene21} from '../compositions/Scene21';
 import {findActiveLine, pickLipsyncExpression, type TimedDialogueLine} from './Lipsync';
 import type {EpisodeRenderData, EpisodeScene, SceneContent, TypographyConfig, TypographyFamily} from '../lib/load-script';
 import {AutoFitText} from './AutoFitText';
-import {FONT_FAMILIES, SUBTITLE_FONT_SCALE, TEXT_STROKE} from '../design-tokens';
+import {FONT_FAMILIES, FS, SUBTITLE_FONT_SCALE, TEXT_STROKE} from '../design-tokens';
 import {SubtitleBar} from './SubtitleBar';
 import {VisualEmphasisLayer} from './VisualEmphasisLayer';
+import {resolveSubtitleSegmentText} from './subtitleSegments';
 import type {Rect, SlotRenderer} from '../types';
 
 const SCENE_COMPONENTS = {
@@ -56,6 +57,7 @@ const SCENE_COMPONENTS = {
 const BAR_TEMPLATES = new Set(['Scene01', 'Scene03', 'Scene04', 'Scene08', 'Scene09', 'Scene11', 'Scene18', 'Scene19']);
 const LIGHT_TITLE_TEMPLATES = new Set(['Scene15', 'Scene16', 'Scene17']);
 const DARK_OVERLAY_SUBTITLE_TEMPLATES = new Set(['Scene12']);
+const SUBTITLE_MAX_LINES = 2;
 const CHARACTER_SUBTITLE_COLORS: Record<string, string> = {
   zundamon: '#22C55E',
   metan: '#C2185B',
@@ -78,7 +80,6 @@ type TextStroke = {
   width: number;
 };
 
-type MotionMode = EpisodeScene['motion_mode'];
 type Emphasis = NonNullable<TimedDialogueLine['emphasis']>;
 
 const SE_VOLUME: Record<Emphasis['se'], number> = {
@@ -157,26 +158,13 @@ const cardStyle: React.CSSProperties = {
 const renderImage = (
   assetPath: string,
   publicDir: string,
-  motionMode: MotionMode,
-  frame: number,
-  fps: number,
 ): SlotRenderer => (rect: Rect) => (
   <div
     style={{
       ...cardStyle,
       padding: 18,
-      background:
-        motionMode === 'warning'
-          ? 'rgba(255,238,238,0.82)'
-          : motionMode === 'compare'
-            ? 'rgba(244,250,255,0.84)'
-            : 'rgba(255,255,255,0.62)',
-      borderColor:
-        motionMode === 'warning'
-          ? 'rgba(255,42,42,0.55)'
-          : motionMode === 'reveal'
-            ? 'rgba(124,58,237,0.42)'
-            : 'rgba(10,94,122,0.16)',
+      background: 'rgba(255,255,255,0.62)',
+      borderColor: 'rgba(10,94,122,0.16)',
       overflow: 'hidden',
     }}
   >
@@ -188,12 +176,6 @@ const renderImage = (
         maxHeight: '100%',
         objectFit: 'contain',
         borderRadius: 20,
-        transform: `scale(${interpolate(
-          frame % Math.max(1, Math.round(fps * 4)),
-          [0, Math.max(1, Math.round(fps * 4))],
-          motionMode === 'normal' ? [1, 1.015] : motionMode === 'warning' || motionMode === 'reveal' ? [1.035, 1.075] : [1.01, 1.045],
-        )})`,
-        transition: 'transform 120ms linear',
       }}
     />
   </div>
@@ -202,9 +184,6 @@ const renderImage = (
 const renderMainContent = (
   content: SceneContent | null | undefined,
   publicDir: string,
-  motionMode: MotionMode,
-  frame: number,
-  fps: number,
 ): SlotRenderer | null => {
   if (!content) {
     return null;
@@ -212,7 +191,7 @@ const renderMainContent = (
 
   // v2 rule: main slot is image-only. text / bullets are not rendered on main.
   if (content.kind === 'image') {
-    return renderImage(content.asset, publicDir, motionMode, frame, fps);
+    return renderImage(content.asset, publicDir);
   }
   return null;
 };
@@ -336,7 +315,7 @@ const renderSubContent = (
       return renderSubBullets(items, fontFamily, contentStroke);
     }
     case 'image':
-      return renderImage(content.asset, publicDir, 'normal', 0, 30);
+      return renderImage(content.asset, publicDir);
     default:
       return null;
   }
@@ -374,7 +353,8 @@ const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string, 
 };
 
 const renderBarSubtitle = (
-  text: string,
+  activeLine: TimedDialogueLine | null,
+  currentSec: number,
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
@@ -391,10 +371,23 @@ const renderBarSubtitle = (
       fontSize?: number;
       fontWeight?: number | string;
     };
+    const strokeAllowance = Math.max(0, stroke.width) * 2;
+    const horizontalPadding = 34 + strokeAllowance;
+    const subtitleText = resolveSubtitleSegmentText({
+      line: activeLine,
+      currentSec,
+      splitOptions: {
+        width: Math.max(1, subtitleRect.w - horizontalPadding * 2),
+        fontSize: subtitleRect.fontSize ?? FS.subtitle,
+        lineHeight: 1.18,
+        letterSpacing: 0,
+        maxLines: SUBTITLE_MAX_LINES,
+      },
+    });
 
     return (
       <SubtitleBar
-        text={text}
+        text={subtitleText}
         x={0}
         y={0}
         width={subtitleRect.w}
@@ -410,7 +403,7 @@ const renderBarSubtitle = (
         fontFamily={fontFamily}
         textStrokeColor={stroke.color}
         textStrokeWidth={stroke.width}
-        maxLines={3}
+        maxLines={SUBTITLE_MAX_LINES}
         highlightWords={emphasis?.words}
         highlightVariant={emphasis?.style}
       />
@@ -420,34 +413,51 @@ const renderBarSubtitle = (
 
 const renderOverlaySubtitle = (
   template: string,
-  text: string,
+  activeLine: TimedDialogueLine | null,
+  currentSec: number,
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
   emphasis: TimedDialogueLine['emphasis'] | undefined,
 ): SlotRenderer => {
   const darkText = DARK_OVERLAY_SUBTITLE_TEMPLATES.has(template);
-  return (rect: Rect) => (
-    <AutoFitText
-      text={text}
-      width={Math.max(1, rect.w - 72)}
-      height={Math.max(1, rect.h - 32)}
-      minFontSize={scaleSubtitleFontSize(18)}
-      maxFontSize={darkText ? scaleSubtitleFontSize(34) : scaleSubtitleFontSize(40)}
-      lineHeight={1.35}
-      fontFamily={fontFamily}
-      fontWeight={700}
-      color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}
-      textAlign="center"
-      textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
-      textStrokeColor={stroke.color}
-      textStrokeWidth={stroke.width}
-      maxLines={3}
-      highlightWords={emphasis?.words}
-      highlightVariant={emphasis?.style}
-      style={{padding: '16px 36px', boxSizing: 'border-box'}}
-    />
-  );
+  return (rect: Rect) => {
+    const fontSize = darkText ? scaleSubtitleFontSize(34) : scaleSubtitleFontSize(40);
+    const width = Math.max(1, rect.w - 56);
+    const subtitleText = resolveSubtitleSegmentText({
+      line: activeLine,
+      currentSec,
+      splitOptions: {
+        width,
+        fontSize,
+        lineHeight: 1.22,
+        letterSpacing: 0,
+        maxLines: SUBTITLE_MAX_LINES,
+      },
+    });
+
+    return (
+      <AutoFitText
+        text={subtitleText}
+        width={width}
+        height={Math.max(1, rect.h - 24)}
+        minFontSize={scaleSubtitleFontSize(12)}
+        maxFontSize={fontSize}
+        lineHeight={1.22}
+        fontFamily={fontFamily}
+        fontWeight={700}
+        color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}
+        textAlign="center"
+        textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
+        textStrokeColor={stroke.color}
+        textStrokeWidth={stroke.width}
+        maxLines={SUBTITLE_MAX_LINES}
+        highlightWords={emphasis?.words}
+        highlightVariant={emphasis?.style}
+        style={{padding: '12px 28px', boxSizing: 'border-box'}}
+      />
+    );
+  };
 };
 
 export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRenderData}> = ({scene, script}) => {
@@ -462,6 +472,7 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
 
   const frame = useCurrentFrame();
   const fps = script.meta.fps;
+  const currentSec = frame / fps;
   const baseWidth = script.base_layout_width;
   const baseHeight = script.base_layout_height;
   const scale = script.meta.width / baseWidth;
@@ -487,8 +498,8 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
     fps,
   });
 
-  const subtitleText = activeLine?.text ?? '';
   const useBarSubtitle = BAR_TEMPLATES.has(sceneTemplate);
+  const subtitleText = activeLine?.text ?? '';
   const typography = resolveTypography(script.meta.typography, scene.typography, activeLine?.typography);
   const subtitleTextColor = resolveSubtitleTextColor(activeLine, script.characters);
 
@@ -534,11 +545,11 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
           subtitleText={subtitleText}
           subtitleSlot={
             useBarSubtitle
-              ? renderBarSubtitle(subtitleText, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
-              : renderOverlaySubtitle(sceneTemplate, subtitleText, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
+              ? renderBarSubtitle(activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
+              : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
-          mainContentSlot={renderMainContent(scene.main, script.public_dir, scene.motion_mode, frame, fps)}
+          mainContentSlot={renderMainContent(scene.main, script.public_dir)}
           subContentSlot={renderSubContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
           showAreaLabels={false}
         />
@@ -554,6 +565,3 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
     </AbsoluteFill>
   );
 };
-
-
-

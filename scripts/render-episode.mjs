@@ -16,6 +16,8 @@ const publicDir = path.join(rootDir, 'public');
 const targetPublicDir = path.join(rootDir, '.remotion-public', episodeId);
 const compositionEpisodeId = episodeId.replace(/[^a-zA-Z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, '-');
 const episodeDir = path.join(rootDir, 'script', episodeId);
+const entryDir = path.join(rootDir, '.cache', 'remotion-entry', compositionEpisodeId);
+const entryPath = path.join(entryDir, 'index.tsx');
 
 if (!episodeId) {
   throw new Error('Usage: node scripts/render-episode.mjs <episode_id> [out/videos/file.mp4] [--force|--force-audio|--force-images|--force-render]');
@@ -83,6 +85,21 @@ const prepareTargetPublicDir = async () => {
   await copyDirectory(path.join(publicDir, 'episodes', episodeId), path.join(targetPublicDir, 'episodes', episodeId));
 };
 
+const writeTargetRenderEntry = async () => {
+  await fs.mkdir(entryDir, {recursive: true});
+  const relRoot = (target) => path.relative(entryDir, target).replaceAll('\\', '/');
+  const lines = [
+    "import {registerRoot} from 'remotion';",
+    `import {createRoot} from '${relRoot(path.join(rootDir, 'src', 'Root'))}';`,
+    `import {loadEpisodeRenderData} from '${relRoot(path.join(rootDir, 'src', 'lib', 'load-script'))}';`,
+    `import episodeData from '${relRoot(path.join(episodeDir, 'script.render.json'))}';`,
+    '',
+    'registerRoot(createRoot([loadEpisodeRenderData(episodeData)]));',
+    '',
+  ];
+  await fs.writeFile(entryPath, lines.join('\n'), 'utf8');
+};
+
 const fileExists = async (filePath) => {
   try {
     const stat = await fs.stat(filePath);
@@ -96,6 +113,7 @@ const renderInputHash = async () =>
   hashPaths(
     [
       path.join(episodeDir, 'script.render.json'),
+      entryPath,
       path.join(rootDir, 'src'),
       path.join(publicDir, 'backgrounds'),
       path.join(publicDir, 'fonts'),
@@ -129,7 +147,7 @@ run(process.execPath, [
   '--skip-quality-gate',
   ...(forceAudio ? ['--force-audio'] : []),
 ]);
-run(process.execPath, ['scripts/generate-episode-compositions.mjs', episodeId]);
+await writeTargetRenderEntry();
 const inputHash = await renderInputHash();
 const inputs = await artifactInputHashes();
 const renderManifest = await readRenderManifest(episodeDir);
@@ -156,7 +174,7 @@ if (!forceRender && renderManifest.input_hash === inputHash && (await fileExists
     [
       'remotion',
       'render',
-      'src/index.ts',
+      path.relative(rootDir, entryPath),
       `Video-${compositionEpisodeId}`,
       outputPath,
       '--public-dir',

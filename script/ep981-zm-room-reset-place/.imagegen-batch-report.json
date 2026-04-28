@@ -1,0 +1,195 @@
+{
+  "ok": true,
+  "episode_id": "ep981-zm-room-reset-place",
+  "started_at": "2026-04-27T22:11:30.878Z",
+  "finished_at": "2026-04-27T22:17:00.682Z",
+  "parallel": 3,
+  "dry_run": false,
+  "audit_image_prompts_ok": true,
+  "total_jobs": 10,
+  "selected_jobs": 10,
+  "skipped": [],
+  "jobs": [
+    {
+      "status": "generated",
+      "scene_id": "s01",
+      "slot": "main",
+      "file": "assets/s01_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd0ff-873f-7f83-8bd9-a10f20d81ace\\ig_06e190b646656d440169efdf32a5e88191bbf2c6916a7e8a28.png",
+      "source_url": "codex://generated_images/019dd0ff-873f-7f83-8bd9-a10f20d81ace/ig_06e190b646656d440169efdf32a5e88191bbf2c6916a7e8a28.png",
+      "original_file": "ig_06e190b646656d440169efdf32a5e88191bbf2c6916a7e8a28.png",
+      "prompt_sha256": "e943354e33a8ae5f4eff7e9da3175729b61fcb221065c6de8cb556457613d280",
+      "started_at": "2026-04-27T22:11:30.880Z",
+      "finished_at": "2026-04-27T22:13:04.557Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s01_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s01_main.stderr.txt",
+      "session_ids": [
+        "019dd0ff-873f-7f83-8bd9-a10f20d81ace",
+        "019dd0ff-9162-7fb3-8133-0b3ef27ac045"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s02",
+      "slot": "main",
+      "file": "assets/s02_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd0ff-876b-7720-8ce0-4a62aa30d206\\ig_0f160c341580368f0169efdf30469881919583e17e59078319.png",
+      "source_url": "codex://generated_images/019dd0ff-876b-7720-8ce0-4a62aa30d206/ig_0f160c341580368f0169efdf30469881919583e17e59078319.png",
+      "original_file": "ig_0f160c341580368f0169efdf30469881919583e17e59078319.png",
+      "prompt_sha256": "c0ac9eddbdd61b0b06379b40613862eb8d4d1e01ad4de2a4486373982ed1276d",
+      "started_at": "2026-04-27T22:11:30.892Z",
+      "finished_at": "2026-04-27T22:13:02.039Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s02_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s02_main.stderr.txt",
+      "session_ids": [
+        "019dd0ff-876b-7720-8ce0-4a62aa30d206",
+        "019dd0ff-9162-7981-a3b8-f2202cf043ac"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s03",
+      "slot": "main",
+      "file": "assets/s03_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd0ff-873e-7162-8117-8660112190af\\ig_05a06673b99921060169efdf32f4cc8191b82ba692348d9159.png",
+      "source_url": "codex://generated_images/019dd0ff-873e-7162-8117-8660112190af/ig_05a06673b99921060169efdf32f4cc8191b82ba692348d9159.png",
+      "original_file": "ig_05a06673b99921060169efdf32f4cc8191b82ba692348d9159.png",
+      "prompt_sha256": "b95ea2f91022375b4684a7313d0affcbc4628818239231b453c522d214449d81",
+      "started_at": "2026-04-27T22:11:30.901Z",
+      "finished_at": "2026-04-27T22:13:02.929Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s03_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s03_main.stderr.txt",
+      "session_ids": [
+        "019dd0ff-873e-7162-8117-8660112190af",
+        "019dd0ff-9162-78b0-a73f-aa13714eb553"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s04",
+      "slot": "main",
+      "file": "assets/s04_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd100-d904-74b2-92d9-949e9dceb146\\ig_064d50553fffaeef0169efdf8b27648191a083154e9bca108e.png",
+      "source_url": "codex://generated_images/019dd100-d904-74b2-92d9-949e9dceb146/ig_064d50553fffaeef0169efdf8b27648191a083154e9bca108e.png",
+      "original_file": "ig_064d50553fffaeef0169efdf8b27648191a083154e9bca108e.png",
+      "prompt_sha256": "1015acbfc50a9a74ca35ea09936ed7fcafb33c4a1f929dd44083c1cfb3a52b27",
+      "started_at": "2026-04-27T22:13:02.049Z",
+      "finished_at": "2026-04-27T22:14:27.988Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s04_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s04_main.stderr.txt",
+      "session_ids": [
+        "019dd100-d904-74b2-92d9-949e9dceb146",
+        "019dd100-df91-7b82-b30f-9be61cc5c181"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s05",
+      "slot": "main",
+      "file": "assets/s05_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd100-da50-7832-8397-5521fadf182c\\ig_07920c5880f195a20169efdf8a2b908191bf1251bee66550f8.png",
+      "source_url": "codex://generated_images/019dd100-da50-7832-8397-5521fadf182c/ig_07920c5880f195a20169efdf8a2b908191bf1251bee66550f8.png",
+      "original_file": "ig_07920c5880f195a20169efdf8a2b908191bf1251bee66550f8.png",
+      "prompt_sha256": "f13ea1c0b6530e9dfea98d768eb92564ae77e60c32601449bcf79415df2bc333",
+      "started_at": "2026-04-27T22:13:02.934Z",
+      "finished_at": "2026-04-27T22:14:25.660Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s05_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s05_main.stderr.txt",
+      "session_ids": [
+        "019dd100-da50-7832-8397-5521fadf182c",
+        "019dd100-e0b2-7b61-9170-6b2fc96e3bcd"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s06",
+      "slot": "main",
+      "file": "assets/s06_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd100-e8f6-7961-8ba6-94d73f046e24\\ig_01de924de25e29e70169efdf8df55481919b61b56d23ca1c0d.png",
+      "source_url": "codex://generated_images/019dd100-e8f6-7961-8ba6-94d73f046e24/ig_01de924de25e29e70169efdf8df55481919b61b56d23ca1c0d.png",
+      "original_file": "ig_01de924de25e29e70169efdf8df55481919b61b56d23ca1c0d.png",
+      "prompt_sha256": "e0a0583289a817c4d3f9f2abe5d1f68821e244c968082a7a0bc8ec6ce3dc324e",
+      "started_at": "2026-04-27T22:13:04.562Z",
+      "finished_at": "2026-04-27T22:14:32.930Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s06_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s06_main.stderr.txt",
+      "session_ids": [
+        "019dd100-e8f6-7961-8ba6-94d73f046e24",
+        "019dd100-efc6-78e1-8915-13fc02e01863"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s07",
+      "slot": "main",
+      "file": "assets/s07_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-1ae2-7413-b142-f9ad12ff5c97\\ig_0d623c2459c547760169efdfd824888191ab371d26dee9d4eb.png",
+      "source_url": "codex://generated_images/019dd102-1ae2-7413-b142-f9ad12ff5c97/ig_0d623c2459c547760169efdfd824888191ab371d26dee9d4eb.png",
+      "original_file": "ig_0d623c2459c547760169efdfd824888191ab371d26dee9d4eb.png",
+      "prompt_sha256": "997d55a4e8cc9012879d759066509b6d3edfe2bde55483643050e323dc7643c3",
+      "started_at": "2026-04-27T22:14:25.665Z",
+      "finished_at": "2026-04-27T22:15:45.023Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s07_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s07_main.stderr.txt",
+      "session_ids": [
+        "019dd102-1ae2-7413-b142-f9ad12ff5c97",
+        "019dd102-2131-78c3-9d43-b61a52dbf3f3"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s08",
+      "slot": "main",
+      "file": "assets/s08_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-23df-7d33-b5fc-6d98a00b2c91\\ig_07e8023852f670050169efdfdb353c819188414a8f7e60c2c7.png",
+      "source_url": "codex://generated_images/019dd102-23df-7d33-b5fc-6d98a00b2c91/ig_07e8023852f670050169efdfdb353c819188414a8f7e60c2c7.png",
+      "original_file": "ig_07e8023852f670050169efdfdb353c819188414a8f7e60c2c7.png",
+      "prompt_sha256": "99628808d7d9f5b01260f07c1a530f8970d030a1c1ccdd73c2808537427a83aa",
+      "started_at": "2026-04-27T22:14:27.993Z",
+      "finished_at": "2026-04-27T22:15:57.196Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s08_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s08_main.stderr.txt",
+      "session_ids": [
+        "019dd102-23df-7d33-b5fc-6d98a00b2c91",
+        "019dd102-29e5-7473-a31a-e4b0fe1dc80f"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s09",
+      "slot": "main",
+      "file": "assets/s09_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-42fc-7ed2-95bb-728ce3b16857\\ig_01945c75717156d00169efdfe25d848191b145eafad369b78a.png",
+      "source_url": "codex://generated_images/019dd102-42fc-7ed2-95bb-728ce3b16857/ig_01945c75717156d00169efdfe25d848191b145eafad369b78a.png",
+      "original_file": "ig_01945c75717156d00169efdfe25d848191b145eafad369b78a.png",
+      "prompt_sha256": "d6396ce8e36bde90fb31f1e502c5cf01f55a02a028c6fd2565e7ab82f278d0e2",
+      "started_at": "2026-04-27T22:14:32.936Z",
+      "finished_at": "2026-04-27T22:16:05.545Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s09_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s09_main.stderr.txt",
+      "session_ids": [
+        "019dd102-42fc-7ed2-95bb-728ce3b16857",
+        "019dd102-4eb8-7220-9813-c6777b6fa127"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s10",
+      "slot": "main",
+      "file": "assets/s10_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd103-4d9d-7e22-a88b-249712e62a11\\ig_0dd01b2a5448e3e70169efe029278c819193c5a8260d6bbb92.png",
+      "source_url": "codex://generated_images/019dd103-4d9d-7e22-a88b-249712e62a11/ig_0dd01b2a5448e3e70169efe029278c819193c5a8260d6bbb92.png",
+      "original_file": "ig_0dd01b2a5448e3e70169efe029278c819193c5a8260d6bbb92.png",
+      "prompt_sha256": "09235a49d8e75ac5ecdd3451018a08a63aa00319a159a8e9abc54cc2b127a62f",
+      "started_at": "2026-04-27T22:15:45.038Z",
+      "finished_at": "2026-04-27T22:17:00.532Z",
+      "log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s10_main.jsonl",
+      "stderr_log": "script/ep981-zm-room-reset-place/audits/imagegen_batch/s10_main.stderr.txt",
+      "session_ids": [
+        "019dd103-4d9d-7e22-a88b-249712e62a11",
+        "019dd103-533e-7fb0-8c44-36452c0e6550"
+      ]
+    }
+  ],
+  "issues": []
+}

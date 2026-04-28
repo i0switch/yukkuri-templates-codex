@@ -4,13 +4,12 @@
 
 選択テンプレートを読み、台本と画像プロンプトが守る画面制約を確定する。
 
-## 必ず読む
+## この工程で読む
 
 - 選択された `templates/scene-XX_*.md`
-- `AI_VIDEO_GENERATION_GUIDE.md`
-- `docs/architecture_v2.md`
+- `docs/pipeline_contract.md` のテンプレート、main/sub、字幕、画像プロンプト契約に関係する箇所
 
-`06_scene-layout-guide.md` / `00_START_HERE.md` は v1 退避資料なので、新規生成・監査では正準入力にしない。
+`AI_VIDEO_GENERATION_GUIDE.md`、退避済みの `legacy/docs_archive/**`、`06_scene-layout-guide.md`、`00_START_HERE.md` は通常生成の必読入力にしない。矛盾時は `docs/pipeline_contract.md` と選択テンプレートを優先する。
 
 ## 出力
 
@@ -34,7 +33,7 @@ template_analysis:
   subtitle_area:
     exists: true | false
     narrow: true | false
-    max_dialogue_chars: 25
+    line_break_policy: budoux_rendering
     avoid_notes:
   title_area:
     exists: true | false
@@ -63,5 +62,6 @@ template_analysis:
 - `sub.kind: text` は4〜6行の短い補足文を改行区切りで出す。
 - sub枠が小さい場合でも、短い4〜6項目チェック、NG/OK、注意点、現在地として収める。
 - sub枠なしテンプレートでは `sub: null` を正準にする。
-- タイトル枠なしテンプレートでは、`title_text` に頼らず、必要なら `main.text` や画像内短語へ逃がす。
+- タイトル枠なしテンプレートでは、`title_text` に頼らず、必要なら画像内短語またはsub枠へ逃がす。
 - 画像プロンプトには、字幕欄とキャラ配置を避ける指示を必ず入れる。
+- 字幕欄の制約を理由に、台本発話へ文字数上限を置かない。長い解説セリフも自然な発話単位で保持し、表示時の折り返しはRemotion側のBudouX + AutoFitTextに任せる。

@@ -6,15 +6,16 @@ import {buildAudioForEpisode} from './voicevox.mjs';
 import {buildAudioForEpisodeAquesTalk} from './aquestalk.mjs';
 import {formatEpisodeValidationResult, validateEpisodeScript} from './lib/episode-validator.mjs';
 import {loadScriptPromptPack} from './lib/load-script-prompt-pack.mjs';
+import {assertAudioManifestMatchesScript} from './lib/audio-manifest-validator.mjs';
+import {writeTtsDurationProfile} from './lib/duration-estimator.mjs';
 
 const rootDir = process.cwd();
 const episodeId = process.argv[2];
 const flags = new Set(process.argv.slice(3));
 const forceAudio = flags.has('--force') || flags.has('--force-audio');
-const skipQualityGate = flags.has('--skip-quality-gate');
 
 if (!episodeId) {
-  throw new Error('Usage: node scripts/build-episode.mjs <episode_id> [--force|--force-audio] [--skip-quality-gate]');
+  throw new Error('Usage: node scripts/build-episode.mjs <episode_id> [--force|--force-audio]');
 }
 
 const episodeDir = path.join(rootDir, 'script', episodeId);
@@ -62,10 +63,9 @@ const assertValidScript = async (script, stage) => {
   }
 };
 
-const assertQualityGate = () => {
+const assertStructuralPreflight = () => {
   for (const args of [
     ['scripts/validate-script-generation-route.mjs'],
-    ['scripts/audit-script-quality.mjs', episodeId],
   ]) {
     const result = spawnSync(process.execPath, args, {
       cwd: rootDir,
@@ -79,7 +79,7 @@ const assertQualityGate = () => {
       console.error(result.stderr.trim());
     }
     if (result.status !== 0) {
-      throw new Error(`Pre-build quality gate failed: node ${args.join(' ')}`);
+      throw new Error(`Pre-build structural preflight failed: node ${args.join(' ')}`);
     }
   }
 };
@@ -162,6 +162,10 @@ const buildRenderJson = async (script) => {
 
   const renderData = {
     ...script,
+    meta: {
+      ...script.meta,
+      fps: script.meta?.fps ?? 30,
+    },
     scenes: script.scenes,
     public_dir: `episodes/${episodeId}`,
     base_layout_width: 1920,
@@ -175,17 +179,15 @@ await loadScriptPromptPack(rootDir);
 const document = await readYamlDocument();
 const script = document.toJS();
 await assertValidScript(script, 'Pre-build');
-if (skipQualityGate) {
-  console.log('[build-episode] skipped duplicate quality gate because render-episode already ran pre-render-gate');
-} else {
-  assertQualityGate();
-}
+assertStructuralPreflight();
 const durations =
   script.meta.voice_engine === 'aquestalk'
     ? await buildAudioForEpisodeAquesTalk(episodeDir, script, {forceAudio})
     : await buildAudioForEpisode(episodeDir, script, {forceAudio});
 const updatedScript = buildTimings(script, durations);
+await writeTtsDurationProfile({episodeDir, script: updatedScript, durations});
 await assertValidScript(updatedScript, 'Post-build');
+await assertAudioManifestMatchesScript({episodeDir, script: updatedScript});
 await buildRenderJson(updatedScript);
 console.log(JSON.stringify({episodeId, total_duration_sec: updatedScript.total_duration_sec}, null, 2));
 

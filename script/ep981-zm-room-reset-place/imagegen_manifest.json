@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "images": [
+    {
+      "scene_id": "s01",
+      "slot": "main",
+      "file": "assets/s01_main.png",
+      "source_url": "codex://generated_images/019dd0ff-873f-7f83-8bd9-a10f20d81ace/ig_06e190b646656d440169efdf32a5e88191bbf2c6916a7e8a28.png",
+      "original_file": "ig_06e190b646656d440169efdf32a5e88191bbf2c6916a7e8a28.png",
+      "prompt_sha256": "e943354e33a8ae5f4eff7e9da3175729b61fcb221065c6de8cb556457613d280"
+    },
+    {
+      "scene_id": "s02",
+      "slot": "main",
+      "file": "assets/s02_main.png",
+      "source_url": "codex://generated_images/019dd0ff-876b-7720-8ce0-4a62aa30d206/ig_0f160c341580368f0169efdf30469881919583e17e59078319.png",
+      "original_file": "ig_0f160c341580368f0169efdf30469881919583e17e59078319.png",
+      "prompt_sha256": "c0ac9eddbdd61b0b06379b40613862eb8d4d1e01ad4de2a4486373982ed1276d"
+    },
+    {
+      "scene_id": "s03",
+      "slot": "main",
+      "file": "assets/s03_main.png",
+      "source_url": "codex://generated_images/019dd0ff-873e-7162-8117-8660112190af/ig_05a06673b99921060169efdf32f4cc8191b82ba692348d9159.png",
+      "original_file": "ig_05a06673b99921060169efdf32f4cc8191b82ba692348d9159.png",
+      "prompt_sha256": "b95ea2f91022375b4684a7313d0affcbc4628818239231b453c522d214449d81"
+    },
+    {
+      "scene_id": "s04",
+      "slot": "main",
+      "file": "assets/s04_main.png",
+      "source_url": "codex://generated_images/019dd100-d904-74b2-92d9-949e9dceb146/ig_064d50553fffaeef0169efdf8b27648191a083154e9bca108e.png",
+      "original_file": "ig_064d50553fffaeef0169efdf8b27648191a083154e9bca108e.png",
+      "prompt_sha256": "1015acbfc50a9a74ca35ea09936ed7fcafb33c4a1f929dd44083c1cfb3a52b27"
+    },
+    {
+      "scene_id": "s05",
+      "slot": "main",
+      "file": "assets/s05_main.png",
+      "source_url": "codex://generated_images/019dd100-da50-7832-8397-5521fadf182c/ig_07920c5880f195a20169efdf8a2b908191bf1251bee66550f8.png",
+      "original_file": "ig_07920c5880f195a20169efdf8a2b908191bf1251bee66550f8.png",
+      "prompt_sha256": "f13ea1c0b6530e9dfea98d768eb92564ae77e60c32601449bcf79415df2bc333"
+    },
+    {
+      "scene_id": "s06",
+      "slot": "main",
+      "file": "assets/s06_main.png",
+      "source_url": "codex://generated_images/019dd100-e8f6-7961-8ba6-94d73f046e24/ig_01de924de25e29e70169efdf8df55481919b61b56d23ca1c0d.png",
+      "original_file": "ig_01de924de25e29e70169efdf8df55481919b61b56d23ca1c0d.png",
+      "prompt_sha256": "e0a0583289a817c4d3f9f2abe5d1f68821e244c968082a7a0bc8ec6ce3dc324e"
+    },
+    {
+      "scene_id": "s07",
+      "slot": "main",
+      "file": "assets/s07_main.png",
+      "source_url": "codex://generated_images/019dd102-1ae2-7413-b142-f9ad12ff5c97/ig_0d623c2459c547760169efdfd824888191ab371d26dee9d4eb.png",
+      "original_file": "ig_0d623c2459c547760169efdfd824888191ab371d26dee9d4eb.png",
+      "prompt_sha256": "997d55a4e8cc9012879d759066509b6d3edfe2bde55483643050e323dc7643c3"
+    },
+    {
+      "scene_id": "s08",
+      "slot": "main",
+      "file": "assets/s08_main.png",
+      "source_url": "codex://generated_images/019dd102-23df-7d33-b5fc-6d98a00b2c91/ig_07e8023852f670050169efdfdb353c819188414a8f7e60c2c7.png",
+      "original_file": "ig_07e8023852f670050169efdfdb353c819188414a8f7e60c2c7.png",
+      "prompt_sha256": "99628808d7d9f5b01260f07c1a530f8970d030a1c1ccdd73c2808537427a83aa"
+    },
+    {
+      "scene_id": "s09",
+      "slot": "main",
+      "file": "assets/s09_main.png",
+      "source_url": "codex://generated_images/019dd102-42fc-7ed2-95bb-728ce3b16857/ig_01945c75717156d00169efdfe25d848191b145eafad369b78a.png",
+      "original_file": "ig_01945c75717156d00169efdfe25d848191b145eafad369b78a.png",
+      "prompt_sha256": "d6396ce8e36bde90fb31f1e502c5cf01f55a02a028c6fd2565e7ab82f278d0e2"
+    },
+    {
+      "scene_id": "s10",
+      "slot": "main",
+      "file": "assets/s10_main.png",
+      "source_url": "codex://generated_images/019dd103-4d9d-7e22-a88b-249712e62a11/ig_0dd01b2a5448e3e70169efe029278c819193c5a8260d6bbb92.png",
+      "original_file": "ig_0dd01b2a5448e3e70169efe029278c819193c5a8260d6bbb92.png",
+      "prompt_sha256": "09235a49d8e75ac5ecdd3451018a08a63aa00319a159a8e9abc54cc2b127a62f"
+    }
+  ]
+}

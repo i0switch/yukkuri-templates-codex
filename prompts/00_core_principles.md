@@ -1,7 +1,7 @@
 # 00 Core Principles
 
-このファイルは v2 思想のサマリ（人間向け）。
-実行用プロンプト（AI が逐次読んで使うやつ）の正本は `_reference/script_prompt_pack/` を参照。
+このファイルは過去の設計思想サマリ（人間向け）であり、通常生成の必読入力ではない。
+現行の実行用プロンプト（AI が逐次読んで使うやつ）の正本は `docs/pipeline_contract.md` と `_reference/script_prompt_pack/` を参照。
 旧 `prompts/01-10` は `legacy/prompts/` へ退避済み。
 
 ## 目的

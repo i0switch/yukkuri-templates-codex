@@ -1,0 +1,195 @@
+{
+  "ok": true,
+  "episode_id": "ep983-zm-point-card-loss",
+  "started_at": "2026-04-27T22:14:31.977Z",
+  "finished_at": "2026-04-27T22:19:45.096Z",
+  "parallel": 3,
+  "dry_run": false,
+  "audit_image_prompts_ok": true,
+  "total_jobs": 10,
+  "selected_jobs": 10,
+  "skipped": [],
+  "jobs": [
+    {
+      "status": "generated",
+      "scene_id": "s01",
+      "slot": "main",
+      "file": "assets/s01_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-3a2f-7d10-a915-a6738528cd64\\ig_0b390f114e15cdca0169efdfe3af1c8191a7c99d1316c92a3f.png",
+      "source_url": "codex://generated_images/019dd102-3a2f-7d10-a915-a6738528cd64/ig_0b390f114e15cdca0169efdfe3af1c8191a7c99d1316c92a3f.png",
+      "original_file": "ig_0b390f114e15cdca0169efdfe3af1c8191a7c99d1316c92a3f.png",
+      "prompt_sha256": "b8cc55aedf43c7c606b17d304fcfe5e6358332a2c1426ad913058c5c204b71cb",
+      "started_at": "2026-04-27T22:14:31.978Z",
+      "finished_at": "2026-04-27T22:16:05.923Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s01_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s01_main.stderr.txt",
+      "session_ids": [
+        "019dd102-3a2f-7d10-a915-a6738528cd64",
+        "019dd102-461b-7562-99de-b8eae3ca2390"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s02",
+      "slot": "main",
+      "file": "assets/s02_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-3702-7cd0-9285-5a694ff9c534\\ig_07751d06cb34207e0169efdfe17f848191a9bc9ed21d040bad.png",
+      "source_url": "codex://generated_images/019dd102-3702-7cd0-9285-5a694ff9c534/ig_07751d06cb34207e0169efdfe17f848191a9bc9ed21d040bad.png",
+      "original_file": "ig_07751d06cb34207e0169efdfe17f848191a9bc9ed21d040bad.png",
+      "prompt_sha256": "59e7e88981816e26e4ee65c5fe7bcc854dc563be3b39edbb7925fd4b0aaffea4",
+      "started_at": "2026-04-27T22:14:31.990Z",
+      "finished_at": "2026-04-27T22:15:56.532Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s02_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s02_main.stderr.txt",
+      "session_ids": [
+        "019dd102-3702-7cd0-9285-5a694ff9c534",
+        "019dd102-3e88-7180-889d-336e682c198c"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s03",
+      "slot": "main",
+      "file": "assets/s03_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd102-383d-7ef0-8212-442628740edd\\ig_02b56de547addd1b0169efdfe005948191b93705065a11fdd9.png",
+      "source_url": "codex://generated_images/019dd102-383d-7ef0-8212-442628740edd/ig_02b56de547addd1b0169efdfe005948191b93705065a11fdd9.png",
+      "original_file": "ig_02b56de547addd1b0169efdfe005948191b93705065a11fdd9.png",
+      "prompt_sha256": "dd3375d4f454fb6ca443059256b1c6c4e77f9d6b198ef09920ef4a3f90ee7f7d",
+      "started_at": "2026-04-27T22:14:31.999Z",
+      "finished_at": "2026-04-27T22:15:59.856Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s03_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s03_main.stderr.txt",
+      "session_ids": [
+        "019dd102-383d-7ef0-8212-442628740edd",
+        "019dd102-405b-7570-81da-315045ce40a0"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s04",
+      "slot": "main",
+      "file": "assets/s04_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd103-8077-7a51-8aa3-3c3e26480b09\\ig_030fb45a17eeefcc0169efe0302b3c8191a1ae3febccc3f7db.png",
+      "source_url": "codex://generated_images/019dd103-8077-7a51-8aa3-3c3e26480b09/ig_030fb45a17eeefcc0169efe0302b3c8191a1ae3febccc3f7db.png",
+      "original_file": "ig_030fb45a17eeefcc0169efe0302b3c8191a1ae3febccc3f7db.png",
+      "prompt_sha256": "722fa5d36ef21951fc449b1dab0502bcafeeed88fdc8d3a0f372758fda435193",
+      "started_at": "2026-04-27T22:15:56.541Z",
+      "finished_at": "2026-04-27T22:17:10.297Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s04_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s04_main.stderr.txt",
+      "session_ids": [
+        "019dd103-8077-7a51-8aa3-3c3e26480b09",
+        "019dd103-8736-7833-9647-1a597d5d0d6a"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s05",
+      "slot": "main",
+      "file": "assets/s05_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd103-8909-78a3-b02b-d09f7eddad69\\ig_02d92300965f5ca70169efe037b76c81919d381f6f4ed662da.png",
+      "source_url": "codex://generated_images/019dd103-8909-78a3-b02b-d09f7eddad69/ig_02d92300965f5ca70169efe037b76c81919d381f6f4ed662da.png",
+      "original_file": "ig_02d92300965f5ca70169efe037b76c81919d381f6f4ed662da.png",
+      "prompt_sha256": "3709023cd749588ef204ed42f828b08b6d94ecde7669f24dc515880439113add",
+      "started_at": "2026-04-27T22:15:59.861Z",
+      "finished_at": "2026-04-27T22:17:22.935Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s05_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s05_main.stderr.txt",
+      "session_ids": [
+        "019dd103-8909-78a3-b02b-d09f7eddad69",
+        "019dd103-8fc3-7a61-b013-adf62dc93061"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s06",
+      "slot": "main",
+      "file": "assets/s06_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd103-9fae-7c02-b293-0d40b21dbd57\\ig_0e9c90dc61c6f24f0169efe0388f788191a73ebb5939c4fe13.png",
+      "source_url": "codex://generated_images/019dd103-9fae-7c02-b293-0d40b21dbd57/ig_0e9c90dc61c6f24f0169efe0388f788191a73ebb5939c4fe13.png",
+      "original_file": "ig_0e9c90dc61c6f24f0169efe0388f788191a73ebb5939c4fe13.png",
+      "prompt_sha256": "8372cfdeb9cedc443a399020d385b3c540a58fd9a78f74c38f9d411591e0f4af",
+      "started_at": "2026-04-27T22:16:05.929Z",
+      "finished_at": "2026-04-27T22:17:23.317Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s06_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s06_main.stderr.txt",
+      "session_ids": [
+        "019dd103-9fae-7c02-b293-0d40b21dbd57",
+        "019dd103-a58a-7bc1-b466-a1102eda52d2"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s07",
+      "slot": "main",
+      "file": "assets/s07_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd104-a1b8-7de0-b913-f6fcf901df8c\\ig_0ff55a21f5f106730169efe07b15c4819184aa881992f0cb7c.png",
+      "source_url": "codex://generated_images/019dd104-a1b8-7de0-b913-f6fcf901df8c/ig_0ff55a21f5f106730169efe07b15c4819184aa881992f0cb7c.png",
+      "original_file": "ig_0ff55a21f5f106730169efe07b15c4819184aa881992f0cb7c.png",
+      "prompt_sha256": "106eafd35ba9efb90e76716119ae75d443dc1005deef182ade78780d38d2f894",
+      "started_at": "2026-04-27T22:17:10.303Z",
+      "finished_at": "2026-04-27T22:18:19.824Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s07_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s07_main.stderr.txt",
+      "session_ids": [
+        "019dd104-a1b8-7de0-b913-f6fcf901df8c",
+        "019dd104-a916-7990-965f-48342dad87f0"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s08",
+      "slot": "main",
+      "file": "assets/s08_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd104-d199-7700-b6b3-749cef22df23\\ig_0f9052150c44a9e40169efe088d19081919490514d87173a1a.png",
+      "source_url": "codex://generated_images/019dd104-d199-7700-b6b3-749cef22df23/ig_0f9052150c44a9e40169efe088d19081919490514d87173a1a.png",
+      "original_file": "ig_0f9052150c44a9e40169efe088d19081919490514d87173a1a.png",
+      "prompt_sha256": "8250bccd786eef04d2399f9680d076c61a8d876182d5dddc10a38635c80b2efe",
+      "started_at": "2026-04-27T22:17:22.941Z",
+      "finished_at": "2026-04-27T22:18:47.197Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s08_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s08_main.stderr.txt",
+      "session_ids": [
+        "019dd104-d199-7700-b6b3-749cef22df23",
+        "019dd104-d7bf-76a0-bed7-529d9b0eac60"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s09",
+      "slot": "main",
+      "file": "assets/s09_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd104-d374-7870-8b63-7a9214582fd4\\ig_02aa4d84489644e70169efe0890c008191988d084bc59e0a0f.png",
+      "source_url": "codex://generated_images/019dd104-d374-7870-8b63-7a9214582fd4/ig_02aa4d84489644e70169efe0890c008191988d084bc59e0a0f.png",
+      "original_file": "ig_02aa4d84489644e70169efe0890c008191988d084bc59e0a0f.png",
+      "prompt_sha256": "3aaee0a107687a8676087835d2cb7e302fdfdcc895a29d40801575efbc9a82f3",
+      "started_at": "2026-04-27T22:17:23.323Z",
+      "finished_at": "2026-04-27T22:18:54.684Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s09_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s09_main.stderr.txt",
+      "session_ids": [
+        "019dd104-d374-7870-8b63-7a9214582fd4",
+        "019dd104-d9ee-7251-9036-16ad75fd6d41"
+      ]
+    },
+    {
+      "status": "generated",
+      "scene_id": "s10",
+      "slot": "main",
+      "file": "assets/s10_main.png",
+      "source_path": "C:\\Users\\i0swi\\.codex\\generated_images\\019dd105-aa9d-7111-8459-073b0468759f\\ig_00c5e7176f41d6760169efe0c1a8cc8191bf56bca2470d4717.png",
+      "source_url": "codex://generated_images/019dd105-aa9d-7111-8459-073b0468759f/ig_00c5e7176f41d6760169efe0c1a8cc8191bf56bca2470d4717.png",
+      "original_file": "ig_00c5e7176f41d6760169efe0c1a8cc8191bf56bca2470d4717.png",
+      "prompt_sha256": "d015aa75348c12cc938b928fdcf140516717ed30d0ace4d2159fc517673e2b03",
+      "started_at": "2026-04-27T22:18:19.829Z",
+      "finished_at": "2026-04-27T22:19:44.988Z",
+      "log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s10_main.jsonl",
+      "stderr_log": "script/ep983-zm-point-card-loss/audits/imagegen_batch/s10_main.stderr.txt",
+      "session_ids": [
+        "019dd105-aa9d-7111-8459-073b0468759f",
+        "019dd105-b03a-7ac2-a67e-a55a74cc961c"
+      ]
+    }
+  ],
+  "issues": []
+}

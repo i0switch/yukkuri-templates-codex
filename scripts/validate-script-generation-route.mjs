@@ -5,6 +5,7 @@ import {loadImagePromptPack} from './lib/load-image-prompt-pack.mjs';
 
 const rootDir = process.cwd();
 const scriptsDir = path.join(rootDir, 'scripts');
+const IGNORED_SCRIPT_DIRS = new Set(['node_modules', '.git', 'legacy', 'experimental', 'oneoff']);
 
 const pushIssue = (issues, level, code, message, details = {}) => {
   issues.push({level, code, message, details});
@@ -15,7 +16,7 @@ const walk = async (dirPath) => {
   for (const entry of await fs.readdir(dirPath, {withFileTypes: true})) {
     const entryPath = path.join(dirPath, entry.name);
     if (entry.isDirectory()) {
-      if (['node_modules', '.git', 'legacy', 'experimental'].includes(entry.name)) {
+      if (IGNORED_SCRIPT_DIRS.has(entry.name)) {
         continue;
       }
       files.push(...(await walk(entryPath)));
@@ -108,7 +109,7 @@ const audit = async () => {
   const report = {
     ok: !issues.some((issue) => issue.level === 'error'),
     checked_at: new Date().toISOString(),
-    ignored_dirs: ['scripts/legacy', 'scripts/experimental'],
+    ignored_dirs: ['scripts/legacy', 'scripts/experimental', 'scripts/oneoff'],
     issues,
   };
 

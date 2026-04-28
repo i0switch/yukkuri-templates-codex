@@ -29,18 +29,20 @@ const makeDialogue = (sceneIndex) =>
     text:
       sceneIndex === 1 && lineIndex === 0
         ? 'スマホ写真、消す前に3分で詰むのだ'
-        : sceneIndex === 1 && lineIndex === 1
-          ? 'それ、あるあるですわ'
-          : sceneIndex === 1 && lineIndex === 2
-            ? '今日確認すれば防げるのだ'
-            : sceneIndex === 10 && lineIndex === 6
-              ? '保存先をコメントで教えてほしいのだ'
-              : lineIndex === 2
-                ? 'それ普通にヤバいのだ'
-              : lineIndex === 4
-                ? 'マジでヤバい、完全に油断してたのだ'
-              : lineIndex % 2 === 0
-                ? `どうせ自動で保存されるから${sceneIndex}年放置で平気なのだ`
+      : sceneIndex === 1 && lineIndex === 1
+        ? 'それ、あるあるですわ'
+      : sceneIndex === 1 && lineIndex === 2
+        ? '今日確認すれば防げるよ'
+      : sceneIndex === 10 && lineIndex === 6
+        ? '保存先をコメントで教えてほしいな'
+      : lineIndex === 2
+        ? 'それ普通にヤバいのだ'
+      : lineIndex === 4
+        ? sceneIndex === 2 || sceneIndex === 5
+          ? 'マジでヤバい、完全に油断してたのだ'
+          : 'それは普通に怖いね'
+      : lineIndex % 2 === 0
+        ? `どうせ自動で保存されるから${sceneIndex}年放置で平気だよ`
                 : lineIndex === 1
                   ? '雑に信じないで'
                   : `例えば5GBを超えると保存されない写真が出ますわ`,
@@ -89,15 +91,31 @@ const script = {
   })),
 };
 
-const scriptFinal = `<!-- scene_format: fixture -->
-<!-- viewer_misunderstanding: fixture -->
-<!-- reaction_level: L3 -->
-<!-- mini_punchline: fixture -->
-<!-- number_or_example: 3つの確認 -->
-<!-- セルフ監査: fixture -->
-# fixture
+const scriptFinal = `# script_final
 
-${'ずんだもん「確認してから試すのだ」\nめたん「保存してから開くよ」\n'.repeat(40)}
+## s01: 消す前に保存先を見る
+
+ずんだもん「見てめたん！スマホ写真を一気に消したら、容量が10GBも空いたのだ！」
+めたん「その前に保存先を確認しましたか？」
+ずんだもん「え、まだ消しただけなのに負けルートなのだ？」
+めたん「クラウド同期前の写真を消すと、空いた容量より消えた思い出のほうが重くなりますわ。」
+ずんだもん「それ、昨日の自分に聞かせたいのだ。」
+めたん「今日は削除前に、保存先、同期完了、復元期限の3つを確認しますわ。」
+
+${'ずんだもん「見てめたん！確認リストに保存先を書いたのだ！」\nめたん「その一手で、消す前の事故をかなり減らせますわ。」\n'.repeat(40)}
+`;
+
+const strongReview = (body) => `<!-- script_final_sha256: ${scriptFinalSha256(body)} -->
+# script_final_review
+
+verdict: PASS
+blocking_issues: []
+
+## LLM台本レビュー
+- 冒頭15秒/冒頭1発話評価: PASS。具体行動と数字から始まり、小芝居として状況が見える。
+- メタ混入なし: PASS。script_final.md に設計メタ、監査ラベル、episode config は残っていない。
+- 説明bot判定: PASS。解説役は説明前に短い確認ツッコミを入れ、説明臭さは許容範囲。
+- 視聴継続/見る理由: PASS。消えた写真という損失と3点確認の回収先が見える。
 `;
 
 await fs.rm(episodeDir, {recursive: true, force: true});
@@ -106,16 +124,42 @@ await fs.writeFile(path.join(episodeDir, 'script.yaml'), stringify(script), 'utf
 await fs.writeFile(path.join(episodeDir, 'script_final.md'), scriptFinal, 'utf8');
 await fs.writeFile(
   path.join(episodeDir, 'audits', 'script_final_review.md'),
-  `<!-- script_final_sha256: ${scriptFinalSha256(scriptFinal)} -->\n# script_final_review\n\nverdict: PASS\n`,
+  strongReview(scriptFinal),
   'utf8',
 );
 
 run(['scripts/estimate-episode-duration.mjs', episodeId]);
-run(['scripts/audit-script-quality.mjs', episodeId]);
 run(['scripts/validate-script-final-review.mjs', episodeId]);
+run(['scripts/audit-script-quality.mjs', episodeId]);
+run(['scripts/audit-script-quality.mjs', 'tests/fixtures/good_script_opening_mini_drama.md']);
+run(['scripts/audit-script-quality.mjs', 'tests/fixtures/bad_script_opening_meta_explanation.md'], {expectFailure: true});
+
+await fs.writeFile(
+  path.join(episodeDir, 'audits', 'script_final_review.md'),
+  `<!-- script_final_sha256: ${scriptFinalSha256(scriptFinal)} -->\n# script_final_review\n\nverdict: PASS\nblocking_issues: []\n\n## LLM台本レビュー\n重大な不自然さはない。\n`,
+  'utf8',
+);
+run(['scripts/validate-script-final-review.mjs', episodeId], {expectFailure: true});
+
+await fs.writeFile(path.join(episodeDir, 'audits', 'script_final_review.md'), strongReview(scriptFinal), 'utf8');
 
 await fs.writeFile(path.join(episodeDir, 'script_final.md'), `${scriptFinal}\n追記でstale化\n`, 'utf8');
 run(['scripts/validate-script-final-review.mjs', episodeId], {expectFailure: true});
 
 await fs.rm(episodeDir, {recursive: true, force: true});
-console.log(JSON.stringify({ok: true, tested: ['estimate-episode-duration', 'audit-script-quality', 'script-final-review-stale']}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      ok: true,
+      tested: [
+        'estimate-episode-duration',
+        'script-final-review-required-fields',
+        'script-quality-good-fixture',
+        'script-quality-bad-fixture',
+        'script-final-review-stale',
+      ],
+    },
+    null,
+    2,
+  ),
+);

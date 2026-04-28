@@ -1,0 +1,242 @@
+meta:
+  episode_id: "ep985-zm-earphone-diff"
+  title: "安いイヤホンと高いイヤホンの違い"
+  pair: "ZM"
+  layout_template: "Scene21"
+  width: 1280
+  height: 720
+  voice_engine: "voicevox"
+  theme: "dark"
+
+characters:
+  left:
+    character: "zundamon"
+    voicevox_speaker_id: 3
+  right:
+    character: "metan"
+    voicevox_speaker_id: 2
+
+scenes:
+  - id: "s01"
+    title: "音質より先に見るべきポイント"
+    main:
+      kind: "image"
+      file: "assets/s01_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A high-quality product showcase image of a modern wireless earphone. Large bold text in Japanese '音質より先に見るべきポイント' is prominently displayed. The background shows a split between an audiophile listening to music and a gamer experiencing lag. Cinematic lighting, professional product photography style."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "ねえめたん、見てほしいのだ！　3,000円で超カッコいいイヤホンを買ったのだ！"
+      - character: "right"
+        text: "あら、ずんだもん。またそんな耳に詰めたうどんみたいな安物を買ったのですか？"
+      - character: "left"
+        text: "ひどいのだ！　これでも音は十分きれいなのだ。高いイヤホンなんて、ただのブランド代なのだ！"
+      - character: "right"
+        text: "ふふ、まだそんなことを言っているのですか。実は、イヤホン選びで『音質』ばかり見ている人は、高確率で損をしているのですわ"
+      - character: "left"
+        text: "えっ、音質以外に何を見るっていうのだ？"
+      - character: "right"
+        text: "例えば、ずんだもんが今悩んでいる『ゲームの遅延』や『会議でのマイク品質』……心当たりはありませんか？"
+      - character: "left"
+        text: "うっ……図星なのだ。実はさっきも、FPSをやってて音が遅れて負けたばかりなのだ……"
+      - character: "right"
+        text: "それはイヤホンが悪いのですわ。今回は、高いイヤホンと安いイヤホンの『本当の境界線』を教えてあげますわ"
+
+  - id: "s02"
+    title: "安いイヤホンが「聞こえればいい」で済まない理由"
+    main:
+      kind: "image"
+      file: "assets/s02_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "An illustration of a cheap wireless earphone being opened, revealing a tiny, poor-quality computer chip inside. Visual representation of 'unstable connection' with jagged red lines. Bold Japanese text '聞こえればいい、の罠'. High-tech but gritty atmosphere."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "でもめたん、音なんて聞こえれば何でも同じじゃないのだ？"
+      - character: "right"
+        text: "いいえ、現代のワイヤレスイヤホンは単なるスピーカーではなく、『小型のコンピューター』なのですわ"
+      - character: "left"
+        text: "コンピューター？　そんな大げさなのだ"
+      - character: "right"
+        text: "安いチップを積んでいると、接続が不安定になったり、周囲の電波に負けて音が途切れたりするのです"
+      - character: "left"
+        text: "あー、駅のホームとかでブツブツ切れるのはそのせいなのだ？"
+      - character: "right"
+        text: "その通りですわ。高いイヤホンは、安定して接続し続けるための『計算能力』にお金を払っていると言っても過言ではありませんの"
+
+  - id: "s03"
+    title: "遅延の罠：動画とゲームで致命的な差"
+    main:
+      kind: "image"
+      file: "assets/s03_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A dramatic split-screen. On one side, a video game character is already defeated. On the other, the sound of the attack is just arriving at the earphone. Large bold Japanese text '遅延の罠'. Futuristic UI elements showing millisecond counters."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "さっきのゲームの話だけど、ワイヤレスなら遅延は仕方ないんじゃないのだ？"
+      - character: "right"
+        text: "最近の高級機には『低遅延モード』や、高性能なコーデックが搭載されていますわ"
+      - character: "left"
+        text: "こーでっく？　また難しい言葉が出てきたのだ"
+      - character: "right"
+        text: "データを圧縮して送る仕組みのことですわ。安いものだと、音が届くまでに0.2秒以上かかることもありますの"
+      - character: "left"
+        text: "0.2秒って、格ゲーなら致命的なのだ！　ぼくのパンチが届く前に相手のコンボが終わってるのだ！"
+      - character: "right"
+        text: "動画視聴でも、口の動きと声がズレる『音ズレ』の原因になりますわ。ストレスが溜まるだけですのよ"
+
+  - id: "s04"
+    title: "あなたは「騒音公害」を撒き散らしていないか？"
+    main:
+      kind: "image"
+      file: "assets/s04_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A silhouette of a person in an online meeting, surrounded by loud visual icons of 'keyboard typing', 'vacuum cleaner', and 'fan noise' being picked up by a cheap microphone. The person on the screen looks annoyed. Bold Japanese text '騒音公害の正体'."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "マイクなんて、自分の声が届けばいいのだ。安物でも十分なのだ！"
+      - character: "right"
+        text: "ずんだもん、それは自分勝手というものですわ。安いマイクは『周囲のノイズ』まで全部拾ってしまうのです"
+      - character: "left"
+        text: "え、どういうことなのだ？"
+      - character: "right"
+        text: "リモート会議中に、相手から『キーボードの音がうるさい』とか『換気扇の音がガサガサする』と言われたことは？"
+      - character: "left"
+        text: "……昨日言われたのだ。掃除機かけてるのかって聞かれたのだ"
+      - character: "right"
+        text: "高級機は、AIを使って『自分の声だけ』を抽出する技術に多額のコストをかけていますわ。相手への思いやりこそが、価格の差なのですの"
+
+  - id: "s05"
+    title: "ノイズキャンセリングの「静寂」は集中力を買う投資"
+    main:
+      kind: "image"
+      file: "assets/s05_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A person sitting in a busy, noisy cafe, but they are surrounded by a sphere of pure silence and calm blue light. Visual representation of noise waves being cancelled. Bold Japanese text '静寂への投資'. Peaceful and focused atmosphere."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "ノイキャンなんて、耳栓をすれば同じなのだ！"
+      - character: "right"
+        text: "ずんだもん、最近のノイズキャンセリングは『不快な音だけを消し、声は通す』という魔法のような処理をしているのですわ"
+      - character: "left"
+        text: "魔法？　ぼくも魔法使いになりたいのだ！"
+      - character: "right"
+        text: "飛行機のエンジン音やカフェの雑音を消し去ることで、脳の疲労が劇的に減るのです。これは『静寂という集中力』を買っているのと同じですわ"
+      - character: "left"
+        text: "確かに、ノイキャンを使い始めた友達は、みんな世界が変わったって言ってるのだ……"
+
+  - id: "s06"
+    title: "バッテリーと耐久性：安物買いの銭失い"
+    main:
+      kind: "image"
+      file: "assets/s06_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A pile of broken cheap earphones next to a single, sturdy high-end earphone. A calendar showing the cheap ones breaking every month. Bold Japanese text '安物買いの銭失い'. Professional financial comparison style."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "後ろ向きなのだ！　安いのを買い替えるほうがコスパいいのだ！"
+      - character: "right"
+        text: "それが落とし穴ですわ。安いイヤホンはバッテリーの劣化が早く、半年で使い物にならなくなることも多いですの"
+      - character: "left"
+        text: "うっ……確かに、前に買った500円のやつは1ヶ月で片耳聞こえなくなったのだ"
+      - character: "right"
+        text: "高級機はバッテリーの保護回路もしっかりしています。結果的に、3万円のものを3年使うほうが、3,000円を何度も買い替えるより満足度が高いのですわ"
+
+  - id: "s07"
+    title: "2台同時接続がQOLを爆上げする理由"
+    main:
+      kind: "image"
+      file: "assets/s07_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "An earphone connected by two glowing blue lines to both a laptop and a smartphone simultaneously. A person smoothly answering a call while working. Bold Japanese text '2台同時接続の衝撃'. Clean tech setup."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "めたん、最近『まるちぽいんと』ってよく聞くけど、何なのだ？"
+      - character: "right"
+        text: "それは『2台のデバイスに同時に繋ぎっぱなしにできる』機能ですわ"
+      - character: "left"
+        text: "いちいち接続を切り替えなくていいってことなのだ？"
+      - character: "right"
+        text: "ええ。PCで動画を見ていて、スマホに電話がかかってきたら、そのままイヤホンで出られるのです。これに慣れると、もう戻れませんわよ"
+      - character: "left"
+        text: "ぼくも、PCからスマホに切り替えるときにいつもペアリングで苦戦してるのだ。それがあれば最強なのだ！"
+
+  - id: "s08"
+    title: "コーデックの迷信を解く"
+    main:
+      kind: "image"
+      file: "assets/s08_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A magnifying glass looking at various logos like 'LDAC', 'aptX', 'AAC'. A checklist showing compatibility with different devices. Bold Japanese text 'コーデックの迷信'. Scientific and analytical style."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "じゃあ、LDACとかaptXとか書いてあるやつを買えばいいのだ？"
+      - character: "right"
+        text: "それも大事ですが、まずは自分のデバイスが対応しているかを確認するのが先ですわ"
+      - character: "left"
+        text: "え、iPhoneでLDACは使えないのだ？"
+      - character: "right"
+        text: "残念ながら、標準では使えませんわ。自分のスマホで最高の音が出る設定を知ることが、無駄な買い物を防ぐ第一歩ですの"
+      - character: "left"
+        text: "あやうく、使えない機能にお金を払うところだったのだ。めたん、詳しいのだ！"
+
+  - id: "s09"
+    title: "結局いくらのイヤホンを買えばいいのか"
+    main:
+      kind: "image"
+      file: "assets/s09_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A price scale showing three tiers: 10,000 yen (Music), 20,000 yen (Standard), 30,000 yen (Pro/All-in-one). Icons representing the features gained at each level. Bold Japanese text '最適な価格帯'. Clear infographic style."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "結局、ぼくはいくらのイヤホンを買えばいいのだ？"
+      - character: "right"
+        text: "音楽を聴くだけなら1万円クラス。会議やゲーム、マルチポイントが欲しいなら2万円から3万円クラスが狙い目ですわ"
+      - character: "left"
+        text: "3万円……ぼくのずんだ餅が何個買えるのだ……"
+      - character: "right"
+        text: "耳への投資は、日々のストレスを減らすための自分へのプレゼントですわ。うどんを詰めて喜んでいる場合ではありませんのよ"
+      - character: "left"
+        text: "わかったのだ！　次のお給料で、ちゃんとスペックを見て買うことにするのだ！"
+
+  - id: "s10"
+    title: "スペック表のここだけ見ろ！"
+    main:
+      kind: "image"
+      file: "assets/s10_main.png"
+    visual_asset_plan:
+      - slot: "main"
+        imagegen_prompt: "A highlighted technical specification sheet of an earphone. The words 'Latency', 'Microphone', and 'Multipoint' are glowing. Bold Japanese text 'ここだけ見ろ！'. Summary and checklist style."
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "というわけで今回は、イヤホンの値段の正体について解説したのだ！"
+      - character: "right"
+        text: "音質だけでなく、遅延、マイク、そしてマルチポイント。この3点に注目して選んでみてくださいな"
+      - character: "left"
+        text: "みんなが今使ってるイヤホンの値段、コメント欄で教えてほしいのだ！"
+      - character: "right"
+        text: "安くても名機はありますから、自慢の逸品があればぜひ教えてくださいね"
+      - character: "left"
+        text: "ぼくもうどんを卒業して、めたんに褒められるイヤホンを見つけるのだ！"
+      - character: "right"
+        text: "期待していますわ。それでは、次回の動画でお会いしましょう"
+      - character: "left"
+        text: "また見てほしいのだー！"

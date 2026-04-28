@@ -36,7 +36,7 @@ s03: 通知は生活のすき間を全部食う
 
 `script.yaml` 内の `visual_asset_plan[].imagegen_prompt` を正本にする。
 
-`visual_type`、`supports_dialogue`、`supports_moment`、`hook_type`、`myth_vs_fact`、`boke_or_reaction` は v2 では使用しない。`imagegen_prompt` 本文にも構造メタにも混ぜない。
+`visual_type`、`supports_dialogue`、`supports_moment`、`hook_type`、`myth_vs_fact`、`boke_or_reaction` は現行フローでは使用しない。`imagegen_prompt` 本文にも構造メタにも混ぜない。
 `visual_asset_plan[].image_role` と `visual_asset_plan[].composition_type` は公開契約として使うが、本文には日本語の「画像の役割」「構図タイプ」として自然文で入れる。
 
 ## 画像内テキスト

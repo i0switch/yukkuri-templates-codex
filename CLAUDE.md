@@ -5,18 +5,20 @@
 作業時は次を正準入口にする。
 
 1. `docs/pipeline_contract.md`（成果物名、順序、停止条件、完了条件の単一正本）
-2. `AGENTS.md`
-3. `AI_VIDEO_GENERATION_GUIDE.md`
-4. `docs/architecture_v2.md`
-5. `prompts/00_core_principles.md`（v2 思想サマリ）
-6. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（実行用プロンプト正本）
-7. 必要な `_reference/script_prompt_pack/*.md`（00〜11）
+2. `docs/agent_fast_path.md`（通常生成の高速入口）
+3. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`（台本生成ルール）
+4. RMなら `_reference/script_prompt_pack/local_canonical/yukkuri_master.md`、ZMなら `_reference/script_prompt_pack/local_canonical/zundamon_master.md`
+5. 選択テンプレートの `templates/scene-XX_*.md`
+6. 工程に必要な `_reference/script_prompt_pack/*.md`（01〜11）
+
+キャラペアが未確定なら、`01_input_normalize_prompt.md` で `character_pair` を確定してから対応するローカル正本を1つだけ読む。`AGENTS.md`、`AI_VIDEO_GENERATION_GUIDE.md`、`legacy/docs_archive/**`、`prompts/00_core_principles.md` は通常生成の必読入力にしない。
 
 旧 `prompts/01-10` と `_reference/script_prompt_pack/legacy/` は退避資料。新規生成・監査では `_reference/script_prompt_pack/` の非 legacy ファイルを使う。
-旧版 docs の詳細は `legacy/CLAUDE.md.v1` / `legacy/AGENTS.md.v1` / `legacy/v1_root_docs/` に退避済み。矛盾する場合は `docs/pipeline_contract.md` を優先する。
+旧版 docs と過去ログの詳細は `legacy/CLAUDE.md.v1` / `legacy/AGENTS.md.v1` / `legacy/v1_root_docs/` / `legacy/docs_archive/` に退避済み。矛盾する場合は `docs/pipeline_contract.md` を優先する。
 
 台本生成時の探索除外は `docs/pipeline_contract.md` の「台本生成時の探索除外」に従う。
 `.claude/` は丸ごと禁止しないが、`.claude/worktrees/**` などの複製repo・生成物・依存関係は初動探索で読まない。
+`notebookLM/**`、`out/**`、`.remotion-public/**`、`script/**/assets/**`、`script/**/audio/**`、`script/**/bgm/**`、`scripts/oneoff/**` も通常生成の初動では読まない。
 
 ## Critical Script Quality Rule
 
@@ -31,7 +33,7 @@
    - 自然な会話
    - 文脈、ボケ、ツッコミ、具体例を優先
    - セリフ長は制限しない
-   - 実用上は1発話12〜40字程度で揺らす
+   - 表示都合で短く分割しない。長い解説は自然な発話単位で保持し、字幕表示はBudouX折り返しとAutoFitTextに任せる
    - 1シーン6〜12発話
 3. `script_final.md`
    - Codexレビュー対象の自然会話の完成版
@@ -133,7 +135,6 @@ placeholder、fallback、local card、copied、出所不明画像は受け入れ
 ## Required Commands
 
 ```powershell
-python scripts/run_pipeline.py --episode script/<episode_id> --dry-run  # 参考/skeleton
 npm run estimate:episode-duration -- <episode_id>
 npm run gate:episode -- <episode_id>
 npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4

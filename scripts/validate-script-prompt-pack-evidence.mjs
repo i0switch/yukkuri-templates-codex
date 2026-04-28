@@ -210,6 +210,7 @@ const audit = async () => {
     checked_at: new Date().toISOString(),
     audits_dir: path.relative(rootDir, auditsDir).replaceAll('\\', '/'),
     required_evidence: REQUIRED_EVIDENCE.map((item) => item.file),
+    script_quality_review: 'audits/script_final_review.md is validated separately by validate-script-final-review.mjs',
     codex_review_target: finalScript === null ? null : 'script_final.md',
     issues,
   };

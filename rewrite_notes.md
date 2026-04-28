@@ -26,8 +26,6 @@
 - `gate:episode`
 - `audit:script-quality`
 - `audit:image-prompts`
-- `audit:generated-images`
-- `audit:episode-quality`
 - `audit:video`
 
 ## 証跡 vs 監査の分離
@@ -61,7 +59,6 @@
 ## よく使うコマンド
 
 ```powershell
-python scripts/run_pipeline.py --episode script/<episode_id> --dry-run
 npm run gate:episode -- <episode_id>
 npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4
 node scripts/validate-script-prompt-pack-evidence.mjs <episode_id>

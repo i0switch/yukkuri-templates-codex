@@ -1,0 +1,623 @@
+meta:
+  id: auto_zundamon_storage_001
+  title: スマホの容量がすぐ埋まる本当の理由
+  pair: ZM
+  voice_engine: voicevox
+  layout_template: Scene21
+  width: 1280
+  height: 720
+  fps: 30
+  target_duration_sec: 300
+  audience: 写真を消してもスマホ容量が減らず困っている人
+  tone: 生活ハック・スマホ整理・不安解消
+  bgm_mood: 軽快な生活改善、少しミステリー、前向き
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+scenes:
+  - id: s01
+    motion_mode: punch
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 失敗例シミュレーション
+        imagegen_prompt_ref: s01.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 見てめたん、写真を百枚くらい消したのに、容量がほとんど空かないのだ！
+        expression: shock
+        emphasis: { words: [ 写真を百枚 ], style: number, se: warning, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: それ、スマホあるあるの落とし穴ですわ。写真だけを犯人にすると、真犯人を見逃しますの。
+        expression: serious
+        emphasis: { words: [ 真犯人 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: 写真を消しても容量が減らない理由、知ってる？ってやつなのだ？
+        expression: surprise
+        emphasis: { words: [ 減らない理由 ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: まさにそれですわ。実はスマホの容量は、写真より見えにくい場所でじわじわ食われることが多いのです。
+        expression: calm
+        emphasis: { words: [ 見えにくい場所 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: 見えない場所って怖いのだ。スマホの床下収納なのだ？
+        expression: worried
+        emphasis: { words: [ 床下収納 ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: 近いですわね。LINE、キャッシュ、動画アプリ、ダウンロード、アプリ内データ。このあたりが裏で太りますの。
+        expression: confident
+        emphasis: { words: [ 裏で太ります ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: ぼくは写真だけを退治して、裏ボスを放置してたのだ。
+        expression: wry
+        emphasis: { words: [ 裏ボス ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: だから今日は、スマホ容量の犯人をアプリ別に見つけて、安全に減らす順番まで整理しますわ。
+        expression: confident
+        emphasis: { words: [ アプリ別 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 今日こそ容量不足の赤い警告と別れるのだ！
+        expression: happy
+        emphasis: { words: [ 赤い警告 ], style: danger, se: warning, pause_after_ms: 300 }
+  - id: s02
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s02_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s02.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でも容量って、写真、動画、音楽みたいに種類で見るものじゃないのだ？
+        expression: confused
+        emphasis: { words: [ 種類で見る ], style: punch, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: それも見方の一つですわ。ただ、実際に大きい犯人を探すなら、アプリ別に見るほうが早いことが多いのです。
+        expression: calm
+        emphasis: { words: [ アプリ別 ], style: action, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: アプリ別？ゲームとかSNSが太るのだ？
+        expression: surprise
+        emphasis: { words: [ SNSが太る ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: そうですわ。アプリ本体だけでなく、アプリの中に保存された画像、動画、一時データ、履歴が一緒に増えるのです。
+        expression: serious
+        emphasis: { words: [ アプリの中 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: アプリって、インストールした時のサイズで止まってると思ってたのだ。
+        expression: confused
+        emphasis: { words: [ 止まってる ], style: punch, se: none, pause_after_ms: 0 }
+      - id: d06
+        speaker: right
+        text: 止まりませんわ。使うほど、見た画像、受け取った動画、保存したデータが積み上がりますの。
+        expression: serious
+        emphasis: { words: [ 積み上がります ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: つまりアプリは、使うたびにお土産を持って帰ってくるのだ？
+        expression: wry
+        emphasis: { words: [ お土産 ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: その例え、けっこう正しいですわ。問題は、そのお土産を本人が忘れていることですの。
+        expression: calm
+        emphasis: { words: [ 本人が忘れている ], style: punch, se: none, pause_after_ms: 0 }
+      - id: d09
+        speaker: left
+        text: ぼくのスマホ、知らないお土産屋さんになってるのだ。
+        expression: worried
+        emphasis: { words: [ お土産屋さん ], style: punch, se: pop, pause_after_ms: 300 }
+  - id: s03
+    motion_mode: normal
+    main:
+      kind: image
+      asset: assets/s03_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 証拠提示
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s03.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあ写真アプリから消した写真は、もう完全に消えたのだ？
+        expression: confident
+        emphasis: { words: [ 完全に消えた ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: 待ちなさい。トークアプリで受け取った写真や動画は、写真アプリとは別の場所に残ることがありますわ。
+        expression: serious
+        emphasis: { words: [ 別の場所 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: えっ、同じ写真なのに別腹なのだ？
+        expression: shock
+        emphasis: { words: [ 別腹 ], style: surprise, se: pop, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: 別腹ですわ。友だちから送られた動画、家族グループの写真、仕事のファイル。トークの中で積み上がることがありますの。
+        expression: calm
+        emphasis: { words: [ トークの中 ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: たしかにグループで謎に高画質の動画が飛んでくるのだ。犬が走るだけで容量も走るのだ。
+        expression: laugh
+        emphasis: { words: [ 容量も走る ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: かわいい動画ほど油断しますわね。しかも何度も見返せるように、アプリ側がデータを持つ場合がありますの。
+        expression: calm
+        emphasis: { words: [ アプリ側 ], style: punch, se: none, pause_after_ms: 0 }
+      - id: d07
+        speaker: left
+        text: 写真アプリを掃除しても、LINEの押し入れは散らかったままなのだ。
+        expression: worried
+        emphasis: { words: [ 押し入れ ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: そういうことですわ。トーク別のメディア管理や、アプリ内のストレージ管理を見るのが大事ですの。
+        expression: confident
+        emphasis: { words: [ アプリ内 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 犯人はアルバムじゃなくて、トーク部屋に潜んでたのだ！
+        expression: surprise
+        emphasis: { words: [ トーク部屋 ], style: surprise, se: reveal, pause_after_ms: 300 }
+  - id: s04
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s04_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 理解補助
+        composition_type: 誇張図解
+        imagegen_prompt_ref: s04.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: キャッシュってよく聞くけど、なんか悪者っぽい名前なのだ。
+        expression: puzzled
+        emphasis: { words: [ キャッシュ ], style: punch, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: 悪者ではありませんわ。キャッシュは、一度見た画像やページを次に速く表示するための一時データですの。
+        expression: calm
+        emphasis: { words: [ 一時データ ], style: action, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: じゃあ便利な荷物なのだ？
+        expression: smile
+        emphasis: { words: [ 便利な荷物 ], style: punch, se: none, pause_after_ms: 0 }
+      - id: d04
+        speaker: right
+        text: そうですわ。ただし便利だからといって、溜まり続けると部屋を圧迫しますの。
+        expression: serious
+        emphasis: { words: [ 溜まり続ける ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: 便利な段ボールが玄関をふさいでる感じなのだ。
+        expression: wry
+        emphasis: { words: [ 玄関をふさいでる ], style: danger, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: まさにそれですわ。SNS、ブラウザ、地図、ショッピングアプリは、見たものを速く出すためにデータを抱えることがありますの。
+        expression: confident
+        emphasis: { words: [ データを抱える ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: ぼくが商品ページを見まくったせいで、スマホが倉庫になってたのだ？
+        expression: shock
+        emphasis: { words: [ スマホが倉庫 ], style: surprise, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: ケースによりますが、可能性はありますわ。設定からキャッシュ削除ができるアプリもありますの。
+        expression: calm
+        emphasis: { words: [ ケースによります ], style: action, se: none, pause_after_ms: 0 }
+      - id: d09
+        speaker: left
+        text: 消していい荷物と、消したら困る荷物を見分けたいのだ。
+        expression: worried
+        emphasis: { words: [ 見分けたい ], style: action, se: success, pause_after_ms: 300 }
+  - id: s05
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s05_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 証拠写真風
+        imagegen_prompt_ref: s05.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でも一番でかいのは動画じゃないのだ？動画は見るからに重そうなのだ。
+        expression: confident
+        emphasis: { words: [ 動画 ], style: punch, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: その通りですわ。特に動画アプリのオフライン保存は、気づかないうちに大きくなりやすいですの。
+        expression: serious
+        emphasis: { words: [ オフライン保存 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: 移動中に見るために保存した動画、たしかに忘れてるのだ。
+        expression: worried
+        emphasis: { words: [ 忘れてる ], style: danger, se: none, pause_after_ms: 0 }
+      - id: d04
+        speaker: right
+        text: 一時的に保存したつもりでも、見終わったあと残ったままだと容量を使い続けますわ。
+        expression: calm
+        emphasis: { words: [ 残ったまま ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: 見終わった弁当箱をカバンに入れっぱなしみたいなのだ。
+        expression: laugh
+        emphasis: { words: [ 入れっぱなし ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: たとえは妙ですが、感覚は合っていますわ。動画は一本でも大きいので、数本残るだけで効きますの。
+        expression: confident
+        emphasis: { words: [ 数本残るだけ ], style: number, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: 写真百枚より、動画一本のほうが重いこともあるのだ？
+        expression: surprise
+        emphasis: { words: [ 動画一本 ], style: number, se: question, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: 画質や長さによりますが、十分ありえますわ。だから中盤の犯人は、アプリの中の一時データとオフライン保存なのです。
+        expression: serious
+        emphasis: { words: [ 一時データとオフライン保存 ], style: danger, se: reveal, pause_after_ms: 500 }
+      - id: d09
+        speaker: left
+        text: 実は見えない保存が本丸だったのだ！
+        expression: shock
+        emphasis: { words: [ 本丸 ], style: surprise, se: reveal, pause_after_ms: 300 }
+  - id: s06
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s06_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: チェックリスト
+        imagegen_prompt_ref: s06.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 大物はわかったのだ。じゃあ小さいファイルは無視でいいのだ？
+        expression: confused
+        emphasis: { words: [ 小さいファイル ], style: punch, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: 油断は禁物ですわ。ダウンロード、PDF、スクショ、画面録画は、小さくても数が増えると効きますの。
+        expression: serious
+        emphasis: { words: [ 数が増える ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: スクショはメモ代わりに撮るのだ。あとで見るつもりで、だいたい見ないのだ。
+        expression: wry
+        emphasis: { words: [ だいたい見ない ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: それが積み上がりますわ。メニュー、地図、予約番号、欲しい商品の比較。役目が終わったスクショは多いですの。
+        expression: calm
+        emphasis: { words: [ 役目が終わった ], style: action, se: success, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: ぼくのスクショ欄、過去の自分のメモ墓場なのだ。
+        expression: worried
+        emphasis: { words: [ メモ墓場 ], style: danger, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: 言い方は強いですが、近いですわ。さらに画面録画は短くても容量を使いやすいですの。
+        expression: serious
+        emphasis: { words: [ 画面録画 ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: ゲームの神プレイを録画したやつ、神プレイより容量のほうが強かったのだ。
+        expression: laugh
+        emphasis: { words: [ 容量のほうが強かった ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: 残したいものは残していいのです。ただ、保存した理由がもうないものは整理対象ですわ。
+        expression: calm
+        emphasis: { words: [ 保存した理由 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 全部消すんじゃなくて、役目が終わったものからなのだね。
+        expression: happy
+        emphasis: { words: [ 役目が終わったもの ], style: action, se: success, pause_after_ms: 300 }
+  - id: s07
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s07_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: s07.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: クラウドにバックアップしたら、本体からは自動で消えるのだ？
+        expression: confident
+        emphasis: { words: [ 自動で消える ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: そこも大きな勘違いですわ。バックアップと本体削除は、同じ動きとは限りませんの。
+        expression: serious
+        emphasis: { words: [ 同じ動きとは限りません ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: えっ、クラウドに置いたらスマホが軽くなる魔法じゃないのだ？
+        expression: shock
+        emphasis: { words: [ 魔法じゃない ], style: surprise, se: reveal, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: 魔法ではありませんわ。サービスや設定によって、本体にもコピーを残す場合がありますの。
+        expression: calm
+        emphasis: { words: [ 本体にもコピー ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: クラウドと本体で二重生活してる写真がいるのだ？
+        expression: confused
+        emphasis: { words: [ 二重生活 ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: そうですわ。しかも同期設定を間違えると、消したつもりが別の場所にも影響することがありますの。
+        expression: serious
+        emphasis: { words: [ 同期設定 ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: こわいのだ。雑に全部削除ボタンを押したら、思い出まで旅立ちそうなのだ。
+        expression: worried
+        emphasis: { words: [ 全部削除 ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: だから写真や重要ファイルは、削除前にバックアップ状態と復元方法を確認しますわ。
+        expression: confident
+        emphasis: { words: [ 復元方法 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 容量を空けたいだけなのに、思い出ガチャを回しちゃだめなのだ。
+        expression: wry
+        emphasis: { words: [ 思い出ガチャ ], style: punch, se: pop, pause_after_ms: 300 }
+  - id: s08
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s08_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: 手順図
+        imagegen_prompt_ref: s08.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあ結局、どこから見ればいいのだ？勘で消すのは怖いのだ。
+        expression: worried
+        emphasis: { words: [ どこから ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: まず設定のストレージ画面を開きますわ。そこでアプリ別の使用量を見るのが最短ですの。
+        expression: confident
+        emphasis: { words: [ ストレージ画面 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: アプリ別ランキングを見るのだね。容量界の大食い選手権なのだ。
+        expression: laugh
+        emphasis: { words: [ 大食い選手権 ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: そうですわ。上位三つを見るだけでも、かなり原因が見えますの。
+        expression: calm
+        emphasis: { words: [ 上位三つ ], style: number, se: reveal, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: 上位に写真じゃなくて動画アプリやLINEがいたら、そこが怪しいのだ？
+        expression: surprise
+        emphasis: { words: [ 動画アプリやLINE ], style: danger, se: question, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: 怪しいですわ。ただし、アプリを消す前に、その中に必要なデータがないか確認しますの。
+        expression: serious
+        emphasis: { words: [ 必要なデータ ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: いきなりアプリ削除は、冷蔵庫ごと捨てるみたいなものなのだ。
+        expression: shock
+        emphasis: { words: [ 冷蔵庫ごと ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: その通りですわ。まずはアプリ内のダウンロード削除、キャッシュ削除、不要ファイル削除からですの。
+        expression: confident
+        emphasis: { words: [ アプリ内 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 犯人を見てから、軽い掃除をするのだ。
+        expression: happy
+        emphasis: { words: [ 軽い掃除 ], style: action, se: success, pause_after_ms: 300 }
+  - id: s09
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s09_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: s09.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: キャッシュ削除なら、何でも押していいのだ？
+        expression: confident
+        emphasis: { words: [ 何でも押していい ], style: danger, se: question, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: 基本的にキャッシュは再取得できる一時データですが、アプリによって表示や名前が違いますわ。
+        expression: calm
+        emphasis: { words: [ 表示や名前が違います ], style: action, se: none, pause_after_ms: 0 }
+      - id: d03
+        speaker: left
+        text: じゃあ、よくわからないボタンは押さないほうがいいのだ？
+        expression: worried
+        emphasis: { words: [ 押さない ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: そうですわ。特にアプリのデータ削除、アカウント削除、トーク履歴削除は別物として慎重に見ますの。
+        expression: serious
+        emphasis: { words: [ 別物 ], style: danger, se: reveal, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: キャッシュ削除とデータ削除、名前が似てるのに怖さが違うのだ。
+        expression: shock
+        emphasis: { words: [ 怖さが違う ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: そこが大事ですわ。ログイン情報、下書き、トーク履歴、ゲームデータは、消すと戻しにくい場合がありますの。
+        expression: serious
+        emphasis: { words: [ 戻しにくい ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d07
+        speaker: left
+        text: 容量を空けるつもりが、セーブデータを成仏させたら泣くのだ。
+        expression: worried
+        emphasis: { words: [ 成仏 ], style: punch, se: fail, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: だから削除前には、アプリ内の説明を読み、必要ならバックアップや引き継ぎ設定を確認しますわ。
+        expression: confident
+        emphasis: { words: [ 削除前 ], style: action, se: success, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 安全確認してから掃除。スマホにも指差し確認なのだ。
+        expression: happy
+        emphasis: { words: [ 指差し確認 ], style: action, se: success, pause_after_ms: 300 }
+  - id: s10
+    motion_mode: recap
+    main:
+      kind: image
+      asset: assets/s10_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt_ref: s10.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: よし、容量不足を倒すために、スマホ全体を朝まで掃除するのだ！
+        expression: confident
+        emphasis: { words: [ 朝まで掃除 ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d02
+        speaker: right
+        text: 待ちなさい。最初から全部やると疲れて続きませんわ。今日やるのは一つだけですの。
+        expression: serious
+        emphasis: { words: [ 一つだけ ], style: action, se: reveal, pause_after_ms: 300 }
+      - id: d03
+        speaker: left
+        text: 一つだけでいいのだ？
+        expression: surprise
+        emphasis: { words: [ 一つだけ ], style: surprise, se: question, pause_after_ms: 300 }
+      - id: d04
+        speaker: right
+        text: はい。設定のストレージ画面を開く。上位三アプリを見る。不要なオフライン保存かキャッシュを一つ整理する。これだけですわ。
+        expression: confident
+        emphasis: { words: [ 上位三アプリ ], style: number, se: success, pause_after_ms: 300 }
+      - id: d05
+        speaker: left
+        text: 写真を闇雲に消すより、犯人の部屋を直接見るのだね。
+        expression: happy
+        emphasis: { words: [ 犯人の部屋 ], style: punch, se: pop, pause_after_ms: 300 }
+      - id: d06
+        speaker: right
+        text: そうですわ。写真、LINE、動画、キャッシュ、ダウンロード。どこが大きいかは人によりますの。
+        expression: calm
+        emphasis: { words: [ 人によります ], style: action, se: none, pause_after_ms: 0 }
+      - id: d07
+        speaker: left
+        text: みんなのスマホでは、何のアプリが一番食ってたのだ？コメントで教えてほしいのだ。
+        expression: smile
+        emphasis: { words: [ コメント ], style: action, se: success, pause_after_ms: 300 }
+      - id: d08
+        speaker: right
+        text: そして消す前には、必要なデータとバックアップを確認してくださいませ。
+        expression: serious
+        emphasis: { words: [ バックアップ ], style: danger, se: warning, pause_after_ms: 300 }
+      - id: d09
+        speaker: left
+        text: 今日の作戦は、上位三アプリを見て、一つだけ安全に軽くする、なのだ！
+        expression: happy
+        emphasis: { words: [ 一つだけ安全に ], style: action, se: success, pause_after_ms: 300 }
+      - id: d10
+        speaker: right
+        text: それが容量不足から抜け出す、いちばん現実的な第一歩ですわ。
+        expression: confident
+        emphasis: { words: [ 第一歩 ], style: action, se: success, pause_after_ms: 300 }
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/22234
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5

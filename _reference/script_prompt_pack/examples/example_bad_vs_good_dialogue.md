@@ -1,5 +1,8 @@
 # example_bad_vs_good_dialogue
 
+このファイルは人間監査や追加学習用の補助資料であり、通常生成の必読入力ではない。
+台本生成時は `00_MASTER_SCRIPT_RULES.md` と対象ペアの draft prompt を正本にする。
+
 会話品質の anti-pattern と、その書き直し例。
 
 draft / rewrite 工程では、自分の出力が下記いずれかに引っかかっていないかを必ず照合する。引っかかった場合は再修正する。

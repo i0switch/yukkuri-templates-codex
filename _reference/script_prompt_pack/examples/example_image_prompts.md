@@ -1,5 +1,7 @@
 # example_image_prompts
 
+このファイルは人間監査や追加学習用の補助資料であり、通常生成の必読入力ではない。
+
 詳しいサンプルは次を参照。
 
 - `script/ep950-rm-storage-first-step-sample/audits/script_prompt_pack_image_prompts.md`

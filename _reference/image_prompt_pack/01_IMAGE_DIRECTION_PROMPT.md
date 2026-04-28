@@ -1,6 +1,6 @@
 # 01_IMAGE_DIRECTION_PROMPT (廃止リマインダ)
 
-`image_direction` 中間ファイルは v2 では使用しない。
+`image_direction` 中間ファイルは現行フローでは使用しない。
 
 メイン画像は `script_final.md` の対象シーン全文を主入力にした直投げ型 `imagegen_prompt` で作る。詳細は次を参照する。
 

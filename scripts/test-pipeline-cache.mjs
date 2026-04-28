@@ -21,12 +21,29 @@ await fs.writeFile(audioFile, 'cached wav bytes', 'utf8');
 const firstHash = audioLineInputHash({voiceEngine: 'voicevox', speaker: 'left', voiceId: 3, text: '同じ台詞'});
 const secondHash = audioLineInputHash({voiceEngine: 'voicevox', speaker: 'left', voiceId: 3, text: '同じ台詞'});
 const changedTextHash = audioLineInputHash({voiceEngine: 'voicevox', speaker: 'left', voiceId: 3, text: '違う台詞'});
+const oldVoicevoxProfileHash = audioLineInputHash({
+  voiceEngine: 'voicevox',
+  speaker: 'left',
+  voiceId: 3,
+  text: '同じ台詞',
+  speechProfile: {speedScale: 1.32},
+});
+const currentVoicevoxProfileHash = audioLineInputHash({
+  voiceEngine: 'voicevox',
+  speaker: 'left',
+  voiceId: 3,
+  text: '同じ台詞',
+  speechProfile: {speedScale: 1.15},
+});
 
 if (firstHash !== secondHash) {
   throw new Error('audioLineInputHash must be stable for identical line inputs');
 }
 if (firstHash === changedTextHash) {
   throw new Error('audioLineInputHash must change when dialogue text changes');
+}
+if (oldVoicevoxProfileHash === currentVoicevoxProfileHash) {
+  throw new Error('audioLineInputHash must change when VOICEVOX speech profile changes');
 }
 
 await writeAudioManifest(fixtureDir, {
@@ -73,4 +90,4 @@ if (!legacy.ok || legacy.durationSec !== 1.23 || typeof legacy.fileSha256 !== 's
   throw new Error(`Expected legacy line-durations audio to be reusable, got ${JSON.stringify(legacy)}`);
 }
 
-console.log(JSON.stringify({ok: true, tested: ['audio-line-hash', 'audio-cache-reuse', 'audio-cache-invalidation', 'legacy-audio-cache-adoption']}, null, 2));
+console.log(JSON.stringify({ok: true, tested: ['audio-line-hash', 'speech-profile-hash', 'audio-cache-reuse', 'audio-cache-invalidation', 'legacy-audio-cache-adoption']}, null, 2));

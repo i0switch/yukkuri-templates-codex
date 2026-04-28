@@ -12,6 +12,12 @@ const assertIncludes = (content, needle, label) => {
   }
 };
 
+const assertNotIncludes = (content, needle, label) => {
+  if (content.includes(needle)) {
+    throw new Error(`${label} includes forbidden text: ${needle}`);
+  }
+};
+
 const layer = await fs.readFile(layerPath, 'utf8');
 const renderer = await fs.readFile(rendererPath, 'utf8');
 const zundamonPrompt = await fs.readFile(zundamonPromptPath, 'utf8');
@@ -20,15 +26,19 @@ for (const needle of [
   'data-visual-effect="flash-zoom"',
   'data-visual-effect="speed-lines-shake"',
   'ChapterTitleFlash',
-  "progress?.style === 'action'",
+  'Sparkles',
+  'SpeedLines',
   "['danger', 'surprise', 'number']",
 ]) {
-  assertIncludes(layer, needle, 'VisualEmphasisLayer');
+  assertNotIncludes(layer, needle, 'VisualEmphasisLayer');
 }
 
+assertIncludes(layer, 'export const VisualEmphasisLayer: React.FC<Props> = () => null;', 'VisualEmphasisLayer');
 assertIncludes(renderer, "import {VisualEmphasisLayer} from './VisualEmphasisLayer';", 'SceneRenderer');
 assertIncludes(renderer, '<VisualEmphasisLayer', 'SceneRenderer');
-assertIncludes(renderer, 'sceneGoal={scene.scene_goal}', 'SceneRenderer');
+assertNotIncludes(renderer, 'transform: `scale(${interpolate', 'SceneRenderer');
+assertNotIncludes(renderer, "motionMode === 'warning'", 'SceneRenderer');
+assertNotIncludes(renderer, "motionMode === 'reveal'", 'SceneRenderer');
 
 for (const needle of [
   '冒頭1番目のセリフは次の5タイプ',
@@ -39,4 +49,4 @@ for (const needle of [
   assertIncludes(zundamonPrompt, needle, '05_draft_prompt_zundamon.md');
 }
 
-console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer', 'SceneRenderer', '05_draft_prompt_zundamon.md']}, null, 2));
+console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer no-op', 'SceneRenderer static images', '05_draft_prompt_zundamon.md']}, null, 2));

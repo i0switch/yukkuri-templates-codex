@@ -37,14 +37,19 @@ const statFile = async (filePath) => {
   }
 };
 
-export const audioLineInputHash = ({voiceEngine, speaker, voiceId, text}) =>
-  hashObject({
+export const audioLineInputHash = ({voiceEngine, speaker, voiceId, text, speechProfile}) => {
+  const input = {
     kind: 'audio-line-v1',
     voice_engine: voiceEngine,
     speaker,
     voice_id: voiceId,
     text,
-  });
+  };
+  if (speechProfile && typeof speechProfile === 'object') {
+    input.speech_profile = speechProfile;
+  }
+  return hashObject(input);
+};
 
 export const readJsonFile = async (filePath, fallback = null) => {
   try {

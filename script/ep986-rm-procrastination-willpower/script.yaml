@@ -1,0 +1,192 @@
+meta:
+  episode_id: "ep986-rm-procrastination-willpower"
+  title: "なぜ先延ばしは気合いでは直らないのか"
+  pair: "RM"
+  layout_template: "Scene12"
+  width: 1280
+  height: 720
+  voice_engine: "aquestalk"
+  theme: "dark"
+
+characters:
+  left:
+    character: "reimu"
+  right:
+    character: "marisa"
+
+scenes:
+  - id: "s01"
+    title: "やる気は「待つ」ものではなく「出す」もの"
+    main:
+      kind: "image"
+      file: "assets/s01_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "ふぅ……。今日も一日、やる気が出なかったわね……。魔理沙、私、明日から本気出すことにしたわ"
+      - character: "right"
+        text: "おいおい霊夢、その『明日』が来た試しがあるのか？　やる気が出たらやる、なんて言ってたら、一生始まらないぜ"
+      - character: "left"
+        text: "だって魔理沙、体が動かないんだもの。こればっかりは気合が足りないせいよね。明日こそは気合を入れて頑張るわよ！"
+      - character: "right"
+        text: "待て待て霊夢。先延ばしは『気合』の問題じゃないんだぜ。実は、気合で直そうとするから、余計に動けなくなるんだぜ"
+      - character: "left"
+        text: "えっ、気合じゃないなら何なのよ？　性格の問題？"
+      - character: "right"
+        text: "いや、脳の仕組みの問題だぜ。今回は、なぜあなたの先延ばしが気合では直らないのか、その衝撃の正体を解説するぜ"
+      - character: "left"
+        text: "やる気を出さずに動ける方法があるなら、今すぐ教えてよ！"
+
+  - id: "s02"
+    title: "霊夢の気合論 vs 脳の現実"
+    main:
+      kind: "image"
+      file: "assets/s02_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "先延ばしにするのは、私の心が弱いからだと思ってたわ。だから、強い意志さえあれば……！"
+      - character: "right"
+        text: "残念ながら、人間の意志力はバッテリーと同じで、朝起きたときが最大でどんどん減っていくんだぜ"
+      - character: "left"
+        text: "えっ、バッテリーなの？　私の意志力、朝の洗顔だけで使い切ってる気がするわ……"
+      - character: "right"
+        text: "あながち間違いじゃないぜ。選択や我慢をするたびに意志力は削られる。だから、夜に『明日こそは！』と意気込んでも、翌日には空っぽなんだぜ"
+
+  - id: "s03"
+    title: "なぜ脳は「重要な作業」を避けたがるのか？"
+    main:
+      kind: "image"
+      file: "assets/s03_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "でも、やりたいゲームとかは先延ばしにしないわよ。宿題とか仕事だけが動けないのよね"
+      - character: "right"
+        text: "それは脳の『扁桃体』という場所が、重要な作業を『敵』だと認識してるからなんだぜ"
+      - character: "left"
+        text: "宿題が敵？　私の脳、戦いすぎじゃない？"
+      - character: "right"
+        text: "難しい、面倒、失敗するかも、というストレスを、脳は物理的な痛みと同じように処理するんだぜ。だから、自分を守るために『逃げろ！』と命令を出す。それが先延ばしの正体だぜ"
+
+  - id: "s04"
+    title: "「怠惰」ではなく「恐怖」の正体"
+    main:
+      kind: "image"
+      file: "assets/s04_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "逃げてるっていうのは自覚あるわ。でも、怠けてるだけじゃないの？"
+      - character: "right"
+        text: "実は、先延ばしにする人ほど『完璧主義』な傾向があるんだぜ"
+      - character: "left"
+        text: "私が完璧主義？　部屋、こんなに散らかってるのに？"
+      - character: "right"
+        text: "『やるなら完璧にやらなきゃ』『失敗したらどうしよう』という恐怖が強いほど、脳はブレーキをかけるんだぜ。つまり、あなたは怠惰なんじゃなくて、真面目すぎて動けないんだぜ"
+      - character: "left"
+        text: "な、なんか褒められてる気分だけど、動けないのは変わらないわよ！"
+
+  - id: "s05"
+    title: "意志力をドブに捨てる小さな決断"
+    main:
+      kind: "image"
+      file: "assets/s05_main.png"
+    sub: null
+    dialogue:
+      - character: "right"
+        text: "だから、意志力に頼るのをやめるんだぜ。霊夢、朝起きてから何を考えてる？"
+      - character: "left"
+        text: "えーっと、今日は何を着ようかとか、朝ごはんは何にしようかとか……"
+      - character: "right"
+        text: "その『小さな決断』ですら、意志力を消耗してるんだぜ。動ける人は、決断を減らして『仕組み』で動いてるんだぜ"
+      - character: "left"
+        text: "仕組み？　ロボットみたいにってこと？"
+
+  - id: "s06"
+    title: "5秒ルールで脳をジャックする"
+    main:
+      kind: "image"
+      file: "assets/s06_main.png"
+    sub: null
+    dialogue:
+      - character: "right"
+        text: "一番手軽なのは『5秒ルール』だぜ。やりたいことを思いついたら、5・4・3・2・1・ゴー！ で動くんだぜ"
+      - character: "left"
+        text: "えっ、それだけでいいの？　そんな子供騙しみたいなことで……"
+      - character: "right"
+        text: "脳が言い訳を始める前に体を動かすのがポイントだぜ。5秒以上経つと、脳は『今は寒いから』とか『コーヒーを飲んでから』と、やらない理由を無限に生み出すんだぜ"
+      - character: "left"
+        text: "確かに、考え始めるとすぐスマホを触っちゃうわね……"
+
+  - id: "s07"
+    title: "ハードルを「ゴミ」レベルまで下げる技術"
+    main:
+      kind: "image"
+      file: "assets/s07_main.png"
+    sub: null
+    dialogue:
+      - character: "right"
+        text: "次は『ベビーステップ』だぜ。目標を限界まで小さくするんだぜ"
+      - character: "left"
+        text: "例えば？　宿題を1ページやる、とか？"
+      - character: "right"
+        text: "甘いぜ霊夢。目標は『ノートを開くだけ』『パソコンの電源を入れるだけ』だぜ"
+      - character: "left"
+        text: "電源入れるだけ！？　それ、やったうちに入らないわよ！"
+      - character: "right"
+        text: "いいんだぜ。脳に『これは敵じゃない、簡単だ』と思わせることが重要なんだぜ。一度動けば、脳の『側坐核』が刺激されて、勝ためにやる気が出てくるんだぜ"
+
+  - id: "s08"
+    title: "ポモドーロ・テクニックの落とし穴"
+    main:
+      kind: "image"
+      file: "assets/s08_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "25分集中して5分休む、っていうやつよね？　私、25分も持たないわ"
+      - character: "right"
+        text: "なら5分集中して30秒休む、でもいいんだぜ。大事なのは、時間を短く区切って『これくらいなら耐えられる』と自分を騙すことだぜ"
+      - character: "left"
+        text: "5分なら私でもできるかも。砂時計でも買おうかしら"
+      - character: "right"
+        text: "タイマーをセットする行為自体が、脳への『開始合図』になるからおすすめだぜ"
+
+  - id: "s09"
+    title: "今日から「気合」をゴミ箱に捨てよう"
+    main:
+      kind: "image"
+      file: "assets/s09_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "わかったわ魔理沙。私、今日から気合を捨てて、5秒ルールで動くわ！"
+      - character: "right"
+        text: "ああ。先延ばしは心の弱さじゃない、脳の仕組みをハックできてないだけなんだぜ"
+      - character: "left"
+        text: "やる気なんて待ってても来ない。自分で迎えに行くってことね！"
+      - character: "right"
+        text: "その通りだぜ。気合論を卒業して、賢く体を動かしていこうぜ"
+
+  - id: "s10"
+    title: "今すぐこの動画を閉じてやるべきこと"
+    main:
+      kind: "image"
+      file: "assets/s10_main.png"
+    sub: null
+    dialogue:
+      - character: "left"
+        text: "というわけで、今回は先延ばしの正体と対策を解説したわ！"
+      - character: "right"
+        text: "みんなが今、一番先延ばしにしてることは何だぜ？　よかったらコメント欄で教えてくれだぜ"
+      - character: "left"
+        text: "コメントを書くのも『5秒ルール』でやってみてね！"
+      - character: "right"
+        text: "この動画を閉じたら、まずは『1分だけ』その作業をやるんだぜ。いいな？"
+      - character: "left"
+        text: "わかったわ！　私も今からお皿を洗うわよ！　5・4・3……"
+      - character: "right"
+        text: "おっ、いい調子だぜ。それでは、次回の動画でお会いしましょうなんだぜ"
+      - character: "left"
+        text: "まったねー！"

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {parseDocument} from 'yaml';
-import {estimateEpisodeDuration} from './lib/duration-estimator.mjs';
+import {estimateEpisodeDurationWithMeasurements} from './lib/duration-estimator.mjs';
 
 const rootDir = process.cwd();
 const target = process.argv[2];
@@ -20,11 +20,12 @@ const resolveTarget = (value) => {
 
 const scriptPath = resolveTarget(target);
 const script = parseDocument(await fs.readFile(scriptPath, 'utf8')).toJS();
+const episodeDir = path.dirname(scriptPath);
 const report = {
   episode_id: script?.meta?.id ?? path.basename(path.dirname(scriptPath)),
   checked_at: new Date().toISOString(),
   script_path: path.relative(rootDir, scriptPath).replaceAll('\\', '/'),
-  ...estimateEpisodeDuration(script),
+  ...(await estimateEpisodeDurationWithMeasurements(script, {episodeDir})),
 };
 
 console.log(JSON.stringify(report, null, 2));

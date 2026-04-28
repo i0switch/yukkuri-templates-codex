@@ -39,8 +39,6 @@ npm run render:episode -- <episode_id> out/videos/<episode_id>.mp4 --force
 
 `--force` はBGM、音声、Remotionレンダーをまとめて再実行する。画像生成そのものは外部/imagegen工程なので、既存画像の受け入れ台帳とhashで差分判定する。
 
-`python scripts/run_pipeline.py --episode script/<episode_id> --dry-run` は参考/skeleton。完成判定は Node gate、render、video audit を正本にする。
-
 ## Stop Points
 
 - `script_final_review.md` の `script_final_sha256` が現在の `script_final.md` と一致しない場合は再レビューする

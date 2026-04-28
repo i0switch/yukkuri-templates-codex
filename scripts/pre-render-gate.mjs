@@ -41,10 +41,11 @@ const auditsDir = path.join(episodeDir, 'audits');
 const isHybridUserScript = await fileExists(path.join(auditsDir, 'manual_intake.md'));
 
 run(['scripts/validate-script-generation-route.mjs']);
+run(['scripts/normalize-aquestalk-presets.mjs', episodeId]);
 run(['scripts/validate-script-prompt-pack-evidence.mjs', episodeId]);
 run(['scripts/validate-script-final-review.mjs', episodeId]);
-run(['scripts/estimate-episode-duration.mjs', episodeId]);
 run(['scripts/audit-script-quality.mjs', episodeId]);
+run(['scripts/estimate-episode-duration.mjs', episodeId]);
 run(promptOnly ? ['scripts/validate-episode-script.mjs', episodeId, '--prompt-only'] : ['scripts/validate-episode-script.mjs', episodeId]);
 
 console.log('[pre-render-gate] direct script_final image prompt mode: skipped image prompt, generated-image, and image-heavy episode audits');
@@ -59,18 +60,19 @@ await fs.writeFile(
       checked_at: new Date().toISOString(),
       checks: [
         'validate-script-generation-route',
+        'normalize-aquestalk-presets',
         'validate-script-prompt-pack-evidence',
         'validate-script-final-review',
+        'audit-script-quality',
         'estimate-episode-duration',
         promptOnly ? 'validate-episode-script --prompt-only' : 'validate-episode-script',
-        'audit-script-quality',
         isHybridUserScript ? 'hybrid_user_script manual intake evidence' : 'script prompt pack presence',
         isHybridUserScript ? 'source_manual_script.md and audits/manual_intake.md' : 'episode-level script prompt pack evidence files',
         'script_final.md exists as the single Codex review target',
         'image prompt pack presence',
         'direct script_final scene text is allowed in visual_asset_plan imagegen_prompt',
         'image prompt and generated-image audits are intentionally non-blocking',
-        'dialogue rejects known mechanical conversion artifacts',
+        'script_final.md metadata leaks and weak openings are blocked before render',
       ],
       prompt_only: promptOnly,
       mode: isHybridUserScript ? 'hybrid_user_script' : 'prompt_pack',

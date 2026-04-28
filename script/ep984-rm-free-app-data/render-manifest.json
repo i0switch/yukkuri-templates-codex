@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T23:11:17.244Z",
+  "input_hash": "6231a89063d92738123e9229486b248197017c302a7884ab10c5879e70fa18e1",
+  "inputs": {
+    "script_final": "c4c021137cf3327f1cf8d5af413b238e5f7932397687c0daf82bc824f36b053c",
+    "script_yaml": "5fd53aded6bf4241f2d5a01a728033214cb33c90a080f90ecfcb35ac1a5b5c17",
+    "image_prompts": "3d7114e4f0cffc8d9a417723f4b1697935062ddee0c3513eadab640d1bb6fda9",
+    "image_files": "8a6c868f09548751f09afc1baedf77a6c675b189409d4498b8161edf142087fc",
+    "bgm_files": "587aef5be8e468eafb141c28ba2ecf2724be072ba628118e908fc1da1ebee14e",
+    "render_json": "381251b001de8782545cbf052af9ed4bd6632661c8bd8453c0559adfc8b02fcd"
+  },
+  "output": "out/videos/ep984-rm-free-app-data.mp4",
+  "composition_id": "Video-ep984-rm-free-app-data"
+}

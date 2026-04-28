@@ -5,6 +5,7 @@ import {loadEpisodeRenderData} from './lib/load-script';
 import {episodeCompositions} from './generated/episode-compositions';
 import {DebugChars} from './compositions/_DebugChars';
 import {VideoMain} from './compositions/VideoMain';
+import {LP} from './components/LP';
 import {Scene01} from './compositions/Scene01';
 import {Scene02} from './compositions/Scene02';
 import {Scene03} from './compositions/Scene03';
@@ -66,7 +67,8 @@ const sceneEntries = [
 
 const toCompositionEpisodeId = (episodeId: string) => episodeId.replace(/[^a-zA-Z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, '-');
 
-export const Root: React.FC = () => {
+export const createRoot = (activeEpisodeCompositions = episodeCompositions): React.FC => {
+  const RootWithEpisodes: React.FC = () => {
   const keifontUrl = staticFile(KEIFONT_PUBLIC_PATH);
   const [fontHandle] = React.useState(() => delayRender('Loading Keifont'));
 
@@ -101,8 +103,9 @@ export const Root: React.FC = () => {
           }
         `}
       </style>
+      <Composition id="LP" component={LP} {...common} height={7800} durationInFrames={300} />
       <Composition id="DebugChars" component={DebugChars} {...common} />
-      {episodeCompositions.map((episodeRenderData) => (
+      {activeEpisodeCompositions.map((episodeRenderData) => (
         <Composition
           key={episodeRenderData.meta.id}
           id={`Video-${toCompositionEpisodeId(episodeRenderData.meta.id)}`}
@@ -169,4 +172,9 @@ export const Root: React.FC = () => {
       })}
     </>
   );
+  };
+
+  return RootWithEpisodes;
 };
+
+export const Root = createRoot();

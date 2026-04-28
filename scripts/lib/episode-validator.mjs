@@ -1,5 +1,6 @@
 ﻿import fs from 'node:fs/promises';
 import path from 'node:path';
+import {isValidRmAquesTalkPreset, normalizeAquesTalkPreset, VALID_RM_AQUESTALK_PRESETS} from './aquestalk-presets.mjs';
 
 export const SCENE_TEMPLATE_IDS = Array.from({length: 21}, (_, index) => `Scene${String(index + 1).padStart(2, '0')}`);
 export const SCENE_TEMPLATE_ID_SET = new Set(SCENE_TEMPLATE_IDS);
@@ -943,6 +944,21 @@ const validateVoiceEngineBindings = ({script, errors}) => {
     }
     if (pair === 'RM' && Object.prototype.hasOwnProperty.call(config, 'voicevox_speaker_id')) {
       pushIssue(errors, 'error', `characters.${side}.voicevox_speaker_id`, 'RM episodes must not use voicevox_speaker_id');
+    }
+    if (pair === 'RM') {
+      const preset = config.aquestalk_preset;
+      if (typeof preset !== 'string' || preset.trim() === '') {
+        pushIssue(errors, 'error', `characters.${side}.aquestalk_preset`, `RM ${side} must use an AquesTalk preset`);
+      } else if (!isValidRmAquesTalkPreset(preset)) {
+        const normalized = normalizeAquesTalkPreset({side, preset});
+        const valid = [...VALID_RM_AQUESTALK_PRESETS].join(', ');
+        pushIssue(
+          errors,
+          'error',
+          `characters.${side}.aquestalk_preset`,
+          `RM ${side} aquestalk_preset must be normalized before render: ${preset} -> ${normalized}; valid presets: ${valid}`,
+        );
+      }
     }
   }
 };

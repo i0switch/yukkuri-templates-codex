@@ -90,6 +90,7 @@ planning.md
 
 台本生成、構成作成、YAML化、画像プロンプト作成の初動では、必要な正準ドキュメントと対象 episode だけを読む。
 高速化のため、生成物、複製repo、依存関係、公開用コピーを再帰探索してはいけない。
+通常の新規 episode 生成では `docs/agent_fast_path.md` を併用し、初動で読むファイルを最小化する。
 
 `.claude/` は丸ごと禁止しない。必要時に限り、次は読んでよい。
 
@@ -114,6 +115,7 @@ planning.md
 - `node_modules/**`
 - `.cache/**`
 - `.remotion-public/**`
+- `notebookLM/**`
 - `out/**`
 - `public/episodes/**`
 - `script/**/audio/**`
@@ -121,6 +123,25 @@ planning.md
 - `script/**/assets/**`
 
 過去 episode を参照する場合は、ユーザー指定の episode、または明示的に選んだ最大2本の軽量テキスト成果物だけに限定する。
+`scripts/oneoff/**` は過去 episode 用の使い捨て修正・移行スクリプトであり、通常生成ルートの入口として読まない。
+
+## Temporary Script Cleanup
+
+エージェントが作業中に自作した一時スクリプト、検証用スクリプト、移行用スクリプト、対象 episode 専用の生成スクリプトは、作業完了前に必ず削除する。
+`scripts/`、repo root、`tmp/`、`.cache/`、対象 episode 配下のどこに作った場合でも、使い終わったら残してはいけない。
+
+例外は、ユーザーが明示的に保存を指示した場合、または既存の恒久コマンドとして `package.json`、テスト、ドキュメント、gate に正式接続して保守対象にした場合だけ。
+その場合も、ファイル名、用途、実行コマンド、削除しない理由を完了報告に明記する。
+
+次は禁止する。
+
+- `create-epXXX.mjs`、`fix-epXXX.mjs`、`generate-epXXX.mjs` など episode 固有スクリプトを残す
+- `oneoff`、`temp`、`tmp`、`scratch`、`debug`、`test-run` 名の自作スクリプトを残す
+- 自作スクリプトを残したまま「完了」と報告する
+- 古い自作スクリプトを通常生成や監査の入口として再利用する
+
+完了前には、自分が追加したスクリプトを `git status` と `rg` で確認し、恒久化しないものを削除する。
+一時スクリプトが残っている場合、その作業は未完了扱いにする。
 
 ## 視聴維持 vNext メタ
 
@@ -162,6 +183,13 @@ hybrid_user_script では、AI が `image_prompt_v2.md` と `visual_asset_plan[]
 ## Prompt Pack
 
 新規生成では `_reference/script_prompt_pack/` の非 legacy ファイルだけを使う。
+
+台本品質のローカル正本は、キャラペアに対応する1ファイルだけ読む。
+
+- RM / ゆっくり解説: `_reference/script_prompt_pack/local_canonical/yukkuri_master.md`
+- ZM / ずんだもん解説: `_reference/script_prompt_pack/local_canonical/zundamon_master.md`
+
+キャラペアが未確定なら、`01_input_normalize_prompt.md` で `character_pair` を確定してから対象ペアの正本だけを読む。RM/ZM両方のローカル正本を同時に読まない。
 
 正準順序:
 
@@ -260,7 +288,7 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 5分指定は `270〜330秒` を許容範囲にする。発話数は目安であり、最終判断はTTSエンジン別の推定自然音声秒数とbuild後の実音声秒数で行う。
 
 - RM / AquesTalk 初期係数: `5.2秒/発話`
-- ZM / VOICEVOX 初期係数: `3.8秒/発話`
+- ZM / VOICEVOX 初期係数: `3.3秒/発話`（`speedScale: 1.15` 前提）
 - `npm run estimate:episode-duration -- <episode_id>` を音声生成前に実行する
 - `audio_playback_rate` や `atempo` で尺合わせしない
 - 推定自然音声尺またはbuild後の実音声尺が下限未満の場合は、`07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む

@@ -263,27 +263,19 @@ const legacyPrompt = `s01: 古い固定文
 画像の雰囲気はテストで生成してください。${'下部'}${'20%'}は字幕とキャラクター用に余白を残してください。`;
 const weakPath = await writeFixture({name: 'weak-prompt', badPrompt: weakPrompt});
 const legacyPath = await writeFixture({name: 'legacy-prompt', badPrompt: legacyPrompt});
-const sheetPath = await writeFixture({name: 'grid-sheet', sheetMeta: true});
 const passPath = await writeFixture({name: 'pass'});
 const promptRefPath = await writeFixture({name: 'prompt-ref-pass', usePromptRef: true});
 const userGeneratedPath = await writeFixture({name: 'user-generated-pass', userGenerated: true});
 const userGeneratedNoRightsPath = await writeFixture({name: 'user-generated-no-rights', userGenerated: true, rightsConfirmed: false});
-const duplicateImagesPath = await writeFixture({name: 'duplicate-images', userGenerated: true, duplicateImages: true});
 
 // audit-image-prompts.mjs is non-blocking in v2 (exit 0); verify the report flags issues instead.
 run(['scripts/audit-image-prompts.mjs', weakPath], {expectReportIssues: true});
 run(['scripts/audit-image-prompts.mjs', legacyPath], {expectReportIssues: true});
-run(['scripts/validate-episode-script.mjs', sheetPath]);
-run(['scripts/audit-episode-quality.mjs', sheetPath], {expectFailure: true});
 run(['scripts/audit-image-prompts.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', passPath]);
-run(['scripts/audit-episode-quality.mjs', passPath]);
 run(['scripts/audit-image-prompts.mjs', promptRefPath]);
-run(['scripts/audit-episode-quality.mjs', promptRefPath]);
+run(['scripts/validate-episode-script.mjs', promptRefPath]);
 run(['scripts/validate-episode-script.mjs', userGeneratedPath]);
-run(['scripts/audit-episode-quality.mjs', userGeneratedPath]);
 run(['scripts/validate-episode-script.mjs', userGeneratedNoRightsPath], {expectFailure: true});
-run(['scripts/audit-episode-quality.mjs', userGeneratedNoRightsPath], {expectFailure: true});
-run(['scripts/audit-episode-quality.mjs', duplicateImagesPath], {expectFailure: true});
 
 console.log(JSON.stringify({ok: true, fixture_root: path.relative(rootDir, fixtureRoot).replaceAll('\\', '/')}, null, 2));

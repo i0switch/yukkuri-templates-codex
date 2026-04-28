@@ -210,17 +210,18 @@ run(['scripts/estimate-episode-duration.mjs', target300At340], {
   expectMessage: '"duration_status": "over"',
 });
 
-const underEstimate = estimateFixture({targetDurationSec: 300, lineCount: 100});
+const underEstimate = estimateFixture({targetDurationSec: 300, lineCount: 80});
 assert(underEstimate.ok === false, 'under target estimate must fail');
 assert(underEstimate.duration_status === 'under', 'under target estimate must report duration_status=under');
 assert(underEstimate.recommended_line_delta > 0, 'under target estimate must recommend additional lines');
 
-const withinEstimate = estimateFixture({targetDurationSec: 300, lineCount: 120});
+const withinEstimate = estimateFixture({targetDurationSec: 300, lineCount: 90});
 assert(withinEstimate.ok === true, 'within target estimate must pass');
 assert(withinEstimate.duration_status === 'within', 'within target estimate must report duration_status=within');
 assert(withinEstimate.recommended_line_delta === 0, 'within target estimate must not recommend line changes');
+assert(withinEstimate.seconds_per_line === 3.3, 'VOICEVOX estimate must use 3.3 seconds per line for speedScale 1.15');
 
-const overEstimate = estimateFixture({targetDurationSec: 300, lineCount: 150});
+const overEstimate = estimateFixture({targetDurationSec: 300, lineCount: 110});
 assert(overEstimate.ok === true, 'over target estimate must pass');
 assert(overEstimate.duration_status === 'over', 'over target estimate must report duration_status=over');
 assert(overEstimate.recommended_line_delta === 0, 'over target estimate must not recommend line changes');

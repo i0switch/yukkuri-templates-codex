@@ -1,5 +1,7 @@
 # example_script_yukkuri
 
+このファイルは人間監査や追加学習用の補助資料であり、通常生成の必読入力ではない。
+
 詳しいサンプルは `script/ep950-rm-storage-first-step-sample/script.md` を参照。
 
 このサンプルは次を満たす。

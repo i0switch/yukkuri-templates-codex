@@ -1,5 +1,7 @@
 # example_input_zundamon
 
+このファイルは人間監査や追加学習用の補助資料であり、通常生成の必読入力ではない。
+
 ```yaml
 theme: 冷凍ご飯がまずくなる原因
 character_pair: ZM

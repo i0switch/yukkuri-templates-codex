@@ -12,6 +12,7 @@ import {
   shouldReuseLegacyAudioLine,
   writeAudioManifest,
 } from './lib/pipeline-cache.mjs';
+import {normalizeAquesTalkPreset} from './lib/aquestalk-presets.mjs';
 
 const DEFAULT_AQUESTALK_PATH =
   'C:\\Users\\i0swi\\Downloads\\aquestalkplayer_20250606\\aquestalkplayer\\AquesTalkPlayer.exe';
@@ -36,11 +37,40 @@ const probeWavSeconds = (filePath) => {
   return seconds;
 };
 
+const DIGITS_JA = ['ぜろ', 'いち', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう'];
+
+const numberToJapanese = (raw) => {
+  const value = Number.parseInt(String(raw).replaceAll(',', ''), 10);
+  if (!Number.isFinite(value)) {
+    return raw;
+  }
+  if (value === 0) {
+    return DIGITS_JA[0];
+  }
+  if (value >= 10000) {
+    return String(value)
+      .split('')
+      .map((digit) => DIGITS_JA[Number.parseInt(digit, 10)] ?? digit)
+      .join('');
+  }
+  const parts = [];
+  const thousands = Math.floor(value / 1000);
+  const hundreds = Math.floor((value % 1000) / 100);
+  const tens = Math.floor((value % 100) / 10);
+  const ones = value % 10;
+  if (thousands) parts.push(`${thousands === 1 ? '' : DIGITS_JA[thousands]}せん`);
+  if (hundreds) parts.push(`${hundreds === 1 ? '' : DIGITS_JA[hundreds]}ひゃく`);
+  if (tens) parts.push(`${tens === 1 ? '' : DIGITS_JA[tens]}じゅう`);
+  if (ones) parts.push(DIGITS_JA[ones]);
+  return parts.join('');
+};
+
 export const sanitizeAquesTalkText = (text) =>
   text
     .replace(/[「」]/g, '')
     .replace(/[!！]/g, '。')
     .replace(/[?？]/g, '？')
+    .replace(/\d[\d,]*/g, (match) => numberToJapanese(match))
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -67,7 +97,7 @@ const synthAquesTalkOnce = async ({text, preset, outFile}) => {
 
   if (result.status !== 0) {
     throw new Error(
-      `AquesTalk synthesis failed (${preset}): ${result.stderr || result.stdout || result.status}`,
+      `AquesTalk synthesis failed (${preset}) for text "${sanitizeAquesTalkText(text)}": ${result.stderr || result.stdout || result.status}`,
     );
   }
 
@@ -111,10 +141,11 @@ export const buildAudioForEpisodeAquesTalk = async (episodeDir, script, {forceAu
   const durations = {};
   const tasks = script.scenes.flatMap((scene) =>
     scene.dialogue.map((line) => {
-      const preset =
-        line.speaker === 'left'
-          ? script.characters.left.aquestalk_preset
-          : script.characters.right.aquestalk_preset;
+      const side = line.speaker === 'left' ? 'left' : 'right';
+      const preset = normalizeAquesTalkPreset({
+        side,
+        preset: side === 'left' ? script.characters.left.aquestalk_preset : script.characters.right.aquestalk_preset,
+      });
 
       if (!preset) {
         throw new Error(`Missing aquestalk_preset for ${line.speaker} in ${script.meta.id}`);

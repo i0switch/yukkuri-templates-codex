@@ -7,20 +7,30 @@ import {
   audioLineInputHash,
   fileSha256,
   mapLimit,
-  readJsonFile,
   readAudioManifest,
   shouldReuseAudioLine,
-  shouldReuseLegacyAudioLine,
   writeAudioManifest,
 } from './lib/pipeline-cache.mjs';
 
 export const DEFAULT_VOICEVOX_BASE_URL = 'http://127.0.0.1:50021';
 export const VOICEVOX_BASE_URL = process.env.VOICEVOX_BASE_URL || DEFAULT_VOICEVOX_BASE_URL;
+export const VOICEVOX_SPEECH_PROFILE = Object.freeze({
+  speedScale: 1.15,
+  intonationScale: 1.05,
+  volumeScale: 1.0,
+  prePhonemeLength: 0.02,
+  postPhonemeLength: 0.03,
+});
 
 export const sanitizeSpeechText = (text) =>
   text.replace(/[「」]/g, '').replace(/？/g, '?').replace(/！/g, '!').replace(/\s+/g, ' ').trim();
 
 const normalizeBaseUrl = (baseUrl = VOICEVOX_BASE_URL) => String(baseUrl || DEFAULT_VOICEVOX_BASE_URL).replace(/\/+$/, '');
+
+export const applyVoicevoxSpeechProfile = (query, profile = VOICEVOX_SPEECH_PROFILE) => ({
+  ...query,
+  ...profile,
+});
 
 export const checkVoicevoxEngine = async ({baseUrl = VOICEVOX_BASE_URL, timeoutMs = 3000} = {}) => {
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
@@ -77,12 +87,7 @@ const synthVoicevox = async (text, speaker, {baseUrl = VOICEVOX_BASE_URL} = {}) 
     throw new Error(`VOICEVOX audio_query failed: ${queryResponse.status}`);
   }
 
-  const query = await queryResponse.json();
-  query.speedScale = 1.32;
-  query.intonationScale = 1.05;
-  query.volumeScale = 1.0;
-  query.prePhonemeLength = 0.02;
-  query.postPhonemeLength = 0.03;
+  const query = applyVoicevoxSpeechProfile(await queryResponse.json());
 
   const synthesisResponse = await fetch(`${normalizedBaseUrl}/synthesis?speaker=${speaker}`, {
     method: 'POST',
@@ -105,7 +110,6 @@ export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEV
   await fs.mkdir(audioDir, {recursive: true});
 
   const manifest = await readAudioManifest(episodeDir);
-  const legacyDurations = await readJsonFile(path.join(episodeDir, 'line-durations.json'), {});
   const nextEntries = {...(manifest.entries ?? {})};
   const durations = {};
   const tasks = script.scenes.flatMap((scene) =>
@@ -121,7 +125,13 @@ export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEV
         outFile: path.join(audioDir, `${key}.wav`),
         speakerId,
         text,
-        inputHash: audioLineInputHash({voiceEngine: 'voicevox', speaker: line.speaker, voiceId: speakerId, text}),
+        inputHash: audioLineInputHash({
+          voiceEngine: 'voicevox',
+          speaker: line.speaker,
+          voiceId: speakerId,
+          text,
+          speechProfile: VOICEVOX_SPEECH_PROFILE,
+        }),
       };
     }),
   );
@@ -137,24 +147,6 @@ export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEV
       reused += 1;
       return;
     }
-    const legacy = forceAudio
-      ? {ok: false, reason: 'force_audio'}
-      : await shouldReuseLegacyAudioLine({lineDurations: legacyDurations, key: task.key, outFile: task.outFile});
-    if (legacy.ok) {
-      durations[task.key] = legacy.durationSec;
-      nextEntries[task.key] = {
-        file: `audio/${task.key}.wav`,
-        input_hash: task.inputHash,
-        duration_sec: legacy.durationSec,
-        file_sha256: legacy.fileSha256,
-        voice_engine: 'voicevox',
-        speaker_id: task.speakerId,
-        adopted_from: 'line-durations.json',
-      };
-      reused += 1;
-      return;
-    }
-
     const wav = await synthVoicevox(task.text, task.speakerId, {baseUrl: checkedBaseUrl});
     await fs.writeFile(task.outFile, wav);
     const durationSec = probeWavSeconds(task.outFile);
@@ -166,6 +158,7 @@ export const buildAudioForEpisode = async (episodeDir, script, {baseUrl = VOICEV
       file_sha256: await fileSha256(task.outFile),
       voice_engine: 'voicevox',
       speaker_id: task.speakerId,
+      speech_profile: VOICEVOX_SPEECH_PROFILE,
       generated_at: new Date().toISOString(),
     };
     generated += 1;

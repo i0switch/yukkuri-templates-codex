@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>初心者向け 手動画像生成・持ち込み台本マニュアル</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      background: #f4f6f8;
+      color: #18202a;
+      --panel: #ffffff;
+      --line: #d9dee7;
+      --muted: #5d6876;
+      --ink: #18202a;
+      --blue: #2366b8;
+      --green: #19755f;
+      --red: #b42318;
+      --amber: #906400;
+      --code: #111827;
+      --code-bg: #eef2f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    header {
+      padding: 30px 32px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    header .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1.25;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 1040px;
+    }
+
+    main {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    section {
+      margin: 0 0 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 8px 22px rgba(24, 32, 42, 0.06);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 22px 0 10px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: #354151;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 12px;
+      padding-left: 1.35rem;
+      color: #354151;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    li + li {
+      margin-top: 4px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: var(--code-bg);
+      color: var(--code);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    pre {
+      margin: 10px 0 14px;
+      padding: 14px;
+      overflow-x: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #e5eefb;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    pre code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    .lead {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .quick {
+      border-left: 5px solid var(--green);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+    }
+
+    .note {
+      border-left: 5px solid var(--blue);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .path-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .path {
+      padding: 10px 12px;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #2f3b4b;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .checklist li::marker {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .danger-list li::marker {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0 4px;
+    }
+
+    .step {
+      min-height: 86px;
+      padding: 12px;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .callout {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border: 1px solid #ead7a2;
+      border-radius: 8px;
+      background: #fff8df;
+      color: #4b3a12;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .callout strong {
+      color: var(--amber);
+    }
+
+    .big-steps {
+      margin: 16px 0 4px;
+      padding: 0;
+      list-style: none;
+      counter-reset: bigstep;
+    }
+
+    .big-steps li {
+      position: relative;
+      margin: 0 0 12px;
+      padding: 16px 16px 16px 62px;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      background: #f8fafc;
+      counter-increment: bigstep;
+    }
+
+    .big-steps li::before {
+      content: counter(bigstep);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .big-steps strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .big-steps span {
+      display: block;
+      color: #354151;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .role-card {
+      padding: 14px;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .role-card h3 {
+      margin-top: 0;
+    }
+
+    footer {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 0 24px 28px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding: 24px 18px 18px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      main {
+        padding: 14px;
+      }
+
+      section {
+        padding: 16px;
+      }
+
+      .grid,
+      .path-list,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">manual_user_workflows.html</p>
+    <h1>初心者向け 手動画像生成・持ち込み台本マニュアル</h1>
+    <p>
+      このマニュアルは、<code>docs/pipeline_contract.md</code> を正本ルールとした読みやすい運用版。
+      ユーザーは台本と画像だけ用意し、AI側が動画用ファイル、読み上げ、レンダリングまで進めるための手順をまとめる。
+    </p>
+  </header>
+
+  <main>
+    <section class="quick">
+      <h2>まず全体像</h2>
+      <p class="lead">初心者はここだけ見れば流れがわかる。ユーザーがやることは「台本を渡す」「画像を生成して渡す」の2つだけ。</p>
+      <div class="flow" aria-label="最短手順">
+        <div class="step">
+          <strong>1. ユーザーが台本を渡す</strong>
+          <span>メモ、文章、箇条書きでもOK。AIが動画用に整える。</span>
+        </div>
+        <div class="step">
+          <strong>2. AIが画像依頼Markdownを出す</strong>
+          <span>どの画像を、どんな名前で作るかをsceneごとに指定する。</span>
+        </div>
+        <div class="step">
+          <strong>3. ユーザーが画像を返す</strong>
+          <span>AIが読み上げを作り、動画をレンダリングする。</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>ステップバイステップ</h2>
+      <ol class="big-steps">
+        <li>
+          <strong>ユーザーが台本を渡す</strong>
+          <span>完成台本でも、ざっくりした原稿でも、箇条書きでもよい。AIは原文を <code>source_manual_script.md</code> に保存する。</span>
+        </li>
+        <li>
+          <strong>AIが台本を動画向けに加工する</strong>
+          <span>AIは話の順番、掛け合い、説明不足、山場を整え、<code>planning.md</code>、<code>script_draft.md</code>、<code>script_final.md</code> を作る。</span>
+        </li>
+        <li>
+          <strong>AIが画像生成依頼Markdownを出す</strong>
+          <span>AIは「この部分にふさわしい画像を生成してください」という形で、sceneごとの画像プロンプトと保存ファイル名を書く。出力先は <code>image_prompt_v2.md</code>。</span>
+        </li>
+        <li>
+          <strong>ユーザーが外部ツールで画像を生成する</strong>
+          <span>ChatGPT Images、Claude、Midjourneyなどで画像を作る。Codexを入れていなくてもここは問題ない。</span>
+        </li>
+        <li>
+          <strong>ユーザーが画像をAIに渡す</strong>
+          <span>ファイル名はAIが指定した通りにする。例: <code>s01_main.png</code>、<code>s02_main.png</code>。保存先は <code>script/{episode_id}/assets/</code>。</span>
+        </li>
+        <li>
+          <strong>AIが画像を受け入れる</strong>
+          <span>AIは画像の保存場所、ファイル名、生成ツール、権利確認を <code>meta.json</code> に記録する。ユーザーはJSONを直接触らなくてよい。</span>
+        </li>
+        <li>
+          <strong>AIが読み上げ音声を生成する</strong>
+          <span><code>script_final.md</code> と <code>script.yaml</code> をもとに、ゆっくり / ずんだもんの読み上げ音声を作る。</span>
+        </li>
+        <li>
+          <strong>AIが動画をレンダリングする</strong>
+          <span>gateを通してからMP4を書き出し、最後に動画監査をする。完成条件は gate PASS、MP4あり、video audit PASS。</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="note">
+      <h2>ユーザーに渡す画像生成依頼Markdownの例</h2>
+      <p>
+        AIは台本を加工したあと、こんなMarkdownを出す。
+        ユーザーは各プロンプトを画像生成ツールに貼って、指定されたファイル名で画像を返す。
+      </p>
+      <pre><code># 画像生成依頼
+
+以下の画像を生成してください。
+生成した画像は、指定ファイル名のままAIに渡してください。
+画像サイズは 16:9。文字を入れる場合は、見出しだけを大きく入れてください。
+会話全文は画像内に入れないでください。
+
+## s01_main.png
+保存先: script/{episode_id}/assets/s01_main.png
+この部分にふさわしい画像を生成してください。
+
+対象シーン:
+月580円のサブスクを放置すると、1年で6,960円になる。
+主人公が「少額だから平気」と思っていたが、合計額を見て焦る場面。
+
+画像プロンプト:
+家計簿アプリの画面に、小さな月額サブスクが積み上がって大きな年間支出になっている様子。
+中央に「月580円が年6,960円に化ける」という大きな見出し。
+不安感はあるが、暗すぎない。ゆっくり解説動画のメイン画像として見やすい構図。
+
+## s02_main.png
+保存先: script/{episode_id}/assets/s02_main.png
+この部分にふさわしい画像を生成してください。
+
+対象シーン:
+使っていないアプリ、無料期間後の自動更新、家族共有の見落としをチェックする場面。
+
+画像プロンプト:
+スマホ画面に複数のサブスク項目が並び、危ない項目だけ赤い注意マークで強調されている。
+中央に「見落としやすい3つの支払い」という大きな見出し。
+チェックリスト風で、初心者にも一瞬で意味がわかる画像。</code></pre>
+    </section>
+
+    <div class="role-grid">
+      <section class="role-card">
+        <h2>ユーザーがやること</h2>
+        <ul class="checklist">
+          <li>台本、メモ、箇条書きなどの元ネタを渡す。</li>
+          <li>AIから出た画像生成依頼Markdownを読む。</li>
+          <li>外部画像生成ツールにプロンプトを貼る。</li>
+          <li><code>s01_main.png</code> のように指定された名前で画像を保存する。</li>
+          <li>生成した画像ファイルをAIに渡す。</li>
+        </ul>
+      </section>
+
+      <section class="role-card">
+        <h2>AIがやること</h2>
+        <ul class="checklist">
+          <li>ユーザー原文を <code>source_manual_script.md</code> に保存する。</li>
+          <li>台本を動画向けに加工して <code>script_final.md</code> まで作る。</li>
+          <li>画像生成依頼Markdownとして <code>image_prompt_v2.md</code> を出す。</li>
+          <li>受け取った画像を <code>assets/</code> に配置し、台帳を作る。</li>
+          <li>読み上げ音声を生成し、動画をレンダリングする。</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="note">
+      <h2>AI側が内部で残すファイル</h2>
+      <p>
+        ここから下はAIや運用者向け。初心者ユーザーは直接編集しなくてよい。
+        ただし、何が作られるかを確認したいときに見る。
+      </p>
+
+      <h3><code>audits/manual_intake.md</code> 雛形</h3>
+      <pre><code># manual_intake
+
+mode: hybrid_user_script
+source_script: source_manual_script.md
+script_author: user
+image_source: user_generated
+rights_confirmed: true
+
+notes:
+- ユーザー原文を source_manual_script.md に保存済み
+- AIが planning.md / script_draft.md / script_final.md へ整える
+- 画像はユーザーが外部生成ツールで作成し、assets/sNN_main.png に保存する</code></pre>
+
+      <h3><code>meta.json.assets[]</code> の画像エントリ例</h3>
+      <pre><code>{
+  "file": "assets/s01_main.png",
+  "source_type": "user_generated",
+  "generation_tool": "ChatGPT Images",
+  "rights_confirmed": true,
+  "license": "user confirmed generated asset for this episode",
+  "scene_id": "s01",
+  "slot": "main",
+  "purpose": "script_final直投げ型の挿入画像",
+  "adoption_reason": "sceneの要点に一致",
+  "imagegen_prompt": "image_prompt_v2.md と同じプロンプト"
+}</code></pre>
+
+      <h3>確認コマンド</h3>
+      <pre><code>npm run gate:episode -- &lt;episode_id&gt;
+npm run render:episode -- &lt;episode_id&gt; out/videos/&lt;episode_id&gt;.mp4
+npm run audit:video -- &lt;episode_id&gt;</code></pre>
+    </section>
+
+    <section class="warning">
+      <h2>正式素材として扱えないもの</h2>
+      <p>
+        次の素材は、動画内に見た目として置けても、正式な画像生成済み素材としては扱わない。
+        gateや監査で止まる原因になる。
+      </p>
+      <ul class="danger-list">
+        <li>ローカルで作った仮PNG、SVG、HTML/Canvas/Pillowなどの自作画像</li>
+        <li>placeholder、fallback、local card、copied として作られた画像</li>
+        <li>出所不明画像、権利確認がない画像</li>
+        <li><code>generation_tool</code> が空の <code>user_generated</code> 画像</li>
+        <li><code>rights_confirmed: true</code> がない画像</li>
+      </ul>
+      <div class="callout">
+        <strong>重要:</strong>
+        Codex imagegen が未実行なら <code>source_type: "imagegen"</code> にはしない。
+        外部ツールでユーザーが作った画像は <code>source_type: "user_generated"</code> として受け入れる。
+      </div>
+    </section>
+
+    <section>
+      <h2>完了前チェックリスト</h2>
+      <ul class="checklist">
+        <li>ユーザー原文が <code>source_manual_script.md</code> に保存されている。</li>
+        <li>動画用に加工した完成台本 <code>script_final.md</code> がある。</li>
+        <li>画像生成依頼Markdown <code>image_prompt_v2.md</code> がある。</li>
+        <li>ユーザーから返ってきた画像が <code>assets/s01_main.png</code> 形式で揃っている。</li>
+        <li>画像は <code>user_generated</code> として受け入れ、<code>generation_tool</code> と <code>rights_confirmed: true</code> を記録している。</li>
+        <li>読み上げ音声が生成されている。</li>
+        <li><code>npm run gate:episode -- &lt;episode_id&gt;</code> がPASSしている。</li>
+        <li><code>npm run render:episode -- &lt;episode_id&gt; out/videos/&lt;episode_id&gt;.mp4</code> でMP4が出ている。</li>
+        <li><code>npm run audit:video -- &lt;episode_id&gt;</code> がPASSしている。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>失敗したときの見方</h2>
+      <h3><code>missing-manual-source-script</code></h3>
+      <p><code>source_manual_script.md</code> がない。持ち込み台本の場合は、ユーザー原文をこのファイルへ保存する。</p>
+
+      <h3><code>missing-manual-intake</code> または <code>incomplete-manual-intake</code></h3>
+      <p><code>audits/manual_intake.md</code> がないか、必要項目が不足している。上の雛形を使って補う。</p>
+
+      <h3><code>user_generated image assets require generation_tool</code></h3>
+      <p><code>meta.json.assets[]</code> の画像エントリに、使用した画像生成ツール名を入れる。</p>
+
+      <h3><code>user_generated image assets require rights_confirmed: true</code></h3>
+      <p>ユーザーが生成画像の利用権を確認したうえで、該当エントリに <code>rights_confirmed: true</code> を入れる。</p>
+
+      <h3><code>image source_type must be imagegen or user_generated</code></h3>
+      <p>画像の <code>source_type</code> が不正。Codex生成なら <code>imagegen</code>、外部ツールでユーザーが生成したなら <code>user_generated</code> にする。</p>
+    </section>
+  </main>
+
+  <footer>
+    このHTMLはユーザー操作用マニュアル。仕様や停止条件を変更するものではない。矛盾がある場合は <code>docs/pipeline_contract.md</code> を優先する。
+  </footer>
+</body>
+</html>

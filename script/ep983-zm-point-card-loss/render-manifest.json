@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "updated_at": "2026-04-27T22:51:51.962Z",
+  "input_hash": "3d174b51b3955fba99a414b3a564b1a4aa5c6de66153833de63b1975455341bd",
+  "inputs": {
+    "script_final": "a06c4112d738d5491e7b6fe11aafbb4ff50e378fcb1a8d5d8b88b78a21baa012",
+    "script_yaml": "836d90b2376921ad0c7778c946c8da3eac87ca277f684a597d9c5b349080a013",
+    "image_prompts": "9077e084c9ef990b40757ad090f0887b5efc097f3c28b984dc5fa4bfd3498d29",
+    "image_files": "5b76d44e96fc016907675460edf7a2fc52a8c4b8cd21af44fb70b6d568094f89",
+    "bgm_files": "59631a9242ad953ed6d6f7798fcfb52f48b9aca16e55a6f55e573dacc3a21a5f",
+    "render_json": "583ea36368136be055bb9e7f3b434fcb46622bfc2d8970492e3657a7d4e73e1c"
+  },
+  "output": "out/videos/ep983-zm-point-card-loss.mp4",
+  "composition_id": "Video-ep983-zm-point-card-loss"
+}

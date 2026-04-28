@@ -1,0 +1,898 @@
+meta:
+  id: ep981-zm-room-reset-place
+  title: 片付けても部屋がすぐ散らかる理由
+  pair: ZM
+  voice_engine: voicevox
+  layout_template: Scene21
+  width: 1280
+  height: 720
+  fps: 30
+  target_duration_sec: 267
+  audience: 片付けが苦手で、収納を増やしても散らかる人
+  tone: ズボラ改善・生活ハック・共感重視
+  bgm_mood: 明るい生活ハック、軽快、前向き
+characters:
+  left:
+    character: zundamon
+    voicevox_speaker_id: 3
+  right:
+    character: metan
+    voicevox_speaker_id: 2
+scenes:
+  - id: s01
+    motion_mode: punch
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 失敗例シミュレーション
+        imagegen_prompt_ref: s01.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 見てめたん、片付けた床がもう服の海なのだ！
+        expression: shock
+        emphasis:
+          words:
+            - 服の海
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: 早いですわね。昨日片付けた部屋が、もうリセット失敗してますわ。
+        expression: calm
+        emphasis:
+          words:
+            - リセット失敗
+          style: punch
+          se: pop
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: 収納が足りないのだ。棚を三つ買えば勝てるのだ。
+        expression: confident
+        emphasis:
+          words:
+            - 棚を三つ
+          style: number
+          se: question
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: 待ちなさい。収納を増やすほど散らかる家もありますの。
+        expression: serious
+        emphasis:
+          words:
+            - 収納を増やすほど
+          style: surprise
+          se: reveal
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: え、収納は正義じゃないのだ？
+        expression: surprise
+        emphasis:
+          words:
+            - 正義じゃない
+          style: surprise
+          se: question
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: 今回の犯人は、収納不足ではなく戻す場所が決まっていないことですわ。
+        expression: confident
+        emphasis:
+          words:
+            - 戻す場所
+          style: punch
+          se: reveal
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: 地味だから放置されて、毎日じわじわ部屋を荒らすのです。
+        expression: serious
+        emphasis:
+          words:
+            - 毎日じわじわ
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: ぼくの部屋、じわじわ侵略されてるのだ！
+        expression: shock
+        emphasis:
+          words:
+            - 侵略
+          style: danger
+          se: pop
+          pause_after_ms: 300
+  - id: s02
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s02_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: NG / OK 比較
+        imagegen_prompt_ref: s02.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でも床に置くのは一時避難なのだ。あとで戻すつもりなのだ。
+        expression: confused
+        emphasis:
+          words:
+            - 一時避難
+          style: punch
+          se: none
+          pause_after_ms: 0
+      - id: d02
+        speaker: right
+        text: その「あとで」が来ないから、床が第二の収納になりますわ。
+        expression: calm
+        emphasis:
+          words:
+            - 床が第二の収納
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: 床、勝手に収納に昇格してたのだ？
+        expression: surprise
+        emphasis:
+          words:
+            - 収納に昇格
+          style: surprise
+          se: pop
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: ええ。バッグ、郵便物、脱いだ服、充電器。全部が床や机の上で仮住まいしますの。
+        expression: serious
+        emphasis:
+          words:
+            - 仮住まい
+          style: punch
+          se: none
+          pause_after_ms: 0
+      - id: d06
+        speaker: right
+        text: 大事なのは、仮置き場をゼロにすることではありませんわ。仮置き場にも期限と出口を作ることですの。
+        expression: confident
+        emphasis:
+          words:
+            - 期限と出口
+          style: action
+          se: reveal
+          pause_after_ms: 300
+      - id: d07
+        speaker: left
+        text: 出口がないから、置いた瞬間に永住するのだね。
+        expression: wry
+        emphasis:
+          words:
+            - 永住
+          style: punch
+          se: none
+          pause_after_ms: 0
+      - id: d08
+        speaker: right
+        text: そうですわ。床置きは性格の問題ではなく、帰る住所がない物の問題ですの。
+        expression: calm
+        emphasis:
+          words:
+            - 帰る住所
+          style: punch
+          se: success
+          pause_after_ms: 300
+  - id: s03
+    motion_mode: normal
+    main:
+      kind: image
+      asset: assets/s03_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 理解補助
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s03.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 収納場所ならあるのだ。押し入れの奥に箱があるのだ。
+        expression: confident
+        emphasis:
+          words:
+            - 押し入れの奥
+          style: punch
+          se: none
+          pause_after_ms: 0
+      - id: d02
+        speaker: right
+        text: それは収納というより、物の終着駅ですわ。日常で使う物には遠すぎますの。
+        expression: serious
+        emphasis:
+          words:
+            - 遠すぎます
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: 終着駅。もう帰ってこない感じなのだ。
+        expression: wry
+        emphasis:
+          words:
+            - 終着駅
+          style: punch
+          se: none
+          pause_after_ms: 0
+      - id: d04
+        speaker: right
+        text: 毎日使う物は、使う場所から一歩か二歩で戻せるのが理想ですわ。
+        expression: calm
+        emphasis:
+          words:
+            - 一歩か二歩
+          style: number
+          se: pop
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: ズボラ改善では、旅にしないのが大事ですの。遠い、開けにくい、重い、この三つは戻さない理由になりますわ。
+        expression: confident
+        emphasis:
+          words:
+            - 遠い、開けにくい、重い
+          style: number
+          se: reveal
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: だからよく使う物ほど、浅いカゴ、引っかける場所、見える棚に寄せるのですわ。
+        expression: calm
+        emphasis:
+          words:
+            - 浅いカゴ
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: しまう難易度を下げるのだね。
+        expression: happy
+        emphasis:
+          words:
+            - 難易度を下げる
+          style: action
+          se: success
+          pause_after_ms: 300
+  - id: s04
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s04_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 笑い
+        composition_type: 誇張図解
+        imagegen_prompt_ref: s04.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあラベルを細かくするのだ。春用、秋用、ちょい春用、心が春用なのだ。
+        expression: smug
+        emphasis:
+          words:
+            - 心が春用
+          style: punch
+          se: pop
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: 最後の分類、情緒ですわ。細かすぎる分類は、戻す前に迷わせますの。
+        expression: wry
+        emphasis:
+          words:
+            - 細かすぎる分類
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: 迷うと、とりあえず机に置くのだ。
+        expression: worried
+        emphasis:
+          words:
+            - 机に置く
+          style: danger
+          se: none
+          pause_after_ms: 0
+      - id: d04
+        speaker: right
+        text: その通り。分類は正確さより、戻しやすさを優先した方が続きますわ。
+        expression: confident
+        emphasis:
+          words:
+            - 戻しやすさ
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: ざっくりでいいのだ？
+        expression: surprise
+        emphasis:
+          words:
+            - ざっくり
+          style: surprise
+          se: question
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: ええ。服は「着る」「洗う」「保留」、書類は「処理する」「保存」「捨てる」くらいで十分なことが多いですの。
+        expression: calm
+        emphasis:
+          words:
+            - 着る、洗う、保留
+          style: number
+          se: pop
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: 保留は悪ではありませんわ。ただし期限を書かないと、物置になりますの。
+        expression: serious
+        emphasis:
+          words:
+            - 期限
+          style: danger
+          se: warning
+          pause_after_ms: 300
+  - id: s05
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s05_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 証拠提示
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: s05.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でも一回きれいにしたら、しばらく大丈夫じゃないのだ？
+        expression: confused
+        emphasis:
+          words:
+            - しばらく大丈夫
+          style: surprise
+          se: question
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: 実は片付け直後が一番危ないですわ。満足して、戻す仕組みを作らず終わるからですの。
+        expression: serious
+        emphasis:
+          words:
+            - 片付け直後
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: きれいになった瞬間にゴールテープ切ってたのだ。
+        expression: wry
+        emphasis:
+          words:
+            - ゴールテープ
+          style: punch
+          se: pop
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: 片付けはゴールではなく、次に散らからない配置を決める作業ですわ。
+        expression: confident
+        emphasis:
+          words:
+            - 次に散らからない配置
+          style: punch
+          se: reveal
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: ここが再フックですの。散らかる人ほど、捨てる作業より戻すルールが足りませんわ。
+        expression: confident
+        emphasis:
+          words:
+            - 戻すルール
+          style: punch
+          se: reveal
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: 祭りの後に会場設営をしないと、翌日また同じ散らかりが始まりますの。
+        expression: calm
+        emphasis:
+          words:
+            - 会場設営
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: 片付けの本番は、きれいになった後なのだね。
+        expression: happy
+        emphasis:
+          words:
+            - 本番
+          style: action
+          se: success
+          pause_after_ms: 300
+  - id: s06
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s06_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: 手順図
+        imagegen_prompt_ref: s06.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 戻す場所って、どう作ればいいのだ？巨大収納計画なのだ？
+        expression: confused
+        emphasis:
+          words:
+            - 巨大収納計画
+          style: surprise
+          se: question
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: 小さくていいですわ。まずは一番散らかる物を一種類だけ選びますの。
+        expression: calm
+        emphasis:
+          words:
+            - 一種類だけ
+          style: number
+          se: pop
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: 一種類だけなら、ぼくにも勝ち目があるのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 勝ち目
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: 犯行現場を調べるのだね。
+        expression: smirk
+        emphasis:
+          words:
+            - 犯行現場
+          style: punch
+          se: pop
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: そうですわ。その近くに小さなカゴ、トレー、フックを置きますの。完璧な収納より、戻る確率を上げるのです。
+        expression: calm
+        emphasis:
+          words:
+            - 戻る確率
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: ズボラ改善は意思の強さより、成功率の設計ですわ。
+        expression: confident
+        emphasis:
+          words:
+            - 成功率の設計
+          style: punch
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: 根性じゃなくて配置で勝つのだ！
+        expression: happy
+        emphasis:
+          words:
+            - 配置で勝つ
+          style: action
+          se: success
+          pause_after_ms: 300
+  - id: s07
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s07_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: ビフォーアフター
+        imagegen_prompt_ref: s07.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 全部出しっぱなしにすれば戻す必要がないのだ。天才なのだ。
+        expression: smug
+        emphasis:
+          words:
+            - 全部出しっぱなし
+          style: punch
+          se: question
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: それは部屋全体を引き出しにする発想ですわ。見た目が一瞬で負けますの。
+        expression: wry
+        emphasis:
+          words:
+            - 部屋全体を引き出し
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: 出していいのは一軍だけですわ。毎日使う物だけ表、たまに使う物は少し奥ですの。
+        expression: confident
+        emphasis:
+          words:
+            - 一軍だけ
+          style: number
+          se: pop
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: リモコン、充電器、鍵は一軍なのだ。謎のケーブルは二軍なのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 一軍
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: いい分け方ですわ。さらに一軍の置き場は、片手で戻せる形にすると続きますの。
+        expression: calm
+        emphasis:
+          words:
+            - 片手で戻せる
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d07
+        speaker: left
+        text: 両手が必要だと、もう面倒なのだ。
+        expression: wry
+        emphasis:
+          words:
+            - 面倒
+          style: danger
+          se: none
+          pause_after_ms: 0
+      - id: d08
+        speaker: right
+        text: その面倒が床置きに変わりますわ。だから一軍ほど、浅く、近く、見える場所ですの。
+        expression: serious
+        emphasis:
+          words:
+            - 浅く、近く、見える
+          style: action
+          se: reveal
+          pause_after_ms: 300
+  - id: s08
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s08_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 証拠提示
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s08.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあ散らかる場所って、ぼくのだらしなさの記念碑なのだ？
+        expression: worried
+        emphasis:
+          words:
+            - だらしなさ
+          style: danger
+          se: none
+          pause_after_ms: 0
+      - id: d02
+        speaker: right
+        text: いいえ。散らかる場所は、生活動線のヒントですわ。
+        expression: calm
+        emphasis:
+          words:
+            - 生活動線のヒント
+          style: surprise
+          se: reveal
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: ヒントだったのだ？怒られる証拠かと思ってたのだ。
+        expression: surprise
+        emphasis:
+          words:
+            - ヒント
+          style: surprise
+          se: pop
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: 散らかりを責めるんじゃなく、置き場を寄せるのだね。
+        expression: happy
+        emphasis:
+          words:
+            - 置き場を寄せる
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: その通りですわ。人の動きを変えるより、物の住所を人の動きに合わせる方が楽ですの。
+        expression: calm
+        emphasis:
+          words:
+            - 人の動きに合わせる
+          style: punch
+          se: reveal
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: 優しさというより設計ですわ。でも続く片付けは、自分に優しい形で作るのが正解ですの。
+        expression: confident
+        emphasis:
+          words:
+            - 自分に優しい形
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: 責めるより寄せる。覚えたのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 責めるより寄せる
+          style: action
+          se: success
+          pause_after_ms: 300
+  - id: s09
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s09_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt_ref: s09.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 夜にまとめて片付ければいいのだ。未来のぼくが頑張るのだ。
+        expression: confident
+        emphasis:
+          words:
+            - 未来のぼく
+          style: punch
+          se: question
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: 未来のずんだもんに借金を押しつけていますわ。しかも利子つきですの。
+        expression: wry
+        emphasis:
+          words:
+            - 利子つき
+          style: danger
+          se: warning
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: ありますわ。放置した物が増えるほど、判断も移動も面倒になりますの。
+        expression: serious
+        emphasis:
+          words:
+            - 判断も移動も面倒
+          style: danger
+          se: none
+          pause_after_ms: 0
+      - id: d05
+        speaker: left
+        text: 一枚の服なら戻せるけど、山になると見ないふりするのだ。
+        expression: worried
+        emphasis:
+          words:
+            - 山
+          style: danger
+          se: none
+          pause_after_ms: 0
+      - id: d07
+        speaker: left
+        text: 直後なら、まだ物の記憶が新鮮なのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 記憶が新鮮
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: ええ。夜の大掃除より、直後の十秒を勝たせる方が散らかりにくいですわ。
+        expression: calm
+        emphasis:
+          words:
+            - 直後の十秒
+          style: number
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: 十秒なら、ぼくの根性でも届くのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 十秒
+          style: action
+          se: success
+          pause_after_ms: 300
+  - id: s10
+    motion_mode: recap
+    main:
+      kind: image
+      asset: assets/s10_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: オチ補助
+        composition_type: チェックリスト
+        imagegen_prompt_ref: s10.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: つまり、収納を買う前に住所を決めるのだね。
+        expression: happy
+        emphasis:
+          words:
+            - 住所を決める
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d02
+        speaker: right
+        text: その通りですわ。今日やることは一つだけ。一番散らかる物の戻す場所を作ることですの。
+        expression: confident
+        emphasis:
+          words:
+            - 今日やることは一つ
+          style: action
+          se: reveal
+          pause_after_ms: 300
+      - id: d03
+        speaker: left
+        text: ぼくは椅子に積む服の住所を作るのだ。
+        expression: smile
+        emphasis:
+          words:
+            - 服の住所
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d04
+        speaker: right
+        text: 椅子の横に洗濯カゴ、または一時保留カゴを置く。まずはそれで十分ですわ。
+        expression: calm
+        emphasis:
+          words:
+            - 一時保留カゴ
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d05
+        speaker: left
+        text: 棚を三つ買う計画は？
+        expression: confused
+        emphasis:
+          words:
+            - 棚を三つ
+          style: surprise
+          se: question
+          pause_after_ms: 300
+      - id: d06
+        speaker: right
+        text: 保留ですわ。戻す場所が決まってから、足りない収納だけ買えばいいのです。
+        expression: wry
+        emphasis:
+          words:
+            - 足りない収納だけ
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d07
+        speaker: left
+        text: コメントでは、みんなの部屋で一番住所不定の物を教えてほしいのだ。
+        expression: happy
+        emphasis:
+          words:
+            - 住所不定の物
+          style: action
+          se: pop
+          pause_after_ms: 300
+      - id: d08
+        speaker: right
+        text: 鍵、服、郵便物、充電器。どれでもいいですわ。書くと戻す場所を決めやすくなりますの。
+        expression: calm
+        emphasis:
+          words:
+            - 書く
+          style: action
+          se: success
+          pause_after_ms: 300
+      - id: d09
+        speaker: left
+        text: 今日から床を収納にしないのだ！
+        expression: confident
+        emphasis:
+          words:
+            - 床を収納にしない
+          style: action
+          se: success
+          pause_after_ms: 300
+bgm:
+  source_url: https://dova-s.jp/bgm/detail/23286
+  file: bgm/track.mp3
+  license: DOVA-SYNDROME 音源利用ライセンス（背景音楽利用・商用利用可・クレジット不要）
+  volume: 0.11
+  fade_in_sec: 1
+  fade_out_sec: 1.5

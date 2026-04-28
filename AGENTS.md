@@ -9,7 +9,7 @@ Codex / Claude Code / その他エージェントは、最初に `docs/pipeline_
 
 ## Resolution Rule
 
-新規動画生成では、過去 episode、`docs/superpowers/`、`docs/repository_audit_v2.md` などの古い作業記録にある解像度を既定値として採用しない。
+新規動画生成では、過去 episode、`legacy/docs_archive/**` などの古い作業記録にある解像度を既定値として採用しない。
 ユーザーが解像度を明示しない限り、`script.yaml` は `meta.width: 1920`、`meta.height: 1080` にする。
 `HD` / `720p` / `1280x720` は、ユーザーが明示した場合だけ使う。
 
@@ -34,18 +34,21 @@ out/videos/{episode_id}.mp4
 
 ## Required Read Order
 
+通常の新規 episode 生成で速度を優先する場合は、最初に `docs/pipeline_contract.md` と `docs/agent_fast_path.md` を読み、必要ファイルだけへ進む。
+以下は正本確認が必要な場合の完全な読込順。
+
 作業開始時:
 
 ```text
 docs/pipeline_contract.md
-CLAUDE.md
-AGENTS.md
-AI_VIDEO_GENERATION_GUIDE.md
-docs/architecture_v2.md
-prompts/00_core_principles.md
+docs/agent_fast_path.md
 _reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md
-_reference/script_prompt_pack/README.md
+RMなら _reference/script_prompt_pack/local_canonical/yukkuri_master.md
+ZMなら _reference/script_prompt_pack/local_canonical/zundamon_master.md
+選択テンプレートに必要な templates/scene-XX_*.md
 ```
+
+キャラペアが未確定なら `01_input_normalize_prompt.md` で確定してから、対応するローカル正本を1つだけ読む。`CLAUDE.md`、`AI_VIDEO_GENERATION_GUIDE.md`、`legacy/docs_archive/**`、`prompts/00_core_principles.md` は通常生成の必読入力にしない。
 
 台本生成時:
 
@@ -96,6 +99,7 @@ _reference/script_prompt_pack/09_image_prompt_audit.md（任意）
 - `node_modules/**`
 - `.cache/**`
 - `.remotion-public/**`
+- `notebookLM/**`
 - `out/**`
 - `public/episodes/**`
 - `script/**/audio/**`
@@ -105,6 +109,25 @@ _reference/script_prompt_pack/09_image_prompt_audit.md（任意）
 `.claude/worktrees/` は過去作業・並列作業の複製repoとして扱う。
 ユーザーが明示しない限り、台本生成の参考資料として使わない。
 過去 episode を参考にする場合も、ユーザー指定の episode、または明示的に選んだ最大2本の軽量テキスト成果物だけを見る。
+`scripts/oneoff/**` は過去 episode 用の使い捨てスクリプト置き場なので、通常生成の入口として読まない。
+
+## Temporary Script Cleanup Rule
+
+作業中に自作した一時スクリプト、検証用スクリプト、移行用スクリプト、episode専用生成スクリプトは、作業完了前に必ず削除する。
+`scripts/`、repo root、`tmp/`、`.cache/`、対象 episode 配下のどこに作った場合でも、使い終わったら残してはいけない。
+
+例外は、ユーザーが明示的に保存を指示した場合、または恒久コマンドとして `package.json`、テスト、ドキュメント、gate に正式接続した場合だけ。
+その場合も、ファイル名、用途、実行コマンド、削除しない理由を完了報告に書く。
+
+禁止:
+
+- `create-epXXX.mjs`、`fix-epXXX.mjs`、`generate-epXXX.mjs` など episode 固有スクリプトを残す
+- `oneoff`、`temp`、`tmp`、`scratch`、`debug`、`test-run` 名の自作スクリプトを残す
+- 自作スクリプトを残したまま「完了」と報告する
+- 古い自作スクリプトを通常生成や監査の入口として再利用する
+
+完了前に `git status` と `rg` で自分が追加したスクリプトを確認し、恒久化しないものは削除する。
+一時スクリプトが残っている場合、その作業は未完了扱いにする。
 
 ## Critical Script Quality Rule
 
@@ -119,7 +142,7 @@ _reference/script_prompt_pack/09_image_prompt_audit.md（任意）
    - 自然な会話
    - 文脈、ボケ、ツッコミ、具体例を優先
    - セリフ長は制限しない
-   - 実用上は1発話12〜40字程度で揺らす
+   - 表示都合で短く分割しない。長い解説は自然な発話単位で保持し、字幕表示はBudouX折り返しとAutoFitTextに任せる
    - 1シーン6〜12発話
 3. `script_final.md`
    - Codexレビュー対象の自然会話の完成版

@@ -43,12 +43,15 @@ const extractMarkdownHighlights = (value: string) => {
   return {text, words};
 };
 
-const HighlightBounceKeyframes = () => (
+const HighlightEmphasisKeyframes = () => (
   <style>
-    {`@keyframes subtitle-highlight-bounce {
-      0% { transform: scale(1); }
-      45% { transform: scale(1.18); }
-      100% { transform: scale(1.08); }
+    {`@keyframes subtitle-highlight-emphasis {
+      0% { transform: translateY(0) rotate(0deg) scale(1); filter: brightness(1); }
+      18% { transform: translateY(-2px) rotate(-1.2deg) scale(1.08); filter: brightness(1.12); }
+      36% { transform: translateY(1px) rotate(1deg) scale(1.1); filter: brightness(1.16); }
+      55% { transform: translateY(-1px) rotate(-0.7deg) scale(1.06); filter: brightness(1.1); }
+      78% { transform: translateY(0) rotate(0deg) scale(1.04); filter: brightness(1.05); }
+      100% { transform: translateY(0) rotate(0deg) scale(1.04); filter: brightness(1.05); }
     }`}
   </style>
 );
@@ -178,22 +181,32 @@ export const AutoFitText: React.FC<Props> = ({
     width: textStrokeWidth,
   });
   const resolvedTextShadow = [textShadow, strokeStyle.textShadow].filter(Boolean).join(', ') || undefined;
+  const highlightColor =
+    highlightVariant === 'danger'
+      ? '#FF2A2A'
+      : highlightVariant === 'surprise'
+        ? '#7C3AED'
+        : highlightVariant === 'number'
+          ? '#F59E0B'
+          : highlightVariant === 'action'
+            ? '#16A34A'
+            : '#FACC15';
+  const highlightGlow =
+    highlightVariant === 'danger'
+      ? 'rgba(255,42,42,0.42)'
+      : highlightVariant === 'surprise'
+        ? 'rgba(124,58,237,0.38)'
+        : highlightVariant === 'number'
+          ? 'rgba(245,158,11,0.42)'
+          : highlightVariant === 'action'
+            ? 'rgba(22,163,74,0.38)'
+            : 'rgba(250,204,21,0.42)';
   const highlightStyle: React.CSSProperties = {
-    color:
-      highlightVariant === 'danger'
-        ? '#FF2A2A'
-        : highlightVariant === 'surprise'
-          ? '#7C3AED'
-          : highlightVariant === 'number'
-            ? '#F59E0B'
-            : highlightVariant === 'action'
-              ? '#16A34A'
-              : '#FACC15',
-    fontSize: '1.12em',
+    color: highlightColor,
     fontWeight: 900,
-    textShadow: '0 2px 10px rgba(0,0,0,0.25)',
+    textShadow: `0 2px 8px rgba(0,0,0,0.28), 0 0 14px ${highlightGlow}`,
     display: 'inline-block',
-    animation: 'subtitle-highlight-bounce 300ms ease-out both',
+    animation: 'subtitle-highlight-emphasis 900ms ease-out both',
     transformOrigin: 'center bottom',
   };
 
@@ -223,11 +236,11 @@ export const AutoFitText: React.FC<Props> = ({
         alignItems: 'center',
         justifyContent: textAlign === 'left' ? 'flex-start' : textAlign === 'right' ? 'flex-end' : 'center',
         boxSizing: 'border-box',
-        overflow: 'hidden',
+        overflow: 'visible',
         ...style,
       }}
     >
-      <HighlightBounceKeyframes />
+      <HighlightEmphasisKeyframes />
       <div
         style={{
           width: '100%',
@@ -240,6 +253,7 @@ export const AutoFitText: React.FC<Props> = ({
           whiteSpace,
           wordBreak,
           letterSpacing,
+          overflow: 'hidden',
           ...strokeStyle,
           textShadow: resolvedTextShadow,
         }}

@@ -125,7 +125,7 @@ const writeJson = async (filePath, value) => {
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 };
 
-const runPromptAudit = ({rootDir, episodeId}) => {
+const runPromptAudit = ({rootDir, episodeId, allowFailure = false}) => {
   const result = spawnSync(process.execPath, ['scripts/audit-image-prompts.mjs', episodeId], {
     cwd: rootDir,
     encoding: 'utf8',
@@ -139,7 +139,7 @@ const runPromptAudit = ({rootDir, episodeId}) => {
     throw new Error(`audit:image-prompts did not return JSON:\n${result.stdout}\n${result.stderr}`);
   }
   const report = JSON.parse(result.stdout.slice(jsonStart));
-  if (report.ok !== true) {
+  if (report.ok !== true && !allowFailure) {
     throw new Error(
       [
         `Refusing to run imagegen for ${episodeId}.`,
@@ -376,15 +376,17 @@ const runCodexImagegenJob = async ({rootDir, episodeId, job, logDir, timeoutMs, 
   const stdoutLogPath = path.join(logDir, `${safeName}.jsonl`);
   const stderrLogPath = path.join(logDir, `${safeName}.stderr.txt`);
   const lastMessagePath = path.join(logDir, `${safeName}.last.txt`);
-  const codexBin = process.platform === 'win32' ? 'codex.cmd' : 'codex';
+  const codexBin = process.platform === 'win32' ? process.execPath : 'codex';
+  const codexScript = process.platform === 'win32'
+    ? path.join(process.env.APPDATA ?? '', 'npm', 'node_modules', '@openai', 'codex', 'bin', 'codex.js')
+    : null;
   const args = [
+    ...(codexScript ? [codexScript] : []),
     'exec',
     '--json',
     '--ignore-rules',
     '--sandbox',
     'read-only',
-    '--ask-for-approval',
-    'never',
     '--cd',
     rootDir,
     '--output-last-message',
@@ -555,7 +557,7 @@ const main = async () => {
   const logDir = path.join(episodeDir, 'audits', 'imagegen_batch');
 
   await fs.stat(episodeDir);
-  const auditReport = runPromptAudit({rootDir, episodeId});
+  const auditReport = runPromptAudit({rootDir, episodeId, allowFailure: options.dryRun});
   const allJobs = await collectJobs({episodeDir});
   const meta = await readJsonIfExists(path.join(episodeDir, 'meta.json'), null);
   const manifest = await readJsonIfExists(path.join(episodeDir, 'imagegen_manifest.json'), null);
@@ -595,12 +597,19 @@ const main = async () => {
     jobs: [],
     issues: [],
   };
+  if (auditReport.ok !== true) {
+    report.issues.push({
+      level: 'warning',
+      code: 'image-prompt-audit-failed',
+      message: 'dry-run continued after audit:image-prompts errors; fix these before real imagegen',
+      audit_issues: auditReport.issues ?? [],
+    });
+  }
 
   if (options.dryRun) {
-    report.ok = true;
+    report.ok = auditReport.ok === true;
     report.finished_at = new Date().toISOString();
     report.jobs = jobs.map((job) => ({scene_id: job.sceneId, slot: job.slot, file: job.file, status: 'dry-run', prompt_sha256: job.promptSha256}));
-    await writeJson(reportPath, report);
     console.log(JSON.stringify(report, null, 2));
     return;
   }

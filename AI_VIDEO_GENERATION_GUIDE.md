@@ -3,15 +3,14 @@
 ## 最初に読むファイル
 
 1. `docs/pipeline_contract.md`
-2. `AI_VIDEO_GENERATION_GUIDE.md`
-3. `CLAUDE.md`
-4. `AGENTS.md`
-5. `docs/architecture_v2.md`
-6. `prompts/00_core_principles.md`（v2 思想サマリ）
-7. `_reference/script_prompt_pack/README.md`
-8. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`
-9. 台本生成時: `_reference/script_prompt_pack/01_input_normalize_prompt.md` 〜 `11_final_episode_audit.md` を順に
-10. 画像生成時: `_reference/script_prompt_pack/08_image_prompt_prompt.md`
+2. `docs/agent_fast_path.md`（通常生成の高速入口）
+3. `_reference/script_prompt_pack/00_MASTER_SCRIPT_RULES.md`
+4. RMなら `_reference/script_prompt_pack/local_canonical/yukkuri_master.md`、ZMなら `_reference/script_prompt_pack/local_canonical/zundamon_master.md`
+5. 選択テンプレートの `templates/scene-XX_*.md`
+6. 台本生成時: `_reference/script_prompt_pack/01_input_normalize_prompt.md` 〜 `11_final_episode_audit.md` のうち必要工程のファイル
+7. 画像生成時: `_reference/script_prompt_pack/08_image_prompt_prompt.md`
+
+キャラペアが未確定なら、`01_input_normalize_prompt.md` で `character_pair` を確定してから対応するローカル正本を1つだけ読む。RM/ZM両方のローカル正本を同時に読まない。
 
 動画生成パイプラインの成果物名、順序、停止条件、完了条件は `docs/pipeline_contract.md` を単一正本にする。
 
@@ -19,13 +18,14 @@
 
 台本生成時の探索除外は `docs/pipeline_contract.md` の「台本生成時の探索除外」に従う。
 `.claude/` は丸ごと禁止しないが、`.claude/worktrees/**` などの複製repo・生成物・依存関係は初動探索で読まない。
+`notebookLM/**`、`out/**`、`.remotion-public/**`、`script/**/assets/**`、`script/**/audio/**`、`script/**/bgm/**`、`scripts/oneoff/**` も通常生成の初動では読まない。
 
 ## 現行対象外の文書
 
 次は過去作業の記録またはv1退避資料であり、新規生成・監査・修正の正準ルールとして使わない。
 
 - `legacy/`
-- `docs/superpowers/`（過去の計画・実行ログ。新規実装計画として流用しない。特に解像度、episode id、テンプレート、成果物パスの指定を現行仕様として採用しない）
+- `legacy/docs_archive/`（過去の計画・実行ログ。新規実装計画として流用しない。特に解像度、episode id、テンプレート、成果物パスの指定を現行仕様として採用しない）
 - `_reference/script_prompt_pack/legacy/`
 - v1由来の旧ルート文書名:
   - `00_START_HERE.md`
@@ -65,17 +65,15 @@ planning.md
 | 2. draft | `script/{ep}/script_draft.md` | LLM（04 / 05_draft_prompt）| - |
 | 3. script_final | `script/{ep}/script_final.md` | LLM（draftの確定版）| - |
 | 4. Codex review | `script/{ep}/audits/script_final_review.md` | Codex で `script_final.md` をレビュー | レビュー完了が次工程の前提 |
-| 5. script quality audit | （CLI レポート）| `node scripts/audit-script-quality.mjs <ep>` | YES（gate に内包）|
-| 6. YAML 変換 | `script/{ep}/script.yaml` | LLM（10_yaml_prompt）| - |
-| 7. image prompt 生成 | `script.yaml` の `visual_asset_plan[].imagegen_prompt` | LLM（08_image_prompt_prompt）| - |
-| 8. image prompt 監査（任意）| `script/{ep}/audits/image_prompt_audit.json` | `npm run audit:image-prompts -- <ep>` | NO（非ブロッキング）|
-| 9. BGM 選定 | `script/{ep}/script.yaml` の `bgm:` ブロック | `npm run select:bgm -- <ep>` | YES（audit:video が要求）|
-| 10. 画像生成 | `script/{ep}/assets/sNN_main.png` | Codex CLI（codex-imagegen skill）| YES（render に必要）|
-| 11. 生成画像監査（任意）| `script/{ep}/audits/image_result_audit.json` | `npm run audit:generated-images -- <ep>` | NO（非ブロッキング）|
-| 12. pre-render gate | `script/{ep}/audits/pre_render_gate.json` | `npm run gate:episode -- <ep>` | YES |
-| 13. build episode | `script/{ep}/script.render.json`、音声 wav、`public/episodes/{ep}/` | `node scripts/build-episode.mjs <ep>` | YES |
-| 14. render | `out/videos/{ep}.mp4` | `npm run render:episode -- <ep> out/videos/{ep}.mp4` | YES |
-| 15. video audit | （CLI レポート）| `node scripts/audit-video.mjs <ep>` | YES（完成条件）|
+| 5. YAML 変換 | `script/{ep}/script.yaml` | LLM（10_yaml_prompt）| - |
+| 6. image prompt 生成 | `script.yaml` の `visual_asset_plan[].imagegen_prompt` | LLM（08_image_prompt_prompt）| - |
+| 7. image prompt 監査（任意）| `script/{ep}/audits/image_prompt_audit.json` | `npm run audit:image-prompts -- <ep>` | NO（非ブロッキング）|
+| 8. BGM 選定 | `script/{ep}/script.yaml` の `bgm:` ブロック | `npm run select:bgm -- <ep>` | YES（audit:video が要求）|
+| 9. 画像生成 | `script/{ep}/assets/sNN_main.png` | Codex CLI（codex-imagegen skill）| YES（render に必要）|
+| 10. pre-render gate | `script/{ep}/audits/pre_render_gate.json` | `npm run gate:episode -- <ep>` | YES（構造・ファイル・フォーマットのみ） |
+| 11. build episode | `script/{ep}/script.render.json`、音声 wav、`public/episodes/{ep}/` | `node scripts/build-episode.mjs <ep>` | YES |
+| 12. render | `out/videos/{ep}.mp4` | `npm run render:episode -- <ep> out/videos/{ep}.mp4` | YES |
+| 13. video audit | （CLI レポート）| `node scripts/audit-video.mjs <ep>` | YES（完成条件）|
 
 ## 補助コマンド
 
@@ -84,14 +82,12 @@ planning.md
 | prompt pack ルートの静的検査（gate に内包）| `node scripts/validate-script-generation-route.mjs` |
 | prompt pack 証跡の存在チェック（gate に内包）| `node scripts/validate-script-prompt-pack-evidence.mjs <ep>` |
 | episode YAML スキーマ単体検証（gate に内包）| `node scripts/validate-episode-script.mjs <ep>` |
-| 任意の追加品質チェック | `npm run audit:episode-quality -- <ep>` |
+| 最新 `image_prompts.json` の文字化け・旧文言チェック | `npm run audit:latest-image-prompts -- --limit=5` |
+| 画像生成対象sceneの非破壊確認 | `npm run imagegen:episode -- <ep> --dry-run` |
+| 失敗sceneだけ画像生成を再実行 | `npm run imagegen:episode -- <ep> --retry-failed` |
 | 単体テンプレ静止画 | `npm run render:01-rm` 〜 `render:21-zm` |
 | テンプレ確認グリッド | `npm run render:test-stills` |
 | Remotion Studio | `npm run studio` |
-
-## skeleton（実機能未実装）
-
-- `npm run v2:pipeline` / `v2:gate:episode` / `v2:audit:image-result`（python 実装）は **state記録のみの skeleton**。実生成・実監査は未実装。将来 python パイプライン化する時の足場として残置。
 
 ## 解像度とレイアウト
 
@@ -129,6 +125,7 @@ CodexでもClaude Codeでも、この成果物名と停止条件は同じ。
 
 `script_audit.json` / `audit_script_draft.json` / `script_generation_audit.json` は生成しない。
 Codexレビューは `script_final.md` だけを対象にし、結果は `audits/script_final_review.md` の1ファイルに残す。
+レビューでは、魔理沙/めたんの連続解説を機械的に落とさない。根拠説明、手順説明、注意点整理、比較説明として最大4セリフ以内で、具体例・数字・比較・手順・失敗例のうち2つ以上があり、前後に霊夢/ずんだもんの誤解や反応がある場合は許可する。条件なしの抽象独演は落とす。
 
 ## YAML変換の流れ
 

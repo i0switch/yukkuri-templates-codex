@@ -1,0 +1,481 @@
+meta:
+  id: auto_yukkuri_convenience_001
+  title: なぜコンビニに行くと余計なものを買うのか
+  pair: RM
+  voice_engine: aquestalk
+  layout_template: Scene12
+  width: 1280
+  height: 720
+  fps: 30
+  target_duration_sec: 300
+  audience: コンビニで予定外の買い物をしがちな人
+  tone: 生活心理・買い物あるある・軽いツッコミ
+  bgm_mood: 軽快、日常、少しコミカル
+characters:
+  left:
+    character: reimu
+    aquestalk_preset: 女性１
+  right:
+    character: marisa
+    aquestalk_preset: まりさ
+scenes:
+  - id: s01
+    title_text: ついで買いは設計通り
+    motion_mode: punch
+    main:
+      kind: image
+      asset: assets/s01_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 失敗例シミュレーション
+        imagegen_prompt_ref: s01.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 見て魔理沙、水だけ買いに行ったのに、袋の中がスイーツ祭りなんだけど！
+        expression: shock
+        emphasis: {words: [スイーツ祭り], style: danger, se: warning, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: コンビニで“ついで買い”するの、かなり設計通りなんだぜ。
+        expression: serious
+        emphasis: {words: [設計通り], style: surprise, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: え、私の意志がプリンに負けただけじゃないの？
+        expression: surprise
+        emphasis: {words: [プリンに負けた], style: punch, se: question, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: 意志も関係するけど、それだけじゃないぜ。動線、棚、レジ横、限定品が、買う理由を次々に置いてくるんだぜ。
+        expression: confident
+        emphasis: {words: [買う理由], style: danger, se: warning, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: コンビニって、ただ便利なだけじゃなくて、私の財布に話しかけてくるのね。
+        expression: wry
+        emphasis: {words: [財布に話しかけてくる], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: そういうことだぜ。今日は責めるためじゃなく、余計な買い物が起きる仕組みを知って、防ぐ一手まで整理するぜ。
+        expression: calm
+        emphasis: {words: [防ぐ一手], style: action, se: success, pause_after_ms: 300}
+  - id: s02
+    title_text: 入口からレジまで歩かされる
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s02_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 理解補助
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s02.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でも欲しい物だけ取って、まっすぐレジに行けばよくない？
+        expression: confident
+        emphasis: {words: [まっすぐレジ], style: action, se: question, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: それが意外と難しいんだぜ。店によって違うけど、よく買う飲み物や弁当が奥にあると、そこまで歩く間にいろんな棚を見ることになるぜ。
+        expression: serious
+        emphasis: {words: [いろんな棚], style: danger, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: たしかに飲み物を取りに行く途中で、新作お菓子と目が合うわ。
+        expression: surprise
+        emphasis: {words: [目が合う], style: punch, se: pop, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: 目が合った時点で候補に入るんだぜ。人は見なかった商品は買えないけど、見た商品は急に選択肢になるんだぜ。
+        expression: confident
+        emphasis: {words: [選択肢], style: surprise, se: reveal, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: つまり私は飲み物を買いに行って、誘惑の展示会を通過してるのね。
+        expression: wry
+        emphasis: {words: [誘惑の展示会], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: そうだぜ。導線は商品との接触回数を増やす仕組みになりやすいんだぜ。
+        expression: calm
+        emphasis: {words: [接触回数], style: number, se: warning, pause_after_ms: 300}
+  - id: s03
+    title_text: 必要品の近くに誘惑がある
+    motion_mode: normal
+    main:
+      kind: image
+      asset: assets/s03_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: NG / OK 比較
+        imagegen_prompt_ref: s03.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあ私は目を閉じて歩けば勝てる？
+        expression: confident
+        emphasis: {words: [目を閉じて], style: punch, se: question, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: 危ないからやめるんだぜ。見るべきなのは、必要品の近くに置かれた“ついで候補”だぜ。
+        expression: serious
+        emphasis: {words: [ついで候補], style: surprise, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: ついで候補？
+        expression: confused
+        emphasis: {words: [ついで候補], style: surprise, se: question, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: 例えばおにぎりの近くに汁物、パンの近くにコーヒー、レジへ向かう途中にデザート。組み合わせると自然に買いやすい位置にあるんだぜ。
+        expression: calm
+        emphasis: {words: [買いやすい位置], style: action, se: success, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: おにぎりだけだと寂しい気がして、味噌汁を足しちゃうやつね。
+        expression: wry
+        emphasis: {words: [足しちゃう], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: そうだぜ。必要な買い物の横に、少し足すと満足度が上がりそうな商品があると、つい手が伸びるんだぜ。
+        expression: confident
+        emphasis: {words: [つい手が伸びる], style: danger, se: warning, pause_after_ms: 300}
+  - id: s04
+    title_text: レジ横は最後の関門
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s04_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: s04.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: レジ横のチョコとかホットスナック、あれは反則よ。
+        expression: worried
+        emphasis: {words: [レジ横], style: danger, se: warning, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: 最後の関門だぜ。会計直前は、もう買い物モードに入ってるから、小さい商品を足す心理的なハードルが下がりやすいんだぜ。
+        expression: serious
+        emphasis: {words: [最後の関門], style: danger, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: あと一個くらいならいいか、ってなるわ。
+        expression: wry
+        emphasis: {words: [あと一個], style: punch, se: pop, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: その“あと一個”が強いんだぜ。金額もサイズも小さく見えるから、判断がゆるむんだぜ。
+        expression: confident
+        emphasis: {words: [判断がゆるむ], style: danger, se: warning, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: レジ横、財布の隙間に滑り込む忍者ね。
+        expression: laugh
+        emphasis: {words: [忍者], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: うまいこと言うぜ。しかも待ち時間に目に入るから、考える時間も発生するんだぜ。
+        expression: calm
+        emphasis: {words: [待ち時間], style: number, se: none, pause_after_ms: 0}
+  - id: s05
+    title_text: 限定品が今買う理由を作る
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s05_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 誇張図解
+        imagegen_prompt_ref: s05.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 限定って書かれると弱いのよ。今買わないと消える気がする。
+        expression: worried
+        emphasis: {words: [限定], style: danger, se: warning, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: それが“今買う理由”になるんだぜ。期間限定、新商品、地域限定は、買わない理由より買う理由を強く見せるぜ。
+        expression: serious
+        emphasis: {words: [今買う理由], style: surprise, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: あとで買えばいいのに、今しかない気分になるのよね。
+        expression: wry
+        emphasis: {words: [今しかない], style: danger, se: warning, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: そうだぜ。実際に本当に短期間のものもあるけど、全部を追いかけるとキリがないんだぜ。
+        expression: calm
+        emphasis: {words: [キリがない], style: punch, se: none, pause_after_ms: 0}
+      - id: d05
+        speaker: left
+        text: 限定品ハンターになったら、冷蔵庫が展示会になるわ。
+        expression: laugh
+        emphasis: {words: [展示会], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: だから限定を見るたびに、今日食べたいのか、限定の文字に反応しただけなのかを分けるのが大事だぜ。
+        expression: confident
+        emphasis: {words: [分ける], style: action, se: success, pause_after_ms: 300}
+  - id: s06
+    title_text: 小さい金額は痛みが薄い
+    motion_mode: compare
+    main:
+      kind: image
+      asset: assets/s06_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 比較
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s06.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: でもコンビニのついで買いって、ひとつひとつは高額じゃないじゃない。
+        expression: confused
+        emphasis: {words: [高額じゃない], style: punch, se: question, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: そこが罠だぜ。小さい金額は、支払う痛みが薄くなりやすいんだぜ。
+        expression: serious
+        emphasis: {words: [支払う痛み], style: danger, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: 百円台、二百円台だと、まあいっかってなるわ。
+        expression: wry
+        emphasis: {words: [まあいっか], style: punch, se: pop, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: その“まあいっか”が積み重なるぜ。毎回は小さくても、何度も続くと月の出費では見えてくるんだぜ。
+        expression: confident
+        emphasis: {words: [月の出費], style: number, se: warning, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: 小銭の顔をした固定費予備軍ね。
+        expression: surprise
+        emphasis: {words: [固定費予備軍], style: danger, se: warning, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: 言い方は鋭いぜ。だから金額より、予定外の商品が何個入ったかを見ると気づきやすいんだぜ。
+        expression: calm
+        emphasis: {words: [予定外の商品], style: action, se: success, pause_after_ms: 300}
+  - id: s07
+    title_text: 空腹と疲れで判断が緩む
+    motion_mode: warning
+    main:
+      kind: image
+      asset: assets/s07_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 不安喚起
+        composition_type: 事故寸前構図
+        imagegen_prompt_ref: s07.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 夕方のコンビニ、揚げ物の匂いが強すぎるのよ。
+        expression: worried
+        emphasis: {words: [揚げ物の匂い], style: danger, se: warning, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: 空腹と疲れは判断をゆるめるんだぜ。お腹が空いている時は、今すぐ満たされるものが魅力的に見えやすいんだぜ。
+        expression: serious
+        emphasis: {words: [空腹と疲れ], style: danger, se: reveal, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: 疲れてると、もう今日はご褒美でいいかってなるわ。
+        expression: wry
+        emphasis: {words: [ご褒美], style: punch, se: pop, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: それ自体は悪くないぜ。ただ、疲れている時ほど予定外の買い物を正当化しやすいんだぜ。
+        expression: calm
+        emphasis: {words: [正当化], style: danger, se: warning, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: 脳がレジ横チキンの弁護士になるのね。
+        expression: laugh
+        emphasis: {words: [弁護士], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: そうだぜ。だから空腹で行くなら、買う物を先に一つ決めておくのが効くんだぜ。
+        expression: confident
+        emphasis: {words: [先に一つ], style: action, se: success, pause_after_ms: 300}
+  - id: s08
+    title_text: 意志の弱さだけじゃない
+    motion_mode: reveal
+    main:
+      kind: image
+      asset: assets/s08_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 理解補助
+        composition_type: 原因マップ
+        imagegen_prompt_ref: s08.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: ここまで聞くと、私の意志だけの問題じゃない気がしてきたわ。
+        expression: surprised
+        emphasis: {words: [意志だけ], style: surprise, se: question, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: そこが中盤の大事なポイントだぜ。犯人は意志の弱さだけじゃなく、買う理由を増やす並べ方なんだぜ。
+        expression: serious
+        emphasis: {words: [買う理由を増やす], style: danger, se: reveal, pause_after_ms: 500}
+      - id: d03
+        speaker: left
+        text: 入口から歩いて、必要品の横で誘われて、レジ横で最後に刺されるのね。
+        expression: shock
+        emphasis: {words: [最後に刺される], style: danger, se: warning, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: そうだぜ。しかも限定や小さい金額が、今買ってもいい理由を足してくるんだぜ。
+        expression: confident
+        emphasis: {words: [理由を足してくる], style: danger, se: warning, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: コンビニ、便利な顔をしたプレゼン上手ね。
+        expression: wry
+        emphasis: {words: [プレゼン上手], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: だから店を悪者にするより、自分がどこで反応しやすいか知るのが大事なんだぜ。
+        expression: calm
+        emphasis: {words: [反応しやすいか], style: action, se: success, pause_after_ms: 300}
+  - id: s09
+    title_text: カゴを見るだけで戻れる
+    motion_mode: checklist
+    main:
+      kind: image
+      asset: assets/s09_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: 手順図
+        imagegen_prompt_ref: s09.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: じゃあ対策は、コンビニに入らないこと？
+        expression: confused
+        emphasis: {words: [入らない], style: danger, se: question, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: 極端だぜ。便利さは使えばいいんだぜ。対策は、会計前にカゴを一回見ることだぜ。
+        expression: calm
+        emphasis: {words: [カゴを一回見る], style: action, se: success, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: 見るだけ？
+        expression: surprise
+        emphasis: {words: [見るだけ], style: surprise, se: question, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: 見るだけでいいぜ。買う予定だった物と、途中で増えた物を分けるんだぜ。
+        expression: confident
+        emphasis: {words: [分ける], style: action, se: success, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: あ、このプリンは予定外、このチョコも予定外、でも心は予定内って言ってるわ。
+        expression: wry
+        emphasis: {words: [心は予定内], style: punch, se: pop, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: 心の予定内にだまされるなだぜ。戻すなら会計前が一番ラクなんだぜ。
+        expression: serious
+        emphasis: {words: [会計前], style: action, se: success, pause_after_ms: 300}
+  - id: s10
+    title_text: 買う物を一つ決める
+    motion_mode: recap
+    main:
+      kind: image
+      asset: assets/s10_main.png
+    sub: null
+    visual_asset_plan:
+      - slot: main
+        image_role: 手順整理
+        composition_type: チェックリスト
+        imagegen_prompt_ref: s10.main
+        purpose: script_final直投げ型の挿入画像
+        adoption_reason: sceneの要点に一致
+    dialogue:
+      - id: d01
+        speaker: left
+        text: 今日から私は、コンビニに入る前に精神統一するわ。
+        expression: confident
+        emphasis: {words: [精神統一], style: punch, se: pop, pause_after_ms: 300}
+      - id: d02
+        speaker: right
+        text: 精神統一より、買う物を一つ決めるんだぜ。水なら水、昼食なら昼食。目的を先に言葉にするんだぜ。
+        expression: calm
+        emphasis: {words: [買う物を一つ], style: action, se: success, pause_after_ms: 300}
+      - id: d03
+        speaker: left
+        text: 目的がないと、棚に目的を作られるのね。
+        expression: surprised
+        emphasis: {words: [棚に目的], style: surprise, se: reveal, pause_after_ms: 300}
+      - id: d04
+        speaker: right
+        text: そういうことだぜ。入店前に一つ決めておくと、棚の前で目的を作られにくくなるぜ。
+        expression: confident
+        emphasis: {words: [入店前], style: action, se: success, pause_after_ms: 300}
+      - id: d05
+        speaker: left
+        text: みんなはレジ横で何をつい買っちゃう？私はチョコとホットスナックが危険地帯よ。
+        expression: smile
+        emphasis: {words: [レジ横], style: danger, se: warning, pause_after_ms: 300}
+      - id: d06
+        speaker: right
+        text: コメントで教えてほしいぜ。今日の行動は、次にコンビニへ入る前に買う物を一つだけ決めることだぜ。
+        expression: calm
+        emphasis: {words: [買う物を一つだけ], style: action, se: success, pause_after_ms: 300}
+      - id: d07
+        speaker: left
+        text: よし、水だけ買う。水だけ、水だけ……でも新作プリンは見ない方向で行くわ。
+        expression: wry
+        emphasis: {words: [水だけ], style: punch, se: pop, pause_after_ms: 300}
+      - id: d08
+        speaker: right
+        text: 見ない方向と言いながら、もう負けかけてるんだぜ。
+        expression: wry
+        emphasis: {words: [負けかけ], style: punch, se: pop, pause_after_ms: 300}

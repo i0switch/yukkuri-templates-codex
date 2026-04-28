@@ -26,10 +26,10 @@
 - 繰り返し小ネタ:
 
 ## 3. シーン計画
-| scene_id | role | hook_title | scene_format | scene_goal | viewer_misunderstanding | reaction_level | number_or_example | main_role | sub_role | midpoint_rehook |
-|---|---|---|---|---|---|---|---|---|---|---|
+| scene_id | role | hook_title | scene_goal | viewer_state | conversation_entry | concrete_scene | deep_explanation_block | emotional_turn | main_role | sub_role | midpoint_rehook |
+|---|---|---|---|---|---|---|---|---|---|---|---|
 
-`hook_type` / `boke_or_reaction` / `visual_type` / `composition_type` / `myth_vs_fact` / `supports_dialogue` / `supports_moment` は構成案テーブルに置かない。これらは v2 では使用しない（`imagegen_prompt` 本文にも混ぜない）。
+`hook_type` / `boke_or_reaction` / `visual_type` / `composition_type` / `myth_vs_fact` / `supports_dialogue` / `supports_moment` は構成案テーブルに置かない。これらは現行フローでは使用しない（`imagegen_prompt` 本文にも混ぜない）。
 
 ## 4. 尺と密度
 - 目標シーン数:
@@ -37,28 +37,26 @@
 - 1シーン平均:
 - 中盤再フック位置:
 
-## 5. セルフ監査
-- 3種類以上の scene_format:
-- L3以上リアクション2回以上:
-- 解説役3連続なしの設計:
+## 5. 生成前チェック
+- シーンごとの入口が同じ型で量産されていない:
+- 長めの解説が必要なsceneは `deep_explanation_block` に理由と扱う具体素材を書いている:
+- `deep_explanation_block` があるsceneは、説明前の視聴者代表の誤解/疑問/ボケ/焦りと、説明後の反応/言い換え/行動宣言まで設計している:
+- 視聴者代表の反応が前の発話を受けている:
 - sub枠方針: sub枠ありテンプレートでは全sceneの `sub_role` に実際の表示内容を入れる。sub枠なしテンプレートでは `sub: null`。
 - final_action:
+- 企画メモをそのままセリフに読ませず、自然会話へ翻訳できる設計になっている:
 ```
-
-## scene_format
-
-- 誤解訂正型
-- 失敗エピソード型
-- Before / After型
-- 手順型
-- 反証型
-- あるある型
-- まとめ再フック型
 
 ## ルール
 
 - 章タイトルはフック型。
 - s01 は `scene_goal` を「リスクを刺す」だけにしない。最初の1〜3発話で視聴者の現在地を置く `intro_context` 相当の文脈を設計する。
+- 各シーンの `viewer_state` は視聴者の状態や本音を短く書く。これは設計メモであり、そのままキャラに読ませない。
+- `conversation_entry` は「失敗談から入る」「反論から入る」「生活実感から入る」「行動宣言から入る」など、会話の入口を分散させるために使う。
+- `concrete_scene` は数字・生活場面・失敗例・比較の素材を書く。draft 工程では自然な会話に翻訳し、同じ構文で2scene以上使わない。
+- `deep_explanation_block` は、根拠説明、手順説明、注意点整理、比較説明などで解説役が最大4セリフまで連続してよいsceneだけに書く。不要なsceneは `none` にする。
+- `deep_explanation_block` には、説明理由、入れる具体例/数字/比較/手順/失敗例のうち最低2つ、説明後に視聴者代表がどう受けるかを書く。
+- 全シーンで同じ会話構造（例: 誤解→短ツッコミ→例→小結論）を繰り返すのは禁止。
 - s01 の冒頭は、日常の状況、視聴者がやりがちな行動、なぜ今この話をするかのどれかから入り、その後に損失や危険性へ接続する。
 - 各本編シーンに数字、具体例、失敗例、あるある、比較のいずれかを入れる。
 - 3分は6〜8シーン、60〜80セリフ。
