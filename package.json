@@ -73,6 +73,7 @@
     "test:script-prompt-pack-evidence": "node scripts/test-script-prompt-pack-evidence.mjs",
     "test:pipeline-hardening": "node scripts/test-pipeline-hardening.mjs",
     "test:pipeline-cache": "node scripts/test-pipeline-cache.mjs",
+    "test:duration-guards": "node scripts/test-duration-guards.mjs",
     "test:sub-content-guards": "node scripts/test-sub-content-guards.mjs",
     "test:subtitle-line-breaks": "node scripts/test-subtitle-line-breaks.mjs",
     "test:subtitle-segments": "node scripts/test-subtitle-segments.mjs",

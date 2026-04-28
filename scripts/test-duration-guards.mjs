@@ -209,6 +209,18 @@ run(['scripts/estimate-episode-duration.mjs', target300At260], {
 run(['scripts/estimate-episode-duration.mjs', target300At340], {
   expectMessage: '"duration_status": "over"',
 });
+const measuredProfileTarget = await writeFixture({name: 'target300-measured-profile', targetDurationSec: 300, totalDurationSec: 300, dialogueLineCount: 100});
+await fs.writeFile(
+  path.join(path.dirname(measuredProfileTarget), 'tts-duration-profile.json'),
+  `${JSON.stringify({version: 1, voice_engine: 'voicevox', dialogue_lines: 100, total_audio_sec: 410, actual_seconds_per_line: 4.1}, null, 2)}\n`,
+  'utf8',
+);
+run(['scripts/estimate-episode-duration.mjs', measuredProfileTarget], {
+  expectMessage: '"seconds_per_line_source": "tts-duration-profile.json"',
+});
+run(['scripts/estimate-episode-duration.mjs', measuredProfileTarget], {
+  expectMessage: '"estimated_duration_sec": 410',
+});
 
 const underEstimate = estimateFixture({targetDurationSec: 300, lineCount: 80});
 assert(underEstimate.ok === false, 'under target estimate must fail');
