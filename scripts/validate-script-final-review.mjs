@@ -28,26 +28,15 @@ if (state.ok) {
   if (failVerdictPattern.test(reviewText)) {
     contentIssues.push('review verdict is FAIL');
   }
+  if (!passVerdictPattern.test(reviewText) && !failVerdictPattern.test(reviewText)) {
+    contentIssues.push('missing verdict');
+  }
   const requiredPatterns = [
-    {key: 'verdict', pattern: /verdict\s*:\s*(PASS|FAIL)|判定\s*[:：]\s*(PASS|FAIL|合格|不合格)/i},
     {key: 'blocking_issues', pattern: /blocking_issues|重大指摘|ブロッキング/i},
   ];
   for (const requirement of requiredPatterns) {
     if (!requirement.pattern.test(reviewText)) {
       contentIssues.push(`missing ${requirement.key}`);
-    }
-  }
-  if (passVerdictPattern.test(reviewText)) {
-    const requiredPassPatterns = [
-      {key: 'opening_dialogue_review', pattern: /冒頭(1発話|30秒|15秒|評価|自然|フック)/},
-      {key: 'script_final_meta_check', pattern: /メタ混入なし|設計メタ.*なし|設計メモ.*残っていない|設計メモ.*なし|meta leak/i},
-      {key: 'explanation_bot_check', pattern: /説明bot|説明ボット|説明臭|説明台詞|解説役.*bot|解説役.*自然/},
-      {key: 'watch_reason_check', pattern: /視聴継続|見る理由|続きを見る理由|続き.*理由/},
-    ];
-    for (const requirement of requiredPassPatterns) {
-      if (!requirement.pattern.test(reviewText)) {
-        contentIssues.push(`missing ${requirement.key}`);
-      }
     }
   }
 }
@@ -64,7 +53,7 @@ const report = {
       ? 'script_final_review.md must include a leading script_final_sha256 marker'
       : 'script_final_review.md is stale for current script_final.md'
     : contentIssues.length > 0
-      ? 'script_final_review.md is missing required LLM review fields'
+      ? 'script_final_review.md must have a fresh PASS verdict and blocking_issues field'
       : null,
   content_issues: contentIssues,
   legacy_hash_issue: state.ok

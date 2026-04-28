@@ -31,8 +31,6 @@ const run = (args, {expectFailure = false, expectMessage} = {}) => {
   }
 };
 
-const emphasis = (style = 'danger', se = 'warning') => ({words: ['危険'], style, se, pause_after_ms: 300});
-
 const writeFixture = async ({name, invalidExpression = false, repeatedExpression = false}) => {
   const dir = path.join(fixtureRoot, name);
   await fs.rm(dir, {recursive: true, force: true});
@@ -40,12 +38,11 @@ const writeFixture = async ({name, invalidExpression = false, repeatedExpression
 
   const scenes = Array.from({length: 10}, (_, index) => {
     const sceneId = `s${String(index + 1).padStart(2, '0')}`;
-    const required = index === 0 || index === 4 || index === 9;
     const expressions = repeatedExpression
       ? ['shock', 'confident', 'shock', 'confident', 'shock']
       : ['shock', 'confident', 'confused', 'smug', 'laugh'];
     const dialogue = [
-      {id: 'l01', speaker: 'left', text: '危険を確認するわ', expression: expressions[0], ...(required ? {emphasis: emphasis()} : {})},
+      {id: 'l01', speaker: 'left', text: '危険を確認するわ', expression: expressions[0]},
       {id: 'l02', speaker: 'right', text: '先に見るんだぜ', expression: expressions[1]},
       {id: 'l03', speaker: 'left', text: 'それ普通に怖いわ', expression: expressions[2]},
       {id: 'l04', speaker: 'right', text: 'ここが分かれ道だ', expression: expressions[3]},

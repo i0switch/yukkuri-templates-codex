@@ -138,12 +138,6 @@ export interface DialogueLine {
   speaker: DialogueSpeaker;
   text: string;
   expression?: string;
-  emphasis?: {
-    words: string[];
-    style: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
-    se: 'pop' | 'warning' | 'question' | 'reveal' | 'success' | 'fail' | 'none';
-    pause_after_ms: 0 | 200 | 300 | 500;
-  };
   typography?: Pick<TypographyConfig, 'subtitle_family' | 'subtitle_stroke_color' | 'subtitle_stroke_width'>;
   pre_pause_sec?: number;
   post_pause_sec?: number;

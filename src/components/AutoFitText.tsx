@@ -20,8 +20,6 @@ type Props = {
   textStrokeColor?: string;
   textStrokeWidth?: number;
   maxLines?: number;
-  highlightWords?: string[];
-  highlightVariant?: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
   style?: React.CSSProperties;
 };
 
@@ -31,30 +29,8 @@ type FitResult = {
   text: string;
 };
 
-const extractMarkdownHighlights = (value: string) => {
-  const words: string[] = [];
-  const text = value.replace(/\*\*([^*\n][^*]*?)\*\*/g, (_match, word: string) => {
-    const trimmed = String(word).trim();
-    if (trimmed) {
-      words.push(trimmed);
-    }
-    return String(word);
-  });
-  return {text, words};
-};
+const stripLegacyMarkdownEmphasis = (value: string) => value.replace(/\*\*([^*\n][^*]*?)\*\*/g, '$1');
 
-const HighlightEmphasisKeyframes = () => (
-  <style>
-    {`@keyframes subtitle-highlight-emphasis {
-      0% { transform: translateY(0) rotate(0deg) scale(1); filter: brightness(1); }
-      18% { transform: translateY(-2px) rotate(-1.2deg) scale(1.08); filter: brightness(1.12); }
-      36% { transform: translateY(1px) rotate(1deg) scale(1.1); filter: brightness(1.16); }
-      55% { transform: translateY(-1px) rotate(-0.7deg) scale(1.06); filter: brightness(1.1); }
-      78% { transform: translateY(0) rotate(0deg) scale(1.04); filter: brightness(1.05); }
-      100% { transform: translateY(0) rotate(0deg) scale(1.04); filter: brightness(1.05); }
-    }`}
-  </style>
-);
 
 const resolveFontSize = ({
   text,
@@ -161,13 +137,11 @@ export const AutoFitText: React.FC<Props> = ({
   textStrokeColor,
   textStrokeWidth = 0,
   maxLines,
-  highlightWords = [],
-  highlightVariant = 'punch',
   style,
 }) => {
-  const markdown = extractMarkdownHighlights(text);
+  const plainText = stripLegacyMarkdownEmphasis(text);
   const fit = resolveFontSize({
-    text: markdown.text,
+    text: plainText,
     width,
     height,
     minFontSize,
@@ -181,51 +155,6 @@ export const AutoFitText: React.FC<Props> = ({
     width: textStrokeWidth,
   });
   const resolvedTextShadow = [textShadow, strokeStyle.textShadow].filter(Boolean).join(', ') || undefined;
-  const highlightColor =
-    highlightVariant === 'danger'
-      ? '#FF2A2A'
-      : highlightVariant === 'surprise'
-        ? '#7C3AED'
-        : highlightVariant === 'number'
-          ? '#F59E0B'
-          : highlightVariant === 'action'
-            ? '#16A34A'
-            : '#FACC15';
-  const highlightGlow =
-    highlightVariant === 'danger'
-      ? 'rgba(255,42,42,0.42)'
-      : highlightVariant === 'surprise'
-        ? 'rgba(124,58,237,0.38)'
-        : highlightVariant === 'number'
-          ? 'rgba(245,158,11,0.42)'
-          : highlightVariant === 'action'
-            ? 'rgba(22,163,74,0.38)'
-            : 'rgba(250,204,21,0.42)';
-  const highlightStyle: React.CSSProperties = {
-    color: highlightColor,
-    fontWeight: 900,
-    textShadow: `0 2px 8px rgba(0,0,0,0.28), 0 0 14px ${highlightGlow}`,
-    display: 'inline-block',
-    animation: 'subtitle-highlight-emphasis 900ms ease-out both',
-    transformOrigin: 'center bottom',
-  };
-
-  const renderHighlightedText = (value: string) => {
-    const words = [...new Set([...highlightWords, ...markdown.words].map((word) => word.trim()).filter(Boolean))].sort((a, b) => b.length - a.length);
-    if (words.length === 0) {
-      return value;
-    }
-    const pattern = new RegExp(`(${words.map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
-    return value.split(pattern).map((part, index) =>
-      words.includes(part) ? (
-        <span key={`${part}-${index}`} style={highlightStyle}>
-          {part}
-        </span>
-      ) : (
-        <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>
-      ),
-    );
-  };
 
   return (
     <div
@@ -240,7 +169,6 @@ export const AutoFitText: React.FC<Props> = ({
         overflow: 'hidden',
       }}
     >
-      <HighlightEmphasisKeyframes />
       <div
         style={{
           width: '100%',
@@ -258,7 +186,7 @@ export const AutoFitText: React.FC<Props> = ({
           textShadow: resolvedTextShadow,
         }}
       >
-        {renderHighlightedText(fit.text)}
+        {fit.text}
       </div>
     </div>
   );

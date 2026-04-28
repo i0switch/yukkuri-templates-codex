@@ -79,7 +79,7 @@ const writeFixture = async ({name, voiceEngine, characters, extraScriptMeta = {}
           items: ['音声エンジン確認', 'キャラ設定確認'],
         },
         dialogue: [
-          {id: 'l01', speaker: 'left', text: '危険を確認するのだ', emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300}},
+          {id: 'l01', speaker: 'left', text: '危険を確認するのだ'},
           {id: 'l02', speaker: 'right', text: 'テストですわ'},
         ],
       },

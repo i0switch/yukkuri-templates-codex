@@ -26,8 +26,8 @@ import type {EpisodeRenderData, EpisodeScene, MainTimelineEntry, SceneContent, T
 import {AutoFitText} from './AutoFitText';
 import {FONT_FAMILIES, FS, SUBTITLE_FONT_SCALE, TEXT_STROKE} from '../design-tokens';
 import {SubtitleBar} from './SubtitleBar';
-import {VisualEmphasisLayer} from './VisualEmphasisLayer';
 import {resolveSubtitleSegmentText} from './subtitleSegments';
+import {resolveOverlaySubtitleLayout} from './subtitleLayout';
 import type {Rect, SlotRenderer} from '../types';
 
 const SCENE_COMPONENTS = {
@@ -78,18 +78,6 @@ type ResolvedTypography = {
 type TextStroke = {
   color: string;
   width: number;
-};
-
-type Emphasis = NonNullable<TimedDialogueLine['emphasis']>;
-
-const SE_VOLUME: Record<Emphasis['se'], number> = {
-  pop: 0.34,
-  warning: 0.42,
-  question: 0.3,
-  reveal: 0.38,
-  success: 0.34,
-  fail: 0.34,
-  none: 0,
 };
 
 const resolveFamily = (_family: TypographyFamily | undefined) => FONT_FAMILIES.gothic;
@@ -386,7 +374,6 @@ const renderBarSubtitle = (
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
-  emphasis: TimedDialogueLine['emphasis'] | undefined,
 ): SlotRenderer => (rect: Rect) => (
   (() => {
     const subtitleRect = rect as Rect & {
@@ -432,8 +419,6 @@ const renderBarSubtitle = (
         textStrokeColor={stroke.color}
         textStrokeWidth={stroke.width}
         maxLines={SUBTITLE_MAX_LINES}
-        highlightWords={emphasis?.words}
-        highlightVariant={emphasis?.style}
       />
     );
   })()
@@ -446,17 +431,25 @@ const renderOverlaySubtitle = (
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
-  emphasis: TimedDialogueLine['emphasis'] | undefined,
 ): SlotRenderer => {
   const darkText = DARK_OVERLAY_SUBTITLE_TEMPLATES.has(template);
   return (rect: Rect) => {
+    const subtitleRect = rect as Rect & {
+      paddingX?: number;
+      paddingY?: number;
+    };
     const fontSize = darkText ? scaleSubtitleFontSize(34) : scaleSubtitleFontSize(40);
-    const width = Math.max(1, rect.w - 56);
+    const layout = resolveOverlaySubtitleLayout({
+      rect: subtitleRect,
+      strokeWidth: stroke.width,
+      fallbackPaddingX: 28,
+      fallbackPaddingY: 12,
+    });
     const subtitleText = resolveSubtitleSegmentText({
       line: activeLine,
       currentSec,
       splitOptions: {
-        width,
+        width: layout.innerWidth,
         fontSize,
         lineHeight: 1.22,
         letterSpacing: 0,
@@ -465,25 +458,35 @@ const renderOverlaySubtitle = (
     });
 
     return (
-      <AutoFitText
-        text={subtitleText}
-        width={width}
-        height={Math.max(1, rect.h - 24)}
-        minFontSize={scaleSubtitleFontSize(12)}
-        maxFontSize={fontSize}
-        lineHeight={1.22}
-        fontFamily={fontFamily}
-        fontWeight={700}
-        color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}
-        textAlign="center"
-        textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
-        textStrokeColor={stroke.color}
-        textStrokeWidth={stroke.width}
-        maxLines={SUBTITLE_MAX_LINES}
-        highlightWords={emphasis?.words}
-        highlightVariant={emphasis?.style}
-        style={{padding: '12px 28px', boxSizing: 'border-box'}}
-      />
+      <div
+        style={{
+          width: rect.w,
+          height: rect.h,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: `${layout.paddingY}px ${layout.paddingX}px`,
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+        }}
+      >
+        <AutoFitText
+          text={subtitleText}
+          width={layout.innerWidth}
+          height={layout.innerHeight}
+          minFontSize={scaleSubtitleFontSize(12)}
+          maxFontSize={fontSize}
+          lineHeight={1.22}
+          fontFamily={fontFamily}
+          fontWeight={700}
+          color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}
+          textAlign="center"
+          textShadow={darkText ? undefined : '0 2px 10px rgba(0,0,0,0.6)'}
+          textStrokeColor={stroke.color}
+          textStrokeWidth={stroke.width}
+          maxLines={SUBTITLE_MAX_LINES}
+        />
+      </div>
     );
   };
 };
@@ -543,9 +546,6 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
           durationInFrames={Math.max(1, Math.ceil(line.wav_sec * fps))}
         >
           <Audio src={staticFile(`${script.public_dir}/audio/${scene.id}_${line.id}.wav`)} />
-          {line.emphasis?.se && line.emphasis.se !== 'none' ? (
-            <Audio src={staticFile(`se/${line.emphasis.se}.wav`)} volume={SE_VOLUME[line.emphasis.se]} />
-          ) : null}
         </Sequence>
       ))}
 
@@ -576,21 +576,13 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
           subtitleText={subtitleText}
           subtitleSlot={
             useBarSubtitle
-              ? renderBarSubtitle(activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
-              : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
+              ? renderBarSubtitle(activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
+              : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
           mainContentSlot={renderMainContent(activeMainContent, script.public_dir, mainOpacity)}
           subContentSlot={renderSubContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
           showAreaLabels={false}
-        />
-        <VisualEmphasisLayer
-          activeLine={activeLine}
-          frame={frame}
-          fps={fps}
-          width={baseWidth}
-          height={baseHeight}
-          sceneGoal={scene.scene_goal}
         />
       </div>
     </AbsoluteFill>

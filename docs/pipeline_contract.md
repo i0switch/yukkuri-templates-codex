@@ -27,6 +27,9 @@ out/videos/{episode_id}.mp4
 `script.yaml` はレンダー入力であり、創作台本の正本ではない。
 長文画像プロンプトは `image_prompts.json` に逃がしてよい。`script.yaml` には `imagegen_prompt_ref` を置ける。既存互換として inline `imagegen_prompt` も読み取る。
 
+台本の良し悪しは `audits/script_final_review.md` のLLMレビューだけで判定する。
+機械ゲートは、必要ファイル、hash鮮度、YAML構造、素材参照、台帳、音声/画像のレンダー前整合だけを確認し、文字数、発話数、平均文字数、キーワード充足で台本品質を合否判定しない。
+
 ## 出力解像度
 
 ユーザーが解像度を指定しない限り、動画の delivery resolution は FullHD `1920x1080` にする。
@@ -183,15 +186,14 @@ visual_asset_plan:
 `script.yaml` では、正しい説明だけでなく会話の山場を動画へ渡すため、次を新規 episode の公開契約にする。
 
 - `scenes[].motion_mode`: `normal` / `punch` / `compare` / `warning` / `checklist` / `reveal` / `recap`
-- `dialogue[].emphasis.words`: 強調する語の配列
-- `dialogue[].emphasis.style`: `punch` / `danger` / `surprise` / `number` / `action`
-- `dialogue[].emphasis.se`: `pop` / `warning` / `question` / `reveal` / `success` / `fail` / `none`
-- `dialogue[].emphasis.pause_after_ms`: `0` / `200` / `300` / `500`
-- `dialogue[].text` 内の `**強調語**`: 字幕内の数字・中核キーワードを強調表示する補助マークアップ。`**` 自体は表示しない
 - `visual_asset_plan[].image_role`: `理解補助` / `不安喚起` / `笑い` / `比較` / `手順整理` / `証拠提示` / `オチ補助`
 - `visual_asset_plan[].composition_type`: `NG / OK 比較` / `失敗例シミュレーション` / `誇張図解` / `証拠写真風` / `チェックリスト` / `手順図` / `原因マップ` / `ビフォーアフター` / `ツッコミ待ち構図` / `事故寸前構図`
 
-60秒以上 `motion_mode: normal` が続く、40〜60%地点の再フックが `normal`、ラスト行動が `normal`、s01 / 中盤再フック / ラスト行動に `emphasis` と non-none `se` がない場合は gate で止める。
+字幕の語単位色替え、文字アニメーション、`dialogue[].emphasis` 由来のSE再生は廃止済み。
+新規 episode では `dialogue[].emphasis` と `dialogue[].text` 内の `**強調語**` マークアップを使わない。
+既存 episode に `emphasis` が残っていても、renderer は無視し、validator は互換警告だけを出す。
+
+60秒以上 `motion_mode: normal` が続く、40〜60%地点の再フックが `normal`、ラスト行動が `normal` の場合は gate で止める。
 
 hybrid_user_script では、AI が `image_prompt_v2.md` と `visual_asset_plan[].imagegen_prompt` を作り、ユーザーが任意の画像生成ツールで画像を生成して `script/{episode_id}/assets/sNN_main.png` に保存する。
 画像生成ツール名は固定しない。
@@ -204,6 +206,7 @@ hybrid_user_script では、AI が `image_prompt_v2.md` と `visual_asset_plan[]
 - `script_final.md` の Codex レビューが終わるまで、YAML 化、画像生成、音声生成、render へ進まない
 - `audits/script_final_review.md` の `script_final_sha256` が現在の `script_final.md` と一致しない場合は stale として進まない
 - `audits/script_final_review.md` がない episode は render しない
+- `audits/script_final_review.md` が `verdict: PASS` ではない episode は render しない。`FAIL` の場合は、LLMレビューに書かれた品質理由を直し、hash付きレビューを再作成してから進む
 - `script.yaml` に `meta.layout_template` がない episode は gate / build / render へ進めない
 - `meta.scene_template` と `scenes[].scene_template` は使わない
 - gate が FAIL の episode は build / render へ進めない
@@ -253,6 +256,12 @@ hybrid_user_script では、AI が `image_prompt_v2.md` と `visual_asset_plan[]
 - 証跡: `audits/script_prompt_pack_*.md` 群。prompt pack を実行した記録。
 
 `script_audit.json`、`audit_script_draft.json`、`script_generation_audit.json` は生成しない。
+証跡ファイルは、使用prompt名と工程出力を残すための記録であり、文字数や分量で台本品質を判定する場所ではない。
+
+`script_final_review.md` では、LLMが `script_final.md` 本文を読んで `PASS` / `FAIL` を出す。
+判断軸は、フック、掛け合い、具体例、視聴維持、キャラ口調、説明bot化、行動CTA、尺オーバー由来の不自然な削除有無にする。
+`FAIL` の場合は、どこが悪いか、どこをどう直すかを本文に書く。
+文字数、発話数、平均文字数、キーワード数は合否理由にしない。
 
 hybrid_user_script では、prompt pack 証跡の代わりに `audits/manual_intake.md` を使ってよい。
 ただし `audits/script_final_review.md` は省略しない。
@@ -331,7 +340,8 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 - `audio_playback_rate` や `atempo` で尺合わせしない
 - 推定自然音声尺またはbuild後の実音声尺が下限未満の場合は、`07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む
 - 推定自然音声尺またはbuild後の実音声尺が allowed_max を超えた場合は、自然尺を優先してそのまま使う。尺合わせ目的で `script_final.md` を削除、短文化、圧縮しない
-- `recommended_action: keep_natural_overrun_do_not_trim` が出た場合、尺オーバー対策として削除・短縮・圧縮をしてはいけない。事実誤り、重複、品質問題を直す局所修正だけを別理由で行える
+- `recommended_action: keep_natural_overrun_do_not_trim` が出た場合、尺合わせ目的の削除、短縮、要約、圧縮、発話統合をしてはいけない。事実誤り、重複、キャラ崩れ、文脈破綻など品質理由の局所修正だけを別理由で行える
+- 尺オーバー後に `script_final.md` を修正した場合は、理由が品質修正であっても `script_final_review.md` を必ず再作成し、hash一致を確認してから進む
 - `script.yaml` からMarkdown側を同期した場合、`script_final_review.md` はstale扱いにし、再レビューする
 
 ## 差分生成キャッシュ

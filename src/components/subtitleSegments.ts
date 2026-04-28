@@ -22,6 +22,30 @@ const japaneseParser = loadDefaultJapaneseParser();
 
 const visibleLength = (value: string) => [...value.replace(/\s+/g, '')].length;
 
+const subtitlePageWeight = (value: string) => {
+  const normalized = String(value ?? '').replace(/\s+/g, '');
+  const base = [...normalized].length;
+  const shortPauseCount = [...normalized.matchAll(/[、]/g)].length;
+  const longPauseCount = [...normalized.matchAll(/[。！？!?]/g)].length;
+  return Math.max(1, base + shortPauseCount * 0.6 + longPauseCount * 1.4);
+};
+
+const resolveWeightedSegmentIndex = (segments: string[], progress: number) => {
+  const weights = segments.map(subtitlePageWeight);
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+  const targetWeight = Math.min(totalWeight - Number.EPSILON, Math.max(0, progress) * totalWeight);
+  let cursor = 0;
+
+  for (let index = 0; index < weights.length; index += 1) {
+    cursor += weights[index];
+    if (targetWeight < cursor) {
+      return index;
+    }
+  }
+
+  return segments.length - 1;
+};
+
 const splitLongChunk = (chunk: string, maxChars: number) => {
   const segments: string[] = [];
   let current = '';
@@ -193,6 +217,6 @@ export const resolveSubtitleSegmentText = ({
 
   const duration = Math.max(0.001, line.end_sec - line.start_sec);
   const progress = Math.min(0.999999, Math.max(0, (currentSec - line.start_sec) / duration));
-  const index = Math.min(segments.length - 1, Math.floor(progress * segments.length));
+  const index = resolveWeightedSegmentIndex(segments, progress);
   return segments[index] ?? '';
 };

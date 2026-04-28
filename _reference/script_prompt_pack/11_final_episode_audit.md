@@ -7,12 +7,15 @@
 詳細な停止条件、禁止生成物、schema、画像出所、voice engine整合は `docs/pipeline_contract.md` を正本にする。このファイルは最終確認の出力形式だけを定義する。
 
 台本の日本語品質、会話の自然さ、同じフレーズの反復、文脈破綻は `audits/script_final_review.md` のLLMレビューで判断する。この最終確認では、機械的な品質スコアや品質マーカー充足を合否条件にしない。
+文字数、発話数、平均文字数、キーワード数では台本品質を判定しない。
+`script_final_review.md` が `verdict: PASS` ではない場合だけ停止する。
 
 ## チェック
 
 - `planning.md` / `script_draft.md` / `script_final.md` がある。
 - `audits/script_final_review.md` がある。
 - `audits/script_final_review.md` 先頭のhashが現在の `script_final.md` と一致している。
+- `audits/script_final_review.md` が `verdict: PASS` で、`blocking_issues` を含む。
 - `script.yaml` が `docs/pipeline_contract.md` の現行契約に合っている。
 - `dialogue[].speaker` と `dialogue[].text` があり、空文字ではない。
 - `dialogue[].text` に設計メタキー、監査ラベル、未充填プレースホルダが混入していない。

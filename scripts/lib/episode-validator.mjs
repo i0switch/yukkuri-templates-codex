@@ -14,9 +14,6 @@ export const TYPOGRAPHY_WIDTH_KEYS = new Set(['subtitle_stroke_width', 'content_
 export const TYPOGRAPHY_KEYS = new Set([...TYPOGRAPHY_FAMILY_KEYS, ...TYPOGRAPHY_COLOR_KEYS, ...TYPOGRAPHY_WIDTH_KEYS]);
 export const DIALOGUE_TYPOGRAPHY_KEYS = new Set(['subtitle_family', 'subtitle_stroke_color', 'subtitle_stroke_width']);
 export const MOTION_MODES = new Set(['normal', 'punch', 'compare', 'warning', 'checklist', 'reveal', 'recap']);
-export const EMPHASIS_STYLES = new Set(['punch', 'danger', 'surprise', 'number', 'action']);
-export const EMPHASIS_SE = new Set(['pop', 'warning', 'question', 'reveal', 'success', 'fail', 'none']);
-export const EMPHASIS_PAUSES_MS = new Set([0, 200, 300, 500]);
 export const DIALOGUE_EXPRESSIONS = new Set([
   'normal',
   'neutral',
@@ -531,18 +528,6 @@ const SUB_TEXT_WARN_THRESHOLD = 140;
 const SUB_BULLETS_WARN_THRESHOLD = 6;
 const MAIN_TIMELINE_SLOT_RE = /^main(?:_\d{2})?$/;
 
-const hasSceneEmphasis = (scene, {requireSe = false} = {}) =>
-  Array.isArray(scene?.dialogue) &&
-  scene.dialogue.some((line) => {
-    if (!isPlainObject(line?.emphasis)) {
-      return false;
-    }
-    if (!requireSe) {
-      return true;
-    }
-    return EMPHASIS_SE.has(line.emphasis.se) && line.emphasis.se !== 'none';
-  });
-
 const sceneDurationForMotion = (script, scene) => {
   if (typeof scene.duration_sec === 'number' && Number.isFinite(scene.duration_sec) && scene.duration_sec > 0) {
     return scene.duration_sec;
@@ -561,36 +546,6 @@ const midpointSceneIndexes = (scenes) => {
     }
   }
   return indexes;
-};
-
-const validateEmphasisConfig = ({emphasis, pathName, lineLabel, errors}) => {
-  if (emphasis === undefined || emphasis === null) {
-    return;
-  }
-  if (!isPlainObject(emphasis)) {
-    pushIssue(errors, 'error', pathName, `${lineLabel}: emphasis must be an object`);
-    return;
-  }
-
-  if (!Array.isArray(emphasis.words) || emphasis.words.length === 0) {
-    pushIssue(errors, 'error', `${pathName}.words`, `${lineLabel}: emphasis.words must be a non-empty array`);
-  } else {
-    emphasis.words.forEach((word, index) => {
-      if (typeof word !== 'string' || word.trim() === '') {
-        pushIssue(errors, 'error', `${pathName}.words[${index}]`, `${lineLabel}: emphasis word must be non-empty text`);
-      }
-    });
-  }
-
-  if (!EMPHASIS_STYLES.has(emphasis.style)) {
-    pushIssue(errors, 'error', `${pathName}.style`, `${lineLabel}: emphasis.style must be punch, danger, surprise, number, or action`);
-  }
-  if (!EMPHASIS_SE.has(emphasis.se)) {
-    pushIssue(errors, 'error', `${pathName}.se`, `${lineLabel}: emphasis.se must be pop, warning, question, reveal, success, fail, or none`);
-  }
-  if (!EMPHASIS_PAUSES_MS.has(emphasis.pause_after_ms)) {
-    pushIssue(errors, 'error', `${pathName}.pause_after_ms`, `${lineLabel}: emphasis.pause_after_ms must be 0, 200, 300, or 500`);
-  }
 };
 
 const validateDialogueExpression = ({expression, pathName, lineLabel, errors}) => {
@@ -735,33 +690,22 @@ const validateMainTimeline = async ({scene, scenePath, episodeDir, errors, promp
   }
 };
 
-const validateMotionAndEmphasisCoverage = ({script, errors}) => {
+const validateMotionCoverage = ({script, errors}) => {
   const scenes = script.scenes ?? [];
   if (scenes.length === 0) {
     return;
   }
 
-  if (!hasSceneEmphasis(scenes[0], {requireSe: true})) {
-    pushIssue(errors, 'error', 'scenes[0].dialogue.emphasis', 's01 requires at least one emphasis with non-none SE');
-  }
-
   const midpointIndexes = midpointSceneIndexes(scenes);
   const midpointHasNonNormal = midpointIndexes.some((index) => scenes[index]?.motion_mode && scenes[index].motion_mode !== 'normal');
-  const midpointHasEmphasis = midpointIndexes.some((index) => hasSceneEmphasis(scenes[index], {requireSe: true}));
   if (!midpointHasNonNormal) {
     pushIssue(errors, 'error', 'scenes.motion_mode', '40-60% midpoint rehook scene must use a non-normal motion_mode');
-  }
-  if (!midpointHasEmphasis) {
-    pushIssue(errors, 'error', 'scenes.dialogue.emphasis', '40-60% midpoint rehook scene requires emphasis with non-none SE');
   }
 
   const lastScene = scenes[scenes.length - 1];
   const lastPath = `scenes[${scenes.length - 1}]`;
   if (lastScene?.motion_mode === 'normal') {
     pushIssue(errors, 'error', `${lastPath}.motion_mode`, `${lastScene.id ?? 'last scene'}: final action scene must not use motion_mode: normal`);
-  }
-  if (!hasSceneEmphasis(lastScene, {requireSe: true})) {
-    pushIssue(errors, 'error', `${lastPath}.dialogue.emphasis`, `${lastScene?.id ?? 'last scene'}: final action scene requires emphasis with non-none SE`);
   }
 
   let normalRunSec = 0;
@@ -1210,12 +1154,9 @@ export const validateEpisodeScript = async (script, options = {}) => {
       if (typeof line.text !== 'string' || line.text.trim() === '') {
         pushIssue(errors, 'error', `${linePath}.text`, `${sceneId}/${line.id ?? lineIndex}: dialogue text is required`);
       }
-      validateEmphasisConfig({
-        emphasis: line.emphasis,
-        pathName: `${linePath}.emphasis`,
-        lineLabel: `${sceneId}/${line.id ?? lineIndex}`,
-        errors,
-      });
+      if (line.emphasis !== undefined) {
+        pushIssue(warnings, 'warning', `${linePath}.emphasis`, `${sceneId}/${line.id ?? lineIndex}: emphasis is deprecated and ignored by render`);
+      }
       validateDialogueExpression({
         expression: line.expression,
         pathName: `${linePath}.expression`,
@@ -1235,7 +1176,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
   }
 
   await assertKeifontIfNeeded({rootDir, usedExplicitGothic, errors});
-  validateMotionAndEmphasisCoverage({script, errors});
+  validateMotionCoverage({script, errors});
   validateTiming({script, errors, warnings});
 
   return {ok: errors.length === 0, errors, warnings};

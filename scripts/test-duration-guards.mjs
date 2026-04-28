@@ -73,7 +73,6 @@ const makeDialogue = (lineCount) =>
         wav_sec: 1,
         start_sec: 0.1,
         end_sec: 1.1,
-        emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300},
       };
     }
     if (index === 1) {

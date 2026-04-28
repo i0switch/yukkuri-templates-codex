@@ -5,12 +5,15 @@ import ts from 'typescript';
 const rootDir = process.cwd();
 const sourcePath = path.join(rootDir, 'src', 'components', 'subtitleSegments.ts');
 const lineBreaksSourcePath = path.join(rootDir, 'src', 'components', 'subtitleLineBreaks.ts');
+const subtitleLayoutSourcePath = path.join(rootDir, 'src', 'components', 'subtitleLayout.ts');
 const cacheDir = path.join(rootDir, '.cache', 'subtitle-segments-test');
 const compiledPath = path.join(cacheDir, 'subtitleSegments.mjs');
 const lineBreaksCompiledPath = path.join(cacheDir, 'subtitleLineBreaks.mjs');
+const subtitleLayoutCompiledPath = path.join(cacheDir, 'subtitleLayout.mjs');
 
 const source = await fs.readFile(sourcePath, 'utf8');
 const lineBreaksSource = await fs.readFile(lineBreaksSourcePath, 'utf8');
+const subtitleLayoutSource = await fs.readFile(subtitleLayoutSourcePath, 'utf8');
 const compile = (contents, fileName) => ts.transpileModule(contents, {
   compilerOptions: {
     module: ts.ModuleKind.ESNext,
@@ -28,11 +31,25 @@ const lineBreaksCompiled = compile(lineBreaksSource, lineBreaksSourcePath);
 await fs.mkdir(cacheDir, {recursive: true});
 await fs.writeFile(lineBreaksCompiledPath, lineBreaksCompiled, 'utf8');
 await fs.writeFile(compiledPath, compiled, 'utf8');
+await fs.writeFile(subtitleLayoutCompiledPath, compile(subtitleLayoutSource, subtitleLayoutSourcePath), 'utf8');
 
 const {splitSubtitleText, resolveSubtitleSegmentText} = await import(`file://${compiledPath.replaceAll('\\', '/')}`);
+const {resolveOverlaySubtitleLayout} = await import(`file://${subtitleLayoutCompiledPath.replaceAll('\\', '/')}`);
+
+const scene12OverlayLayout = resolveOverlaySubtitleLayout({
+  rect: {
+    w: 1125,
+    h: 162,
+    paddingX: 72,
+    paddingY: 6,
+  },
+  strokeWidth: 6,
+  fallbackPaddingX: 28,
+  fallbackPaddingY: 12,
+});
 
 const scene12SubtitleOptions = {
-  width: 1069,
+  width: scene12OverlayLayout.innerWidth,
   fontSize: 43,
   lineHeight: 1.22,
   letterSpacing: 0,
@@ -94,11 +111,67 @@ if (visibleText(permissionsSegments.join('')) !== visibleText(permissionsSample)
   throw new Error(`Width split changed permissionsSample content: ${JSON.stringify(permissionsSegments)}`);
 }
 
+const screenshotSample = '上がるのは作業速度だぜ。誰の悩みを、何で解決して、どう売るかが無いと売上にはならないんだぜ。';
+const screenshotSegments = splitSubtitleText(screenshotSample, scene12SubtitleOptions);
+assertTwoLinePages(screenshotSegments, 'screenshotSample');
+if (visibleText(screenshotSegments.join('')) !== visibleText(screenshotSample)) {
+  throw new Error(`Width split changed screenshotSample content: ${JSON.stringify(screenshotSegments)}`);
+}
+if (screenshotSegments[0].includes('ならないんだぜ')) {
+  throw new Error(`Expected tail phrase to move to next subtitle page: ${JSON.stringify(screenshotSegments)}`);
+}
+
 const pagedLine = {text: adSample, start_sec: 10, end_sec: 16};
 const firstPage = resolveSubtitleSegmentText({line: pagedLine, currentSec: 10.1, splitOptions: scene12SubtitleOptions});
-const secondPage = resolveSubtitleSegmentText({line: pagedLine, currentSec: 13.2, splitOptions: scene12SubtitleOptions});
+const secondPage = resolveSubtitleSegmentText({line: pagedLine, currentSec: 14.8, splitOptions: scene12SubtitleOptions});
 if (!firstPage || !secondPage || firstPage === secondPage || firstPage.includes('テレビCM')) {
   throw new Error(`Expected width-based subtitle paging: ${JSON.stringify({firstPage, secondPage})}`);
 }
 
-console.log(JSON.stringify({ok: true, segments, first, second, adSegments, permissionsSegments}, null, 2));
+const unevenPagedLine = {text: screenshotSample, start_sec: 20, end_sec: 30};
+const unevenHalfPage = resolveSubtitleSegmentText({
+  line: unevenPagedLine,
+  currentSec: 25,
+  splitOptions: scene12SubtitleOptions,
+});
+const unevenLatePage = resolveSubtitleSegmentText({
+  line: unevenPagedLine,
+  currentSec: 28.7,
+  splitOptions: scene12SubtitleOptions,
+});
+if (unevenHalfPage !== screenshotSegments[0]) {
+  throw new Error(
+    `Expected longer first subtitle page to remain visible at 50% progress: ${JSON.stringify({
+      unevenHalfPage,
+      expected: screenshotSegments[0],
+      screenshotSegments,
+    })}`,
+  );
+}
+if (unevenLatePage !== screenshotSegments[1]) {
+  throw new Error(
+    `Expected shorter second subtitle page to appear late in the line: ${JSON.stringify({
+      unevenLatePage,
+      expected: screenshotSegments[1],
+      screenshotSegments,
+    })}`,
+  );
+}
+
+console.log(
+  JSON.stringify(
+    {
+      ok: true,
+      segments,
+      first,
+      second,
+      adSegments,
+      permissionsSegments,
+      screenshotSegments,
+      unevenHalfPage,
+      unevenLatePage,
+    },
+    null,
+    2,
+  ),
+);

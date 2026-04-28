@@ -1,0 +1,18 @@
+﻿.git/ - Git内部履歴。販売ZIPには不要
+.claude/ - エージェント内部設定/作業補助。購入者向け本体ではない
+.cache/ - ローカルキャッシュ
+.remotion-public/ - レンダー用一時公開ディレクトリ
+.tmp/, tmp/ - 一時ファイル
+node_modules/ - npm installで復元する依存関係
+out/ - 生成済み動画/画像出力
+script/ - 過去episode成果物と素材
+public/episodes/ - 公開用にコピーされた過去episodeの音声・画像・BGM
+notebookLM/ - 別配布扱いの補助ツール
+legacy/ - 旧版資料
+prompts/ - 旧/非正準プロンプト
+audits/ - 内部監査記録
+docs/superpowers/ - 内部計画/仕様メモ
+scripts/oneoff/ - 過去episode用の使い捨てスクリプト
+public/characters/*_raw/ - レンダーでは使わない原素材一式。容量削減とWindows列挙エラー回避のため除外
+distribution/, distribution_history/ - 配布物と作成履歴そのもの
+*.log - ローカルログ

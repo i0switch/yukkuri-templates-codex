@@ -83,11 +83,7 @@ const script = {
     ],
     main: {kind: 'image', asset: `assets/s${String(index + 1).padStart(2, '0')}_main.png`},
     sub: null,
-    dialogue: makeDialogue(index + 1).map((line, lineIndex) =>
-      (index === 0 || index === 5 || index === 9) && lineIndex === 0
-        ? {...line, emphasis: {words: ['確認'], style: 'action', se: 'success', pause_after_ms: 300}}
-        : line,
-    ),
+    dialogue: makeDialogue(index + 1),
   })),
 };
 
@@ -130,13 +126,17 @@ await fs.writeFile(
 
 run(['scripts/estimate-episode-duration.mjs', episodeId]);
 run(['scripts/validate-script-final-review.mjs', episodeId]);
-run(['scripts/audit-script-quality.mjs', episodeId]);
-run(['scripts/audit-script-quality.mjs', 'tests/fixtures/good_script_opening_mini_drama.md']);
-run(['scripts/audit-script-quality.mjs', 'tests/fixtures/bad_script_opening_meta_explanation.md'], {expectFailure: true});
 
 await fs.writeFile(
   path.join(episodeDir, 'audits', 'script_final_review.md'),
   `<!-- script_final_sha256: ${scriptFinalSha256(scriptFinal)} -->\n# script_final_review\n\nverdict: PASS\nblocking_issues: []\n\n## LLM台本レビュー\n重大な不自然さはない。\n`,
+  'utf8',
+);
+run(['scripts/validate-script-final-review.mjs', episodeId]);
+
+await fs.writeFile(
+  path.join(episodeDir, 'audits', 'script_final_review.md'),
+  `<!-- script_final_sha256: ${scriptFinalSha256(scriptFinal)} -->\n# script_final_review\n\nverdict: FAIL\nblocking_issues:\n- 台本が説明bot化しているためLLMレビューでFAIL。\n`,
   'utf8',
 );
 run(['scripts/validate-script-final-review.mjs', episodeId], {expectFailure: true});
@@ -146,6 +146,11 @@ await fs.writeFile(path.join(episodeDir, 'audits', 'script_final_review.md'), st
 await fs.writeFile(path.join(episodeDir, 'script_final.md'), `${scriptFinal}\n追記でstale化\n`, 'utf8');
 run(['scripts/validate-script-final-review.mjs', episodeId], {expectFailure: true});
 
+const preRenderGateSource = await fs.readFile(path.join(rootDir, 'scripts', 'pre-render-gate.mjs'), 'utf8');
+if (preRenderGateSource.includes('audit-script-quality')) {
+  throw new Error('pre-render-gate.mjs must not call audit-script-quality; script quality is judged by LLM review only');
+}
+
 await fs.rm(episodeDir, {recursive: true, force: true});
 console.log(
   JSON.stringify(
@@ -153,10 +158,10 @@ console.log(
       ok: true,
       tested: [
         'estimate-episode-duration',
-        'script-final-review-required-fields',
-        'script-quality-good-fixture',
-        'script-quality-bad-fixture',
+        'script-final-review-fresh-pass',
+        'script-final-review-fail-verdict',
         'script-final-review-stale',
+        'pre-render-gate-no-machine-quality-audit',
       ],
     },
     null,

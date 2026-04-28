@@ -4,6 +4,8 @@ import path from 'node:path';
 const rootDir = process.cwd();
 const layerPath = path.join(rootDir, 'src', 'components', 'VisualEmphasisLayer.tsx');
 const rendererPath = path.join(rootDir, 'src', 'components', 'SceneRenderer.tsx');
+const autoFitTextPath = path.join(rootDir, 'src', 'components', 'AutoFitText.tsx');
+const subtitleBarPath = path.join(rootDir, 'src', 'components', 'SubtitleBar.tsx');
 const zundamonPromptPath = path.join(rootDir, '_reference', 'script_prompt_pack', '05_draft_prompt_zundamon.md');
 
 const assertIncludes = (content, needle, label) => {
@@ -20,6 +22,8 @@ const assertNotIncludes = (content, needle, label) => {
 
 const layer = await fs.readFile(layerPath, 'utf8');
 const renderer = await fs.readFile(rendererPath, 'utf8');
+const autoFitText = await fs.readFile(autoFitTextPath, 'utf8');
+const subtitleBar = await fs.readFile(subtitleBarPath, 'utf8');
 const zundamonPrompt = await fs.readFile(zundamonPromptPath, 'utf8');
 
 for (const needle of [
@@ -34,11 +38,25 @@ for (const needle of [
 }
 
 assertIncludes(layer, 'export const VisualEmphasisLayer: React.FC<Props> = () => null;', 'VisualEmphasisLayer');
-assertIncludes(renderer, "import {VisualEmphasisLayer} from './VisualEmphasisLayer';", 'SceneRenderer');
-assertIncludes(renderer, '<VisualEmphasisLayer', 'SceneRenderer');
+assertNotIncludes(renderer, "import {VisualEmphasisLayer} from './VisualEmphasisLayer';", 'SceneRenderer');
+assertNotIncludes(renderer, '<VisualEmphasisLayer', 'SceneRenderer');
+assertNotIncludes(renderer, 'line.emphasis', 'SceneRenderer');
+assertNotIncludes(renderer, 'activeLine?.emphasis', 'SceneRenderer');
+assertNotIncludes(renderer, 'se/${line.emphasis.se}', 'SceneRenderer');
 assertNotIncludes(renderer, 'transform: `scale(${interpolate', 'SceneRenderer');
 assertNotIncludes(renderer, "motionMode === 'warning'", 'SceneRenderer');
 assertNotIncludes(renderer, "motionMode === 'reveal'", 'SceneRenderer');
+
+for (const needle of [
+  'highlightWords',
+  'highlightVariant',
+  'HighlightEmphasisKeyframes',
+  'subtitle-highlight-emphasis',
+  'extractMarkdownHighlights',
+]) {
+  assertNotIncludes(autoFitText, needle, 'AutoFitText');
+  assertNotIncludes(subtitleBar, needle, 'SubtitleBar');
+}
 
 for (const needle of [
   '冒頭1番目のセリフは次の5タイプ',
@@ -49,4 +67,4 @@ for (const needle of [
   assertIncludes(zundamonPrompt, needle, '05_draft_prompt_zundamon.md');
 }
 
-console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer no-op', 'SceneRenderer static images', '05_draft_prompt_zundamon.md']}, null, 2));
+console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer unused', 'subtitle emphasis disabled', 'SceneRenderer static images', '05_draft_prompt_zundamon.md']}, null, 2));

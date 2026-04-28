@@ -117,7 +117,6 @@ const sceneFor = (index, prompt, {usePromptRef = false} = {}) => {
         id: 'l01',
         speaker: index % 2 === 0 ? 'right' : 'left',
         text: lineText,
-        ...([1, 4, 5, 8].includes(index) ? {emphasis: {words: ['確認'], style: 'action', se: 'success', pause_after_ms: 300}} : {}),
       },
     ],
   };
@@ -136,7 +135,6 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
       id: `l${String(index + 1).padStart(2, '0')}`,
       speaker: index % 2 === 0 ? 'left' : 'right',
       text,
-      ...(index === 0 ? {emphasis: {words: ['確認'], style: 'action', se: 'success', pause_after_ms: 300}} : {}),
     }));
     scene.main_timeline = [
       {slot: 'main_01', slot_group: 'main', asset: 'assets/s01_main_01.png', start_line_id: 'l01', end_line_id: 'l05'},

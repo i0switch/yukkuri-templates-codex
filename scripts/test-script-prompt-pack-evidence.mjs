@@ -55,7 +55,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
 
   await fs.writeFile(
     path.join(fixtureRoot, episodeId, 'script_final.md'),
-    '# script_final\n\n' + '霊夢「自然な発話単位で進む最終台本です」\n魔理沙「Codexレビュー対象はこのファイルだけです」\n'.repeat(40),
+    '# script_final\n\n霊夢「短くてもLLMレビュー対象の台本だよ」\n魔理沙「文字数ではなくレビューで判断するぜ」\n',
     'utf8',
   );
 
@@ -64,7 +64,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_input_normalize.md'),
       evidenceText({
         promptFile: '01_input_normalize_prompt.md',
-        body: '入力条件、テーマ、尺、キャラペア、テンプレートを整理した。'.repeat(14),
+        body: '入力条件を整理した。',
         verdict: 'INPUT READY',
       }),
       'utf8',
@@ -73,7 +73,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_template_analysis.md'),
       evidenceText({
         promptFile: '02_template_analysis_prompt.md',
-        body: 'Scene02のmain/sub/subtitle/avoid areaを読み、枠利用を確定した。'.repeat(14),
+        body: 'テンプレートを確認した。',
         verdict: 'TEMPLATE READY',
       }),
       'utf8',
@@ -82,7 +82,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_plan.md'),
       evidenceText({
         promptFile: '03_plan_prompt.md',
-        body: '企画、構成、表示枠、会話の役割、素材挿入ポイントを段階的に確定した。'.repeat(12),
+        body: '企画と構成を決めた。',
         verdict: 'PLAN READY',
       }),
       'utf8',
@@ -91,7 +91,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_draft.md'),
       evidenceText({
         promptFile: '04_draft_prompt_yukkuri.md',
-        body: '初稿本文。ボケ、ツッコミ、誤解訂正、視聴者の疑問、解説の返しをシーンごとに作成した。'.repeat(22),
+        body: '初稿本文を作成した。',
         verdict: 'DRAFT READY',
       }),
       'utf8',
@@ -100,7 +100,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_image_prompts.md'),
       evidenceText({
         promptFile: '08_image_prompt_prompt.md',
-        body: '画像プロンプト。script_final.mdの対象シーン全文を使い、字幕とは別の16:9挿入画像として生成する直投げpromptを作成した。'.repeat(16),
+        body: '画像プロンプトを作成した。',
         verdict: 'IMAGE PROMPTS READY',
       }),
       'utf8',
@@ -109,7 +109,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_yaml.md'),
       evidenceText({
         promptFile: '10_yaml_prompt.md',
-        body: 'YAML変換。script_final.mdの本文からmeta.layout_template、main.asset、sub、dialogueを変換した。'.repeat(12),
+        body: 'YAMLへ変換した。',
         verdict: 'YAML READY',
       }),
       'utf8',
@@ -118,7 +118,7 @@ const writeEvidence = async ({episodeId, includeEvidence = true}) => {
       path.join(dir, 'script_prompt_pack_final_episode_audit.md'),
       evidenceText({
         promptFile: '11_final_episode_audit.md',
-        body: '最終確認。script_final.md、script.yaml、画像プロンプト、meta、証跡が揃っていることを確認した。'.repeat(10),
+        body: '最終確認をした。',
         verdict: 'verdict: PASS',
       }),
       'utf8',

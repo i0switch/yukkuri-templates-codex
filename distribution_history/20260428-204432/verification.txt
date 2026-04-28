@@ -1,0 +1,6 @@
+﻿verdict: PASS
+entry_count: 305
+extract_ok: True
+sanitized_registry_ok: True
+forbidden_hits: 0
+missing_required: 0

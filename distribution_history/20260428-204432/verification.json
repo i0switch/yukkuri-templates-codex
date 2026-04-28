@@ -1,0 +1,14 @@
+﻿{
+    "checked_at":  "2026-04-28T20:45:33.6183608+09:00",
+    "zip_path":  "C:\\Users\\i0swi\\OneDrive\\デスクトップ\\yukkuri-templates Codex\\distribution\\yukkuri-templates-codex-sale-20260428-204432.zip",
+    "entry_count":  305,
+    "forbidden_hits":  [
+
+                       ],
+    "missing_required":  [
+
+                         ],
+    "extract_ok":  true,
+    "sanitized_registry_ok":  true,
+    "verdict":  "PASS"
+}

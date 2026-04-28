@@ -13,43 +13,36 @@ const REQUIRED_EVIDENCE = [
     key: 'input_normalize',
     file: 'script_prompt_pack_input_normalize.md',
     promptFile: '01_input_normalize_prompt.md',
-    minChars: 250,
   },
   {
     key: 'template_analysis',
     file: 'script_prompt_pack_template_analysis.md',
     promptFile: '02_template_analysis_prompt.md',
-    minChars: 300,
   },
   {
     key: 'plan',
     file: 'script_prompt_pack_plan.md',
     promptFile: '03_plan_prompt.md',
-    minChars: 400,
   },
   {
     key: 'draft',
     file: 'script_prompt_pack_draft.md',
     promptFile: 'draft_prompt',
-    minChars: 800,
   },
   {
     key: 'image_prompts',
     file: 'script_prompt_pack_image_prompts.md',
     promptFile: '08_image_prompt_prompt.md',
-    minChars: 500,
   },
   {
     key: 'yaml',
     file: 'script_prompt_pack_yaml.md',
     promptFile: '10_yaml_prompt.md',
-    minChars: 400,
   },
   {
     key: 'final_episode_audit',
     file: 'script_prompt_pack_final_episode_audit.md',
     promptFile: '11_final_episode_audit.md',
-    minChars: 250,
     mustMatch: /PASS|FAIL|verdict|判定/,
   },
 ];
@@ -77,10 +70,9 @@ const validateManualIntake = async ({episodeDir, auditsDir, issues}) => {
     pushIssue(issues, 'error', 'missing-manual-source-script', '手書き台本の原文 source_manual_script.md がありません', {
       file: path.relative(rootDir, sourcePath).replaceAll('\\', '/'),
     });
-  } else if (sourceText.trim().length < 100) {
-    pushIssue(issues, 'error', 'thin-manual-source-script', 'source_manual_script.md が薄すぎます', {
-      chars: sourceText.trim().length,
-      min_chars: 100,
+  } else if (sourceText.trim().length === 0) {
+    pushIssue(issues, 'error', 'empty-manual-source-script', 'source_manual_script.md が空です', {
+      file: path.relative(rootDir, sourcePath).replaceAll('\\', '/'),
     });
   }
 
@@ -124,10 +116,9 @@ const audit = async () => {
         path.relative(rootDir, scriptFinalV2Path).replaceAll('\\', '/'),
       ],
     });
-  } else if (finalScript.trim().length < 800) {
-    pushIssue(issues, 'error', 'thin-script-final', 'Codexレビュー対象の script_final.md が薄すぎます', {
-      chars: finalScript.trim().length,
-      min_chars: 800,
+  } else if (finalScript.trim().length === 0) {
+    pushIssue(issues, 'error', 'empty-script-final', 'Codexレビュー対象の script_final.md が空です', {
+      file: path.relative(rootDir, scriptFinalPath).replaceAll('\\', '/'),
     });
   }
 
@@ -166,12 +157,10 @@ const audit = async () => {
       continue;
     }
 
-    if (text.trim().length < requirement.minChars) {
-      pushIssue(issues, 'error', 'thin-prompt-pack-evidence-file', 'Script Prompt Pack 証跡ファイルの内容が薄すぎます', {
+    if (text.trim().length === 0) {
+      pushIssue(issues, 'error', 'empty-prompt-pack-evidence-file', 'Script Prompt Pack 証跡ファイルが空です', {
         key: requirement.key,
         file: relExpected,
-        chars: text.trim().length,
-        min_chars: requirement.minChars,
       });
     }
 

@@ -20,8 +20,6 @@ type Props = {
   textStrokeColor?: string;
   textStrokeWidth?: number;
   maxLines?: number;
-  highlightWords?: string[];
-  highlightVariant?: 'punch' | 'danger' | 'surprise' | 'number' | 'action';
 };
 
 export const SubtitleBar: React.FC<Props> = ({
@@ -42,8 +40,6 @@ export const SubtitleBar: React.FC<Props> = ({
   textStrokeColor = TEXT_STROKE.subtitle.color,
   textStrokeWidth = TEXT_STROKE.subtitle.width,
   maxLines,
-  highlightWords = [],
-  highlightVariant = 'punch',
 }) => {
   const strokeAllowance = Math.max(0, textStrokeWidth) * 2;
   const horizontalPadding = 34 + strokeAllowance;
@@ -84,8 +80,6 @@ export const SubtitleBar: React.FC<Props> = ({
         textStrokeColor={textStrokeColor}
         textStrokeWidth={textStrokeWidth}
         maxLines={maxLines}
-        highlightWords={highlightWords}
-        highlightVariant={highlightVariant}
       />
     </div>
   );

@@ -81,7 +81,7 @@ const writeFixture = async ({name, layoutTemplate, sub}) => {
         main: {kind: 'image', asset: 'assets/s01_main.png'},
         sub,
         dialogue: [
-          {id: 'l01', speaker: 'left', text: '危険を確認するのだ', emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300}},
+          {id: 'l01', speaker: 'left', text: '危険を確認するのだ'},
           {id: 'l02', speaker: 'right', text: 'テストですわ'},
         ],
       },

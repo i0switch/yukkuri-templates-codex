@@ -29,18 +29,18 @@ const run = (args, {expectFailure = false, expectMessage} = {}) => {
   if (result.status !== 0) {
     throw new Error(`Expected pass but failed: node ${args.join(' ')}\n${output}`);
   }
+  if (expectMessage && !output.includes(expectMessage)) {
+    throw new Error(`Expected message "${expectMessage}" but got:\n${output}`);
+  }
 };
 
-const emphasis = (style = 'danger', se = 'warning') => ({words: ['危険'], style, se, pause_after_ms: 300});
-
-const writeFixture = async ({name, midpointNormal = false, missingEmphasis = false}) => {
+const writeFixture = async ({name, midpointNormal = false, legacyEmphasis = false}) => {
   const dir = path.join(fixtureRoot, name);
   await fs.rm(dir, {recursive: true, force: true});
   await fs.mkdir(path.join(dir, 'assets'), {recursive: true});
 
   const scenes = Array.from({length: 10}, (_, index) => {
     const sceneId = `s${String(index + 1).padStart(2, '0')}`;
-    const required = index === 0 || index === 4 || index === 9;
     const mode =
       index === 0
         ? 'warning'
@@ -72,7 +72,7 @@ const writeFixture = async ({name, midpointNormal = false, missingEmphasis = fal
         },
       ],
       dialogue: [
-        {id: 'l01', speaker: 'left', text: '危険を確認するわ', ...(required && !missingEmphasis ? {emphasis: emphasis()} : {})},
+        {id: 'l01', speaker: 'left', text: '危険を確認するわ', ...(legacyEmphasis && index === 0 ? {emphasis: {words: ['危険'], style: 'danger', se: 'warning', pause_after_ms: 300}} : {})},
         {id: 'l02', speaker: 'right', text: '先に見るんだぜ'},
       ],
     };
@@ -108,10 +108,10 @@ const writeFixture = async ({name, midpointNormal = false, missingEmphasis = fal
 await fs.mkdir(fixtureRoot, {recursive: true});
 const passPath = await writeFixture({name: 'motion-pass'});
 const midpointNormalPath = await writeFixture({name: 'midpoint-normal', midpointNormal: true});
-const missingEmphasisPath = await writeFixture({name: 'missing-emphasis', missingEmphasis: true});
+const legacyEmphasisPath = await writeFixture({name: 'legacy-emphasis', legacyEmphasis: true});
 
 run(['scripts/validate-episode-script.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', midpointNormalPath], {expectFailure: true, expectMessage: 'midpoint rehook scene must use a non-normal motion_mode'});
-run(['scripts/validate-episode-script.mjs', missingEmphasisPath], {expectFailure: true, expectMessage: 'requires emphasis'});
+run(['scripts/validate-episode-script.mjs', legacyEmphasisPath], {expectMessage: 'emphasis is deprecated and ignored by render'});
 
 console.log(JSON.stringify({ok: true, fixture_root: path.relative(rootDir, fixtureRoot).replaceAll('\\', '/')}, null, 2));
