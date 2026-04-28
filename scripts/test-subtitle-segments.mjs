@@ -33,7 +33,7 @@ await fs.writeFile(lineBreaksCompiledPath, lineBreaksCompiled, 'utf8');
 await fs.writeFile(compiledPath, compiled, 'utf8');
 await fs.writeFile(subtitleLayoutCompiledPath, compile(subtitleLayoutSource, subtitleLayoutSourcePath), 'utf8');
 
-const {splitSubtitleText, resolveSubtitleSegmentText} = await import(`file://${compiledPath.replaceAll('\\', '/')}`);
+const {splitSubtitleText, resolveSubtitleSegmentText, stripVisualEmphasisMarkers, extractVisualEmphasisText} = await import(`file://${compiledPath.replaceAll('\\', '/')}`);
 const {resolveOverlaySubtitleLayout} = await import(`file://${subtitleLayoutCompiledPath.replaceAll('\\', '/')}`);
 
 const scene12OverlayLayout = resolveOverlaySubtitleLayout({
@@ -89,6 +89,22 @@ const first = resolveSubtitleSegmentText({line, currentSec: 10.1, maxChars: 30})
 const second = resolveSubtitleSegmentText({line, currentSec: 13.2, maxChars: 30});
 if (!first || !second || first === second) {
   throw new Error(`Expected same line to page through subtitle segments: ${JSON.stringify({first, second})}`);
+}
+
+const markedSample = 'それ、[[マジで！？]] ってなるくらい危ない入口なのだ。';
+const strippedMarkedSample = 'それ、マジで！？ ってなるくらい危ない入口なのだ。';
+if (stripVisualEmphasisMarkers(markedSample) !== strippedMarkedSample) {
+  throw new Error(`Expected visual emphasis markers to be stripped from subtitle text`);
+}
+if (extractVisualEmphasisText(markedSample) !== 'マジで！？') {
+  throw new Error(`Expected marked visual emphasis text to be extracted`);
+}
+const markedSegments = splitSubtitleText(markedSample, 30);
+if (markedSegments.join('').includes('[[') || markedSegments.join('').includes(']]')) {
+  throw new Error(`Expected subtitle segments to omit visual emphasis markers: ${JSON.stringify(markedSegments)}`);
+}
+if (markedSegments.join('') !== strippedMarkedSample) {
+  throw new Error(`Visual emphasis marker stripping changed subtitle content: ${JSON.stringify(markedSegments)}`);
 }
 
 const adSample = 'アプリ側は広告枠を出して、広告主から収益を得るんだぜ。テレビCMのスマホ版みたいなものだぜ。';
@@ -165,6 +181,7 @@ console.log(
       segments,
       first,
       second,
+      markedSegments,
       adSegments,
       permissionsSegments,
       screenshotSegments,

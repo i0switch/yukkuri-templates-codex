@@ -28,6 +28,7 @@ import {FONT_FAMILIES, FS, SUBTITLE_FONT_SCALE, TEXT_STROKE} from '../design-tok
 import {SubtitleBar} from './SubtitleBar';
 import {resolveSubtitleSegmentText} from './subtitleSegments';
 import {resolveOverlaySubtitleLayout} from './subtitleLayout';
+import {VisualEmphasisLayer, isVisualEmphasisActive} from './VisualEmphasisLayer';
 import type {Rect, SlotRenderer} from '../types';
 
 const SCENE_COMPONENTS = {
@@ -371,6 +372,8 @@ const renderTitle = (scene: EpisodeScene, template: string, fontFamily: string, 
 const renderBarSubtitle = (
   activeLine: TimedDialogueLine | null,
   currentSec: number,
+  frame: number,
+  fps: number,
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
@@ -388,6 +391,35 @@ const renderBarSubtitle = (
     };
     const strokeAllowance = Math.max(0, stroke.width) * 2;
     const horizontalPadding = 34 + strokeAllowance;
+    const verticalPadding = 6 + strokeAllowance;
+    const emphasisActive = isVisualEmphasisActive(activeLine, frame, fps);
+    if (emphasisActive) {
+      const innerWidth = Math.max(1, subtitleRect.w - horizontalPadding * 2);
+      const innerHeight = Math.max(1, subtitleRect.h - verticalPadding * 2);
+      return (
+        <div
+          style={{
+            width: subtitleRect.w,
+            height: subtitleRect.h,
+            background: subtitleRect.bg ?? '#FFFFFF',
+            border: subtitleRect.borderColor ? `${subtitleRect.borderWidth ?? 0}px solid ${subtitleRect.borderColor}` : 'none',
+            borderRadius: subtitleRect.borderRadius ?? 8,
+            padding: `${verticalPadding}px ${horizontalPadding}px`,
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+          }}
+        >
+          <VisualEmphasisLayer
+            activeLine={activeLine}
+            frame={frame}
+            fps={fps}
+            width={innerWidth}
+            height={innerHeight}
+            color={textColor ?? subtitleRect.textColor}
+          />
+        </div>
+      );
+    }
     const subtitleText = resolveSubtitleSegmentText({
       line: activeLine,
       currentSec,
@@ -428,6 +460,8 @@ const renderOverlaySubtitle = (
   template: string,
   activeLine: TimedDialogueLine | null,
   currentSec: number,
+  frame: number,
+  fps: number,
   fontFamily: string,
   stroke: TextStroke,
   textColor: string | undefined,
@@ -445,6 +479,32 @@ const renderOverlaySubtitle = (
       fallbackPaddingX: 28,
       fallbackPaddingY: 12,
     });
+    const emphasisActive = isVisualEmphasisActive(activeLine, frame, fps);
+    if (emphasisActive) {
+      return (
+        <div
+          style={{
+            width: rect.w,
+            height: rect.h,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: `${layout.paddingY}px ${layout.paddingX}px`,
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+          }}
+        >
+          <VisualEmphasisLayer
+            activeLine={activeLine}
+            frame={frame}
+            fps={fps}
+            width={layout.innerWidth}
+            height={layout.innerHeight}
+            color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}
+          />
+        </div>
+      );
+    }
     const subtitleText = resolveSubtitleSegmentText({
       line: activeLine,
       currentSec,
@@ -530,7 +590,9 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
   });
 
   const useBarSubtitle = BAR_TEMPLATES.has(sceneTemplate);
-  const subtitleText = activeLine?.text ?? '';
+  const visualEmphasisActive = isVisualEmphasisActive(activeLine, frame, fps);
+  const activeSubtitleLine = visualEmphasisActive ? null : activeLine;
+  const subtitleText = activeSubtitleLine?.text ?? '';
   const typography = resolveTypography(script.meta.typography, scene.typography, activeLine?.typography);
   const subtitleTextColor = resolveSubtitleTextColor(activeLine, script.characters);
   const activeMainContent = activeMainContentForLine(scene, activeLine, lines);
@@ -576,8 +638,8 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
           subtitleText={subtitleText}
           subtitleSlot={
             useBarSubtitle
-              ? renderBarSubtitle(activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
-              : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
+              ? renderBarSubtitle(activeLine, currentSec, frame, fps, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
+              : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, frame, fps, typography.subtitle, typography.subtitleStroke, subtitleTextColor)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
           mainContentSlot={renderMainContent(activeMainContent, script.public_dir, mainOpacity)}

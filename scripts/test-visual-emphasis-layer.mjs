@@ -37,9 +37,20 @@ for (const needle of [
   assertNotIncludes(layer, needle, 'VisualEmphasisLayer');
 }
 
-assertIncludes(layer, 'export const VisualEmphasisLayer: React.FC<Props> = () => null;', 'VisualEmphasisLayer');
-assertNotIncludes(renderer, "import {VisualEmphasisLayer} from './VisualEmphasisLayer';", 'SceneRenderer');
-assertNotIncludes(renderer, '<VisualEmphasisLayer', 'SceneRenderer');
+assertIncludes(layer, 'extractVisualEmphasisText', 'VisualEmphasisLayer');
+assertIncludes(layer, 'EMPHASIS_DURATION_SEC = 0.9', 'VisualEmphasisLayer');
+assertIncludes(layer, 'export const isVisualEmphasisActive', 'VisualEmphasisLayer');
+assertIncludes(layer, 'color?: string', 'VisualEmphasisLayer');
+assertIncludes(layer, "const textColor = color ?? '#FFE86A';", 'VisualEmphasisLayer');
+assertIncludes(renderer, "import {VisualEmphasisLayer, isVisualEmphasisActive} from './VisualEmphasisLayer';", 'SceneRenderer');
+assertIncludes(renderer, '<VisualEmphasisLayer', 'SceneRenderer');
+assertIncludes(renderer, 'visualEmphasisActive ? null : activeLine', 'SceneRenderer');
+assertIncludes(renderer, 'renderBarSubtitle(activeLine, currentSec, frame, fps', 'SceneRenderer');
+assertIncludes(renderer, 'renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, frame, fps', 'SceneRenderer');
+assertIncludes(renderer, 'color={textColor ?? subtitleRect.textColor}', 'SceneRenderer');
+assertIncludes(renderer, "color={textColor ?? (darkText ? '#1A1A1A' : '#FFFFFF')}", 'SceneRenderer');
+assertNotIncludes(renderer, 'width={baseWidth}', 'SceneRenderer');
+assertNotIncludes(renderer, 'height={baseHeight}', 'SceneRenderer');
 assertNotIncludes(renderer, 'line.emphasis', 'SceneRenderer');
 assertNotIncludes(renderer, 'activeLine?.emphasis', 'SceneRenderer');
 assertNotIncludes(renderer, 'se/${line.emphasis.se}', 'SceneRenderer');
@@ -57,6 +68,7 @@ for (const needle of [
   assertNotIncludes(autoFitText, needle, 'AutoFitText');
   assertNotIncludes(subtitleBar, needle, 'SubtitleBar');
 }
+assertIncludes(autoFitText, 'stripVisualEmphasisMarkers', 'AutoFitText');
 
 for (const needle of [
   '冒頭1番目のセリフは次の5タイプ',
@@ -67,4 +79,4 @@ for (const needle of [
   assertIncludes(zundamonPrompt, needle, '05_draft_prompt_zundamon.md');
 }
 
-console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer unused', 'subtitle emphasis disabled', 'SceneRenderer static images', '05_draft_prompt_zundamon.md']}, null, 2));
+console.log(JSON.stringify({ok: true, checked: ['VisualEmphasisLayer active inside subtitle slots for [[...]] markers', 'legacy dialogue emphasis disabled', 'SceneRenderer hides normal subtitles during visual emphasis', '05_draft_prompt_zundamon.md']}, null, 2));

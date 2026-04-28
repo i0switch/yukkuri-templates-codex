@@ -19,8 +19,18 @@ type WidthBasedSplitOptions = {
 type SplitOptions = number | WidthBasedSplitOptions;
 
 const japaneseParser = loadDefaultJapaneseParser();
+const VISUAL_EMPHASIS_MARKER = /\[\[([^\]\n][^\]\n]*?)\]\]/g;
 
 const visibleLength = (value: string) => [...value.replace(/\s+/g, '')].length;
+
+export const stripVisualEmphasisMarkers = (text: string) =>
+  String(text ?? '').replace(VISUAL_EMPHASIS_MARKER, '$1');
+
+export const extractVisualEmphasisText = (text: string) => {
+  const match = VISUAL_EMPHASIS_MARKER.exec(String(text ?? ''));
+  VISUAL_EMPHASIS_MARKER.lastIndex = 0;
+  return match?.[1]?.trim() ?? '';
+};
 
 const subtitlePageWeight = (value: string) => {
   const normalized = String(value ?? '').replace(/\s+/g, '');
@@ -186,7 +196,7 @@ const splitSubtitleTextByChars = (normalized: string, maxChars: number) => {
 };
 
 export const splitSubtitleText = (text: string, options: SplitOptions) => {
-  const normalized = String(text ?? '').replace(/\s+/g, ' ').trim();
+  const normalized = stripVisualEmphasisMarkers(text).replace(/\s+/g, ' ').trim();
   if (!normalized) {
     return [''];
   }

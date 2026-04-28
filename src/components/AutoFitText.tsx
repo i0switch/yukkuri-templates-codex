@@ -1,5 +1,6 @@
 import React from 'react';
 import {measureLineBreaks} from './subtitleLineBreaks';
+import {stripVisualEmphasisMarkers} from './subtitleSegments';
 import {resolveTextStrokeStyle} from './textStrokeStyle';
 
 type Props = {
@@ -30,6 +31,7 @@ type FitResult = {
 };
 
 const stripLegacyMarkdownEmphasis = (value: string) => value.replace(/\*\*([^*\n][^*]*?)\*\*/g, '$1');
+const stripSubtitleMarkup = (value: string) => stripVisualEmphasisMarkers(stripLegacyMarkdownEmphasis(value));
 
 
 const resolveFontSize = ({
@@ -139,7 +141,7 @@ export const AutoFitText: React.FC<Props> = ({
   maxLines,
   style,
 }) => {
-  const plainText = stripLegacyMarkdownEmphasis(text);
+  const plainText = stripSubtitleMarkup(text);
   const fit = resolveFontSize({
     text: plainText,
     width,
