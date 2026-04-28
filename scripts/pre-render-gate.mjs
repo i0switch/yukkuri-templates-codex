@@ -45,6 +45,7 @@ run(['scripts/normalize-aquestalk-presets.mjs', episodeId]);
 run(['scripts/validate-script-prompt-pack-evidence.mjs', episodeId]);
 run(['scripts/validate-script-final-review.mjs', episodeId]);
 run(['scripts/audit-script-quality.mjs', episodeId]);
+run(['scripts/sync-imagegen-ledger.mjs', episodeId, '--check']);
 run(['scripts/estimate-episode-duration.mjs', episodeId]);
 run(promptOnly ? ['scripts/validate-episode-script.mjs', episodeId, '--prompt-only'] : ['scripts/validate-episode-script.mjs', episodeId]);
 
@@ -64,6 +65,7 @@ await fs.writeFile(
         'validate-script-prompt-pack-evidence',
         'validate-script-final-review',
         'audit-script-quality',
+        'sync-imagegen-ledger --check',
         'estimate-episode-duration',
         promptOnly ? 'validate-episode-script --prompt-only' : 'validate-episode-script',
         isHybridUserScript ? 'hybrid_user_script manual intake evidence' : 'script prompt pack presence',
