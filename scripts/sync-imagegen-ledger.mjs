@@ -25,8 +25,8 @@ const readJson = async (filePath, fallback) => {
   }
 };
 
-const registryPromptForScene = ({registry, sceneId, promptRef}) => {
-  const candidates = [promptRef, typeof promptRef === 'string' && promptRef.includes('#') ? promptRef.split('#').pop() : null, `${sceneId}.main`, sceneId].filter(Boolean);
+const registryPromptForScene = ({registry, sceneId, slot = 'main', promptRef}) => {
+  const candidates = [promptRef, typeof promptRef === 'string' && promptRef.includes('#') ? promptRef.split('#').pop() : null, `${sceneId}.${slot}`, `${sceneId}.main`, sceneId].filter(Boolean);
   for (const ref of candidates) {
     const prompt = promptFromRegistry(registry, ref);
     if (prompt) {
@@ -34,12 +34,17 @@ const registryPromptForScene = ({registry, sceneId, promptRef}) => {
     }
   }
   const entry = Array.isArray(registry?.prompts)
-    ? registry.prompts.find((item) => item?.scene_id === sceneId && (item.slot ?? 'main') === 'main')
+    ? registry.prompts.find((item) => item?.scene_id === sceneId && (item.slot ?? 'main') === slot)
     : null;
   return typeof entry?.imagegen_prompt === 'string' ? entry.imagegen_prompt : '';
 };
 
 const manifestFile = (entry) => normalize(entry?.file ?? entry?.destination ?? entry?.dest ?? '');
+const planForSlot = (scene, slot) =>
+  Array.isArray(scene.visual_asset_plan)
+    ? scene.visual_asset_plan.find((item) => item?.slot === slot) ??
+      (slot === 'main' ? scene.visual_asset_plan.find((item) => item?.slot === 'main') ?? scene.visual_asset_plan[0] : null)
+    : null;
 
 const directTarget = path.resolve(rootDir, episodeId);
 const episodeDir = episodeId.endsWith('.yaml') || episodeId.endsWith('.yml')
@@ -63,14 +68,20 @@ for (const scene of script?.scenes ?? []) {
     continue;
   }
   const sceneId = scene.id;
-  const file = normalize(scene.main.asset);
-  const plan = Array.isArray(scene.visual_asset_plan) ? scene.visual_asset_plan.find((item) => item?.slot === 'main') ?? scene.visual_asset_plan[0] : null;
-  const prompt =
-    registryPromptForScene({registry, sceneId, promptRef: plan?.imagegen_prompt_ref}) ||
-    (typeof plan?.imagegen_prompt === 'string' ? plan.imagegen_prompt : '') ||
-    (typeof scene.main?.asset_requirements?.imagegen_prompt === 'string' ? scene.main.asset_requirements.imagegen_prompt : '');
-  if (file && prompt) {
-    promptByFile.set(file, {sceneId, prompt, promptSha256: sha256Text(prompt)});
+  const entries = Array.isArray(scene.main_timeline) && scene.main_timeline.length > 0
+    ? scene.main_timeline
+    : [{slot: 'main', asset: scene.main.asset}];
+  for (const [index, entry] of entries.entries()) {
+    const slot = typeof entry?.slot === 'string' && entry.slot.trim() ? entry.slot.trim() : index === 0 ? 'main' : `main_${String(index + 1).padStart(2, '0')}`;
+    const file = normalize(entry?.asset ?? (slot === 'main' ? scene.main.asset : ''));
+    const plan = planForSlot(scene, slot);
+    const prompt =
+      registryPromptForScene({registry, sceneId, slot, promptRef: plan?.imagegen_prompt_ref}) ||
+      (typeof plan?.imagegen_prompt === 'string' ? plan.imagegen_prompt : '') ||
+      (slot === 'main' && typeof scene.main?.asset_requirements?.imagegen_prompt === 'string' ? scene.main.asset_requirements.imagegen_prompt : '');
+    if (file && prompt) {
+      promptByFile.set(file, {sceneId, slot, prompt, promptSha256: sha256Text(prompt)});
+    }
   }
 }
 
@@ -89,6 +100,14 @@ if (Array.isArray(meta.assets)) {
       changes.push({file, path: `meta.json.assets[${index}].scene_id`});
       asset.scene_id = promptInfo.sceneId;
     }
+    if ((asset.slot ?? 'main') !== promptInfo.slot) {
+      changes.push({file, path: `meta.json.assets[${index}].slot`});
+      asset.slot = promptInfo.slot;
+    }
+    if (promptInfo.slot.startsWith('main') && asset.slot_group !== 'main') {
+      changes.push({file, path: `meta.json.assets[${index}].slot_group`});
+      asset.slot_group = 'main';
+    }
   }
 }
 
@@ -106,6 +125,14 @@ for (const [index, entry] of entries.entries()) {
   if (entry.scene_id !== promptInfo.sceneId) {
     changes.push({file, path: `imagegen_manifest.json.images[${index}].scene_id`});
     entry.scene_id = promptInfo.sceneId;
+  }
+  if ((entry.slot ?? 'main') !== promptInfo.slot) {
+    changes.push({file, path: `imagegen_manifest.json.images[${index}].slot`});
+    entry.slot = promptInfo.slot;
+  }
+  if (promptInfo.slot.startsWith('main') && entry.slot_group !== 'main') {
+    changes.push({file, path: `imagegen_manifest.json.images[${index}].slot_group`});
+    entry.slot_group = 'main';
   }
 }
 manifest.version = manifest.version ?? 1;

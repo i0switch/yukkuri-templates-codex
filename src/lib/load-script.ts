@@ -79,7 +79,8 @@ export interface ImageDirection {
 
 export interface VisualAssetPlan {
   required?: boolean;
-  slot: 'main' | 'sub' | 'chapter' | 'comparison' | 'summary';
+  slot: string;
+  slot_group?: 'main';
   purpose: string;
   image_role?: '理解補助' | '不安喚起' | '笑い' | '比較' | '手順整理' | '証拠提示' | 'オチ補助';
   composition_type?:
@@ -99,8 +100,18 @@ export interface VisualAssetPlan {
   image_direction?: ImageDirection;
   insert_timing?: string;
   asset?: string;
+  imagegen_prompt_ref?: string;
   imagegen_prompt?: string;
   audit_points?: string[];
+}
+
+export interface MainTimelineEntry {
+  slot: string;
+  slot_group?: 'main';
+  asset: string;
+  start_line_id?: string;
+  end_line_id?: string;
+  line_ids?: string[];
 }
 
 export interface SceneTextContent {
@@ -149,6 +160,7 @@ export interface EpisodeScene {
   viewer_question?: string;
   visual_role?: string;
   visual_asset_plan?: VisualAssetPlan[];
+  main_timeline?: MainTimelineEntry[];
   typography?: TypographyConfig;
   title_text?: string;
   main: SceneContent;

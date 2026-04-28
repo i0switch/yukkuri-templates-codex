@@ -123,6 +123,12 @@ export const estimateEpisodeDuration = (script, options = {}) => {
           ? 'over'
           : 'within';
   const recommendedLineDelta = durationStatus === 'under' ? Math.ceil((window.min - estimatedSec) / secondsPerLine) : 0;
+  const recommendedAction =
+    durationStatus === 'under'
+      ? 'add_dialogue'
+      : durationStatus === 'over'
+        ? 'keep_natural_overrun_do_not_trim'
+        : 'keep_script';
 
   return {
     ok: durationStatus !== 'under',
@@ -138,6 +144,7 @@ export const estimateEpisodeDuration = (script, options = {}) => {
     estimated_duration_sec: Math.round(estimatedSec * 10) / 10,
     duration_status: durationStatus,
     recommended_line_delta: recommendedLineDelta,
+    recommended_action: recommendedAction,
     stats: {
       scenes: stats.sceneCount,
       dialogue_lines: stats.lineCount,

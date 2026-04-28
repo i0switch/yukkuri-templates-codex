@@ -8,7 +8,7 @@ const SCAN_ROOTS = ['', 'scripts', 'tmp', '.cache'];
 const EXCLUDED_REL_PREFIXES = ['scripts/oneoff/'];
 const SCRIPT_EXT_RE = /\.(mjs|js|cjs|ts|tsx|py|ps1)$/i;
 const TEMP_NAME_RE = /(^\.?tmp[_-])|(^temp[_-])|(^scratch[_-])|(^debug[_-])|(^test-run[_-])/i;
-const EPISODE_ONEOFF_RE = /^(create|fix|generate|regenerate|patch|trim|refresh)-?ep[\w-]*\.(mjs|js|cjs|ts|py|ps1)$/i;
+const EPISODE_ONEOFF_RE = /^(create|fix|generate|regenerate|patch|trim|refresh)-?ep\d[\w-]*\.(mjs|js|cjs|ts|py|ps1)$/i;
 
 const normalize = (value) => value.replaceAll('\\', '/');
 
@@ -21,7 +21,7 @@ const exists = async (targetPath) => {
   }
 };
 
-const isExcluded = (relPath) => EXCLUDED_REL_PREFIXES.some((prefix) => relPath.startsWith(prefix));
+const isExcluded = (relPath) => EXCLUDED_REL_PREFIXES.some((prefix) => relPath.startsWith(prefix) || relPath.includes(`/${prefix}`));
 
 const isCandidate = (relPath) => {
   if (isExcluded(relPath)) {

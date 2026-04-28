@@ -68,6 +68,7 @@ visual_asset_plan:
 ```
 
 旧抽象タグやテンプレート座標メタは draft に置かない。共通禁止事項は `00_MASTER_SCRIPT_RULES.md`、schemaと停止条件は `docs/pipeline_contract.md` を正本にする。
+`target_dialogue_count` は初期目安であり上限ではない。自然音声尺が上限を超えても、尺オーバー対策として台本を削らない。下限未満の場合だけ不足分を自然な掛け合いとして追記する。
 
 ## 生成前ブレーキ
 

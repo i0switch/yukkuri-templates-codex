@@ -62,6 +62,13 @@ visual_asset_plan:
 長文を `image_prompts.json` に分離する場合は `imagegen_prompt_ref` を使い、inline `imagegen_prompt` は省略してよい。
 inline 形式を使う場合でも、内容は `image_prompt_v2.md` または `image_prompts.json` と同じ直投げ型プロンプトにする。
 
+5分動画では標準20枚を目安にする。
+シーン数を画像枚数のためだけに増やさず、1シーン内に複数画像が必要な場合は `main_timeline` と `slot: main_01` / `main_02` を使う。
+画像プロンプトの単位は原則5発話ごと。
+冒頭フック、中盤再フック、数字・比較・危険提示、最終CTAは5発話未満でも単独画像にできる。
+timeline画像の `visual_asset_plan[]` には `slot_group: main` を入れ、`imagegen_prompt_ref` は `image_prompts.json#s03.main_01` のように scene と slot を一意にする。
+各プロンプト本文へ入れる会話全文は、その画像が担当する発話ブロックだけにする。
+
 `image_prompts.json` を使う場合の最小形:
 
 ```json
@@ -70,7 +77,8 @@ inline 形式を使う場合でも、内容は `image_prompt_v2.md` または `i
   "prompts": [
     {
       "scene_id": "s01",
-      "slot": "main",
+      "slot": "main_01",
+      "slot_group": "main",
       "imagegen_prompt": "{image_prompt_v2.md と同じプロンプト}"
     }
   ]

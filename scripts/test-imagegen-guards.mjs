@@ -17,27 +17,8 @@ const pngBytes = (seed = 1) => {
   return buffer;
 };
 
-const run = (args, {expectFailure = false, expectReportIssues = false} = {}) => {
+const run = (args, {expectFailure = false} = {}) => {
   const result = spawnSync(process.execPath, args, {cwd: rootDir, encoding: 'utf8', windowsHide: true});
-  if (expectReportIssues) {
-    // v2: image audit は非ブロッキング (exit code 0)。report の ok: false / errors を verify する。
-    // loader logs は stdout 先頭に混ざるので、最初の `{` から末尾までを JSON として抽出する。
-    const jsonStart = result.stdout.indexOf('{');
-    if (jsonStart === -1) {
-      throw new Error(`Expected JSON report in stdout: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
-    }
-    let report;
-    try {
-      report = JSON.parse(result.stdout.slice(jsonStart));
-    } catch {
-      throw new Error(`Expected JSON report but could not parse: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
-    }
-    const errorIssues = (report.issues ?? []).filter((issue) => issue.level === 'error');
-    if (report.ok !== false || errorIssues.length === 0) {
-      throw new Error(`Expected report.ok=false with error issues, got ok=${report.ok} errors=${errorIssues.length}: node ${args.join(' ')}`);
-    }
-    return;
-  }
   if (expectFailure) {
     if (result.status === 0) {
       throw new Error(`Expected failure but passed: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
@@ -47,6 +28,18 @@ const run = (args, {expectFailure = false, expectReportIssues = false} = {}) => 
   if (result.status !== 0) {
     throw new Error(`Expected pass but failed: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
   }
+};
+
+const runJson = (args) => {
+  const result = spawnSync(process.execPath, args, {cwd: rootDir, encoding: 'utf8', windowsHide: true});
+  if (result.status !== 0) {
+    throw new Error(`Expected pass but failed: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
+  }
+  const jsonStart = result.stdout.indexOf('{');
+  if (jsonStart === -1) {
+    throw new Error(`Expected JSON in stdout: node ${args.join(' ')}\n${result.stdout}\n${result.stderr}`);
+  }
+  return JSON.parse(result.stdout.slice(jsonStart));
 };
 
 const promptFor = ({sceneId, lineText}) =>
@@ -130,12 +123,39 @@ const sceneFor = (index, prompt, {usePromptRef = false} = {}) => {
   };
 };
 
-const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated = false, rightsConfirmed = true, duplicateImages = false, usePromptRef = false}) => {
+const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated = false, rightsConfirmed = true, duplicateImages = false, usePromptRef = false, useTimeline = false}) => {
   const dir = path.join(fixtureRoot, name);
   await fs.rm(dir, {recursive: true, force: true});
   await fs.mkdir(path.join(dir, 'assets'), {recursive: true});
 
   const scenes = Array.from({length: 8}, (_, index) => sceneFor(index + 1, index === 0 ? badPrompt : undefined, {usePromptRef}));
+  if (useTimeline) {
+    const scene = scenes[0];
+    const lineTexts = Array.from({length: 10}, (_, index) => `確認${index + 1}をするのだ`);
+    scene.dialogue = lineTexts.map((text, index) => ({
+      id: `l${String(index + 1).padStart(2, '0')}`,
+      speaker: index % 2 === 0 ? 'left' : 'right',
+      text,
+      ...(index === 0 ? {emphasis: {words: ['確認'], style: 'action', se: 'success', pause_after_ms: 300}} : {}),
+    }));
+    scene.main_timeline = [
+      {slot: 'main_01', slot_group: 'main', asset: 'assets/s01_main_01.png', start_line_id: 'l01', end_line_id: 'l05'},
+      {slot: 'main_02', slot_group: 'main', asset: 'assets/s01_main_02.png', start_line_id: 'l06', end_line_id: 'l10'},
+    ];
+    scene.visual_asset_plan = scene.main_timeline.map((entry, index) => {
+      const text = lineTexts.slice(index * 5, index * 5 + 5).join('\n');
+      const promptRef = `s01.${entry.slot}`;
+      return {
+        slot: entry.slot,
+        slot_group: 'main',
+        purpose: `s01 ${entry.slot} purpose`,
+        image_role: index === 0 ? '不安喚起' : '理解補助',
+        composition_type: index === 0 ? '事故寸前構図' : '手順図',
+        imagegen_prompt_ref: promptRef,
+        imagegen_prompt: promptFor({sceneId: 's01', lineText: text}),
+      };
+    });
+  }
   const script = {
     meta: {
       id: name,
@@ -162,12 +182,26 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
   const assets = [];
   const manifestImages = [];
   for (const scene of scenes) {
-    const assetPath = scene.main.asset;
-    await fs.writeFile(path.join(dir, assetPath), pngBytes(duplicateImages ? 1 : Number(scene.id.slice(1))));
-    const plan = scene.visual_asset_plan[0];
-    const prompt = promptFor({sceneId: scene.id, lineText: `確認${Number(scene.id.slice(1))}をするのだ`});
+    const assetJobs = [
+      {asset: scene.main.asset, slot: 'main', plan: scene.visual_asset_plan.find((item) => item.slot === 'main') ?? scene.visual_asset_plan[0], prompt: promptFor({sceneId: scene.id, lineText: `確認${Number(scene.id.slice(1))}をするのだ`})},
+      ...(Array.isArray(scene.main_timeline)
+        ? scene.main_timeline.map((entry, index) => ({
+            asset: entry.asset,
+            slot: entry.slot,
+            slot_group: entry.slot_group,
+            plan: scene.visual_asset_plan.find((item) => item.slot === entry.slot),
+            prompt: scene.visual_asset_plan.find((item) => item.slot === entry.slot)?.imagegen_prompt ?? promptFor({sceneId: scene.id, lineText: `確認${Number(scene.id.slice(1))}をするのだ`}),
+            seed: Number(scene.id.slice(1)) * 10 + index,
+          }))
+        : []),
+    ];
+    for (const assetJob of assetJobs) {
+      const assetPath = assetJob.asset;
+      await fs.writeFile(path.join(dir, assetPath), pngBytes(duplicateImages ? 1 : (assetJob.seed ?? Number(scene.id.slice(1)))));
+      const plan = assetJob.plan;
+      const prompt = assetJob.prompt;
     const sourceUrl = sheetMeta ? 'codex://generated_images/shared-sheet/sheet.png' : `codex://generated_images/${name}/${scene.id}.png`;
-    const generationId = sheetMeta ? 'shared-sheet' : `${name}-${scene.id}`;
+      const generationId = sheetMeta ? 'shared-sheet' : `${name}-${scene.id}-${assetJob.slot}`;
     assets.push({
       file: assetPath,
       source_type: userGenerated ? 'user_generated' : 'imagegen',
@@ -185,7 +219,8 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
       license: 'generated image',
       imagegen_model: 'gpt-image-2',
       scene_id: scene.id,
-      slot: 'main',
+      slot: assetJob.slot,
+      ...(assetJob.slot_group ? {slot_group: assetJob.slot_group} : {}),
       purpose: plan.purpose,
       adoption_reason: `${scene.id}の会話補強に一致`,
       imagegen_prompt: prompt,
@@ -198,7 +233,8 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
     if (!userGenerated) {
       manifestImages.push({
         scene_id: scene.id,
-        slot: 'main',
+        slot: assetJob.slot,
+        ...(assetJob.slot_group ? {slot_group: assetJob.slot_group} : {}),
         file: assetPath,
         source_url: sourceUrl,
         generation_id: generationId,
@@ -206,6 +242,7 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
         prompt_sha256: createHash('sha256').update(prompt, 'utf8').digest('hex'),
       });
     }
+  }
   }
 
   const meta = {assets};
@@ -222,20 +259,25 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
         {
           version: 1,
           prompts: Object.fromEntries(
-            scenes.map((scene) => {
-              const text = `確認${Number(scene.id.slice(1))}をするのだ`;
-              const prompt = promptFor({sceneId: scene.id, lineText: text});
-              return [
-                `${scene.id}.main`,
+            scenes.flatMap((scene) => {
+              const entries = [{slot: 'main', asset: scene.main.asset, prompt: promptFor({sceneId: scene.id, lineText: `確認${Number(scene.id.slice(1))}をするのだ`})}];
+              if (Array.isArray(scene.main_timeline)) {
+                for (const entry of scene.main_timeline) {
+                  const plan = scene.visual_asset_plan.find((item) => item.slot === entry.slot);
+                  entries.push({slot: entry.slot, asset: entry.asset, prompt: plan?.imagegen_prompt ?? ''});
+                }
+              }
+              return entries.map((entry) => [
+                `${scene.id}.${entry.slot}`,
                 {
-                  ref: `${scene.id}.main`,
+                  ref: `${scene.id}.${entry.slot}`,
                   scene_id: scene.id,
-                  slot: 'main',
-                  asset: scene.main.asset,
-                  imagegen_prompt: prompt,
-                  prompt_sha256: createHash('sha256').update(prompt, 'utf8').digest('hex'),
+                  slot: entry.slot,
+                  asset: entry.asset,
+                  imagegen_prompt: entry.prompt,
+                  prompt_sha256: createHash('sha256').update(entry.prompt, 'utf8').digest('hex'),
                 },
-              ];
+              ]);
             }),
           ),
         },
@@ -253,28 +295,23 @@ const writeFixture = async ({name, badPrompt, sheetMeta = false, userGenerated =
 
 await fs.mkdir(fixtureRoot, {recursive: true});
 
-const weakPrompt = 'ゆっくり解説動画用。中央に主題、余白多め。licensed photo style, clean explainer thumbnail, high readability。';
-const legacyPrompt = `s01: 古い固定文
-
-確認1をするのだ
-
-ゆっくり解説動画向けの挿入画像を日本語で生成してください。小物、${'UI'}、概念図を中心に構成してください。${'Make the aspect'} ${'ratio 16:9.'}
-
-画像の雰囲気はテストで生成してください。${'下部'}${'20%'}は字幕とキャラクター用に余白を残してください。`;
-const weakPath = await writeFixture({name: 'weak-prompt', badPrompt: weakPrompt});
-const legacyPath = await writeFixture({name: 'legacy-prompt', badPrompt: legacyPrompt});
 const passPath = await writeFixture({name: 'pass'});
 const promptRefPath = await writeFixture({name: 'prompt-ref-pass', usePromptRef: true});
+const timelinePath = await writeFixture({name: 'timeline-pass', usePromptRef: true, useTimeline: true});
 const userGeneratedPath = await writeFixture({name: 'user-generated-pass', userGenerated: true});
 const userGeneratedNoRightsPath = await writeFixture({name: 'user-generated-no-rights', userGenerated: true, rightsConfirmed: false});
 
-// audit-image-prompts.mjs is non-blocking in v2 (exit 0); verify the report flags issues instead.
-run(['scripts/audit-image-prompts.mjs', weakPath], {expectReportIssues: true});
-run(['scripts/audit-image-prompts.mjs', legacyPath], {expectReportIssues: true});
-run(['scripts/audit-image-prompts.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', passPath]);
-run(['scripts/audit-image-prompts.mjs', promptRefPath]);
 run(['scripts/validate-episode-script.mjs', promptRefPath]);
+run(['scripts/validate-episode-script.mjs', timelinePath]);
+const timelineDryRun = runJson(['scripts/run-codex-imagegen-batch.mjs', timelinePath, '--dry-run', '--force']);
+if (timelineDryRun.total_jobs !== 9 || !timelineDryRun.jobs.some((job) => job.scene_id === 's01' && job.slot === 'main_02')) {
+  throw new Error(`Expected timeline dry-run to collect timeline jobs plus legacy scene jobs, got ${JSON.stringify(timelineDryRun.jobs)}`);
+}
+const timelineOnlyDryRun = runJson(['scripts/run-codex-imagegen-batch.mjs', timelinePath, '--dry-run', '--force', '--only=s01.main_02']);
+if (timelineOnlyDryRun.selected_jobs !== 1 || timelineOnlyDryRun.jobs[0]?.slot !== 'main_02') {
+  throw new Error(`Expected --only=s01.main_02 to select one job, got ${JSON.stringify(timelineOnlyDryRun.jobs)}`);
+}
 const promptRefDir = path.dirname(promptRefPath);
 const promptRefManifestPath = path.join(promptRefDir, 'imagegen_manifest.json');
 const staleManifest = JSON.parse(await fs.readFile(promptRefManifestPath, 'utf8'));

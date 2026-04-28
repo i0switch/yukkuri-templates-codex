@@ -25,7 +25,6 @@ const run = (args) => {
 };
 
 run(['scripts/normalize-aquestalk-presets.mjs', episodeId]);
-run(['scripts/audit-image-prompts.mjs', episodeId]);
 run(['scripts/sync-imagegen-ledger.mjs', episodeId, '--check']);
 run(['scripts/estimate-episode-duration.mjs', episodeId]);
 run(['scripts/validate-episode-script.mjs', episodeId, '--prompt-only']);

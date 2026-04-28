@@ -133,7 +133,7 @@ const buildTimings = (script, durations) => {
   }
   if (durationWindow && naturalTotal > durationWindow.max) {
     console.warn(
-      `Natural speech duration exceeds target_duration_sec window, but natural overrun is allowed: natural=${round1(naturalTotal)}s, allowed_max=${round1(durationWindow.max)}s. Keeping the script unchanged.`,
+      `Natural speech duration exceeds target_duration_sec window, but natural overrun is allowed and script_final.md must stay unchanged for duration: natural=${round1(naturalTotal)}s, allowed_max=${round1(durationWindow.max)}s. Keeping the script unchanged.`,
     );
   }
 

@@ -66,8 +66,6 @@
     "render:template-guide": "node scripts/render-template-guide.mjs",
     "gate:prompt-pack": "node scripts/validate-script-generation-route.mjs",
     "audit:script-quality": "node scripts/audit-script-quality.mjs",
-    "audit:image-prompts": "node scripts/audit-image-prompts.mjs",
-    "audit:latest-image-prompts": "node scripts/audit-latest-image-prompts.mjs",
     "audit:video": "node scripts/audit-video.mjs",
     "test:imagegen-guards": "node scripts/test-imagegen-guards.mjs",
     "test:script-prompt-pack-evidence": "node scripts/test-script-prompt-pack-evidence.mjs",
@@ -82,8 +80,7 @@
     "test:cleanup-guard": "node scripts/test-cleanup-guard.mjs",
     "test:motion-emphasis-guards": "node scripts/test-motion-emphasis-guards.mjs",
     "test:expression-guards": "node scripts/test-expression-guards.mjs",
-    "test:visual-emphasis-layer": "node scripts/test-visual-emphasis-layer.mjs",
-    "test:image-prompt-vnext-guards": "node scripts/test-image-prompt-vnext-guards.mjs"
+    "test:visual-emphasis-layer": "node scripts/test-visual-emphasis-layer.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.365",

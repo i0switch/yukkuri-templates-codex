@@ -6,13 +6,8 @@ out/
 .analysis/
 .tmp/
 *.log
+script/
 notebookLM/.tmp/
 notebookLM/workspace/projects/
 notebookLM/**/__pycache__/
 public/episodes/
-script/**/audio/
-script/**/bgm/
-script/**/assets/
-script/**/line-durations.json
-script/**/meta.json
-script/**/script.render.json

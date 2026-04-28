@@ -236,8 +236,8 @@ export const AutoFitText: React.FC<Props> = ({
         alignItems: 'center',
         justifyContent: textAlign === 'left' ? 'flex-start' : textAlign === 'right' ? 'flex-end' : 'center',
         boxSizing: 'border-box',
-        overflow: 'visible',
         ...style,
+        overflow: 'hidden',
       }}
     >
       <HighlightEmphasisKeyframes />

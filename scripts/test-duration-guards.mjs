@@ -192,7 +192,7 @@ run(['scripts/validate-episode-script.mjs', target300At260], {
 });
 run(['scripts/validate-episode-script.mjs', target300At280]);
 run(['scripts/validate-episode-script.mjs', target300At340], {
-  expectMessage: 'natural overrun is allowed',
+  expectMessage: 'script_final.md must stay unchanged for duration',
 });
 run(['scripts/validate-episode-script.mjs', target360At340]);
 run(['scripts/validate-episode-script.mjs', target360At310], {
@@ -200,14 +200,21 @@ run(['scripts/validate-episode-script.mjs', target360At310], {
   expectMessage: 'allowed_min=324s',
 });
 run(['scripts/validate-episode-script.mjs', target360At410], {
-  expectMessage: 'natural overrun is allowed',
+  expectMessage: 'script_final.md must stay unchanged for duration',
 });
 run(['scripts/estimate-episode-duration.mjs', target300At260], {
   expectFailure: true,
   expectMessage: '"duration_status": "under"',
 });
+run(['scripts/estimate-episode-duration.mjs', target300At260], {
+  expectFailure: true,
+  expectMessage: '"recommended_action": "add_dialogue"',
+});
 run(['scripts/estimate-episode-duration.mjs', target300At340], {
   expectMessage: '"duration_status": "over"',
+});
+run(['scripts/estimate-episode-duration.mjs', target300At340], {
+  expectMessage: '"recommended_action": "keep_natural_overrun_do_not_trim"',
 });
 const measuredProfileTarget = await writeFixture({name: 'target300-measured-profile', targetDurationSec: 300, totalDurationSec: 300, dialogueLineCount: 100});
 await fs.writeFile(
@@ -226,17 +233,20 @@ const underEstimate = estimateFixture({targetDurationSec: 300, lineCount: 80});
 assert(underEstimate.ok === false, 'under target estimate must fail');
 assert(underEstimate.duration_status === 'under', 'under target estimate must report duration_status=under');
 assert(underEstimate.recommended_line_delta > 0, 'under target estimate must recommend additional lines');
+assert(underEstimate.recommended_action === 'add_dialogue', 'under target estimate must recommend adding dialogue');
 
 const withinEstimate = estimateFixture({targetDurationSec: 300, lineCount: 90});
 assert(withinEstimate.ok === true, 'within target estimate must pass');
 assert(withinEstimate.duration_status === 'within', 'within target estimate must report duration_status=within');
 assert(withinEstimate.recommended_line_delta === 0, 'within target estimate must not recommend line changes');
+assert(withinEstimate.recommended_action === 'keep_script', 'within target estimate must recommend keeping the script');
 assert(withinEstimate.seconds_per_line === 3.3, 'VOICEVOX estimate must use 3.3 seconds per line for speedScale 1.15');
 
 const overEstimate = estimateFixture({targetDurationSec: 300, lineCount: 110});
 assert(overEstimate.ok === true, 'over target estimate must pass');
 assert(overEstimate.duration_status === 'over', 'over target estimate must report duration_status=over');
 assert(overEstimate.recommended_line_delta === 0, 'over target estimate must not recommend line changes');
+assert(overEstimate.recommended_action === 'keep_natural_overrun_do_not_trim', 'over target estimate must explicitly forbid line removal for duration');
 
 const buildEpisodeSource = await fs.readFile(path.join(rootDir, 'scripts', 'build-episode.mjs'), 'utf8');
 for (const removedPaddingToken of ['remainingGap', 'scenePadding']) {

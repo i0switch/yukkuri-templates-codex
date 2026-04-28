@@ -288,6 +288,17 @@ const collectReferencedFiles = (script) => {
         });
       }
     }
+    if (Array.isArray(scene?.main_timeline)) {
+      scene.main_timeline.forEach((entry, entryIndex) => {
+        if (entry?.asset) {
+          files.push({
+            file: entry.asset,
+            kind: 'image',
+            path: `scenes[${sceneIndex}].main_timeline[${entryIndex}].asset`,
+          });
+        }
+      });
+    }
   });
 
   return files;
@@ -437,6 +448,12 @@ const validateMetaLedger = async ({script, meta, imagegenManifest, errors}) => {
         if (manifestEntry.scene_id !== asset.scene_id) {
           pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest scene_id must match meta.json`);
         }
+        if ((manifestEntry.slot ?? 'main') !== (asset.slot ?? 'main')) {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest slot must match meta.json`);
+        }
+        if ((asset.slot_group ?? null) && (manifestEntry.slot_group ?? asset.slot_group) !== asset.slot_group) {
+          pushIssue(errors, 'error', 'imagegen_manifest.json', `${asset.file}: manifest slot_group must match meta.json`);
+        }
         const manifestSource = String(manifestSourceForEntry(manifestEntry) ?? '').trim();
         const assetSources = [asset.source_url, asset.generation_id].filter((value) => typeof value === 'string' && value.trim() !== '');
         if (assetSources.length > 0 && manifestSource && !assetSources.includes(manifestSource)) {
@@ -512,6 +529,7 @@ const assertAssetPath = async ({assetPath, episodeDir, sceneId, contentPath, err
 
 const SUB_TEXT_WARN_THRESHOLD = 140;
 const SUB_BULLETS_WARN_THRESHOLD = 6;
+const MAIN_TIMELINE_SLOT_RE = /^main(?:_\d{2})?$/;
 
 const hasSceneEmphasis = (scene, {requireSe = false} = {}) =>
   Array.isArray(scene?.dialogue) &&
@@ -632,7 +650,89 @@ const validateVisualAssetPlan = ({scene, scenePath, errors}) => {
     if (!VISUAL_COMPOSITION_TYPES.has(plan.composition_type)) {
       pushIssue(errors, 'error', `${planPath}.composition_type`, `${scene.id}: composition_type must be one of ${[...VISUAL_COMPOSITION_TYPES].join(', ')}`);
     }
+    if (typeof plan.slot !== 'string' || !MAIN_TIMELINE_SLOT_RE.test(plan.slot)) {
+      pushIssue(errors, 'error', `${planPath}.slot`, `${scene.id}: visual_asset_plan slot must be main or main_XX`);
+    }
+    if (plan.slot !== 'main' && plan.slot_group !== 'main') {
+      pushIssue(errors, 'error', `${planPath}.slot_group`, `${scene.id}: timeline visual_asset_plan entries require slot_group: main`);
+    }
   });
+};
+
+const lineIndexById = (dialogue) => {
+  const indexes = new Map();
+  if (!Array.isArray(dialogue)) {
+    return indexes;
+  }
+  dialogue.forEach((line, index) => {
+    if (typeof line?.id === 'string' && line.id.trim() !== '') {
+      indexes.set(line.id, index);
+    }
+  });
+  return indexes;
+};
+
+const validateMainTimeline = async ({scene, scenePath, episodeDir, errors, promptOnly}) => {
+  if (scene.main_timeline === undefined || scene.main_timeline === null) {
+    return;
+  }
+  if (!Array.isArray(scene.main_timeline)) {
+    pushIssue(errors, 'error', `${scenePath}.main_timeline`, `${scene.id}: main_timeline must be an array`);
+    return;
+  }
+  if (scene.main_timeline.length === 0) {
+    pushIssue(errors, 'error', `${scenePath}.main_timeline`, `${scene.id}: main_timeline must not be empty`);
+    return;
+  }
+
+  const indexes = lineIndexById(scene.dialogue);
+  const seenSlots = new Set();
+  for (const [index, entry] of scene.main_timeline.entries()) {
+    const entryPath = `${scenePath}.main_timeline[${index}]`;
+    if (!isPlainObject(entry)) {
+      pushIssue(errors, 'error', entryPath, `${scene.id}: main_timeline entry must be an object`);
+      continue;
+    }
+    const slot = entry.slot;
+    if (typeof slot !== 'string' || !MAIN_TIMELINE_SLOT_RE.test(slot)) {
+      pushIssue(errors, 'error', `${entryPath}.slot`, `${scene.id}: main_timeline slot must be main or main_XX`);
+    } else if (seenSlots.has(slot)) {
+      pushIssue(errors, 'error', `${entryPath}.slot`, `${scene.id}: duplicate main_timeline slot: ${slot}`);
+    } else {
+      seenSlots.add(slot);
+    }
+    if (entry.slot_group !== undefined && entry.slot_group !== 'main') {
+      pushIssue(errors, 'error', `${entryPath}.slot_group`, `${scene.id}: main_timeline slot_group must be main`);
+    }
+    await assertAssetPath({assetPath: entry.asset, episodeDir, sceneId: scene.id, contentPath: entryPath, errors, promptOnly});
+
+    const hasLineIds = Array.isArray(entry.line_ids);
+    const hasRange = typeof entry.start_line_id === 'string' || typeof entry.end_line_id === 'string';
+    if (!hasLineIds && !hasRange) {
+      pushIssue(errors, 'error', entryPath, `${scene.id}/${slot ?? index}: main_timeline requires line_ids or start_line_id/end_line_id`);
+      continue;
+    }
+    if (hasLineIds) {
+      if (entry.line_ids.length === 0) {
+        pushIssue(errors, 'error', `${entryPath}.line_ids`, `${scene.id}/${slot ?? index}: line_ids must not be empty`);
+      }
+      for (const [lineIndex, lineId] of entry.line_ids.entries()) {
+        if (typeof lineId !== 'string' || !indexes.has(lineId)) {
+          pushIssue(errors, 'error', `${entryPath}.line_ids[${lineIndex}]`, `${scene.id}/${slot ?? index}: unknown dialogue line id: ${lineId ?? '<missing>'}`);
+        }
+      }
+      continue;
+    }
+    if (!indexes.has(entry.start_line_id)) {
+      pushIssue(errors, 'error', `${entryPath}.start_line_id`, `${scene.id}/${slot ?? index}: unknown start_line_id: ${entry.start_line_id ?? '<missing>'}`);
+    }
+    if (!indexes.has(entry.end_line_id)) {
+      pushIssue(errors, 'error', `${entryPath}.end_line_id`, `${scene.id}/${slot ?? index}: unknown end_line_id: ${entry.end_line_id ?? '<missing>'}`);
+    }
+    if (indexes.has(entry.start_line_id) && indexes.has(entry.end_line_id) && indexes.get(entry.start_line_id) > indexes.get(entry.end_line_id)) {
+      pushIssue(errors, 'error', entryPath, `${scene.id}/${slot ?? index}: start_line_id must come before end_line_id`);
+    }
+  }
 };
 
 const validateMotionAndEmphasisCoverage = ({script, errors}) => {
@@ -845,7 +945,7 @@ const validateTiming = ({script, errors, warnings}) => {
       warnings,
       'warning',
       'total_duration_sec',
-      `total_duration_sec exceeds the target_duration_sec natural speech window, but natural overrun is allowed: target=${round1(targetSec)}s, allowed_max=${round1(durationWindow.max)}s, actual=${round1(script.total_duration_sec)}s`,
+      `total_duration_sec exceeds the target_duration_sec natural speech window, but natural overrun is allowed and script_final.md must stay unchanged for duration: target=${round1(targetSec)}s, allowed_max=${round1(durationWindow.max)}s, actual=${round1(script.total_duration_sec)}s`,
     );
   }
 };
@@ -1093,6 +1193,7 @@ export const validateEpisodeScript = async (script, options = {}) => {
       pushIssue(errors, 'error', `${scenePath}.dialogue`, `${sceneId}: dialogue must be an array`);
       continue;
     }
+    await validateMainTimeline({scene, scenePath, episodeDir, errors, promptOnly: options.promptOnly});
 
     for (const [lineIndex, line] of scene.dialogue.entries()) {
       const linePath = `${scenePath}.dialogue[${lineIndex}]`;

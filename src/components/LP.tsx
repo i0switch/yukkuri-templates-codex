@@ -1,317 +1,287 @@
 import React from 'react';
-import {AbsoluteFill, staticFile, useCurrentFrame, spring, interpolate, useVideoConfig} from 'remotion';
+import {AbsoluteFill, staticFile} from 'remotion';
 import './LP.css';
 
-export const LP: React.FC = () => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+const agents = [
+  {name: '企画エージェント', status: 'ターゲットと構成を定義しました。', icon: '📋', time: '10:00'},
+  {name: '台本エージェント', status: '台本を作成しました（約2,800文字）。', icon: '✍️', time: '10:01'},
+  {name: '画像エージェント', status: 'サムネ・挿絵・背景を生成中...', icon: '🖼️', time: '10:02'},
+  {name: '音声エージェント', status: 'ナレーションを生成中...', icon: '🎙️', time: '10:03'},
+  {name: '動画エージェント', status: 'カット編集・BGM・テロップを合成中...', icon: '🎬', time: '10:04'},
+  {name: '品質チェックエージェント', status: '最終チェック完了。出力します！', icon: '🛡️', time: '10:05'},
+];
 
-  // Animations
-  const spr = (delay: number) => spring({frame: frame - delay, fps, config: {damping: 12}});
-  
-  const agents = [
-    {name: '企画エージェント', status: 'ターゲットと構成を定義しました。', icon: '📁', time: '10:00'},
-    {name: '台本エージェント', status: '台本を作成しました（約2,800文字）。', icon: '✍️', time: '10:01'},
-    {name: '画像エージェント', status: 'サムネ・挿絵・背景を生成中...', icon: '🎨', time: '10:02'},
-    {name: '音声エージェント', status: 'ナレーションを生成中...', icon: '🎤', time: '10:03'},
-    {name: '動画エージェント', status: 'カット編集・BGM・テロップを合成中...', icon: '🎞️', time: '10:04'},
-    {name: '品質チェックエージェント', status: '最終チェック完了。出力します！', icon: '🛡️', time: '10:05'},
-  ];
+const pains = [
+  {icon: '◷', text: '時間がかかりすぎて\n続かない...'},
+  {icon: '✎', text: '台本や構成を考えるのが\n大変...'},
+  {icon: '▧', text: '素材集めや編集が\nめんどう...'},
+  {icon: '♪', text: 'ナレーション収録が\nむずかしい...'},
+  {icon: '↗', text: 'クオリティにばらつきが\n出てしまう...'},
+];
 
-  return (
-    <div className="lp-container">
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content" style={{opacity: spr(0), transform: `translateY(${interpolate(spr(0), [0, 1], [50, 0])}px)`}}>
-          <div className="hero-badge">ゆっくり & ずんだもんが、あなたの動画制作をまるっとサポート！</div>
-          <h1 className="hero-title">
-            エージェントAI<span className="hero-title-suffix">が</span>
-            <br />
-            役割分担して、
-            <br />
-            動画制作を
-            <br />
-            <span className="hero-highlight">自動で前に進める。</span>
-          </h1>
-          <p className="hero-subtitle">企画から動画出力まで、すべてAIにおまかせ！</p>
-          
-          <div className="hero-features">
-            {[
-              {icon: '🚀', text: '最短数分で\n動画完成'},
-              {icon: '👥', text: 'エージェントが\n自動で役割分担'},
-              {icon: '✅', text: '高品質な動画を\n安定出力'}
-            ].map((f, i) => (
-              <div key={i} className="hero-feature" style={{opacity: spr(10 + i * 5), transform: `scale(${spr(10 + i * 5)})`}}>
-                <div className="hero-feature-icon">{f.icon}</div>
-                <div className="hero-feature-text">{f.text}</div>
+const features = [
+  {title: '企画エージェント', body: 'トレンドと目的を分析し、\n最適な構成を自動設計！', char: 'zundamon', visual: 'chart'},
+  {title: '台本エージェント', body: '視聴者を引き込む台本を\nわかりやすく自動生成！', char: 'marisa', visual: 'book'},
+  {title: '画像エージェント', body: '挿絵・背景・サムネを\nまとめて自動生成！', char: 'zundamon', visual: 'gallery'},
+  {title: '音声エージェント', body: '自然なAIナレーションを\n感情豊かに自動生成！', char: 'reimu', visual: 'mic'},
+  {title: '動画エージェント', body: 'カット編集・BGM・効果・\nテロップを自動で合成！', char: 'marisa', visual: 'movie'},
+  {title: '品質チェックエージェント', body: '誤字脱字・テンポ・音量まで\n自動チェックで安心出力！', char: 'zundamon', visual: 'check'},
+];
+
+const steps = [
+  {num: '01', title: '指示を入力', body: '作りたい動画の内容を\nテキストで入力します。', char: 'reimu', visual: 'pc'},
+  {num: '02', title: 'エージェントが自動実行', body: 'AIが役割分担して、\n制作を自動で進めます。', char: 'group', visual: 'spark'},
+  {num: '03', title: '進捗を確認', body: '各工程の進捗を\nリアルタイムで確認。', char: 'none', visual: 'progress'},
+  {num: '04', title: '動画を出力', body: '高品質な動画が完成！\nすぐに使えます。', char: 'none', visual: 'player'},
+];
+
+const audiences = [
+  {title: 'YouTube・TikTokで\n発信したい方', icon: '▶', body: '短時間で継続的に\n動画を投稿したい！'},
+  {title: 'ブログ・メディア運営者', icon: 'PC', body: '記事を動画化して\n集客力をアップ！'},
+  {title: '企業・店舗の担当者', icon: 'ビル', body: '商品・サービスを\nわかりやすくPR！'},
+  {title: '教育・研修コンテンツ\nを作りたい方', icon: '本', body: 'わかりやすい教材を\n効率よく作成！'},
+  {title: '個人で副業したい方', icon: '人', body: '時間をかけずに\n収益化を目指したい！'},
+];
+
+const reviews = [
+  {text: '台本作成から編集まで全部おまかせ！\n本当に助かっています！', user: 'YouTuber / 30代・男性', char: 'reimu'},
+  {text: 'クオリティが高くて驚きました。\n作業時間が1/5になりました！', user: 'ブロガー / 40代・女性', char: 'zundamon'},
+  {text: 'ナレーションも自然で、\n商用利用にも安心です！', user: '企業マーケ担当 / 30代・男性', char: 'marisa'},
+];
+
+const charSrc = {
+  reimu: staticFile('characters/reimu/compose_open_close.png'),
+  marisa: staticFile('characters/marisa/compose_open_close.png'),
+  zundamon: staticFile('characters/zundamon/compose_open_close.png'),
+  zundamonFull: staticFile('characters/zundamon/full_body.png'),
+};
+
+const Character: React.FC<{type: 'reimu' | 'marisa' | 'zundamon'; className?: string}> = ({type, className}) => (
+  <img src={charSrc[type]} className={className ?? ''} alt={type} />
+);
+
+const Visual: React.FC<{type: string}> = ({type}) => {
+  if (type === 'chart') {
+    return (
+      <div className="mini-chart">
+        <span />
+        <span />
+        <span />
+        <span />
+        <b />
+      </div>
+    );
+  }
+  if (type === 'book') {
+    return <div className="mini-book"><span /><span /></div>;
+  }
+  if (type === 'gallery') {
+    return <div className="mini-gallery"><span>🎨</span><span>🖼️</span><span>✨</span></div>;
+  }
+  if (type === 'mic') {
+    return <div className="mini-mic">🎙️<span /></div>;
+  }
+  if (type === 'movie') {
+    return <div className="mini-movie"><span /><b>▶</b></div>;
+  }
+  if (type === 'check') {
+    return <div className="mini-check">✓<span>✓</span><b>✓</b></div>;
+  }
+  if (type === 'pc') {
+    return <div className="step-pc">⌨</div>;
+  }
+  if (type === 'spark') {
+    return <div className="step-spark">✦</div>;
+  }
+  if (type === 'progress') {
+    return <div className="step-progress"><span /><span /><span /></div>;
+  }
+  if (type === 'player') {
+    return <div className="step-player">▶</div>;
+  }
+  return null;
+};
+
+const LaptopMock: React.FC = () => (
+  <div className="lp-laptop">
+    <div className="laptop-screen">
+      <div className="workspace">
+        <div className="workspace-rail">
+          <span>制<br />作</span>
+          <b>AI</b>
+        </div>
+        <div className="workspace-main">
+          <div className="workspace-title">AIエージェントワークスペース</div>
+          <div className="chat-card">
+            <strong>あなた</strong>
+            <p>「初心者向けに、AIで副業を始める方法」を解説する動画を作って！</p>
+            <small>10:00</small>
+          </div>
+          <div className="agent-panel">
+            <h3>エージェントAI</h3>
+            {agents.map((agent) => (
+              <div className="agent-row" key={agent.name}>
+                <span className="agent-icon">{agent.icon}</span>
+                <strong>{agent.name}</strong>
+                <p>{agent.status}</p>
+                <small>{agent.time}</small>
+                <em>✓</em>
               </div>
             ))}
           </div>
         </div>
-
-        <div className="hero-characters">
-          <img src={staticFile('characters/reimu/compose_open_close.png')} className="char char-reimu" style={{transform: `translateX(${interpolate(spr(20), [0, 1], [200, 0])}px)`, opacity: spr(20)}} alt="Reimu" />
-          <img src={staticFile('characters/marisa/compose_open_close.png')} className="char char-marisa" style={{transform: `translateX(${interpolate(spr(25), [0, 1], [200, 0])}px)`, opacity: spr(25)}} alt="Marisa" />
-          <img src={staticFile('characters/zundamon/full_body.png')} className="char char-zundamon" style={{transform: `translateX(${interpolate(spr(15), [0, 1], [200, 0])}px)`, opacity: spr(15)}} alt="Zundamon" />
+        <div className="workspace-side">
+          <h3>進行状況</h3>
+          {['企画', '台本', '画像', '音声', '動画', '品質チェック'].map((item) => (
+            <div className="side-step" key={item}>
+              <span>{item}</span>
+              <b>完了</b>
+            </div>
+          ))}
+          <div className="done-chip">動画出力完了！🎉</div>
         </div>
-      </section>
-
-      {/* Product Mockup */}
-      <section className="product-mockup">
-        <div className="laptop-frame" style={{transform: `scale(${interpolate(spr(30), [0, 1], [0.8, 1])})`, opacity: spr(30)}}>
-          <div className="workspace-ui">
-            <div className="workspace-header">
-              <div className="workspace-title">AIエージェントワークスペース</div>
-            </div>
-            <div className="workspace-content">
-              <div className="workspace-main">
-                <div className="chat-item user" style={{opacity: spr(40), transform: `translateX(${interpolate(spr(40), [0, 1], [-20, 0])}px)`}}>
-                  <div className="avatar">👤</div>
-                  <div className="chat-bubble">
-                    「初心者向けに、AIで副業を始める方法」を解説する動画を作って！
-                  </div>
-                </div>
-                <div className="agent-list">
-                  {agents.map((agent, i) => (
-                    <div key={i} className="agent-item" style={{opacity: spr(50 + i * 15), transform: `translateY(${interpolate(spr(50 + i * 15), [0, 1], [20, 0])}px)`}}>
-                      <div className="agent-avatar">{agent.icon}</div>
-                      <div className="agent-info">
-                        <span className="agent-name">{agent.name}</span>
-                        <span className="agent-status">{agent.status}</span>
-                      </div>
-                      <div className="agent-time">{agent.time} {frame > (50 + i * 15 + 10) ? '✓' : ''}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="workspace-sidebar">
-                <div className="progress-section">
-                  <div className="progress-title">進行状況</div>
-                  <div className="progress-steps">
-                    {['企画', '台本', '画像', '音声', '動画', '品質チェック'].map((step, i) => {
-                      const isDone = frame > (50 + i * 15 + 20);
-                      return (
-                        <div key={i} className={`p-step ${isDone ? 'completed' : ''}`}>
-                          {step} <span style={{opacity: isDone ? 1 : 0.3}}>{isDone ? '完了' : '待機中'}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <button className="output-button" style={{opacity: spr(150), transform: `scale(${spr(150)})`}}>動画出力完了！ 🎉</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Buttons */}
-      <section className="cta-buttons">
-        <button className="btn btn-primary">今すぐ無料で始める »</button>
-        <button className="btn btn-secondary">機能を詳しく見る ＞</button>
-      </section>
-
-      {/* Problem Section */}
-      <section className="problems">
-        <h2 className="section-title">動画制作で、こんなお悩みはありませんか？</h2>
-        <div className="problem-grid">
-          <div className="problem-card">
-            <div className="problem-icon">🕒</div>
-            <div className="problem-text">時間がかかりすぎて<br />続かない...</div>
-          </div>
-          <div className="problem-card">
-            <div className="problem-icon">📝</div>
-            <div className="problem-text">台本や構成を考えるのが<br />大変...</div>
-          </div>
-          <div className="problem-card">
-            <div className="problem-icon">🖼️</div>
-            <div className="problem-text">素材集めや編集が<br />めんどう...</div>
-          </div>
-          <div className="problem-card">
-            <div className="problem-icon">🎤</div>
-            <div className="problem-text">ナレーション収録が<br />むずかしい...</div>
-          </div>
-          <div className="problem-card">
-            <div className="problem-icon">📈</div>
-            <div className="problem-text">クオリティにばらつきが<br />出てしまう...</div>
-          </div>
-        </div>
-        <div className="solution-banner">
-          そのお悩み、ゆっくり＆ずんだもん解説AI自動生成アプリが解決します！ 💡
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="features">
-        <h2 className="section-title">✨ すべてを自動化するエージェント機能 ✨</h2>
-        <div className="feature-grid">
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">企画エージェント</span>
-              <p>トレンドと目的を分析し、最適な構成を自動設計！</p>
-            </div>
-            <div className="feature-card-image">
-              <img src={staticFile('characters/zundamon/compose_open_close.png')} alt="Zundamon" />
-            </div>
-          </div>
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">台本エージェント</span>
-              <p>視聴者を引き込む台本をわかりやすく自動生成！</p>
-            </div>
-            <div className="feature-card-image">
-              <img src={staticFile('characters/marisa/compose_open_close.png')} alt="Marisa" />
-            </div>
-          </div>
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">画像エージェント</span>
-              <p>挿絵・背景・サムネをまとめて自動生成！</p>
-            </div>
-            <div className="feature-card-image">
-               <img src={staticFile('characters/zundamon/compose_open_close.png')} alt="Zundamon" />
-            </div>
-          </div>
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">音声エージェント</span>
-              <p>自然なAIナレーションを感情豊かに自動生成！</p>
-            </div>
-            <div className="feature-card-image">
-              <img src={staticFile('characters/reimu/compose_open_close.png')} alt="Reimu" />
-            </div>
-          </div>
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">動画エージェント</span>
-              <p>カット編集・BGM・効果・テロップを自動で合成！</p>
-            </div>
-            <div className="feature-card-image">
-              <img src={staticFile('characters/marisa/compose_open_close.png')} alt="Marisa" />
-            </div>
-          </div>
-          <div className="feature-card">
-            <div className="feature-card-header">
-              <span className="feature-card-title">品質チェックエージェント</span>
-              <p>誤字脱字・テンポ・音量まで自動チェックで安心出力！</p>
-            </div>
-            <div className="feature-card-image">
-              <img src={staticFile('characters/zundamon/compose_open_close.png')} alt="Zundamon" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Use Section */}
-      <section className="how-to-use">
-        <h2 className="section-title">✨ 使い方は、とってもカンタン！ ✨</h2>
-        <div className="steps">
-          <div className="step">
-            <div className="step-num">01</div>
-            <div className="step-title">指示を入力</div>
-            <p>作りたい動画の内容をテキストで入力します。</p>
-            <div className="step-img">
-              <img src={staticFile('characters/reimu/compose_open_close.png')} alt="Step 1" />
-            </div>
-          </div>
-          <div className="step">
-            <div className="step-num">02</div>
-            <div className="step-title">エージェントが自動実行</div>
-            <p>AIが役割分担して、制作を自動で進めます。</p>
-            <div className="step-img">
-              <img src={staticFile('characters/marisa/compose_open_close.png')} alt="Step 2" />
-            </div>
-          </div>
-          <div className="step">
-            <div className="step-num">03</div>
-            <div className="step-title">進捗を確認</div>
-            <p>各工程の進捗をリアルタイムで確認。</p>
-            <div className="step-img">
-              <img src={staticFile('characters/reimu/compose_open_close.png')} alt="Step 3" />
-            </div>
-          </div>
-          <div className="step">
-            <div className="step-num">04</div>
-            <div className="step-title">動画を出力</div>
-            <p>高品質な動画が完成！すぐに使えます。</p>
-            <div className="step-img">
-              <img src={staticFile('characters/zundamon/compose_open_close.png')} alt="Step 4" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Target Audience Section */}
-      <section className="target-audience">
-        <h2 className="section-title">こんな方におすすめ！</h2>
-        <div className="audience-grid">
-          <div className="audience-card">
-            <div className="audience-card-title">YouTube・TikTokで発信したい方</div>
-            <div className="audience-icon">🎬</div>
-            <p>短時間で継続的に動画を投稿したい！</p>
-          </div>
-          <div className="audience-card">
-            <div className="audience-card-title">ブログ・メディア運営者</div>
-            <div className="audience-icon">💻</div>
-            <p>記事を動画化して集客力をアップ！</p>
-          </div>
-          <div className="audience-card">
-            <div className="audience-card-title">企業・店舗の担当者</div>
-            <div className="audience-icon">🏢</div>
-            <p>商品・サービスをわかりやすくPR！</p>
-          </div>
-          <div className="audience-card">
-            <div className="audience-card-title">教育・研修コンテンツを作りたい方</div>
-            <div className="audience-icon">📚</div>
-            <p>わかりやすい教材を効率よく作成！</p>
-          </div>
-          <div className="audience-card">
-            <div className="audience-card-title">個人で副業したい方</div>
-            <div className="audience-icon">💰</div>
-            <p>時間をかけずに収益化を目指したい！</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="testimonials">
-        <div className="testimonial-card">
-          <div className="stars">★★★★★</div>
-          <p>台本作成から編集まで全部おまかせ！本当に助かっています！</p>
-          <div className="user-info">
-            <img src={staticFile('characters/reimu/compose_open_close.png')} className="user-avatar" alt="User" />
-            <span>YouTuber / 30代・男性</span>
-          </div>
-        </div>
-        <div className="testimonial-card">
-          <div className="stars">★★★★★</div>
-          <p>クオリティが高くて驚きました。作業時間が1/5になりました！</p>
-          <div className="user-info">
-            <img src={staticFile('characters/zundamon/compose_open_close.png')} className="user-avatar" alt="User" />
-            <span>ブロガー / 40代・女性</span>
-          </div>
-        </div>
-        <div className="testimonial-card">
-          <div className="stars">★★★★★</div>
-          <p>ナレーションも自然で、商用利用にも安心です！</p>
-          <div className="user-info">
-            <img src={staticFile('characters/marisa/compose_open_close.png')} className="user-avatar" alt="User" />
-            <span>企業マーケ担当 / 30代・男性</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="footer-cta">
-        <h2 className="footer-cta-title">あなたのアイデアを、最高の動画に。</h2>
-        <h3 className="footer-cta-main">今すぐ無料で始めよう！</h3>
-        <div className="footer-checks">
-          <div className="check-item">✅ 登録無料</div>
-          <div className="check-item">✅ クレカ登録不要</div>
-          <div className="check-item">✅ すぐに使える</div>
-        </div>
-        <button className="btn btn-primary footer-btn">今すぐ無料で始める »</button>
-      </section>
+      </div>
     </div>
+    <div className="laptop-base"><span /></div>
+  </div>
+);
+
+export const LP: React.FC = () => {
+  return (
+    <AbsoluteFill className="lp-page">
+      <section className="lp-hero">
+        <div className="hero-glow hero-glow-a" />
+        <div className="hero-glow hero-glow-b" />
+        <div className="star-field" />
+        <div className="hero-copy">
+          <div className="hero-badge">ゆっくり＆ずんだもんが、あなたの動画制作をまるっとサポート！</div>
+          <h1>
+            エージェントAI<span>が</span>
+            <br />
+            役割分担して、
+            <br />
+            <mark>動画制作</mark>を
+            <br />
+            <mark>自動</mark>で前に進める。
+          </h1>
+          <p>企画から動画出力まで、すべてAIにおまかせ！</p>
+          <div className="hero-points">
+            <div><b>🚀</b><span>最短数分で<br />動画完成</span></div>
+            <div><b>👥</b><span>エージェントが<br />自動で役割分担</span></div>
+            <div><b>✅</b><span>高品質な動画を<br />安定出力</span></div>
+          </div>
+        </div>
+        <div className="hero-chars">
+          <Character type="reimu" className="hero-char hero-reimu" />
+          <Character type="marisa" className="hero-char hero-marisa" />
+          <img src={charSrc.zundamonFull} className="hero-char hero-zunda" alt="zundamon" />
+        </div>
+        <LaptopMock />
+      </section>
+
+      <section className="top-cta">
+        <button className="gold-button">今すぐ無料で始める　»</button>
+        <button className="green-button">機能を詳しく見る　›</button>
+      </section>
+
+      <section className="pain-section">
+        <h2>動画制作で、こんな<span>お悩み</span>はありませんか？</h2>
+        <div className="pain-grid">
+          {pains.map((pain) => (
+            <div className="pain-card" key={pain.text}>
+              <b>{pain.icon}</b>
+              <p>{pain.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="solution-ribbon">そのお悩み、ゆっくり＆ずんだもん解説AI自動生成アプリが解決します！💡</div>
+      </section>
+
+      <section className="features-section">
+        <h2 className="lp-heading">すべてを自動化するエージェント機能</h2>
+        <div className="feature-grid">
+          {features.map((feature) => (
+            <div className="feature-card" key={feature.title}>
+              <h3><span>✦</span>{feature.title}</h3>
+              <p>{feature.body}</p>
+              <div className="feature-visual">
+                <Visual type={feature.visual} />
+                <Character type={feature.char as 'reimu' | 'marisa' | 'zundamon'} className="feature-char" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="steps-section">
+        <h2 className="lp-heading">使い方は、とってもカンタン！</h2>
+        <div className="steps-grid">
+          {steps.map((step, index) => (
+            <React.Fragment key={step.num}>
+              <div className="step-card">
+                <div className="step-num">{step.num}</div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+                <div className="step-visual">
+                  <Visual type={step.visual} />
+                  {step.char === 'group' && (
+                    <div className="step-group">
+                      <Character type="zundamon" />
+                      <Character type="marisa" />
+                      <Character type="reimu" />
+                    </div>
+                  )}
+                  {step.char === 'reimu' && <Character type="reimu" className="step-character" />}
+                </div>
+              </div>
+              {index < steps.length - 1 && <div className="step-arrow">▶</div>}
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
+      <section className="audience-section">
+        <h2>こんな方におすすめ！</h2>
+        <div className="audience-grid">
+          {audiences.map((audience) => (
+            <div className="audience-card" key={audience.title}>
+              <h3>{audience.title}</h3>
+              <b>{audience.icon}</b>
+              <p>{audience.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="review-grid">
+          {reviews.map((review) => (
+            <div className="review-card" key={review.user}>
+              <div className="stars">★★★★★</div>
+              <p>{review.text}</p>
+              <div>
+                <Character type={review.char as 'reimu' | 'marisa' | 'zundamon'} />
+                <span>{review.user}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="footer-cta">
+        <Character type="reimu" className="footer-reimu" />
+        <div className="footer-copy">
+          <p>あなたのアイデアを、最高の動画に。</p>
+          <h2>今すぐ無料で始めよう！</h2>
+          <div className="footer-checks">
+            <span>✓ 登録無料</span>
+            <span>✓ クレカ登録不要</span>
+            <span>✓ すぐに使える</span>
+          </div>
+          <button className="gold-button">今すぐ無料で始める　»</button>
+        </div>
+        <div className="footer-chars">
+          <Character type="marisa" />
+          <Character type="zundamon" />
+        </div>
+      </section>
+    </AbsoluteFill>
   );
 };

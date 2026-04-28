@@ -31,7 +31,16 @@ export const promptFromRegistry = (registry, ref) => {
     }
   }
   if (Array.isArray(prompts)) {
-    const entry = prompts.find((item) => isPlainObject(item) && item.ref === ref);
+    const entry = prompts.find((item) => {
+      if (!isPlainObject(item)) {
+        return false;
+      }
+      if (item.ref === ref) {
+        return true;
+      }
+      const key = `${item.scene_id ?? ''}.${item.slot ?? 'main'}`;
+      return key === ref;
+    });
     return typeof entry?.imagegen_prompt === 'string' ? entry.imagegen_prompt : '';
   }
   return '';

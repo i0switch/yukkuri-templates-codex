@@ -87,6 +87,40 @@ planning.md
 会話は Remotion の字幕で出すため、画像内に会話全文を並べる指示は禁止する。
 対象シーンタイトルは、画像内の大きく目立つ見出しとして必ず入れる。例: `s01: 月580円が年6,960円に化ける` の場合、画像内に入れる見出しは `月580円が年6,960円に化ける` だけにし、`s01` は入れない。
 
+5分動画の本文画像は標準20枚を目安にする。
+シーン数は会話構造のために使い、画像枚数調整だけを目的に増やさない。
+1シーン内で複数画像を使う場合は `main_timeline` を使い、原則5発話ごとに1枚の画像プロンプトを作る。
+冒頭フック、中盤再フック、数字・比較・危険提示、最終CTAは5発話未満でも単独画像にしてよい。
+
+```yaml
+main:
+  kind: image
+  asset: assets/s03_main.png
+main_timeline:
+  - slot: main_01
+    slot_group: main
+    asset: assets/s03_main_01.png
+    start_line_id: l01
+    end_line_id: l05
+  - slot: main_02
+    slot_group: main
+    asset: assets/s03_main_02.png
+    start_line_id: l06
+    end_line_id: l10
+visual_asset_plan:
+  - slot: main_01
+    slot_group: main
+    purpose: "script_final直投げ型の挿入画像"
+    adoption_reason: "対象会話ブロックの要点を直接画像化するため"
+    image_role: "理解補助"
+    composition_type: "手順図"
+    imagegen_prompt_ref: "image_prompts.json#s03.main_01"
+```
+
+`main.asset` は後方互換とfallback用に残す。
+`main_timeline` がある場合、Remotionは現在発話中の `dialogue[].id` に対応する画像へ切り替え、未対応時だけ `main.asset` にfallbackする。
+`image_prompts.json`、`meta.json`、`imagegen_manifest.json` は `scene_id + slot` を一意キーにし、timeline画像には `slot_group: "main"` を入れる。
+
 ## 台本生成時の探索除外
 
 台本生成、構成作成、YAML化、画像プロンプト作成の初動では、必要な正準ドキュメントと対象 episode だけを読む。
@@ -202,10 +236,11 @@ hybrid_user_script では、AI が `image_prompt_v2.md` と `visual_asset_plan[]
 04_draft_prompt_yukkuri.md または 05_draft_prompt_zundamon.md
 07_rewrite_prompt.md（必要な場合のみ）
 08_image_prompt_prompt.md
-09_image_prompt_audit.md（任意）
 10_yaml_prompt.md
 11_final_episode_audit.md
 ```
+
+画像プロンプトは `script_final.md` の対象会話全文、固定プロンプト、台本に合わせた雰囲気指定から作る生成入力であり、独立した品質監査の対象にしない。
 
 `_reference/script_prompt_pack/legacy/01_plan_prompt.md` などの旧番号系は参照禁止。
 旧番号系は過去互換の退避資料であり、正準 pipeline の入口ではない。
@@ -274,6 +309,7 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
     {
       "scene_id": "s01",
       "slot": "main",
+      "slot_group": "main",
       "file": "assets/s01_main.png",
       "source_url": "codex://generated_images/{session}/{filename}",
       "generation_id": "{optional-id}",
@@ -287,13 +323,15 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 ## 尺調整
 
 5分指定は `270〜330秒` を許容範囲にする。発話数は目安であり、最終判断はTTSエンジン別の推定自然音声秒数とbuild後の実音声秒数で行う。
+`target_duration_sec` は下限不足を見つけて台本量を増やすための目安であり、allowed_max 超過時に `script_final.md` を短くする指示ではない。
 
 - RM / AquesTalk 初期係数: `5.2秒/発話`
 - ZM / VOICEVOX 初期係数: `3.3秒/発話`（`speedScale: 1.15` 前提）
 - `npm run estimate:episode-duration -- <episode_id>` を音声生成前に実行する。既存の `tts-duration-profile.json` / `audio-manifest.json` / `line-durations.json` がある場合は実測平均を優先する
 - `audio_playback_rate` や `atempo` で尺合わせしない
 - 推定自然音声尺またはbuild後の実音声尺が下限未満の場合は、`07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む
-- 推定自然音声尺またはbuild後の実音声尺が上限を超えた場合は、自然尺を優先してそのまま使う。短縮目的で `script_final.md` を削らない
+- 推定自然音声尺またはbuild後の実音声尺が allowed_max を超えた場合は、自然尺を優先してそのまま使う。尺合わせ目的で `script_final.md` を削除、短文化、圧縮しない
+- `recommended_action: keep_natural_overrun_do_not_trim` が出た場合、尺オーバー対策として削除・短縮・圧縮をしてはいけない。事実誤り、重複、品質問題を直す局所修正だけを別理由で行える
 - `script.yaml` からMarkdown側を同期した場合、`script_final_review.md` はstale扱いにし、再レビューする
 
 ## 差分生成キャッシュ
@@ -310,7 +348,7 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 
 ## 軽量 preflight とレンダー分離
 
-`npm run preflight:episode -- <episode_id>` は、AquesTalk preset 正規化、画像プロンプト監査、画像台帳 hash 照合、尺推定、YAML validator を render 前にまとめて確認する。
+`npm run preflight:episode -- <episode_id>` は、AquesTalk preset 正規化、画像台帳 hash 照合、尺推定、YAML validator を render 前にまとめて確認する。
 
 RM / AquesTalk の preset は、`reimu` / `marisa` / `れいむ` / `霊夢` / `魔理沙` などの論理名を使わず、render 前に `女性１` / `まりさ` へ正規化する。validator は正規化後の値だけを許可する。
 
@@ -345,7 +383,7 @@ npm run render:01-zm
 - `out/videos/{episode_id}.mp4`
 - `node scripts/audit-video.mjs <episode_id>` が PASS
 
-画像プロンプト監査と生成後画像監査は任意確認であり、未実行でも完成ブロッカーにしない。
+画像プロンプトは生成入力であり、完成ブロッカーになる監査対象ではない。生成後画像の目視確認は必要な場合だけ任意で行う。
 
 ## 検証コマンド
 

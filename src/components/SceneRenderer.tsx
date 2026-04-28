@@ -22,7 +22,7 @@ import {Scene19} from '../compositions/Scene19';
 import {Scene20} from '../compositions/Scene20';
 import {Scene21} from '../compositions/Scene21';
 import {findActiveLine, pickLipsyncExpression, type TimedDialogueLine} from './Lipsync';
-import type {EpisodeRenderData, EpisodeScene, SceneContent, TypographyConfig, TypographyFamily} from '../lib/load-script';
+import type {EpisodeRenderData, EpisodeScene, MainTimelineEntry, SceneContent, TypographyConfig, TypographyFamily} from '../lib/load-script';
 import {AutoFitText} from './AutoFitText';
 import {FONT_FAMILIES, FS, SUBTITLE_FONT_SCALE, TEXT_STROKE} from '../design-tokens';
 import {SubtitleBar} from './SubtitleBar';
@@ -184,6 +184,7 @@ const renderImage = (
 const renderMainContent = (
   content: SceneContent | null | undefined,
   publicDir: string,
+  opacity = 1,
 ): SlotRenderer | null => {
   if (!content) {
     return null;
@@ -191,9 +192,36 @@ const renderMainContent = (
 
   // v2 rule: main slot is image-only. text / bullets are not rendered on main.
   if (content.kind === 'image') {
-    return renderImage(content.asset, publicDir);
+    const imageSlot = renderImage(content.asset, publicDir);
+    return (rect: Rect) => (
+      <div style={{width: '100%', height: '100%', opacity}}>
+        {typeof imageSlot === 'function' ? imageSlot(rect) : imageSlot}
+      </div>
+    );
   }
   return null;
+};
+
+const lineMatchesTimelineEntry = (line: TimedDialogueLine | null, entry: MainTimelineEntry | undefined, lines: TimedDialogueLine[]) => {
+  if (!line || !entry) {
+    return false;
+  }
+  if (Array.isArray(entry.line_ids) && entry.line_ids.length > 0) {
+    return entry.line_ids.includes(line.id);
+  }
+  const startIndex = lines.findIndex((candidate) => candidate.id === entry.start_line_id);
+  const endIndex = lines.findIndex((candidate) => candidate.id === entry.end_line_id);
+  const lineIndex = lines.findIndex((candidate) => candidate.id === line.id);
+  return startIndex !== -1 && endIndex !== -1 && lineIndex >= startIndex && lineIndex <= endIndex;
+};
+
+const activeMainContentForLine = (scene: EpisodeScene, activeLine: TimedDialogueLine | null, lines: TimedDialogueLine[]): SceneContent => {
+  const timeline = Array.isArray(scene.main_timeline) ? scene.main_timeline : [];
+  const activeEntry = timeline.find((entry) => lineMatchesTimelineEntry(activeLine, entry, lines));
+  if (activeEntry?.asset) {
+    return {kind: 'image', asset: activeEntry.asset};
+  }
+  return scene.main;
 };
 
 const renderSubText = (
@@ -502,6 +530,9 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
   const subtitleText = activeLine?.text ?? '';
   const typography = resolveTypography(script.meta.typography, scene.typography, activeLine?.typography);
   const subtitleTextColor = resolveSubtitleTextColor(activeLine, script.characters);
+  const activeMainContent = activeMainContentForLine(scene, activeLine, lines);
+  const fadeFrames = Math.max(1, Math.round(fps * 0.16));
+  const mainOpacity = activeLine ? Math.min(1, Math.max(0, speakingFrame / fadeFrames)) : 1;
 
   return (
     <AbsoluteFill>
@@ -549,7 +580,7 @@ export const SceneRenderer: React.FC<{scene: EpisodeScene; script: EpisodeRender
               : renderOverlaySubtitle(sceneTemplate, activeLine, currentSec, typography.subtitle, typography.subtitleStroke, subtitleTextColor, activeLine?.emphasis)
           }
           titleSlot={renderTitle(scene, sceneTemplate, typography.title, typography.titleStroke)}
-          mainContentSlot={renderMainContent(scene.main, script.public_dir)}
+          mainContentSlot={renderMainContent(activeMainContent, script.public_dir, mainOpacity)}
           subContentSlot={renderSubContent(scene.sub ?? null, script.public_dir, typography.content, typography.contentStroke)}
           showAreaLabels={false}
         />

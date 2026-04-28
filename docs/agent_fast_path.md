@@ -75,16 +75,7 @@ npm run imagegen:episode -- <episode_id> --only=s01,s05
 - まず `--dry-run` で対象sceneを確認する。
 - 失敗後は `--retry-failed` で失敗sceneだけ再実行する。
 - 明示的な差し替えが必要なsceneだけ `--only=sNN` を使う。
+- `main_timeline` で1シーンに複数画像がある場合、特定画像だけなら `--only=sNN.main_02` のように指定できる。`--only=sNN` はそのscene内の全timeline画像を対象にする。
 - `--force` は既存画像と台帳を意図的に破棄して再生成したい場合だけ使う。
 
-## 最新画像プロンプトの軽量監査
-
-最新 episode 群の `image_prompts.json` に文字化けや旧プロンプト混入がないかだけ確認する。
-
-```powershell
-npm run audit:latest-image-prompts
-npm run audit:latest-image-prompts -- --limit=3
-```
-
-この監査は実画像の品質判定ではない。
-文字化け、旧プロンプト文言、読み込み不能な `image_prompts.json` を早く見つけるための軽量チェック。
+画像プロンプトは生成入力であり、独立した監査コマンドは実行しない。render 前の確認は `sync:imagegen-ledger --check` による台帳/hash整合だけにする。

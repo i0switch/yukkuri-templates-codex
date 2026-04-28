@@ -103,7 +103,7 @@ export const createRoot = (activeEpisodeCompositions: typeof episodeCompositions
           }
         `}
       </style>
-      <Composition id="LP" component={LP} {...common} height={7800} durationInFrames={300} />
+      <Composition id="LP" component={LP} {...common} height={5760} durationInFrames={300} />
       <Composition id="DebugChars" component={DebugChars} {...common} />
       {activeEpisodeCompositions.map((episodeRenderData) => (
         <Composition

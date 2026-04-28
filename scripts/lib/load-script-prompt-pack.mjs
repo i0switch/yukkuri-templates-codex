@@ -10,7 +10,6 @@ export const SCRIPT_PROMPT_PACK_CANONICAL_FILES = [
   '05_draft_prompt_zundamon.md',
   '07_rewrite_prompt.md',
   '08_image_prompt_prompt.md',
-  '09_image_prompt_audit.md',
   '10_yaml_prompt.md',
   '11_final_episode_audit.md',
 ];

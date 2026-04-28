@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {spawn, spawnSync} from 'node:child_process';
+import {spawn} from 'node:child_process';
 import {parseDocument} from 'yaml';
 import {loadImagePromptRegistry, promptFromRegistry} from './lib/image-prompt-registry.mjs';
 
@@ -26,7 +26,7 @@ ${imagegenPrompt}
 `;
 
 const usage = () => {
-  console.log(`Usage: node scripts/run-codex-imagegen-batch.mjs <episode_id> [--parallel=3] [--only=s01,s02] [--retry-failed] [--force] [--timeout-ms=1200000] [--dry-run]`);
+  console.log(`Usage: node scripts/run-codex-imagegen-batch.mjs <episode_id|episode_dir|path/to/script.yaml> [--parallel=3] [--only=s01,s02|s01.main_02] [--retry-failed] [--force] [--timeout-ms=1200000] [--dry-run]`);
 };
 
 const parseArgs = (argv) => {
@@ -101,6 +101,19 @@ const normalize = (value) => String(value ?? '').replaceAll('\\', '/');
 const sha256Text = (value) => crypto.createHash('sha256').update(value).digest('hex');
 const sha256File = async (filePath) => crypto.createHash('sha256').update(await fs.readFile(filePath)).digest('hex');
 
+const resolveEpisodeTarget = ({rootDir, episodeId}) => {
+  const directTarget = path.resolve(rootDir, episodeId);
+  const episodeDir = episodeId.endsWith('.yaml') || episodeId.endsWith('.yml')
+    ? path.dirname(directTarget)
+    : episodeId.includes('/') || episodeId.includes('\\')
+      ? directTarget
+      : path.join(rootDir, 'script', episodeId);
+  return {
+    episodeDir,
+    episodeLabel: path.basename(episodeDir),
+  };
+};
+
 const fileExists = async (filePath) => {
   try {
     const stat = await fs.stat(filePath);
@@ -125,33 +138,7 @@ const writeJson = async (filePath, value) => {
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 };
 
-const runPromptAudit = ({rootDir, episodeId, allowFailure = false}) => {
-  const result = spawnSync(process.execPath, ['scripts/audit-image-prompts.mjs', episodeId], {
-    cwd: rootDir,
-    encoding: 'utf8',
-    windowsHide: true,
-  });
-  if (result.error) {
-    throw result.error;
-  }
-  const jsonStart = result.stdout.indexOf('{');
-  if (jsonStart === -1) {
-    throw new Error(`audit:image-prompts did not return JSON:\n${result.stdout}\n${result.stderr}`);
-  }
-  const report = JSON.parse(result.stdout.slice(jsonStart));
-  if (report.ok !== true && !allowFailure) {
-    throw new Error(
-      [
-        `Refusing to run imagegen for ${episodeId}.`,
-        'audit:image-prompts reported errors; fix imagegen_prompt first.',
-        JSON.stringify(report.issues ?? [], null, 2),
-      ].join('\n'),
-    );
-  }
-  return report;
-};
-
-const registryRefCandidates = ({sceneId, ref}) => {
+const registryRefCandidates = ({sceneId, slot = 'main', ref}) => {
   const candidates = [];
   if (typeof ref === 'string' && ref.trim() !== '') {
     candidates.push(ref.trim());
@@ -160,12 +147,12 @@ const registryRefCandidates = ({sceneId, ref}) => {
       candidates.push(ref.slice(hashIndex + 1));
     }
   }
-  candidates.push(`${sceneId}.main`, sceneId);
+  candidates.push(`${sceneId}.${slot}`, `${sceneId}.main`, sceneId);
   return [...new Set(candidates.filter(Boolean))];
 };
 
-const registryPromptForScene = ({registry, sceneId, promptRef}) => {
-  for (const ref of registryRefCandidates({sceneId, ref: promptRef})) {
+const registryPromptForScene = ({registry, sceneId, slot = 'main', promptRef}) => {
+  for (const ref of registryRefCandidates({sceneId, slot, ref: promptRef})) {
     const prompt = promptFromRegistry(registry, ref);
     if (prompt) {
       return prompt;
@@ -174,7 +161,7 @@ const registryPromptForScene = ({registry, sceneId, promptRef}) => {
 
   const prompts = registry?.prompts;
   if (Array.isArray(prompts)) {
-    const entry = prompts.find((item) => isPlainObject(item) && item.scene_id === sceneId && (item.slot ?? 'main') === 'main');
+    const entry = prompts.find((item) => isPlainObject(item) && item.scene_id === sceneId && (item.slot ?? 'main') === slot);
     if (typeof entry?.imagegen_prompt === 'string') {
       return entry.imagegen_prompt;
     }
@@ -182,6 +169,17 @@ const registryPromptForScene = ({registry, sceneId, promptRef}) => {
 
   return '';
 };
+
+const planForSlot = (scene, slot) =>
+  Array.isArray(scene.visual_asset_plan)
+    ? scene.visual_asset_plan.find((item) => item?.slot === slot) ??
+      (slot === 'main' ? scene.visual_asset_plan.find((item) => item?.slot === 'main') ?? scene.visual_asset_plan[0] : null)
+    : null;
+
+const promptForJob = ({registry, scene, slot, plan, content}) =>
+  registryPromptForScene({registry, sceneId: scene.id, slot, promptRef: plan?.imagegen_prompt_ref}) ||
+  (typeof plan?.imagegen_prompt === 'string' ? plan.imagegen_prompt : '') ||
+  (typeof content?.asset_requirements?.imagegen_prompt === 'string' ? content.asset_requirements.imagegen_prompt : '');
 
 const collectJobs = async ({episodeDir}) => {
   const yamlPath = path.join(episodeDir, 'script.yaml');
@@ -204,27 +202,38 @@ const collectJobs = async ({episodeDir}) => {
       continue;
     }
 
-    const plan = Array.isArray(scene.visual_asset_plan) ? scene.visual_asset_plan.find((item) => item?.slot === 'main') ?? scene.visual_asset_plan[0] : null;
-    const asset = normalize(content.asset);
-    const imagegenPrompt =
-      registryPromptForScene({registry, sceneId, promptRef: plan?.imagegen_prompt_ref}) ||
-      (typeof plan?.imagegen_prompt === 'string' ? plan.imagegen_prompt : '') ||
-      (typeof content?.asset_requirements?.imagegen_prompt === 'string' ? content.asset_requirements.imagegen_prompt : '');
+    const timelineEntries = Array.isArray(scene.main_timeline) && scene.main_timeline.length > 0
+      ? scene.main_timeline
+      : [{slot: 'main', asset: content.asset}];
 
-    if (!imagegenPrompt) {
-      throw new Error(`${sceneId}: missing imagegen_prompt`);
+    for (const [index, entry] of timelineEntries.entries()) {
+      if (!isPlainObject(entry)) {
+        throw new Error(`${sceneId}: main_timeline[${index}] must be an object`);
+      }
+      const slot = typeof entry.slot === 'string' && entry.slot.trim() ? entry.slot.trim() : index === 0 ? 'main' : `main_${String(index + 1).padStart(2, '0')}`;
+      const asset = normalize(entry.asset ?? (slot === 'main' ? content.asset : ''));
+      if (!asset) {
+        throw new Error(`${sceneId}.${slot}: missing asset`);
+      }
+      const plan = planForSlot(scene, slot);
+      const imagegenPrompt = promptForJob({registry, scene, slot, plan, content: slot === 'main' ? content : null});
+
+      if (!imagegenPrompt) {
+        throw new Error(`${sceneId}.${slot}: missing imagegen_prompt`);
+      }
+
+      jobs.push({
+        sceneId,
+        slot,
+        slotGroup: entry.slot_group ?? plan?.slot_group ?? (slot.startsWith('main') ? 'main' : slot),
+        file: asset,
+        destAbs: path.join(episodeDir, asset),
+        promptSha256: sha256Text(imagegenPrompt),
+        imagegenPrompt,
+        purpose: typeof plan?.purpose === 'string' && plan.purpose.trim() ? plan.purpose : 'script_final直投げ型の挿入画像',
+        adoptionReason: typeof plan?.adoption_reason === 'string' && plan.adoption_reason.trim() ? plan.adoption_reason : 'sceneの要点に一致',
+      });
     }
-
-    jobs.push({
-      sceneId,
-      slot: 'main',
-      file: asset,
-      destAbs: path.join(episodeDir, asset),
-      promptSha256: sha256Text(imagegenPrompt),
-      imagegenPrompt,
-      purpose: typeof plan?.purpose === 'string' && plan.purpose.trim() ? plan.purpose : 'script_final直投げ型の挿入画像',
-      adoptionReason: typeof plan?.adoption_reason === 'string' && plan.adoption_reason.trim() ? plan.adoption_reason : 'sceneの要点に一致',
-    });
   }
 
   return jobs;
@@ -265,12 +274,19 @@ const isCompleteExistingJob = async ({job, meta, manifest}) => {
   return Boolean(entry && manifestSource(entry) === source && entry.prompt_sha256 === job.promptSha256);
 };
 
-const previousFailedScenes = async (reportPath) => {
+const jobKey = (job) => `${job.sceneId}.${job.slot}`;
+
+const previousFailedJobs = async (reportPath) => {
   const report = await readJsonIfExists(reportPath, null);
   if (!report || !Array.isArray(report.jobs)) {
     return new Set();
   }
-  return new Set(report.jobs.filter((job) => job.status === 'failed').map((job) => job.scene_id).filter(Boolean));
+  return new Set(
+    report.jobs
+      .filter((job) => job.status === 'failed')
+      .map((job) => `${job.scene_id}.${job.slot ?? 'main'}`)
+      .filter(Boolean),
+  );
 };
 
 const ensureDir = async (dir) => {
@@ -502,6 +518,7 @@ const updateLedgers = async ({episodeDir, jobsByFile, generatedResults}) => {
       license: 'AI generated by codex-imagegen for this episode',
       scene_id: result.scene_id,
       slot: result.slot,
+      slot_group: job.slotGroup,
       purpose: job.purpose,
       adoption_reason: job.adoptionReason,
       imagegen_prompt: job.imagegenPrompt,
@@ -514,14 +531,18 @@ const updateLedgers = async ({episodeDir, jobsByFile, generatedResults}) => {
   manifest.version = manifest.version ?? 1;
   manifest.images = [
     ...preservedManifestEntries,
-    ...generatedResults.map((result) => ({
-      scene_id: result.scene_id,
-      slot: result.slot,
-      file: result.file,
-      source_url: result.source_url,
-      original_file: result.original_file,
-      prompt_sha256: result.prompt_sha256,
-    })),
+    ...generatedResults.map((result) => {
+      const job = jobsByFile.get(result.file);
+      return {
+        scene_id: result.scene_id,
+        slot: result.slot,
+        slot_group: job?.slotGroup,
+        file: result.file,
+        source_url: result.source_url,
+        original_file: result.original_file,
+        prompt_sha256: result.prompt_sha256,
+      };
+    }),
   ];
   delete manifest.generated_images;
   delete manifest.entries;
@@ -552,25 +573,24 @@ const assertNoDuplicateGeneratedImages = async ({episodeDir, jobs}) => {
 const main = async () => {
   const {episodeId, options} = parseArgs(process.argv.slice(2));
   const rootDir = path.join(import.meta.dirname, '..');
-  const episodeDir = path.join(rootDir, 'script', episodeId);
+  const {episodeDir, episodeLabel} = resolveEpisodeTarget({rootDir, episodeId});
   const reportPath = path.join(episodeDir, '.imagegen-batch-report.json');
   const logDir = path.join(episodeDir, 'audits', 'imagegen_batch');
 
   await fs.stat(episodeDir);
-  const auditReport = runPromptAudit({rootDir, episodeId, allowFailure: options.dryRun});
   const allJobs = await collectJobs({episodeDir});
   const meta = await readJsonIfExists(path.join(episodeDir, 'meta.json'), null);
   const manifest = await readJsonIfExists(path.join(episodeDir, 'imagegen_manifest.json'), null);
-  const failedScenes = options.retryFailed ? await previousFailedScenes(reportPath) : null;
+  const failedJobs = options.retryFailed ? await previousFailedJobs(reportPath) : null;
 
   const jobs = [];
   const skipped = [];
   for (const job of allJobs) {
-    if (options.only && !options.only.has(job.sceneId)) {
+    if (options.only && !options.only.has(job.sceneId) && !options.only.has(jobKey(job))) {
       skipped.push({...job, status: 'skipped', reason: 'not in --only'});
       continue;
     }
-    if (options.retryFailed && !failedScenes.has(job.sceneId)) {
+    if (options.retryFailed && !failedJobs.has(jobKey(job))) {
       skipped.push({...job, status: 'skipped', reason: 'not failed in previous report'});
       continue;
     }
@@ -585,29 +605,20 @@ const main = async () => {
   const startedAt = new Date().toISOString();
   const report = {
     ok: false,
-    episode_id: episodeId,
+    episode_id: episodeLabel,
     started_at: startedAt,
     finished_at: null,
     parallel: options.parallel,
     dry_run: options.dryRun,
-    audit_image_prompts_ok: auditReport.ok === true,
     total_jobs: allJobs.length,
     selected_jobs: jobs.length,
     skipped: skipped.map((job) => ({scene_id: job.sceneId, slot: job.slot, file: job.file, status: job.status, reason: job.reason})),
     jobs: [],
     issues: [],
   };
-  if (auditReport.ok !== true) {
-    report.issues.push({
-      level: 'warning',
-      code: 'image-prompt-audit-failed',
-      message: 'dry-run continued after audit:image-prompts errors; fix these before real imagegen',
-      audit_issues: auditReport.issues ?? [],
-    });
-  }
 
   if (options.dryRun) {
-    report.ok = auditReport.ok === true;
+    report.ok = true;
     report.finished_at = new Date().toISOString();
     report.jobs = jobs.map((job) => ({scene_id: job.sceneId, slot: job.slot, file: job.file, status: 'dry-run', prompt_sha256: job.promptSha256}));
     console.log(JSON.stringify(report, null, 2));
@@ -619,10 +630,10 @@ const main = async () => {
   const results = await mapLimit(jobs, options.parallel, async (job) => {
     try {
       const result = await runCodexImagegenJob({rootDir, episodeId, job, logDir, timeoutMs: options.timeoutMs, usedSources});
-      console.log(`[imagegen] ${job.sceneId}: generated ${result.file}`);
+      console.log(`[imagegen] ${job.sceneId}.${job.slot}: generated ${result.file}`);
       return result;
     } catch (error) {
-      console.error(`[imagegen] ${job.sceneId}: FAIL ${error.message}`);
+      console.error(`[imagegen] ${job.sceneId}.${job.slot}: FAIL ${error.message}`);
       return {
         status: 'failed',
         scene_id: job.sceneId,

@@ -30,9 +30,10 @@ RM/ZM両方のローカル正本を同時に読まない。
 5. `04_draft_prompt_yukkuri.md` または `05_draft_prompt_zundamon.md`
 6. `07_rewrite_prompt.md`（`script_final.md` レビュー後に必要な場合のみ）
 7. `08_image_prompt_prompt.md`
-8. `09_image_prompt_audit.md`（任意確認。gateではない）
-9. `10_yaml_prompt.md`
-10. `11_final_episode_audit.md`
+8. `10_yaml_prompt.md`
+9. `11_final_episode_audit.md`
+
+画像プロンプトは、対象会話全文、固定プロンプト、台本に合わせた雰囲気指定から作る生成入力であり、独立した監査工程は置かない。
 
 ## Required Evidence
 
