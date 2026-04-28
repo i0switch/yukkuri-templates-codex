@@ -9,7 +9,7 @@ const episodeId = process.argv[2];
 const checkOnly = process.argv.includes('--check');
 
 if (!episodeId) {
-  throw new Error('Usage: node scripts/sync-imagegen-ledger.mjs <episode_id> [--check]');
+  throw new Error('Usage: node scripts/sync-imagegen-ledger.mjs <episode_id|episode_dir|path/to/script.yaml> [--check]');
 }
 
 const normalize = (value) => String(value ?? '').replaceAll('\\', '/');
@@ -41,7 +41,12 @@ const registryPromptForScene = ({registry, sceneId, promptRef}) => {
 
 const manifestFile = (entry) => normalize(entry?.file ?? entry?.destination ?? entry?.dest ?? '');
 
-const episodeDir = path.join(rootDir, 'script', episodeId);
+const directTarget = path.resolve(rootDir, episodeId);
+const episodeDir = episodeId.endsWith('.yaml') || episodeId.endsWith('.yml')
+  ? path.dirname(directTarget)
+  : episodeId.includes('/') || episodeId.includes('\\')
+    ? directTarget
+    : path.join(rootDir, 'script', episodeId);
 const scriptPath = path.join(episodeDir, 'script.yaml');
 const metaPath = path.join(episodeDir, 'meta.json');
 const manifestPath = path.join(episodeDir, 'imagegen_manifest.json');
