@@ -78,6 +78,7 @@
     "test:subtitle-segments": "node scripts/test-subtitle-segments.mjs",
     "test:audio-manifest": "node scripts/test-audio-manifest-validator.mjs",
     "test:voice-engine-guards": "node scripts/test-voice-engine-guards.mjs",
+    "test:cleanup-guard": "node scripts/test-cleanup-guard.mjs",
     "test:motion-emphasis-guards": "node scripts/test-motion-emphasis-guards.mjs",
     "test:expression-guards": "node scripts/test-expression-guards.mjs",
     "test:visual-emphasis-layer": "node scripts/test-visual-emphasis-layer.mjs",
