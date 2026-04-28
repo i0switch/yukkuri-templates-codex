@@ -1,9 +1,10 @@
 {
   "step": "pre_render_gate",
   "verdict": "PASS",
-  "checked_at": "2026-04-28T00:03:41.151Z",
+  "checked_at": "2026-04-28T00:14:07.494Z",
   "checks": [
     "validate-script-generation-route",
+    "normalize-aquestalk-presets",
     "validate-script-prompt-pack-evidence",
     "validate-script-final-review",
     "audit-script-quality",

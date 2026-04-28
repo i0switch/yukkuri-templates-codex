@@ -37,8 +37,8 @@ const voicevoxScript = {
 const aquestalkScript = {
   meta: {id: 'aquestalk-fixture', voice_engine: 'aquestalk'},
   characters: {
-    left: {aquestalk_preset: 'reimu'},
-    right: {aquestalk_preset: 'marisa'},
+    left: {aquestalk_preset: '女性１'},
+    right: {aquestalk_preset: 'まりさ'},
   },
   scenes: [
     {

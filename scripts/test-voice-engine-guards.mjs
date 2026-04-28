@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
-import {stringify} from 'yaml';
+import {parseDocument, stringify} from 'yaml';
 
 const rootDir = process.cwd();
 const fixtureRoot = path.join(rootDir, '.cache', 'voice-engine-guard-fixtures');
@@ -189,6 +189,26 @@ const badYamlDialogueAudioPlaybackRate = await writeFixture({
   },
 });
 
+const rmAliasPresets = await writeFixture({
+  name: 'rm-alias-presets',
+  voiceEngine: 'aquestalk',
+  extraScriptMeta: {pair: 'RM'},
+  characters: {
+    left: {character: 'reimu', aquestalk_preset: 'reimu'},
+    right: {character: 'marisa', aquestalk_preset: 'marisa'},
+  },
+});
+
+const badRmPreset = await writeFixture({
+  name: 'bad-rm-preset',
+  voiceEngine: 'aquestalk',
+  extraScriptMeta: {pair: 'RM'},
+  characters: {
+    left: {character: 'reimu', aquestalk_preset: 'unknown-reimu'},
+    right: {character: 'marisa', aquestalk_preset: 'まりさ'},
+  },
+});
+
 run(['scripts/validate-episode-script.mjs', badAquesTalkZm], {
   expectFailure: true,
   expectMessage: 'ZM episodes must use voice_engine: voicevox',
@@ -214,5 +234,15 @@ run(['scripts/validate-episode-script.mjs', badYamlDialogueAudioPlaybackRate], {
   expectMessage: 'script.yaml.scenes[0].dialogue[0].audio_playback_rate',
 });
 run(['scripts/validate-episode-script.mjs', goodVoicevoxZm]);
+run(['scripts/validate-episode-script.mjs', badRmPreset], {
+  expectFailure: true,
+  expectMessage: 'aquestalk_preset must be normalized before render',
+});
+run(['scripts/normalize-aquestalk-presets.mjs', rmAliasPresets]);
+const normalizedRm = parseDocument(await fs.readFile(rmAliasPresets, 'utf8')).toJS();
+if (normalizedRm.characters.left.aquestalk_preset !== '女性１' || normalizedRm.characters.right.aquestalk_preset !== 'まりさ') {
+  throw new Error(`Expected RM aliases to normalize to 女性１ / まりさ, got ${JSON.stringify(normalizedRm.characters)}`);
+}
+run(['scripts/validate-episode-script.mjs', rmAliasPresets]);
 
 console.log(JSON.stringify({ok: true, fixture_root: path.relative(rootDir, fixtureRoot).replaceAll('\\', '/')}, null, 2));

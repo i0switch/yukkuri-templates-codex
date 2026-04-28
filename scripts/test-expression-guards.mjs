@@ -83,7 +83,7 @@ const writeFixture = async ({name, invalidExpression = false, repeatedExpression
 
   const script = {
     meta: {id: name, title: name, layout_template: 'Scene01', pair: 'RM', voice_engine: 'aquestalk', fps: 30, width: 1920, height: 1080, target_duration_sec: 300},
-    characters: {left: {character: 'reimu', aquestalk_preset: 'reimu'}, right: {character: 'marisa', aquestalk_preset: 'marisa'}},
+    characters: {left: {character: 'reimu', aquestalk_preset: '女性１'}, right: {character: 'marisa', aquestalk_preset: 'まりさ'}},
     scenes,
     total_duration_sec: 300,
   };
