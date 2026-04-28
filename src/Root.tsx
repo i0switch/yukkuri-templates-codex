@@ -67,7 +67,7 @@ const sceneEntries = [
 
 const toCompositionEpisodeId = (episodeId: string) => episodeId.replace(/[^a-zA-Z0-9\u3040-\u30ff\u3400-\u9fff-]+/g, '-');
 
-export const createRoot = (activeEpisodeCompositions = episodeCompositions): React.FC => {
+export const createRoot = (activeEpisodeCompositions: typeof episodeCompositions = episodeCompositions): React.FC => {
   const RootWithEpisodes: React.FC = () => {
   const keifontUrl = staticFile(KEIFONT_PUBLIC_PATH);
   const [fontHandle] = React.useState(() => delayRender('Loading Keifont'));
