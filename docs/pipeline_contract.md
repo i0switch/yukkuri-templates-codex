@@ -73,6 +73,7 @@ planning.md
 -> script.yaml
 -> visual_plan.md / image_prompt_v2.md
 -> estimate natural TTS duration
+-> preflight episode
 -> assets generation
 -> BGM selection
 -> voice generation
@@ -289,7 +290,7 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 
 - RM / AquesTalk 初期係数: `5.2秒/発話`
 - ZM / VOICEVOX 初期係数: `3.3秒/発話`（`speedScale: 1.15` 前提）
-- `npm run estimate:episode-duration -- <episode_id>` を音声生成前に実行する
+- `npm run estimate:episode-duration -- <episode_id>` を音声生成前に実行する。既存の `tts-duration-profile.json` / `audio-manifest.json` / `line-durations.json` がある場合は実測平均を優先する
 - `audio_playback_rate` や `atempo` で尺合わせしない
 - 推定自然音声尺またはbuild後の実音声尺が下限未満の場合は、`07_rewrite_prompt.md` で不足分だけ `script_final.md` を台本補完し、再レビューしてから進む
 - 推定自然音声尺またはbuild後の実音声尺が上限を超えた場合は、自然尺を優先してそのまま使う。短縮目的で `script_final.md` を削らない
@@ -300,11 +301,24 @@ Codex imagegen で生成した画像を使う場合、`meta.json` の該当 asse
 動画生成は品質ゲートを維持したまま、未変更成果物を再利用してよい。
 
 - 音声は `script/{episode_id}/audio-manifest.json` に発話ごとの `input_hash`、`duration_sec`、`file_sha256` を記録する
+- build 後は `script/{episode_id}/tts-duration-profile.json` に `actual_seconds_per_line` を記録し、次回の尺推定へ使う
 - 発話本文、話者、音声エンジン、speaker/preset が一致し、wavのhashも一致する場合は音声再生成をskipする
 - Remotion本レンダーは `script/{episode_id}/render-manifest.json` に `script_final.md`、`script.yaml`、画像プロンプト、画像ファイル、BGM、`script.render.json`、描画コードを含む入力hashを記録する
 - 入力hashが一致し、MP4が存在する場合は `render:episode` のRemotion本レンダーをskipしてよい
 - `--force-audio` は音声だけ、`--force-render` はRemotion本レンダーだけ、`--force` はBGM・音声・Remotion本レンダーを強制再実行する
 - 差分生成は `gate:episode` と `audit:video` の代替ではない。完成条件は従来どおり gate PASS、MP4存在、video audit PASS を必須にする
+
+## 軽量 preflight とレンダー分離
+
+`npm run preflight:episode -- <episode_id>` は、AquesTalk preset 正規化、画像プロンプト監査、画像台帳 hash 照合、尺推定、YAML validator を render 前にまとめて確認する。
+
+RM / AquesTalk の preset は、`reimu` / `marisa` / `れいむ` / `霊夢` / `魔理沙` などの論理名を使わず、render 前に `女性１` / `まりさ` へ正規化する。validator は正規化後の値だけを許可する。
+
+`npm run sync:imagegen-ledger -- <episode_id>` は `script.yaml` / `image_prompts.json` の prompt と `meta.json` / `imagegen_manifest.json` の prompt hash を同期する。`--check` は差分がある場合に失敗する。
+
+`npm run check:cleanup` は root / `scripts/` / `tmp/` / `.cache/` の自作一時スクリプト候補を検出する。既存 `scripts/oneoff/**` は過去作業置き場として検出対象から外す。
+
+`render:episode` は episode 専用の Remotion entrypoint を `.cache/remotion-entry/<episode_id>/` に生成し、`src/generated/episode-compositions.ts` を render 用に上書きしない。これにより複数 episode の render が composition ID を消し合う事故を避ける。
 
 サブエージェントで分担する場合も、成果物契約は変えない。台本エージェントは `script_final.md` とレビューまで、YAMLエージェントは `script.yaml` と尺/テンプレ整合、画像エージェントは画像プロンプトと画像台帳、音声/レンダーエージェントはBGM・音声・`script.render.json`・Remotion、監査エージェントはgate・video audit・偽完成チェックを担当する。
 
