@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const rootDir = process.cwd();
+const rootArg = process.argv.find((arg) => arg.startsWith('--root='));
+const rootDir = rootArg ? path.resolve(process.cwd(), rootArg.slice('--root='.length)) : process.cwd();
 
 const SCAN_ROOTS = ['', 'scripts', 'tmp', '.cache'];
 const EXCLUDED_REL_PREFIXES = ['scripts/oneoff/'];

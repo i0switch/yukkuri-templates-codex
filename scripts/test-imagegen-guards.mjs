@@ -275,6 +275,14 @@ run(['scripts/audit-image-prompts.mjs', passPath]);
 run(['scripts/validate-episode-script.mjs', passPath]);
 run(['scripts/audit-image-prompts.mjs', promptRefPath]);
 run(['scripts/validate-episode-script.mjs', promptRefPath]);
+const promptRefDir = path.dirname(promptRefPath);
+const promptRefManifestPath = path.join(promptRefDir, 'imagegen_manifest.json');
+const staleManifest = JSON.parse(await fs.readFile(promptRefManifestPath, 'utf8'));
+staleManifest.images[0].prompt_sha256 = 'stale-prompt-hash';
+await fs.writeFile(promptRefManifestPath, `${JSON.stringify(staleManifest, null, 2)}\n`, 'utf8');
+run(['scripts/sync-imagegen-ledger.mjs', promptRefDir, '--check'], {expectFailure: true});
+run(['scripts/sync-imagegen-ledger.mjs', promptRefDir]);
+run(['scripts/sync-imagegen-ledger.mjs', promptRefDir, '--check']);
 run(['scripts/validate-episode-script.mjs', userGeneratedPath]);
 run(['scripts/validate-episode-script.mjs', userGeneratedNoRightsPath], {expectFailure: true});
 
